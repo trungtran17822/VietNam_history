@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kế hoạch Bài dạy Lịch sử 3D · Đại thắng Kỷ Dậu 1789</title>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/editorial.css">
+</head>
+<body class="role-guest">
+
+  <!-- ==========================================================================
+       APP HEADER: School Lesson Planner Header & Global Controls
+       ========================================================================== -->
+  <header class="app-header" id="main-header" style="display: none;">
+    <div class="header-left">
+      <div class="brand-badge" id="btn-nav-brand">
+        <div class="brand-seal">SỬ</div>
+        <div class="brand-text">
+          <div class="brand-title">Mô Phỏng Lịch Sử 3D</div>
+          <div class="brand-subtitle" id="header-school-subtitle">Kế hoạch Giảng dạy · Bộ môn Lịch sử</div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="header-menu-toggle" id="btn-header-menu" aria-expanded="false" aria-controls="header-nav-tabs">☰ <span>Danh mục</span></button>
+    <div class="header-center" id="header-center">
+      <nav class="header-nav-tabs" id="header-nav-tabs">
+        <!-- Injected dynamically based on role (Teacher / Student) -->
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <details class="header-overflow-menu">
+        <summary aria-label="Cài đặt giao diện">Tuỳ chọn <span>⌄</span></summary>
+      <!-- Procedural Audio Toggle (Wind & War Drums) -->
+      <button id="btn-toggle-audio" class="btn-header-tool" title="Âm thanh sa bàn (Tiếng gió & Trống trận)">
+        <span class="tool-icon">🔇</span>
+        <span id="label-audio-mode">Âm thanh: Tắt</span>
+      </button>
+
+      <!-- Graphic Quality Toggle (Cao / Thấp) -->
+      <button id="btn-toggle-quality" class="btn-header-tool" title="Chuyển đổi đồ họa phù hợp máy chiếu & thiết bị">
+        <span class="tool-icon">⚡</span>
+        <span id="label-quality-mode">Chất lượng: Cao</span>
+      </button>
+
+      <!-- Projector / Presentation Mode -->
+      <button id="btn-toggle-presentation" class="btn-header-tool btn-presentation" title="Chế độ chiếu toàn màn hình lên máy chiếu lớp học">
+        <span class="tool-icon">📽️</span>
+        <span id="label-presentation-mode">Chiếu lên lớp</span>
+      </button>
+      </details>
+
+      <!-- User Profile & Logout -->
+      <details class="header-user-menu">
+        <summary class="user-profile-badge"><span class="user-avatar" id="header-user-avatar">S</span><span id="header-user-name">Người dùng</span><span id="header-user-role-chip" class="user-role-chip teacher">Giáo viên</span></summary>
+        <div class="user-menu-popover"><span class="user-menu-name" id="header-user-full-name">Người dùng</span><button id="btn-logout" class="btn-logout" title="Đăng xuất khỏi phiên làm việc">Đăng xuất</button></div>
+      </details>
+    </div>
+  </header>
+  <div class="global-notice-strip" role="note">Nội dung minh họa, chưa được chuyên gia duyệt</div>
+
+  <!-- ==========================================================================
+       VIEW 0: LOGIN PAGE (Trang Đăng nhập)
+       ========================================================================== -->
+  <main id="view-login" class="app-view active">
+    <div class="login-view-wrapper">
+      <div class="login-card viet-border-card">
+        <div class="login-seal">
+          <span>SỬ</span>
+        </div>
+        <h1 class="login-title">Hệ Thống Mô Phỏng Lịch Sử 3D</h1>
+        <p class="login-subtitle">Kế hoạch Giảng dạy & Không gian Học tập Tương tác</p>
+
+        <!-- Role Tabs -->
+        <div class="login-role-tabs">
+          <button type="button" id="tab-login-teacher" class="btn-login-role active">Giáo viên</button>
+          <button type="button" id="tab-login-student" class="btn-login-role">Học sinh</button>
+        </div>
+
+        <form id="form-login" class="login-form">
+          <div id="login-error" class="login-error-msg"></div>
+
+          <div class="form-group">
+            <label for="input-username">Tên đăng nhập</label>
+            <input type="text" id="input-username" class="form-input" value="admin" placeholder="Nhập tên đăng nhập" required autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label for="input-password">Mật khẩu</label>
+            <input type="password" id="input-password" class="form-input" value="123" placeholder="Nhập mật khẩu" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="btn-submit-login" class="btn-login-submit">
+            Đăng nhập vào hệ thống
+          </button>
+        </form>
+
+        <div class="login-demo-hints">
+          <div>💡 <strong>Tài khoản demo:</strong> admin / 123 (cho cả 2 vai trò)</div>
+          <div style="margin-top: 4px; font-size: 0.78rem; color: #a89f91;">
+            📌 <em>Phiên bản thử nghiệm, chưa có bảo mật thật. Dữ liệu lưu trữ cục bộ trên trình duyệt.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 1: TEACHER DASHBOARD (Quản lý bài giảng)
+       ========================================================================== -->
+  <main id="view-teacher-dashboard" class="app-view">
+    <div class="dashboard-hero-card">
+      <div class="hero-left">
+        <h1>Quản lý Kế hoạch Bài dạy</h1>
+        <p>Danh sách bài giảng lịch sử, quản lý tiến trình soạn thảo và phát hành cho học sinh</p>
+      </div>
+      <div class="hero-actions">
+        <button id="btn-export-json" class="btn-action-secondary" title="Xuất toàn bộ bài giảng thành file JSON">
+          <span>📤 Xuất JSON</span>
+        </button>
+        <button id="btn-import-json" class="btn-action-secondary" title="Nhập danh sách bài giảng từ file JSON">
+          <span>📥 Nhập JSON</span>
+        </button>
+        <button id="btn-create-lesson" class="btn-action-primary">
+          <span>➕ Thêm bài giảng mới</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter & Search Toolbar -->
+    <div class="dashboard-toolbar">
+      <div class="filter-chips-row">
+        <button class="filter-chip active" data-filter="all">Tất cả bài giảng</button>
+        <button class="filter-chip" data-filter="Đã dạy">Đã dạy (Phát hành)</button>
+        <button class="filter-chip" data-filter="Đã lên lịch">Đã lên lịch</button>
+        <button class="filter-chip" data-filter="Nháp">Bản nháp</button>
+      </div>
+
+      <div class="search-box-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="input-search-lessons" placeholder="Tìm kiếm theo đề bài, khối lớp...">
+      </div>
+    </div>
+
+    <!-- Lesson Cards Grid -->
+    <div id="teacher-lessons-grid" class="lessons-grid">
+      <!-- Populated dynamically by JS -->
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 2: TEACHER LESSON EDITOR (Soạn thảo bài giảng)
+       ========================================================================== -->
+  <main id="view-teacher-editor" class="app-view">
+    <!-- Top Action Bar -->
+    <div class="editor-top-bar">
+      <div class="editor-info-left">
+        <button id="btn-editor-back" class="btn-back-dash">← Về Quản lý</button>
+        <div>
+          <h2 class="editor-lesson-title-display" id="editor-display-title">Soạn thảo bài giảng</h2>
+          <span id="editor-display-status" class="status-chip draft">Nháp</span>
+        </div>
+      </div>
+
+      <div class="editor-actions-right">
+        <!-- Undo / Redo -->
+        <button id="btn-editor-undo" class="btn-history-tool" title="Hoàn tác chỉnh sửa" disabled>↶ Hoàn tác</button>
+        <button id="btn-editor-redo" class="btn-history-tool" title="Làm lại" disabled>↷ Làm lại</button>
+
+        <button id="btn-editor-preview-student" class="btn-preview-student" title="Xem trước giao diện với tư cách học sinh">
+          👁️ Xem như học sinh
+        </button>
+
+        <button id="btn-editor-save-draft" class="btn-action-secondary">
+          💾 Lưu nháp
+        </button>
+        <button id="btn-editor-schedule" class="btn-action-secondary">
+          📅 Lên lịch
+        </button>
+        <button id="btn-editor-publish" class="btn-publish-now">
+          🚀 Đăng cho học sinh
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 Tabs Navigation -->
+    <div class="editor-nav-tabs">
+      <button class="btn-editor-tab active" data-tab="tab-content">
+        <span>📖 a. Nội dung bài dạy</span>
+      </button>
+      <button class="btn-editor-tab" data-tab="tab-questions">
+        <span>❓ b. Câu hỏi & Thảo luận</span>
+      </button>
+      <button class="btn-editor-tab" data-tab="tab-sim3d">
+        <span>🗺️ c. Mô phỏng 3D trực tiếp</span>
+      </button>
+      <button class="btn-editor-tab" data-tab="tab-notes">
+        <span>📝 d. Ghi chú sư phạm</span>
+      </button>
+    </div>
+
+    <!-- TAB A: NỘI DUNG -->
+    <div id="panel-tab-content" class="editor-tab-panel active">
+      <div class="editor-content-grid">
+        <!-- Left: Metadata -->
+        <div class="editor-card">
+          <h3 class="serif-title" style="margin-bottom: 16px; color: var(--text-gold-bright);">Thông tin tổng quát</h3>
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label for="edit-title">Đề bài / Tiêu đề bài giảng</label>
+            <input type="text" id="edit-title" class="form-input">
+          </div>
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label for="edit-subtitle">Tiêu đề phụ / Diễn biến</label>
+            <input type="text" id="edit-subtitle" class="form-input">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label for="edit-date">Ngày giảng dạy (YYYY-MM-DD)</label>
+              <input type="date" id="edit-date" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="edit-class">Lớp / Phòng học</label>
+              <input type="text" id="edit-class" class="form-input">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label for="edit-subject">Môn học</label>
+              <input type="text" id="edit-subject" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="edit-grade">Khối lớp</label>
+              <input type="text" id="edit-grade" class="form-input">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label for="edit-teacher">Giáo viên phụ trách</label>
+            <input type="text" id="edit-teacher" class="form-input">
+          </div>
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label for="edit-objectives">Mục tiêu bài dạy (Objectives)</label>
+            <textarea id="edit-objectives" class="form-input" style="min-height: 80px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit-focus-question">Đề bài / Câu hỏi trọng tâm</label>
+            <textarea id="edit-focus-question" class="form-input" style="min-height: 70px;"></textarea>
+          </div>
+        </div>
+
+        <!-- Right: Sections List -->
+        <div class="editor-card">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <h3 class="serif-title" style="color: var(--text-gold-bright);">Các giai đoạn diễn biến (Sections)</h3>
+            <button id="btn-add-section" class="btn-action-secondary" style="padding: 6px 12px; font-size: 0.82rem;">
+              ➕ Thêm giai đoạn mới
+            </button>
+          </div>
+          <div id="editor-sections-container" class="editor-sections-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB B: CÂU HỎI -->
+    <div id="panel-tab-questions" class="editor-tab-panel">
+      <div class="editor-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <div>
+            <h3 class="serif-title" style="color: var(--text-gold-bright);">Hệ thống câu hỏi & Bài tập tương tác</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Tạo câu hỏi trắc nghiệm hoặc thảo luận mở. Có thể liên kết câu hỏi với giai đoạn hoặc chọn làm câu hỏi của vua.
+            </p>
+          </div>
+          <button id="btn-add-question" class="btn-action-primary" style="padding: 8px 14px; font-size: 0.85rem;">
+            ➕ Thêm câu hỏi mới
+          </button>
+        </div>
+        <div id="editor-questions-container" class="questions-author-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB C: MÔ PHỎNG 3D -->
+    <div id="panel-tab-sim3d" class="editor-tab-panel">
+      <div class="sim-editor-split">
+        <!-- 3D Live Preview Viewport -->
+        <div class="sim-preview-viewport">
+          <div id="editor-preview-canvas-mount" class="preview-canvas-mount"></div>
+          <div class="player-hud-overlay">
+            <div class="hud-pill">🎥 Bản xem trước trực tiếp (Live Preview)</div>
+            <div class="hud-camera-controls">
+              <button class="btn-cam-pill active" data-preset="overview">Toàn cảnh sa bàn</button>
+              <button class="btn-cam-pill" data-preset="follow_troops">Theo quân</button>
+              <button class="btn-cam-pill" data-preset="close_up">Cận cảnh</button>
+              <button class="btn-cam-pill" data-preset="top_down">Từ trên</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Authoring Controls Panel -->
+        <div class="sim-authoring-panel">
+          <!-- Group 1: Props visibility -->
+          <div class="authoring-group">
+            <h4 class="authoring-group-title">🏰 Công sự & Đội hình hiển thị</h4>
+            <div class="props-toggles-grid">
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-palisade" checked>
+                <span>Hàng rào cọc gỗ</span>
+              </label>
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-tents" checked>
+                <span>Lều trại công sự</span>
+              </label>
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-elephants" checked>
+                <span>Tượng binh voi chiến</span>
+              </label>
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-banners" checked>
+                <span>Cờ lệnh & Trống trận</span>
+              </label>
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-fire" checked>
+                <span>Đuốc lửa & Hỏa khí</span>
+              </label>
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-village" checked>
+                <span>Nhà ngói & Làng xóm</span>
+              </label>
+              <label class="toggle-label-item">
+                <input type="checkbox" id="toggle-prop-bamboo" checked>
+                <span>Rặng tre Bắc Bộ</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Group 2: Unit counts -->
+          <div class="authoring-group">
+            <h4 class="authoring-group-title">⚔️ Số lượng đơn vị quân đội</h4>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div class="form-group">
+                <label>Bộ binh Tây Sơn: <span id="label-count-tayson">48</span> lính</label>
+                <input type="range" id="range-count-tayson" min="15" max="60" value="48" class="player-slider">
+              </div>
+              <div class="form-group">
+                <label>Quân Thanh cố thủ: <span id="label-count-qing">54</span> lính</label>
+                <input type="range" id="range-count-qing" min="15" max="60" value="54" class="player-slider">
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 3: Faction Colors -->
+          <div class="authoring-group">
+            <h4 class="authoring-group-title">🎨 Màu sắc cờ áo hai phe</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div class="form-group">
+                <label>Áo & Cờ Tây Sơn</label>
+                <input type="color" id="color-tayson" value="#962d22" style="width: 100%; height: 38px; border-radius: 6px; border: 1px solid var(--border-subtle); background: transparent; cursor: pointer;">
+              </div>
+              <div class="form-group">
+                <label>Áo & Cờ Mãn Thanh</label>
+                <input type="color" id="color-qing" value="#1e3a8a" style="width: 100%; height: 38px; border-radius: 6px; border: 1px solid var(--border-subtle); background: transparent; cursor: pointer;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 4: Simulation Variables & Coefficients -->
+          <div class="authoring-group">
+            <h4 class="authoring-group-title">📐 Biến số & Giả định toán học</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
+              Các hệ số này là giả định minh bạch quyết định thời gian và thương vong so sánh.
+            </p>
+            <div id="editor-variables-coefficients-list" style="display: flex; flex-direction: column; gap: 8px;">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB D: GHI CHÚ -->
+    <div id="panel-tab-notes" class="editor-tab-panel">
+      <div class="notes-author-grid">
+        <!-- Key Notes for Students -->
+        <div class="paper-note-panel">
+          <h3>📜 Ghi chú chính (Học sinh sẽ xem được sau bài học)</h3>
+          <p style="font-size: 0.82rem; color: var(--paper-do-muted); margin-bottom: 12px;">
+            Mỗi ý gạch đầu dòng là một kết luận quan trọng về nghệ thuật quân sự và ý nghĩa lịch sử.
+          </p>
+          <textarea id="edit-key-notes" class="paper-textarea" placeholder="Nhập các ý ghi chú chính cho học sinh (mỗi dòng một ý)..."></textarea>
+        </div>
+
+        <!-- Private Notes for Teachers -->
+        <div class="paper-note-panel" style="background: #eee8d8;">
+          <h3 style="color: #1e3a8a;">🔒 Sổ tay sư phạm nội bộ (Bảo mật, học sinh KHÔNG thấy)</h3>
+          <p style="font-size: 0.82rem; color: #475569; margin-bottom: 12px;">
+            Gợi ý lời giảng, chiến thuật sư phạm, mục tiêu giáo dục và câu hỏi dẫn dắt trên lớp.
+          </p>
+          <textarea id="edit-private-notes" class="paper-textarea" placeholder="Nhập sổ tay sư phạm nội bộ dành cho thầy cô..."></textarea>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 3: STUDENT DASHBOARD (Bài đã học)
+       ========================================================================== -->
+  <main id="view-student-dashboard" class="app-view">
+    <div class="student-hero-banner">
+      <h1>Không Gian Học Tập Lịch Sử 3D</h1>
+      <p>Khám phá lại các bài học đã giảng dạy qua sa bàn 3D tương tác, ôn tập ghi chú cốt lõi và thử nghiệm các quyết định chiến thuật lịch sử.</p>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+      <h2 class="serif-title" style="font-size: 1.35rem; color: var(--text-gold-bright);">
+        Bài giảng đã học trên lớp
+      </h2>
+      <div class="search-box-wrap" style="min-width: 280px;">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="input-student-search" placeholder="Tìm kiếm bài giảng đã học...">
+      </div>
+    </div>
+
+    <div id="student-posters-grid" class="student-posters-grid">
+      <!-- Populated dynamically with only published lessons whose date <= today -->
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 4: STUDENT LESSON VIEWER (Xem bài học & Replay 3D)
+       ========================================================================== -->
+  <main id="view-student-viewer" class="app-view">
+    <div class="viewer-top-nav">
+      <button id="btn-viewer-back-dashboard" class="btn-back-dash">← Quay lại danh sách bài đã học</button>
+      <div class="lesson-meta-chips" style="display: flex; gap: 8px;">
+        <span class="meta-pill" id="viewer-teacher-name">Thầy Nguyễn Văn Hưng</span>
+        <span class="meta-pill" id="viewer-date-text">2026-10-27</span>
+        <span class="meta-pill" id="viewer-class-text">Lớp 11A1</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <h1 class="serif-title" id="viewer-lesson-title" style="font-size: 1.6rem; color: var(--text-gold-bright);">Trận Ngọc Hồi - Hạ Hồi</h1>
+      <p id="viewer-lesson-subtitle" style="color: var(--text-secondary); font-size: 0.95rem;">Đại thắng mùa xuân Kỷ Dậu 1789</p>
+    </div>
+
+    <!-- 3D Replay Player + Synced Chapters -->
+    <div class="viewer-grid">
+      <!-- Left: 3D Viewport -->
+      <div class="cinematic-player-box" id="student-player-box">
+        <div class="letterbox-bar top"></div>
+        <div class="letterbox-bar bottom"></div>
+
+        <div id="student-viewport-mount" class="player-canvas-mount"></div>
+
+        <!-- Player HUD Overlay -->
+        <div class="player-hud-overlay">
+          <div class="hud-pill">🚩 Sa bàn 3D diễn biến gốc</div>
+          <div class="hud-camera-controls" id="student-cam-controls">
+            <button class="btn-cam-pill active" data-preset="overview">Toàn cảnh sa bàn</button>
+            <button class="btn-cam-pill" data-preset="follow_troops">Theo quân</button>
+            <button class="btn-cam-pill" data-preset="close_up">Cận cảnh</button>
+            <button class="btn-cam-pill" data-preset="top_down">Từ trên</button>
+            <button class="btn-cam-pill" id="btn-student-orbit">🎥 Quay chậm</button>
+          </div>
+        </div>
+
+        <!-- Bottom Playback Controls -->
+        <div class="player-controls-bottom">
+          <div class="player-slider-row">
+            <input type="range" id="student-timeline-slider" class="player-slider" min="0" max="100" value="0">
+            <span id="student-time-readout" style="font-family: monospace; font-size: 0.85rem; color: var(--text-gold-bright);">00:00</span>
+          </div>
+          <div class="player-buttons-row">
+            <div style="display: flex; gap: 8px;">
+              <button id="btn-student-rewind" class="btn-header-tool" title="Về đầu">⏮</button>
+              <button id="btn-student-play" class="btn-header-tool" style="background: var(--lacquer-red); color: #fff; font-weight: 700;">▶ Phát</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Tốc độ:</span>
+              <select id="student-speed-select" class="form-input" style="padding: 4px 8px; font-size: 0.8rem;">
+                <option value="0.5">0.5x</option>
+                <option value="1.0" selected>1.0x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2.0">2.0x</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Synced Chapter List -->
+      <div class="chapters-panel" id="student-chapters-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Under-Player Subtabs -->
+    <div class="student-subtabs-nav">
+      <button class="btn-student-subtab active" data-subtab="subtab-keynotes">
+        📜 Ghi chú chính
+      </button>
+      <button class="btn-student-subtab" data-subtab="subtab-questions">
+        ❓ Câu hỏi của thầy cô
+      </button>
+      <button class="btn-student-subtab" data-subtab="subtab-customsim">
+        🔬 Mô phỏng của em & Vòng lặp 6 bước
+      </button>
+    </div>
+
+    <!-- Subtab 1: Key notes -->
+    <div id="subtab-keynotes" class="student-subtab-pane active">
+      <div class="paper-note-panel">
+        <h3>Các nội dung kiến thức cốt lõi</h3>
+        <ul id="student-keynotes-list" style="padding-left: 20px; line-height: 1.8; font-family: var(--font-serif); font-size: 1.05rem;">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Subtab 2: Questions asked in class -->
+    <div id="subtab-questions" class="student-subtab-pane">
+      <div id="student-questions-container" style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Subtab 3: Student's own custom simulation & 6-Stage Loop Launcher -->
+    <div id="subtab-customsim" class="student-subtab-pane">
+      <div class="viet-border-card" style="padding: 24px; border-radius: 10px;">
+        <h3 class="serif-title" style="color: var(--text-gold-bright); margin-bottom: 8px;">
+          Trải nghiệm Vòng lặp Học tập 6 Giai đoạn & Thử nghiệm Chiến thuật
+        </h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+          Em có thể trực tiếp bước vào vai trò người chỉ huy: trả lời câu hỏi thử thách của vua Quang Trung, chọn các biến số chiến thuật (hướng đánh, thời điểm, loại khiên, voi chiến) và chạy sa bàn 3D mô phỏng lại phương án của chính em.
+        </p>
+
+        <div id="student-previous-run-box" style="margin-bottom: 20px;">
+          <!-- Shows previous run if saved -->
+        </div>
+
+        <button id="btn-launch-6stages" class="btn-action-primary" style="font-size: 1.05rem; padding: 12px 24px;">
+          🚀 Bắt đầu vòng lặp tương tác 6 bước
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Unified lesson workspace: content is rendered from the selected lesson. -->
+  <main id="view-lesson-workspace" class="app-view lesson-workspace-view">
+    <div id="lesson-workspace-content"></div>
+    <footer class="lesson-disclaimer">⚠️ Nội dung minh họa, chưa được chuyên gia duyệt</footer>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 5: 6-STAGE CLASSROOM STEPPER INTERACTIVE LOOP
+       ========================================================================== -->
+  <main id="view-lesson-detail" class="app-view">
+    <!-- Header with 6-stage Stepper -->
+    <section class="lesson-detail-header-card">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <button id="btn-back-from-6stages" class="btn-back-dash">← Quay lại xem bài học</button>
+        <span class="status-chip published">Đang trong tiến trình học tập</span>
+      </div>
+
+      <h1 class="lesson-main-title lesson-title-text" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--text-gold-bright);">Trận Ngọc Hồi - Hạ Hồi</h1>
+      <h2 class="lesson-sub-title lesson-subtitle-text" style="font-size: 1rem; color: var(--text-secondary); font-weight: normal; margin-bottom: 16px;">Đại thắng mùa xuân Kỷ Dậu 1789</h2>
+
+      <!-- Stepper of 6 Stages -->
+      <nav class="lesson-stepper">
+        <button class="step-node active" data-step="1" data-screen="screen-intro">
+          <span class="step-num">1</span>
+          <span class="step-name">Khởi động</span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-node" data-step="2" data-screen="screen-sim-original">
+          <span class="step-num">2</span>
+          <span class="step-name">Khám phá 3D gốc</span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-node" data-step="3" data-screen="screen-question">
+          <span class="step-num">3</span>
+          <span class="step-name">Câu hỏi của vua</span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-node" data-step="4" data-screen="screen-sim-custom">
+          <span class="step-num">4</span>
+          <span class="step-name">Thử cách khác</span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-node" data-step="5" data-screen="screen-comparison">
+          <span class="step-num">5</span>
+          <span class="step-name">So sánh</span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-node" data-step="6" data-screen="screen-explanation">
+          <span class="step-num">6</span>
+          <span class="step-name">Củng cố & Tổng kết</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- SCREEN 1: Khởi động (Intro) -->
+    <section id="screen-intro" class="screen-view active">
+      <div class="viet-border-card" style="padding: 32px; border-radius: 12px; text-align: center; max-width: 860px; margin: 0 auto;">
+        <div class="bronze-drum-motif" style="width: 56px; height: 56px; margin: 0 auto 16px;"></div>
+        <h2 class="serif-title" style="font-size: 1.8rem; color: var(--text-gold-bright); margin-bottom: 12px;">Đại Thắng Mùa Xuân Kỷ Dậu 1789</h2>
+        <div id="intro-summary-text" style="font-size: 1.05rem; line-height: 1.8; color: var(--text-ivory); margin-bottom: 24px; text-align: justify;">
+          Mùa xuân Kỷ Dậu 1789, Hoàng đế Quang Trung chỉ huy đại quân Tây Sơn tiến hành cuộc hành quân thần tốc hơn 500 dặm ra Bắc Hà. Bằng cách kết hợp chiến thuật đa mũi giáp công, đội hình tượng binh dũng mãnh và sáng kiến ghép ván bọc rơm ướt phá tan hỏa công đồn lũy, quân ta đã quét sạch 29 vạn quân Mãn Thanh giải phóng Thăng Long trong niềm hoan ca của dân tộc.
+        </div>
+        <button id="btn-start-6stages" class="btn-action-primary" style="margin: 0 auto; font-size: 1.1rem; padding: 12px 28px;">
+          Bắt đầu: Xem sa bàn 3D diễn biến gốc ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: Khám phá 3D gốc -->
+    <section id="screen-sim-original" class="screen-view" style="display: none;">
+      <div class="viewer-grid">
+        <div class="cinematic-player-box" style="min-height: 520px;">
+          <div id="viewport-original-canvas" class="player-canvas-mount"></div>
+          <div class="player-hud-overlay">
+            <div class="hud-pill">🚩 Sa bàn 3D gốc mùa xuân 1789</div>
+            <div class="hud-camera-controls" id="cam-controls-original">
+              <button class="btn-cam-pill active" data-preset="overview">Toàn cảnh sa bàn</button>
+              <button class="btn-cam-pill" data-preset="follow_troops">Theo quân</button>
+              <button class="btn-cam-pill" data-preset="close_up">Cận cảnh</button>
+              <button class="btn-cam-pill" data-preset="top_down">Từ trên</button>
+            </div>
+          </div>
+          <div class="player-controls-bottom">
+            <div class="player-slider-row">
+              <input type="range" id="timeline-slider-original" class="player-slider" min="0" max="100" value="0">
+              <span id="time-readout-original" style="font-family: monospace; font-size: 0.85rem; color: var(--text-gold-bright);">00:00</span>
+            </div>
+            <div class="player-buttons-row">
+              <div style="display: flex; gap: 8px;">
+                <button id="btn-rewind-original" class="btn-header-tool">⏮</button>
+                <button id="btn-play-original" class="btn-header-tool" style="background: var(--lacquer-red); color: #fff;">▶ Phát</button>
+              </div>
+              <button id="btn-goto-question" class="btn-action-primary" style="padding: 6px 14px; font-size: 0.85rem;">
+                Tiếp tục: Thử thách của vua ➔
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="chapters-panel" id="narration-original-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: Câu hỏi của vua -->
+    <section id="screen-question" class="screen-view" style="display: none;">
+      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
+        <!-- Character Speech Box -->
+        <div class="viet-border-card" style="padding: 24px; border-radius: 12px; display: flex; gap: 20px; align-items: center;">
+          <div style="width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--lacquer-red) 0%, #4a0c0e 100%); border: 2px solid var(--gold-bright); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; flex-shrink: 0;">
+            👑
+          </div>
+          <div>
+            <h3 class="serif-title" style="color: var(--text-gold-bright); font-size: 1.25rem; margin-bottom: 4px;">Hoàng đế Quang Trung</h3>
+            <p style="font-size: 1rem; line-height: 1.6; color: var(--text-ivory);">
+              "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc mờ sáng mùng 5 Tết, sáng tạo khiên rơm ướt phá tan hỏa khí và dùng 100 voi chiến mở toang cánh cửa Thăng Long. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
+            </p>
+          </div>
+        </div>
+
+        <!-- Tactical Variables Form -->
+        <div id="variables-container" style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Populated by JS -->
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+          <button id="btn-run-simulation" class="btn-action-primary" style="font-size: 1.05rem; padding: 12px 24px;">
+            🚀 Chạy mô phỏng phương án mới ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: Thử cách khác (Custom Sim) -->
+    <section id="screen-sim-custom" class="screen-view" style="display: none;">
+      <div class="viewer-grid">
+        <div class="cinematic-player-box" style="min-height: 520px;">
+          <div id="viewport-custom-canvas" class="player-canvas-mount"></div>
+          <div class="player-hud-overlay">
+            <div class="hud-pill" style="border-color: #38bdf8; color: #38bdf8;">🔬 Đang mô phỏng theo lựa chọn của em</div>
+            <div class="hud-camera-controls" id="cam-controls-custom">
+              <button class="btn-cam-pill active" data-preset="overview">Toàn cảnh sa bàn</button>
+              <button class="btn-cam-pill" data-preset="follow_troops">Theo quân</button>
+              <button class="btn-cam-pill" data-preset="close_up">Cận cảnh</button>
+              <button class="btn-cam-pill" data-preset="top_down">Từ trên</button>
+            </div>
+          </div>
+          <div class="player-controls-bottom">
+            <div class="player-slider-row">
+              <input type="range" id="timeline-slider-custom" class="player-slider" min="0" max="100" value="0">
+              <span id="time-readout-custom" style="font-family: monospace; font-size: 0.85rem; color: var(--text-gold-bright);">00:00</span>
+            </div>
+            <div class="player-buttons-row">
+              <div style="display: flex; gap: 8px;">
+                <button id="btn-rewind-custom" class="btn-header-tool">⏮</button>
+                <button id="btn-play-custom" class="btn-header-tool" style="background: var(--lacquer-red); color: #fff;">▶ Phát</button>
+              </div>
+              <button id="btn-goto-comparison" class="btn-action-primary" style="padding: 6px 14px; font-size: 0.85rem;">
+                Xem bảng so sánh kết quả ➔
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="chapters-panel" id="narration-custom-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: So sánh -->
+    <section id="screen-comparison" class="screen-view" style="display: none;">
+      <div style="max-width: 980px; margin: 0 auto;">
+        <!-- MANDATORY DISCLAIMER BANNER -->
+        <div class="prominent-simulation-banner">
+          <div class="banner-warning-icon">⚠️</div>
+          <div>
+            <div class="banner-warning-text">
+              ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.
+            </div>
+            <div class="banner-warning-sub">
+              Mọi số liệu (thời gian, tổn thất, điểm thế trận) là giá trị minh họa từ các giả định toán học nhằm kích thích tư duy phản biện, không thay thế cho các nghiên cứu lịch sử chính thức.
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison Cards -->
+        <div class="comparison-cards-grid">
+          <div class="approach-column-card original">
+            <h3 class="serif-title" style="color: var(--text-gold-bright); margin-bottom: 12px;">Cách gốc của Vua Quang Trung (1789)</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ Thời gian chiến dịch:</span>
+                <div id="comp-orig-duration" style="font-size: 1.25rem; font-weight: 700; color: var(--text-gold-bright);">36 giờ (~1.5 ngày)</div>
+              </div>
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">🛡️ Tổn thất ước tính:</span>
+                <div id="comp-orig-casualties" style="font-size: 1.25rem; font-weight: 700; color: #86efac;">1,800 binh sĩ</div>
+              </div>
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">⭐ Điểm thế trận & Tinh thần:</span>
+                <div id="comp-orig-score" style="font-size: 1.25rem; font-weight: 700; color: var(--gold-bright);">95 / 100 (Đỉnh cao)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="approach-column-card student">
+            <h3 class="serif-title" style="color: #38bdf8; margin-bottom: 12px;">Cách giả định của em</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ Thời gian chiến dịch:</span>
+                <div id="comp-cust-duration" style="font-size: 1.25rem; font-weight: 700; color: var(--text-ivory);">-- giờ</div>
+              </div>
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">🛡️ Tổn thất ước tính:</span>
+                <div id="comp-cust-casualties" style="font-size: 1.25rem; font-weight: 700; color: #fca5a5;">-- binh sĩ</div>
+              </div>
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">⭐ Điểm thế trận & Tinh thần:</span>
+                <div id="comp-cust-score" style="font-size: 1.25rem; font-weight: 700; color: #38bdf8;">-- / 100</div>
+              </div>
+              <div id="comp-cust-outcome-summary" style="font-size: 0.95rem; color: #93c5fd; margin-top: 8px; line-height: 1.5;">
+                <!-- Summary -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button id="btn-view-assumptions" class="btn-action-secondary">
+            📐 Xem giả định & Công thức toán học
+          </button>
+          <button id="btn-goto-explanation" class="btn-action-primary">
+            Nghe vua Quang Trung nhận xét & củng cố ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 6: Giải thích & Củng cố -->
+    <section id="screen-explanation" class="screen-view" style="display: none;">
+      <div class="viet-border-card" style="padding: 32px; border-radius: 12px; max-width: 880px; margin: 0 auto;">
+        <h2 class="serif-title" style="font-size: 1.6rem; color: var(--text-gold-bright); margin-bottom: 12px;">Lời Bình Luận Của Hoàng Đế Quang Trung</h2>
+        <div id="explanation-intro-quote" style="font-style: italic; font-size: 1.05rem; color: var(--text-ivory); margin-bottom: 20px; line-height: 1.7;">
+          <!-- Intro -->
+        </div>
+        <div id="explanation-points-list" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+          <!-- Points -->
+        </div>
+        <div id="explanation-closing-text" style="background: rgba(217, 119, 6, 0.1); border-left: 3px solid var(--gold-bright); padding: 14px 18px; border-radius: 4px; font-size: 0.98rem; color: var(--text-gold-bright); margin-bottom: 24px;">
+          <!-- Closing -->
+        </div>
+        <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <button id="btn-try-another-tactics" class="btn-action-secondary">🔄 Thử phương án chiến thuật khác</button>
+          <button id="btn-finish-6stages" class="btn-action-primary">✅ Hoàn thành & Trở về bài giảng</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 6: HIDDEN LESSON ERROR VIEW (Bài học chưa mở)
+       ========================================================================== -->
+  <main id="view-lesson-hidden" class="app-view">
+    <div class="hidden-lesson-wrap viet-border-card" style="border-radius: 12px;">
+      <div class="hidden-seal-lock">🔒</div>
+      <h2>Bài học chưa mở</h2>
+      <p>
+        Bài giảng này hiện đang ở trạng thái <strong>Bản nháp</strong> hoặc <strong>Đã lên lịch</strong> cho ngày sắp tới. Học sinh chỉ được phép truy cập khi thầy cô chính thức phát hành.
+      </p>
+      <button id="btn-back-from-hidden" class="btn-action-primary">
+        ← Trở về danh sách bài đã học
+      </button>
+    </div>
+  </main>
+
+  <div id="cinematic-transition" class="cinematic-transition" aria-hidden="true">
+    <div class="transition-seal">SỬ</div>
+    <p class="transition-kicker">MÔ PHỎNG LỊCH SỬ 3D</p>
+    <h2 id="transition-title">Một hành trình lịch sử bắt đầu</h2>
+    <span class="transition-rule"></span>
+    <button type="button" id="btn-skip-transition">Bỏ qua · Đi đến bài học</button>
+  </div>
+
+  <main id="view-fonttest" class="app-view fonttest-view">
+    <header class="fonttest-header"><a href="#/teacher">← Về trang chính</a><h1>Kiểm tra phông chữ tiếng Việt</h1><p>Kiểm thử NFC, dấu tiếng Việt và trạng thái phông chữ cục bộ.</p></header>
+    <div id="fonttest-status" class="fonttest-status" role="status">Đang kiểm tra phông chữ…</div>
+    <div id="fonttest-rows" class="fonttest-rows"></div>
+  </main>
+
+  <!-- ==========================================================================
+       MODALS
+       ========================================================================== -->
+  <!-- Modal: Source Citation -->
+  <div id="modal-source" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h4>📜 Nguồn Sử Liệu Tham Chiếu</h4>
+        <button class="btn-close-modal" data-close="modal-source">&times;</button>
+      </div>
+      <div id="source-modal-body" style="font-family: var(--font-serif); line-height: 1.7; color: var(--text-ivory);">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Assumptions -->
+  <div id="modal-assumptions" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h4>📐 Danh Sách Giả Định & Hệ Số Toán Học</h4>
+        <button class="btn-close-modal" data-close="modal-assumptions">&times;</button>
+      </div>
+      <div id="assumptions-modal-body" style="line-height: 1.6; color: var(--text-secondary);">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirm Publish -->
+  <div id="modal-confirm-publish" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 480px;">
+      <div class="modal-header">
+        <h4 style="color: #4ade80;">🚀 Xác Nhận Phát Hành</h4>
+        <button class="btn-close-modal" data-close="modal-confirm-publish">&times;</button>
+      </div>
+      <div style="margin-bottom: 20px; line-height: 1.6; color: var(--text-ivory);">
+        Bạn có chắc chắn muốn phát hành bài học này cho học sinh không? Trạng thái bài học sẽ chuyển thành <strong>Đã dạy</strong> và học sinh sẽ nhìn thấy bài học trên bảng tin học tập.
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn-action-secondary" data-close="modal-confirm-publish">Hủy</button>
+        <button id="btn-confirm-publish-submit" class="btn-publish-now">Đồng ý phát hành</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Import JSON -->
+  <div id="modal-import-json" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h4>📥 Nhập Dữ Liệu Bài Giảng từ JSON</h4>
+        <button class="btn-close-modal" data-close="modal-import-json">&times;</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Dán nội dung JSON hoặc chọn tệp .json từ máy tính của bạn để đồng bộ danh sách bài giảng.
+        </p>
+        <input type="file" id="file-input-json" accept=".json" style="color: var(--text-secondary);">
+        <textarea id="textarea-import-json" class="form-input" style="min-height: 180px; font-family: monospace; font-size: 0.82rem;" placeholder="Dán chuỗi JSON vào đây..."></textarea>
+        <div id="import-json-error" style="color: #f87171; font-size: 0.85rem; display: none;"></div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button class="btn-action-secondary" data-close="modal-import-json">Hủy</button>
+          <button id="btn-submit-import-json" class="btn-action-primary">Tiến hành Nhập</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="three.min.js"></script>
+  <script src="js/text.js"></script>
+  <script src="OrbitControls.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/lesson-data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/scene-map.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

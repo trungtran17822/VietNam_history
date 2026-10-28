@@ -1,0 +1,517 @@
+{
+  "meta": {
+    "id": "ngoc-hoi-ha-hoi-1789",
+    "title": "Trận Ngọc Hồi - Hạ Hồi",
+    "subtitle": "Đại thắng mùa xuân Kỷ Dậu 1789 - Hoàng đế Quang Trung đại phá quân Thanh",
+    "commander": "Hoàng đế Quang Trung (Nguyễn Huệ)",
+    "opponent": "29 vạn quân Mãn Thanh (Tôn Sĩ Nghị, Sầm Nghi Đống, Hứa Thế Hanh)",
+    "year": "Mùa xuân Kỷ Dậu (1789)",
+    "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+    "simulationDisclaimer": "Đây là mô phỏng dựa trên ý kiến của học sinh và sự kiện thực tế, không phải sự thật lịch sử",
+    "introSummary": "Vào dịp Tết Kỷ Dậu 1789, vua Quang Trung thực hiện cuộc hành quân thần tốc từ Phú Xuân ra Bắc, chia quân thành 5 đạo bất ngờ vây đồn Hạ Hồi và tổng công kích đồn Ngọc Hồi, tiêu diệt hoàn toàn cứ điểm phòng ngự kiên cố nhất của địch chỉ trong sáng mùng 5 Tết."
+  },
+  "schedule": {
+    "currentWeek": "Tuần 22 - Học kỳ II",
+    "schoolYear": "Năm học 2025 - 2026",
+    "subject": "Lịch sử",
+    "grade": "Lớp 11",
+    "teacher": "Thầy Nguyễn Văn Hưng",
+    "teacherDepartment": "Tổ Lịch sử - Địa lý",
+    "classRoom": "Phòng Đa năng số 2 / Lớp 11A1",
+    "note": "Dữ liệu minh họa",
+    "days": [
+      {
+        "id": "lesson-1",
+        "dayLabel": "Ngày 1 · Thứ Hai (13/01)",
+        "period": "Tiết 1 · 07:15 - 08:00 (45 phút)",
+        "subject": "Lịch sử",
+        "grade": "Lớp 11",
+        "teacher": "Thầy Nguyễn Văn Hưng",
+        "title": "Bối cảnh Đại Việt cuối thế kỷ XVIII & Sự trỗi dậy Tây Sơn",
+        "objective": "Nắm vững tình hình khủng hoảng chính trị Đàng Ngoài - Đàng Trong và bước đầu tập hợp lực lượng của anh em Tây Sơn.",
+        "status": "completed",
+        "statusText": "Đã học",
+        "isPilot": false,
+        "isUpcoming": false
+      },
+      {
+        "id": "lesson-2",
+        "dayLabel": "Ngày 2 · Thứ Tư (15/01)",
+        "period": "Tiết 2 · 08:15 - 09:00 (45 phút)",
+        "subject": "Lịch sử",
+        "grade": "Lớp 11",
+        "teacher": "Thầy Nguyễn Văn Hưng",
+        "title": "Trận Ngọc Hồi - Hạ Hồi (Mùa xuân 1789)",
+        "objective": "Phân tích nghệ thuật quân sự thần tốc của vua Quang Trung; so sánh hiệu quả các phương án tác chiến qua sa bàn 3D tương tác.",
+        "focusQuestion": "Hoàng đế Quang Trung đã hóa giải ưu thế hỏa lực và thành lũy của 29 vạn quân Mãn Thanh bằng những quyết định chiến thuật then chốt nào?",
+        "status": "in_progress",
+        "statusText": "Đang học",
+        "isPilot": true,
+        "isUpcoming": false
+      },
+      {
+        "id": "lesson-3",
+        "dayLabel": "Ngày 3 · Thứ Sáu (17/01)",
+        "period": "Tiết 3 · 09:15 - 10:00 (45 phút)",
+        "subject": "Lịch sử",
+        "grade": "Lớp 11",
+        "teacher": "Thầy Nguyễn Văn Hưng",
+        "title": "Đại thắng Đống Đa & Khải hoàn giải phóng Thăng Long",
+        "objective": "Tìm hiểu mũi vu hồi thần tốc của Đô đốc Long tại gò Đống Đa và sự tan rã của đại bản doanh Tôn Sĩ Nghị.",
+        "status": "upcoming",
+        "statusText": "Sắp có",
+        "isPilot": false,
+        "isUpcoming": true
+      },
+      {
+        "id": "lesson-4",
+        "dayLabel": "Ngày 4 · Thứ Hai tuần sau (20/01)",
+        "period": "Tiết 1 · 07:15 - 08:00 (45 phút)",
+        "subject": "Lịch sử",
+        "grade": "Lớp 11",
+        "teacher": "Thầy Nguyễn Văn Hưng",
+        "title": "Cải cách kinh tế - văn hóa và nghệ thuật ngoại giao của triều Tây Sơn",
+        "objective": "Đánh giá chính sách Chiếu khuyến học, chữ Nôm và sách lược bang giao khéo léo với hoàng triều Càn Long.",
+        "status": "upcoming",
+        "statusText": "Sắp có",
+        "isPilot": false,
+        "isUpcoming": true
+      }
+    ]
+  },
+  "stages": [
+    {
+      "id": "stage-intro",
+      "screenId": "screen-intro",
+      "stepIndex": 1,
+      "name": "Khởi động",
+      "timeEst": "5 phút",
+      "icon": "🚀",
+      "headline": "Bối cảnh & Nhiệm vụ học tập",
+      "teacherNotes": {
+        "lecturePrompt": "Cho học sinh quan sát biểu tượng lệnh tiễn và chiếu dời quân. Nhắc lại lời thề xuất quân hào hùng tại Tam Điệp: 'Đánh cho để dài tóc, đánh cho để đen răng...'.",
+        "discussionQuestions": [
+          "Vì sao vua Quang Trung chọn xuất kích vào đúng đêm Tết Nguyên Đán mà không chờ qua rằm tháng Giêng?",
+          "Nếu là một chỉ huy Tây Sơn, em nhận diện thách thức phòng ngự lớn nhất ở đồn Ngọc Hồi là gì?"
+        ],
+        "pedagogicalGoal": "Kích hoạt hứng thú khám phá, tạo tâm thế chủ động đóng vai người chỉ huy chiến dịch."
+      }
+    },
+    {
+      "id": "stage-sim-original",
+      "screenId": "screen-sim-original",
+      "stepIndex": 2,
+      "name": "Khám phá (3D gốc)",
+      "timeEst": "10 phút",
+      "icon": "🗺️",
+      "headline": "Sa bàn 3D diễn biến lịch sử 1789",
+      "teacherNotes": {
+        "lecturePrompt": "Sử dụng chế độ 'Toàn cảnh' và 'Theo quân' để chỉ rõ 3 mũi hợp đồng tác chiến: Đồn Hạ Hồi bị vây không tốn một mũi tên, Đô đốc Bảo ém quân bí mật ở Đầm Mực, và đòn búa tạ voi chiến kết hợp khiên rơm ướt công phá đồn Ngọc Hồi.",
+        "discussionQuestions": [
+          "Tấm khiên rơm ướt đã hóa giải hỏa khí tối tân (đại bác, súng hỏa hổ) của quân Thanh như thế nào?",
+          "Tại sao đòn mai phục vu hồi tại Đầm Mực lại quyết định sự diệt vong của tàn quân giặc tháo chạy?"
+        ],
+        "pedagogicalGoal": "Học sinh hình thành tư duy không gian quân sự và thấu hiểu nghệ thuật hiệp đồng binh chủng tài tình của cha ông."
+      }
+    },
+    {
+      "id": "stage-question",
+      "screenId": "screen-question",
+      "stepIndex": 3,
+      "name": "Câu hỏi của nhà vua",
+      "timeEst": "8 phút",
+      "icon": "👑",
+      "headline": "Thử thách quyết định chiến thuật",
+      "teacherNotes": {
+        "lecturePrompt": "Yêu cầu các nhóm bàn thảo luận nhanh trong 3 phút: Chọn 4 biến số tác chiến. Khuyến khích các em mạnh dạn chọn phương án khác biệt để quan sát hệ quả mô phỏng.",
+        "discussionQuestions": [
+          "Nếu dùng kỵ binh ngựa thay cho voi chiến thì liệu có dẫm nát được chiến lũy chông sắt kiên cố không?",
+          "Tấn công vào giữa trưa trời sáng rõ sẽ có lợi thế gì và phải đánh đổi rủi ro pháo kích nào?"
+        ],
+        "pedagogicalGoal": "Rèn luyện năng lực tư duy phản biện và khả năng cân nhắc được - mất (trade-offs) trước quyết định tác chiến."
+      }
+    },
+    {
+      "id": "stage-sim-custom",
+      "screenId": "screen-sim-custom",
+      "stepIndex": 4,
+      "name": "Thử cách khác",
+      "timeEst": "7 phút",
+      "icon": "🔬",
+      "headline": "Sa bàn 3D mô phỏng chiến thuật của học sinh",
+      "teacherNotes": {
+        "lecturePrompt": "Nhấn nút 'Chạy mô phỏng phương án mới'. Hướng dẫn học sinh quan sát chuyển động của các đơn vị: thời gian phá lũy bị kéo dài, thiếu mũi Đầm Mực khiến tàn quân giặc thoát về Thăng Long.",
+        "discussionQuestions": [
+          "Khi đổi loại khiên hoặc thay đổi thời điểm công kích, nhịp độ công thành thay đổi như thế nào?",
+          "Quan sát hướng di chuyển của quân phòng ngự Thanh: tại sao lại xuất hiện tình huống giằng co?"
+        ],
+        "pedagogicalGoal": "Trực quan hóa nguyên lý nhân - quả trong khoa học quân sự qua mô phỏng toán học động cơ."
+      }
+    },
+    {
+      "id": "stage-comparison",
+      "screenId": "screen-comparison",
+      "stepIndex": 5,
+      "name": "So sánh",
+      "timeEst": "8 phút",
+      "icon": "📊",
+      "headline": "Bảng đối chiếu định lượng & Giả định",
+      "teacherNotes": {
+        "lecturePrompt": "Phân tích 3 chỉ số cốt lõi: Thời gian chiến dịch (giờ), Tổn thất binh sĩ (người), và Điểm thế trận (thang 100). Giải thích các giả định toán học khi bấm xem chi tiết.",
+        "discussionQuestions": [
+          "Vì sao phương án gốc của vua Quang Trung lại đạt điểm thế trận tuyệt đối 95/100?",
+          "Nhắc nhở học sinh: Đọc kỹ bảng cảnh báo - đây là mô hình toán học giả định phục vụ học tập, không thay thế tài liệu lịch sử chính thống."
+        ],
+        "pedagogicalGoal": "Nâng cao năng lực đọc - hiểu số liệu định lượng và tinh thần khoa học khi tiếp cận mô hình giả lập."
+      }
+    },
+    {
+      "id": "stage-explanation",
+      "screenId": "screen-explanation",
+      "stepIndex": 6,
+      "name": "Giải thích & Củng cố",
+      "timeEst": "7 phút",
+      "icon": "🎓",
+      "headline": "Lời bình luận của vua & Tổng kết",
+      "teacherNotes": {
+        "lecturePrompt": "Đọc to lời bình luận chân tình của vua Quang Trung gửi gắm cho thế hệ trẻ. Nhấn mạnh bài học lịch sử: 'Lấy trí tuệ nhân dân làm sức mạnh, lấy thần tốc bất ngờ bẻ gãy ý chí quân thù'.",
+        "discussionQuestions": [
+          "Em học được điều gì về bài học sáng tạo trang bị từ chính đời sống nông dân qua sáng kiến khiên rơm ướt?",
+          "Nhiệm vụ về nhà: Viết bài thu hoạch 200 chữ phân tích yếu tố 'Thời cơ' trong chiến thắng Kỷ Dậu 1789."
+        ],
+        "pedagogicalGoal": "Khắc sâu lòng tự hào dân tộc, định hướng giá trị nhân văn và hoàn thành mục tiêu 45 phút tiết dạy."
+      }
+    }
+  ],
+  "classSurveyDemo": {
+    "className": "Lớp 11A1",
+    "totalStudents": 40,
+    "responded": 38,
+    "note": "Số liệu khảo sát demo nhanh tại lớp",
+    "breakdown": [
+      {
+        "variableId": "direction",
+        "title": "Hướng tiến công & Phân bổ mũi nhọn",
+        "results": [
+          { "label": "Đa mũi giáp công: Ngọc Hồi + Đầm Mực (Cách gốc)", "count": 27, "percent": 71, "isOriginal": true },
+          { "label": "Dồn toàn lực công phá chính diện", "count": 8, "percent": 21, "isOriginal": false },
+          { "label": "Vây hãm cô lập dài ngày", "count": 3, "percent": 8, "isOriginal": false }
+        ]
+      },
+      {
+        "variableId": "timing",
+        "title": "Thời điểm mở màn đại công kích",
+        "results": [
+          { "label": "Mờ sáng mùng 5 Tết (Cách gốc)", "count": 30, "percent": 79, "isOriginal": true },
+          { "label": "Chính trưa trời sáng rõ", "count": 6, "percent": 16, "isOriginal": false },
+          { "label": "Chờ sau rằm tháng Giêng", "count": 2, "percent": 5, "isOriginal": false }
+        ]
+      },
+      {
+        "variableId": "shield",
+        "title": "Phương thức che chắn hỏa lực",
+        "results": [
+          { "label": "Khiên ván bện rơm ướt (Cách gốc)", "count": 29, "percent": 76, "isOriginal": true },
+          { "label": "Khiên gỗ bọc da thông thường", "count": 6, "percent": 16, "isOriginal": false },
+          { "label": "Phân tán tản mát chạy nhanh", "count": 3, "percent": 8, "isOriginal": false }
+        ]
+      },
+      {
+        "variableId": "elephants",
+        "title": "Cách phối hợp thớt voi chiến",
+        "results": [
+          { "label": "100 voi tiên phong mở đường (Cách gốc)", "count": 32, "percent": 84, "isOriginal": true },
+          { "label": "Giữ voi chiến làm dự bị phía sau", "count": 4, "percent": 11, "isOriginal": false },
+          { "label": "Thay bằng toàn bộ kỵ binh ngựa", "count": 2, "percent": 5, "isOriginal": false }
+        ]
+      }
+    ]
+  },
+  "originalTimeline": [
+    {
+      "id": "phase-1",
+      "progress": 0.05,
+      "timeLabel": "Nửa đêm Mùng 3 Tết",
+      "headline": "Bao vây bí mật đồn Hạ Hồi (Thường Tín)",
+      "narration": "Đại quân Tây Sơn bí mật tiếp cận và vây kín đồn Hạ Hồi trong đêm sương mù. Quân ta bắc loa gào thét, khua chiêng gõ trống vang dội như có hàng vạn quân. Quân Thanh trong đồn kinh hồn bạt vía, không kịp trở tay, toàn bộ đầu hàng mà không tốn một mũi tên hòn đạn.",
+      "tacticalNotes": "Tây Sơn giữ kín tuyệt đối tin tức, khiến tướng giặc ở đồn Ngọc Hồi cách đó chỉ vài dặm vẫn không hề hay biết.",
+      "source": {
+        "book": "Đại Nam chính biên liệt truyện",
+        "chapter": "Quyển 30 - Ngụy Tây liệt truyện",
+        "quote": "Nửa đêm ngày mồng 3 tháng giêng năm Kỷ Dậu, quân đến làng Hạ Hồi... liền ngầm vây kín làng ấy, rồi bắc loa gọi dạ... Trong đồn ai nấy rụng rời sợ hãi, liền kéo nhau ra xin hàng.",
+        "verified": false,
+        "note": "Nội dung trích dẫn phục vụ học tập minh họa, nguồn tham chiếu từ sử liệu chính thống triều Nguyễn."
+      }
+    },
+    {
+      "id": "phase-2",
+      "progress": 0.35,
+      "timeLabel": "Đêm Mùng 4 rạng Mùng 5 Tết",
+      "headline": "Áp sát cứ điểm then chốt Ngọc Hồi & Đầm Mực",
+      "narration": "Đồn Ngọc Hồi được quân Thanh gia cố chông sắt, hỏa hổ và đại bác liên hoàn. Vua Quang Trung chia quân: Đô đốc Bảo chỉ huy cánh quân vu hồi mai phục sẵn ở Đầm Mực (Quỳnh Đô) chặn đường rút lui; đại quân chủ lực áp sát trực diện tiền tiêu trong bóng đêm dày đặc.",
+      "tacticalNotes": "Đòn vu hồi nghi binh ở Đầm Mực là chìa khóa chặn đứng đường rút lui của tướng giặc Sầm Nghi Đống và Hứa Thế Hanh.",
+      "source": {
+        "book": "Hoàng Lê nhất thống chí",
+        "chapter": "Hồi thứ 14",
+        "quote": "Vua Quang Trung sai đại đô đốc Bảo đem quân theo đường tắt từ làng Đại Áng tới thẳng Đầm Mực để phục sẵn đón đường giặc chạy lui.",
+        "verified": false,
+        "note": "Tài liệu văn học lịch sử kết hợp sử ký ghi chép về thế trận gọng kìm của nhà Tây Sơn."
+      }
+    },
+    {
+      "id": "phase-3",
+      "progress": 0.70,
+      "timeLabel": "Mờ sáng Mùng 5 Tết",
+      "headline": "Voi chiến tiên phong - Khiên rơm ướt phá tan hỏa công",
+      "narration": "Trời tờ mờ sáng mùng 5, hơn 100 thớt voi chiến Tây Sơn chở đại bác và dũng sĩ xông trận mở đường. Phía sau, các tráng sĩ kết 20 người một nhóm, vác những tấm ván bện rơm dày tẩm ướt nước che chở làn tên mũi đạn, đại bác quân Thanh bắn ra đều bị rơm ướt dập tắt lửa. Khi giáp chiến lũy, dũng sĩ quẳng khiên rút đoản đao tràn vào xáp lá cà.",
+      "tacticalNotes": "Sáng kiến bện rơm ướt quấn ván gỗ là phát kiến độc đáo vô hiệu hóa hỏa tiễn và đạn hỏa cầu của súng Thanh triều.",
+      "source": {
+        "book": "Khâm định Việt sử thông giám cương mục",
+        "chapter": "Chính biên, Quyển 47",
+        "quote": "Lấy sáu chục tấm ván, cứ ghép liền hai tấm làm một bức, bên ngoài lấy rơm dấp nước bọc kín... Hai mươi người giắt dao ngắn khiêng một bức ván... Quân Thanh bắn súng ra không trúng ai cả.",
+        "verified": false,
+        "note": "Tư liệu chép rõ cấu tạo khiên rơm ướt và chiến thuật phối hợp hiệp đồng tượng binh - bộ binh."
+      }
+    },
+    {
+      "id": "phase-4",
+      "progress": 1.0,
+      "timeLabel": "Chính trưa Mùng 5 Tết",
+      "headline": "Đập tan đồn Ngọc Hồi - Khải hoàn Thăng Long",
+      "narration": "Tướng giặc Hứa Thế Hanh đền tội, quân Thanh tháo chạy hỗn loạn sa lầy vào Đầm Mực và bị đạo quân Đô đốc Bảo tiêu diệt gọn. Cùng lúc đó tại Đống Đa, cánh quân Đô đốc Long tập kích thần tốc khiến Sầm Nghi Đống thắt cổ tự vẫn. Trưa mùng 5 Tết, Hoàng đế Quang Trung mặc áo bào sạm màu thuốc súng dẫn đầu đại quân ca khúc khải hoàn tiến vào Thăng Long.",
+      "tacticalNotes": "Chiến dịch toàn thắng sớm hơn 2 ngày so với dự kiến ban đầu của vua Quang Trung khi khao quân ở Tam Điệp.",
+      "source": {
+        "book": "Lịch sử Việt Nam (Tập 4)",
+        "chapter": "Phong trào Tây Sơn và sự nghiệp thống nhất đất nước",
+        "quote": "Trưa ngày mùng 5 Tết Kỷ Dậu, đại quân Tây Sơn tiến vào kinh thành Thăng Long trong niềm hoan ca của nhân dân. Áo bào của Hoàng đế Quang Trung nhuộm đen khói súng.",
+        "verified": false,
+        "note": "Tư liệu tổng kết chiến dịch giải phóng Thăng Long năm 1789."
+      }
+    }
+  ],
+  "question": {
+    "character": {
+      "name": "Hoàng đế Quang Trung",
+      "dynasty": "Nhà Tây Sơn (1788 - 1792)",
+      "avatarSvg": "emperor_quang_trung",
+      "greeting": "Hỡi các sĩ tử tương lai của nước Việt!",
+      "speech": "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc bất ngờ, sáng tạo khiên rơm ướt phá hỏa công và dùng tượng binh dũng mãnh đập tan đồn lũy Ngọc Hồi trong dịp Tết. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
+    },
+    "variables": [
+      {
+        "id": "direction",
+        "title": "1. Hướng tiến công & Phân bổ mũi nhọn",
+        "description": "Lựa chọn bố trí hướng đột kích và cánh quân phối hợp",
+        "options": [
+          {
+            "id": "flanking_multidirectional",
+            "isOriginal": true,
+            "name": "Đa mũi giáp công: Ngọc Hồi chính diện + Đầm Mực vu hồi (Cách gốc)",
+            "shortName": "Đa mũi giáp công kết hợp vu hồi",
+            "desc": "Tấn công thẳng đồn Ngọc Hồi đồng thời cho một cánh quân mật phục tại Đầm Mực chặn đường rút và một cánh vu hồi Đống Đa.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Đòi hỏi kỷ luật liên lạc cao độ nhưng chia cắt hoàn toàn tuyến phòng ngự và tiêu diệt tàn quân đối phương."
+          },
+          {
+            "id": "frontal_allout",
+            "isOriginal": false,
+            "name": "Dồn toàn lực công phá chính diện Ngọc Hồi",
+            "shortName": "Dồn toàn lực công phá chính diện",
+            "desc": "Tập trung 100% binh hỏa lực đánh vỗ mặt vào phòng tuyến Ngọc Hồi mà không phân tán sang Đầm Mực hay cánh vu hồi.",
+            "timeDelta": 8,
+            "casualtyDelta": 950,
+            "positionScoreDelta": -18,
+            "assumptions": "Hỏa lực đồn lũy quân Thanh rất mạnh (đại bác, chông sắt); đòn vỗ mặt trực diện khiến quân ta chịu thiệt hại nặng nề trước chiến lũy, địch thua chạy có đường tẩu thoát về Thăng Long hội quân với Tôn Sĩ Nghị."
+          },
+          {
+            "id": "siege_starvation",
+            "isOriginal": false,
+            "name": "Bao vây cô lập dài ngày, triệt hạ tiếp tế",
+            "shortName": "Vây hãm cô lập dài ngày",
+            "desc": "Không vội tấn công đẫm máu, đào hào bao vây chặt đồn lũy chờ quân Thanh cạn kiệt lương thảo tự tan rã.",
+            "timeDelta": 72,
+            "casualtyDelta": -400,
+            "positionScoreDelta": -35,
+            "assumptions": "Giảm được thương vong trực tiếp ban đầu nhưng làm mất hoàn toàn yếu tố thần tốc; cho phép Tôn Sĩ Nghị ở Thăng Long có đủ thời gian điều viện binh 20 vạn quân Nam tiến phản công kẹp ta vào giữa."
+          }
+        ]
+      },
+      {
+        "id": "timing",
+        "title": "2. Thời điểm mở màn đại công kích",
+        "description": "Thời khắc khai hỏa tấn công quyết định yếu tố thời cơ",
+        "options": [
+          {
+            "id": "dawn_tet5",
+            "isOriginal": true,
+            "name": "Thần tốc mờ sáng mùng 5 Tết khi địch chủ quan (Cách gốc)",
+            "shortName": "Mờ sáng mùng 5 Tết (Bất ngờ)",
+            "desc": "Tấn công trong dịp Tết khi quan quân Mãn Thanh đang say sưa tiệc tùng, lơ là cảnh giác.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Khai thác tối đa sự suy giảm cảnh giác của đối phương trong dịp Tết cổ truyền; gây hoảng loạn tâm lý tột độ."
+          },
+          {
+            "id": "midday_light",
+            "isOriginal": false,
+            "name": "Tấn công vào giữa trưa trời sáng rõ",
+            "shortName": "Tấn công giữa trưa trời sáng rõ",
+            "desc": "Chờ trời sáng tỏ, tầm nhìn quang đãng để ba quân dễ hiệp đồng tác chiến và quan sát chướng ngại vật.",
+            "timeDelta": 12,
+            "casualtyDelta": 600,
+            "positionScoreDelta": -14,
+            "assumptions": "Tầm nhìn tốt giúp ta quan sát địa hình nhưng quân Thanh cũng phát hiện đội hình tiếp cận từ rất xa, súng đại bác trên lũy phát huy hỏa lực tối đa từ cự ly xa."
+          },
+          {
+            "id": "after_fullmoon",
+            "isOriginal": false,
+            "name": "Chờ sau rằm tháng Giêng mới xuất quân",
+            "shortName": "Chờ qua rằm tháng Giêng (Dưỡng sức)",
+            "desc": "Cho quân sĩ nghỉ ngơi ăn Tết đầy đủ, tập luyện kỹ càng rồi mới tiến quân công đồn.",
+            "timeDelta": 120,
+            "casualtyDelta": 1100,
+            "positionScoreDelta": -40,
+            "assumptions": "Quân ta có thể lực tốt hơn nhưng quân Thanh đã hoàn thành việc củng cố công sự kiên cố quanh Thăng Long và viện binh từ Lưỡng Quảng có thời gian chi viện."
+          }
+        ]
+      },
+      {
+        "id": "shield",
+        "title": "3. Phương thức che chắn trước hỏa lực phòng thủ",
+        "description": "Giải pháp đối phó chông sắt, súng hỏa mai và đại bác",
+        "options": [
+          {
+            "id": "wet_straw_shields",
+            "isOriginal": true,
+            "name": "Khiên ván bện rơm ướt dày 20 người khiêng (Cách gốc)",
+            "shortName": "Khiên ván bện rơm ướt chống hỏa công",
+            "desc": "Ghép ván gỗ, bọc rơm dấp nước dày đặc; đạn súng và lửa của địch bắn vào đều bị tắt ngấm.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Rơm ướt hấp thụ lực va chạm của mảnh đạn và dập tắt hoàn toàn mồi lửa hỏa tiễn, bảo vệ an toàn cho mũi nhọn đột phá."
+          },
+          {
+            "id": "standard_wood_shields",
+            "isOriginal": false,
+            "name": "Khiên gỗ bọc da thông thường (Nhẹ hơn, cơ động)",
+            "shortName": "Khiên gỗ bọc da thông thường",
+            "desc": "Trang bị khiên chiến tiêu chuẩn cho từng cá nhân, di chuyển linh hoạt và nhanh nhẹn hơn tấm ván nặng.",
+            "timeDelta": -4,
+            "casualtyDelta": 850,
+            "positionScoreDelta": -15,
+            "assumptions": "Tốc độ cơ động cao hơn 15% nhưng khiên gỗ mỏng và da thuộc dễ bốc cháy khi trúng hỏa cầu, không cản được đạn gang đại bác tầm gần của đồn lũy."
+          },
+          {
+            "id": "dispersed_rush",
+            "isOriginal": false,
+            "name": "Không mang ván nặng, phân tán tản mát chạy nhanh áp sát",
+            "shortName": "Phân tán tản mát chạy nhanh áp sát",
+            "desc": "Tận dụng tốc độ cá nhân, phân tán tránh pháo kích rồi nhanh chóng vượt hào chông xông lên mặt lũy.",
+            "timeDelta": -6,
+            "casualtyDelta": 1400,
+            "positionScoreDelta": -28,
+            "assumptions": "Áp sát lũy rất nhanh nhưng trước mật độ chông sắt dày đặc và hỏa lực bắn rát dồn dập, đội hình tản mát khó tạo ra sức công phá xuyên thủng cổng thành."
+          }
+        ]
+      },
+      {
+        "id": "elephants",
+        "title": "4. Cách phối hợp thớt voi chiến (Tượng binh)",
+        "description": "Cách thức khai thác 100 thớt voi chiến uy mãnh của Tây Sơn",
+        "options": [
+          {
+            "id": "elephants_vanguard",
+            "isOriginal": true,
+            "name": "100 voi chiến tiên phong mở đường dẫm nát chiến lũy (Cách gốc)",
+            "shortName": "100 voi chiến tiên phong mở đường",
+            "desc": "Đặt đại pháo trên lưng voi, xung phong húc đổ cổng lũy và làm khiếp đảm chiến mã của kỵ binh giặc.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Khối lượng và sức mạnh của voi chiến phá tan chông rào, tiếng gầm và mùi voi làm ngựa giặc hoảng loạn mất kiểm soát; tạo đà tâm lý áp đảo."
+          },
+          {
+            "id": "elephants_reserve",
+            "isOriginal": false,
+            "name": "Giữ voi chiến làm dự bị phía sau, chỉ tung vào truy kích",
+            "shortName": "Giữ voi chiến làm dự bị phản kích",
+            "desc": "Để bộ binh phá cổng lũy trước; voi chiến giữ sức phía sau để đề phòng giặc phản công hoặc dùng khi truy đuổi.",
+            "timeDelta": 6,
+            "casualtyDelta": 550,
+            "positionScoreDelta": -12,
+            "assumptions": "Bảo toàn được lực lượng tượng binh quý giá nhưng bộ binh công thành thiếu hỏa lực đột phá cơ giới hạng nặng, thời gian phá lũy bị kéo dài."
+          },
+          {
+            "id": "cavalry_instead",
+            "isOriginal": false,
+            "name": "Thay thế tượng binh hoàn toàn bằng kỵ binh ngựa để tăng tốc",
+            "shortName": "Dùng toàn bộ kỵ binh ngựa cơ động",
+            "desc": "Dùng ngựa chiến thay voi để đạt tốc độ di chuyển cực cao và dễ vượt các địa hình sình lầy quanh sông Nhị Hà.",
+            "timeDelta": -2,
+            "casualtyDelta": 700,
+            "positionScoreDelta": -16,
+            "assumptions": "Kỵ binh ngựa cơ động tốt nhưng không thể húc đổ bờ lũy kiên cố bằng gỗ lim và đất đắp; ngựa ta không tạo được hiệu ứng sợ hãi kinh hoàng lên kỵ binh Mãn Thanh như voi."
+          }
+        ]
+      }
+    ]
+  },
+  "baseline": {
+    "durationHours": 36,
+    "casualties": 1800,
+    "positionScore": 95,
+    "ratingText": "Toàn thắng vang dội - Giải phóng kinh thành Thăng Long trong 5 ngày"
+  },
+  "assumptionsGuide": [
+    {
+      "category": "Không gian & Địa hình",
+      "rule": "Phòng tuyến Ngọc Hồi - Hạ Hồi được thiết lập với chiến lũy đất đắp cao, cắm chông sắt dày đặc và hào nước bao quanh. Mọi đòn đánh vỗ mặt thiếu che chắn đều chịu sát thương pháo gấp 2-3 lần."
+    },
+    {
+      "category": "Tâm lý & Thời điểm",
+      "rule": "Tết Nguyên Đán là thời khắc quân viễn chinh Thanh nhớ quê hương và chủ quan yến tiệc. Đánh vào dịp Tết tạo cú sốc tinh thần cực đại; trì hoãn qua Tết giúp địch củng cố công sự và ổn định tinh thần."
+    },
+    {
+      "category": "Hỏa khí đối kháng",
+      "rule": "Quân Thanh sở hữu đại bác nòng gang và hỏa hổ bắn đạn ria và lửa. Ván ghép rơm bện tẩm nước có khả năng dập tắt 90% hiệu quả hỏa công, trong khi khiên gỗ nhẹ dễ bén lửa."
+    },
+    {
+      "category": "Tượng binh khắc Kỵ binh",
+      "rule": "Ngựa chiến Mãn Thanh chưa từng chạm trán voi chiến miền Nam. Voi xung phong không chỉ phá vỡ cọc gỗ phòng tuyến mà còn gây hoảng loạn bầy ngựa kỵ binh giặc, triệt tiêu ưu thế kỵ binh tinh nhuệ của Tôn Sĩ Nghị."
+    },
+    {
+      "category": "Gọng kìm Đầm Mực",
+      "rule": "Nếu không có cánh quân Đô đốc Bảo ém sẵn tại Đầm Mực, tàn quân địch ở Ngọc Hồi sẽ rút an toàn về thành Thăng Long, phối hợp cùng 20 vạn quân của Tôn Sĩ Nghị cố thủ chuyển thành thế trận giằng co."
+    }
+  ],
+  "explanations": {
+    "intro": "Chào con! Trẫm rất vui và xúc động khi thấy con chăm chú dõi theo từng bước tiến quân của cha ông năm ấy. Mỗi quyết định trên sa trường đều mang theo sinh mạng của ba quân và vận mệnh của cả xã tắc non sông.",
+    "encouragingConclusion": "Lịch sử không có chữ 'Nếu', nhưng việc các con mạnh dạn suy ngẫm và thử nghiệm những góc nhìn khác nhau chính là khởi đầu của trí tuệ và tư duy phản biện. Trẫm tin rằng khi thấu hiểu được trí tuệ của tiền nhân, các con sẽ càng tự hào và vững bước dựng xây đất nước hôm nay!",
+    "variableFeedbacks": {
+      "direction": {
+        "flanking_multidirectional": "Con đã hiểu trọn vẹn phép dùng binh 'kỳ binh - chính binh': chính diện công phá để ghìm chân, nhưng kỳ binh vu hồi mới là mũi dao quyết định đoạt mạng đối phương tại Đầm Mực.",
+        "frontal_allout": "Ý tưởng tập trung toàn lực đấm một cú thật mạnh vào Ngọc Hồi thể hiện khí phách tiến công quả cảm của con. Tuy nhiên ở thời điểm 1789, chiến lũy Ngọc Hồi có hỏa lực cực mạnh; nếu chỉ đánh thẳng mà không ém quân ở Đầm Mực, giặc sẽ tháo chạy an toàn về Thăng Long hội quân với Tôn Sĩ Nghị, khiến trận chiến kéo dài và thương vong tăng cao.",
+        "siege_starvation": "Con đã nghĩ đến kế sách 'bất chiến tự nhiên thành' để hạn chế xương máu binh sĩ, đó là lòng nhân ái đáng quý của người làm tướng. Nhưng con ơi, lúc ấy Tôn Sĩ Nghị đang nắm hơn 20 vạn quân chỉ cách ta 15 dặm. Nếu ta vây hãm lâu ngày, viện binh địch kéo đến kẹp quân ta ở giữa, thế trận sẽ vô cùng nguy khốn."
+      },
+      "timing": {
+        "dawn_tet5": "Đúng vậy! 'Binh quý thần tốc', đánh vào lúc giặc say sưa Tết nhất chính là đòn tâm lý khiến 29 vạn quân bỗng chốc trở thành đàn ong vỡ tổ.",
+        "midday_light": "Con chọn đánh giữa trưa để quan sát địa hình rõ ràng, tránh cho quân ta bị lạc hay vướng chông sắt. Suy nghĩ ấy rất chu toàn! Nhưng trời sáng tỏ cũng giúp xạ thủ và pháo binh trên mặt lũy của giặc nhìn rõ quân ta từ cự ly xa, khiến các chiến sĩ chịu nhiều pháo kích hơn.",
+        "after_fullmoon": "Con muốn quân sĩ được dưỡng sức no đủ sau cuộc hành quân ngàn dặm từ Phú Xuân, đó là sự quan tâm chu đáo tới thể lực chiến sĩ. Song thời cơ trong quân sự chỉ xuất hiện trong khoảnh khắc: qua rằm tháng Giêng, quân giặc đã hết say tiệc, phòng tuyến được gia cố bê tông cọc sắt thì cái giá phải trả sẽ lớn hơn gấp bội."
+      },
+      "shield": {
+        "wet_straw_shields": "Tấm khiên rơm ướt ấy là kết tinh trí tuệ dân gian của người nông dân áo vải đất Việt: biến thứ rơm rạ đồng quê thành tấm áo giáp vô hiệu hóa đại bác tối tân của phương Bắc!",
+        "standard_wood_shields": "Con chọn khiên gỗ nhẹ để binh sĩ cơ động nhanh hơn. Lập luận của con rất hợp lý về mặt cơ học! Chỉ có điều, đồn Ngọc Hồi có hàng trăm ống phóng hỏa hổ và tên lửa dầu thông; khiên gỗ thông thường rất dễ bị bén lửa biến thành biển lửa bao vây chính người cầm.",
+        "dispersed_rush": "Chiến thuật tản mát chạy nhanh của con rất giống lối đánh đột kích cơ động hiện đại ngày nay, chứng tỏ tư duy của con rất nhạy bén! Tuy nhiên trước cửa lũy Ngọc Hồi có bãi chông sắt ba góc và hào sâu; nếu không có lá chắn kiên cố che chở để phá chông, đội hình tản mát sẽ khó duy trì được sức ép công phá."
+      },
+      "elephants": {
+        "elephants_vanguard": "Tượng binh chính là 'xe tăng bọc thép' của thời cổ đại. Cho 100 thớt voi xông trận trước đã húc đổ rào chà, mở toang cánh cửa vào Thăng Long cho bộ binh xông lên.",
+        "elephants_reserve": "Con muốn giữ voi chiến làm vốn dự phòng bảo tồn lực lượng, đó là sự cẩn trọng thường thấy của các nhà chiến lược. Dẫu vậy, khi đối đầu với tường thành kiên cố và hào chông, nếu không có sức nặng ngàn cân của voi chiến mở toang lỗ thủng ban đầu thì bộ binh sẽ rất chật vật vượt lũy.",
+        "cavalry_instead": "Dùng ngựa thay voi giúp toàn quân đạt tốc độ phi nước đại, đây là một ý tưởng táo bạo! Nhưng ngựa ta sợ lửa và đại bác, lại không thể dẫm nát tường gỗ chông sắt kiên cố như voi chiến, và ngựa thì không thể khiến bầy ngựa kỵ binh Bát Kỳ của giặc hoảng sợ mất vía."
+      }
+    }
+  }
+}
