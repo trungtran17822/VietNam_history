@@ -1,0 +1,17 @@
+# LibreOffice / Office lock files
+.~lock.*
+~$*
+
+# Local Claude Code overrides
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencies and build output (for future app/ packages)
+node_modules/
+dist/
+build/
