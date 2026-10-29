@@ -6,6 +6,7 @@
 | --- | --- |
 | [prototype/](prototype/) | Bản nguyên mẫu chạy được (HTML/CSS/JS thuần). Xem [prototype/README.md](prototype/README.md). |
 | [docs/](docs/) | Tài liệu sản phẩm (PRD) và tư liệu nguồn (SGK). |
+| [scripts/](scripts/) | `check.sh`: kiểm tra tĩnh (`bash scripts/check.sh`). |
 | `.claude/` | Cấu hình, quy tắc và lệnh cho Claude Code. |
 
 Chạy nguyên mẫu:

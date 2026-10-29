@@ -61,6 +61,24 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
    Sau đó truy cập `http://localhost:8080` trên trình duyệt.
 2. **Mở trực tiếp**: Nháy đúp `index.html`. Các phông Noto và dữ liệu seed được lưu cục bộ; tính năng không được trình duyệt cho phép từ `file:///` vẫn có thể cần server cục bộ.
 
+## Kiến trúc
+
+Các tệp `js/*.js` là `<script>` thường (không phải ES module), giao tiếp qua đối tượng `window`. Thứ tự nạp trong `index.html`: `text.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `app.js`.
+
+| Tệp | Vai trò |
+| --- | --- |
+| `app.js` | Bộ điều khiển: định tuyến theo hash (`#/teacher`, `#/student`, `#/lesson/<id>`, `.../edit`, `.../preview`), bảng điều khiển giáo viên, trình soạn bài (có hoàn tác/làm lại), màn hình học sinh và vòng lặp 6 giai đoạn. |
+| `lesson-data.js` | `SEED_LESSONS`: dữ liệu bài học mẫu (phần, câu hỏi, ghi chú giáo viên, biến mô phỏng, đạo cụ, camera). |
+| `storage.js` | `LessonStorage`: lưu bài học trong `localStorage`, nhập/xuất JSON; học sinh chỉ thấy bài có trạng thái "Đã dạy" và ngày không quá hôm nay. |
+| `engine.js` | `SimulationEngine`: tính toán xác định từ hệ số trong dữ liệu bài học. Chỉnh hệ số trong dữ liệu, không sửa mã. |
+| `scene-map.js` | `BattleScene3D`: sa bàn Three.js. `scene3d.js` là bản cũ, không được nạp. |
+| `auth.js` | Đăng nhập demo phía máy khách (`admin` / `123`, lưu trong `sessionStorage`). |
+| `text.js`, `audio.js` | Chuẩn hóa NFC tiếng Việt; âm thanh trận đánh bằng Web Audio. |
+
+Nếu đã có dữ liệu trong trình duyệt, thay đổi `SEED_LESSONS` sẽ không hiện ra: xóa khóa `history_sim_lessons_db_v2` hoặc tăng `STORAGE_KEY_LESSONS` trong `storage.js`.
+
+Kiểm tra tĩnh (cú pháp JS, JSON, tham chiếu trong `index.html`): `bash ../scripts/check.sh`.
+
 ## Họa tiết sa bàn
 
 Renderer dùng họa tiết vẽ thủ công bằng canvas làm mặc định. Có thể thay từng họa tiết bằng PNG nền trong suốt trong `assets/sprites`; tên tệp và kích thước gợi ý nằm trong [assets/sprites/README.md](assets/sprites/README.md). Trang kiểm tra glyph tiếng Việt: `#/fonttest`.

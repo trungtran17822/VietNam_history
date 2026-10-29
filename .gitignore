@@ -5,6 +5,10 @@
 # Local Claude Code overrides
 .claude/settings.local.json
 
+# Claude Code Templates installer backups
+.claude.backup-*/
+CLAUDE.md.backup-*
+
 # OS / editor
 .DS_Store
 Thumbs.db

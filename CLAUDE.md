@@ -10,15 +10,18 @@ Vietnamese-language, single-page classroom app that simulates a history lesson (
 
 - `prototype/` - the runnable app (everything below lives here unless stated otherwise): `index.html`, `js/`, `css/`, `fonts/`, `assets/`, `vendor/` (three.js, OrbitControls), `data/`.
 - `docs/` - `prd/` (product requirements .docx) and `sources/` (textbook PDF cited by `prototype/data/sources.json`).
-- `.claude/` - `settings.json` (shared permissions), `rules/` (path-scoped guidance on content labeling and scene rendering), `commands/serve.md` (`/serve`).
+- `.claude/` - `settings.json` (shared permissions), `rules/` (path-scoped guidance: content labeling, scene rendering, JS modules), `commands/` (`/serve`, `/check`).
+- `scripts/` - `check.sh`, the static verification script run by `/check`.
 
 ## Running
 
-There is no build step, package manager, linter, or test suite. It is plain HTML/CSS/JS with three.js and `OrbitControls.js` vendored in `prototype/vendor/`.
+There is no build step, package manager, or test suite. It is plain HTML/CSS/JS with three.js and `OrbitControls.js` vendored in `prototype/vendor/`.
 
 ```bash
 cd prototype && python3 -m http.server 8080   # then open http://localhost:8080
 ```
+
+Verify changes with `/check` (`bash scripts/check.sh`): `node --check` on `js/*.js`, JSON validity of `data/*.json`, every file referenced by `index.html` exists, and every `js/*.js` is loaded. Then load the page in a browser; there are no automated tests.
 
 Opening `index.html` via `file://` mostly works but a local server is recommended. `#/fonttest` is a built-in route for checking Vietnamese glyph rendering.
 
@@ -40,8 +43,8 @@ Paths in this section are relative to `prototype/`. Scripts are loaded as classi
 ## Gotchas
 
 - `js/scene3d.js` is a legacy low-poly renderer and is not referenced from `index.html`. Edit `scene-map.js` for scene changes.
-- `data/lesson.json`, `data/lesson.root-copy.json` (formerly the root `lesson.json`), and `data/sources.json` are not loaded by any script. The two lesson files differ. The running app takes its lesson data from `js/lesson-data.js` and `localStorage`. `sources.json` is a source/citation catalogue for the textbook-based content.
+- `data/lesson.root-copy.json` (formerly the root `lesson.json`) and `data/sources.json` are not loaded by any script. The running app takes its lesson data from `js/lesson-data.js` and `localStorage`. `sources.json` is a source/citation catalogue for the textbook-based content.
 - `LessonStorage.init()` only seeds when the key is absent, so edits to `SEED_LESSONS` don't show up in a browser that already has data. Clear `history_sim_lessons_db_v2` in the browser or bump `STORAGE_KEY_LESSONS` in `storage.js` to see seed changes.
-- `prototype/README.md` is partly out of date. It describes only the 6-stage student flow and does not mention the teacher editor, auth, or storage layers.
+- `prototype/README.md` describes the 6-stage classroom flow in detail; its "Kiến trúc" section covers the teacher editor, auth, and storage layers.
 - `docs/` holds the PRD and the source textbook PDF. Both are reference material, not code.
 - `README.md` at the root is a short index; the detailed prototype README is `prototype/README.md`.
