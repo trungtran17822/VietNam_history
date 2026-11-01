@@ -23,10 +23,10 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
    - **Chế độ Giáo viên**:
      - Hiển thị bảng **Sổ tay Sư phạm (Teaching Notes)** theo từng giai đoạn: Gợi ý lời giảng, câu hỏi gợi mở thảo luận nhóm, mục tiêu sư phạm.
      - Nút **"Chiếu lên lớp" (Presentation Mode)**: Tối ưu cho máy chiếu lớp học (phông chữ lớn, ẩn bớt thanh công cụ phụ, mở rộng khung sa bàn 3D).
-     - Biểu đồ khảo sát nhanh phương án của cả lớp (*Demo survey summary* mô phỏng 38/40 học sinh đã trả lời).
+     - *(Chưa có trong prototype)* Biểu đồ phân bố phương án của cả lớp; xem yêu cầu F10 trong `docs/spec/SPEC.vi.md`.
    - **Chế độ Học sinh**: Tự động ẩn sổ tay sư phạm và số liệu giáo viên, tập trung vào trải nghiệm học tập và tương tác.
 4. **Nhãn cảnh báo & Tính minh bạch**:
-   - Nhãn thường trực: *"⚠️ Dữ liệu minh họa, chưa được chuyên gia duyệt"*.
+   - Nhãn thường trực: *"⚠️ Nội dung minh họa, chưa được chuyên gia duyệt"*.
    - Khung cảnh báo bắt buộc tại màn hình so sánh: *"ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ..."*.
 
 ---
