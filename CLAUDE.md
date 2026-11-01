@@ -10,8 +10,9 @@ Vietnamese-language, single-page classroom app that simulates a history lesson (
 
 - `prototype/` - the runnable app (everything below lives here unless stated otherwise): `index.html`, `js/`, `css/`, `fonts/`, `assets/`, `vendor/` (three.js, OrbitControls), `data/`.
 - `docs/` - `prd/` (product requirements .docx) and `sources/` (textbook PDF cited by `prototype/data/sources.json`).
-- `.claude/` - `settings.json` (shared permissions), `rules/` (path-scoped guidance: content labeling, scene rendering, JS modules), `commands/` (`/serve`, `/check`).
-- `scripts/` - `check.sh`, the static verification script run by `/check`.
+- `.claude/` - `settings.json` (shared permissions), `rules/` (path-scoped guidance: content labeling, scene rendering, JS modules), `commands/` (`/serve`, `/check`), `skills/devops/` (CI/CD and Vercel).
+- `scripts/` - `check.sh`, the static verification script run by `/check` and by CI.
+- `.github/workflows/ci-cd.yml` + `vercel.json` - CI/CD: `check.sh` on every push, then Vercel Preview from `Staging` and Production from `main`. Branches: `<name>/feature/<topic>` → `Staging` → `main`.
 
 ## Running
 
