@@ -26,16 +26,16 @@ Deploys go through the Vercel CLI in Actions (`vercel pull` → `vercel build` �
 - After editing `vercel.json`, verify locally without credentials: copy `prototype/` and `vercel.json` to a scratch dir, add `.vercel/project.json` = `{"projectId":"x","orgId":"y","settings":{"framework":null}}`, run `npx vercel@latest build --yes`, and confirm `.vercel/output/static/index.html` exists and `docs/` is absent.
 - Match the scale of the project: a static classroom prototype. Reach for Docker, Terraform, extra environments, or monitoring stacks only when the user asks for them.
 
-## Setup (once)
+## Setup
 
-1. Vercel project `vietnam-history` in team `youngsterdumbs-projects`, created empty (no Git connection; `vercel.json` supplies the build settings). From the repo root, `npx vercel@latest link` creates it and writes both IDs to `.vercel/project.json` (`orgId`, `projectId`).
-2. Token: vercel.com/account/tokens, scoped to that team.
-3. Repo secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`: setting them needs admin on the GitHub repo (owner `trungtran17822`). The deploy job fails fast with a named error when one is missing.
+- Vercel project `vietnam-history` (`prj_vqfSP4LSw7oxdzDULQklokrfhJbN`) in team `youngsterdumbs-projects` (`team_6P2BlZoToZdS3VjdEqi6VnTy`), no Git connection. Both IDs are inlined in the workflow; they are not secret.
+- Production URL: https://vietnam-history-two.vercel.app. Previews sit behind Vercel Authentication (project default); production is public.
+- One repo secret, `VERCEL_TOKEN`: a token from vercel.com/account/tokens scoped to that team. Setting it needs admin on the GitHub repo (owner `trungtran17822`). The deploy job fails fast with a named error while it is missing.
 
 ## When something fails
 
 1. CI `check` red: run `bash scripts/check.sh` locally; the FAIL line names the file.
-2. Deploy red: read the failing step in `gh run view --log-failed`. Missing secret → setup step 3. `vercel pull` 401/403 → token expired or wrong team. `vercel build` error → re-run the local build check above.
+2. Deploy red: read the failing step in `gh run view --log-failed`. Missing `VERCEL_TOKEN` → see Setup. `vercel pull` 401/403 → token expired or wrong team. `vercel build` error → re-run the local build check above.
 3. Deployed but broken: inspect with the Vercel MCP tools (`list_deployments`, `get_deployment`, `get_runtime_errors`) using the team and project from Setup.
 
 ## Rollback
