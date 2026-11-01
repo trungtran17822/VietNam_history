@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Trạng thái | Bản nháp 2, ngày 01/11/2026. Lộ trình rút từ 17 tuần xuống **12 tuần (tối đa 15 tuần)**. Bản tiếng Anh: [SPEC.md](SPEC.md) |
-| Nguồn | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (lộ trình 17 tuần của PRD được mục 11 của đặc tả này thay thế) và mã nguồn prototype trong `prototype/` tại commit `cba3e58` |
+| Nguồn | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (lộ trình đã được cập nhật ngày 01/11/2026 cho khớp mục 11 của đặc tả này) và mã nguồn prototype trong `prototype/` tại commit `cba3e58` |
 | Tên sản phẩm | Chưa quyết định (câu hỏi mở trong PRD) |
 | Ngôn ngữ giao diện | Tiếng Việt. Mọi nội dung học sinh và giáo viên nhìn thấy đều bằng tiếng Việt; đặc tả này trích nguyên văn các chuỗi giao diện |
 
@@ -241,7 +241,7 @@ Không có bộ kiểm thử tự động. Hiện có:
 
 ## 11. Lịch trình
 
-Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 tuần.** Thay thế kế hoạch 17 tuần của Bản nháp 1 và của tài liệu PRD (xem mục 12 điểm 11). Tuần 1 (T1) **chưa gắn với ngày cụ thể**. Tuần đánh số từ 1, tính cả hai đầu.
+Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 tuần.** Thay thế kế hoạch 17 tuần trước đó của Bản nháp 1 và của tài liệu PRD; PRD nay đã mang cùng kế hoạch 12 tuần (xem mục 12 điểm 11). Tuần 1 (T1) **chưa gắn với ngày cụ thể**. Tuần đánh số từ 1, tính cả hai đầu.
 
 **Cấu trúc:** T1-T12 là kế hoạch cam kết. T13-T15 là **quỹ dự phòng**, chỉ dùng khi lỡ một mốc kiểm soát bên dưới; không phải việc đã lên lịch. Nếu hết T15 mà việc chưa xong thì **cắt phạm vi, không kéo dài lịch.**
 
@@ -297,7 +297,7 @@ Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 t
 9. **Con số chưa duyệt.** Số liệu nền (36 giờ, 1.800 thương vong, 95) và mọi độ lệch đều là tạm. Văn bản mẫu cũng nêu các con số như "100 voi chiến" và "29 vạn quân" chưa gắn với nguồn đã duyệt. Chúng phải qua bước 3 trước khi học sinh nhìn thấy.
 10. **Ngẫu nhiên trong cảnh.** Vị trí các đơn vị trong cảnh được ngẫu nhiên hóa mỗi lần tải; hai lần chiếu cùng một bài trông hơi khác nhau. Chấp nhận được cho demo; chỉ quan trọng nếu cần ảnh chụp tái lập được.
 11. **Mâu thuẫn lộ trình. Đã sửa.** Tài liệu PRD (`docs/prd/…`) đã được cập nhật ngày 01/11/2026 theo cùng kế hoạch 12 tuần (tối đa 15), gồm biểu đồ Gantt, số tuần từng bước, các mốc và rủi ro. PRD chưa có dòng rủi ro "12 tuần quá gấp" và hai câu hỏi mở mới ở mục 13 (quy mô nhóm, cố vấn).
-12. **Lệch cách diễn đạt. Sửa một phần.** Giao diện ghi "Nội dung minh họa, chưa được chuyên gia duyệt" (dải đầu trang và chân trang) và `prototype/README.md` nay ghi giống vậy. `CLAUDE.md` ở thư mục gốc vẫn ghi "Dữ liệu minh họa"; đặc tả này trích chuỗi của giao diện.
+12. **Lệch cách diễn đạt. Đã sửa.** Giao diện ghi "Nội dung minh họa, chưa được chuyên gia duyệt" (dải đầu trang và chân trang); `prototype/README.md`, `CLAUDE.md` ở thư mục gốc và `.claude/rules/content-labeling.md` nay ghi giống vậy. Tệp `data/lesson.root-copy.json` (không được nạp) vẫn còn ghi chú "Dữ liệu minh họa"; không ảnh hưởng lúc chạy.
 
 ## 13. Câu hỏi mở
 

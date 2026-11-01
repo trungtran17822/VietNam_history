@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Status | Draft 2, 2026-11-01. Timeline cut from 17 weeks to **12 weeks (maximum 15)**. A Vietnamese version is in [SPEC.vi.md](SPEC.vi.md) |
-| Sources | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (its timeline of 17 weeks is superseded by §11 of this spec), and the prototype code in `prototype/` as of commit `cba3e58` |
+| Sources | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (timeline updated on 2026-11-01 to match §11 of this spec), and the prototype code in `prototype/` as of commit `cba3e58` |
 | Product name | Not decided (PRD open question) |
 | UI language | Vietnamese. Everything a student or teacher sees is Vietnamese; this spec quotes UI strings verbatim. |
 
@@ -239,7 +239,7 @@ There is no automated test suite. What exists:
 
 ## 11. Schedule
 
-Revised 2026-11-01 (Draft 2): **12 weeks planned, hard maximum 15 weeks.** This replaces the 17-week plan in Draft 1 and in the PRD document (see §12 item 11). Week 1 (T1) is **not yet anchored to a date**. Weeks are 1-based and inclusive.
+Revised 2026-11-01 (Draft 2): **12 weeks planned, hard maximum 15 weeks.** This replaces the earlier 17-week plan of Draft 1 and of the PRD document, which now carries the same 12-week plan (see §12 item 11). Week 1 (T1) is **not yet anchored to a date**. Weeks are 1-based and inclusive.
 
 **Structure:** T1-T12 is the committed plan. T13-T15 is a **contingency reserve**, used only when a gate below is missed; it is not planned work. If the work is not done by the end of T15, **cut scope, do not extend the schedule.**
 
@@ -296,7 +296,7 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 10. **Scene randomness.** The scene's unit placement is randomised on every load; two projections of the same lesson look slightly different. Acceptable for the demo; matters only if screenshots must be reproducible.
 
 11. **Timeline conflict. Fixed.** The PRD document (`docs/prd/…`) was updated on 2026-11-01 to the same 12-week plan (maximum 15), including its Gantt chart, step weeks, milestones and risks. It does not yet contain the "12 weeks is too tight" risk row or the two new open questions from §13 (team size, advisor).
-12. **Wording mismatch. Partly fixed.** The UI says "Nội dung minh họa, chưa được chuyên gia duyệt" (header strip and footer) and `prototype/README.md` now says the same. The root `CLAUDE.md` still says "Dữ liệu minh họa"; the UI string is the one this spec quotes.
+12. **Wording mismatch. Fixed.** The UI says "Nội dung minh họa, chưa được chuyên gia duyệt" (header strip and footer); `prototype/README.md`, the root `CLAUDE.md` and `.claude/rules/content-labeling.md` now say the same. The unloaded `data/lesson.root-copy.json` still has a "Dữ liệu minh họa" note; it affects nothing at runtime.
 
 ## 13. Open questions
 
