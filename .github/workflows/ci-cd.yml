@@ -1,6 +1,6 @@
 # CI on every push; deploy to Vercel after checks pass.
 #   Staging -> Preview deployment     main -> Production deployment
-# Needs repo secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
+# Needs one repo secret: VERCEL_TOKEN. Org/project IDs are not secret.
 name: CI/CD
 
 on:
@@ -24,16 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_ORG_ID: team_6P2BlZoToZdS3VjdEqi6VnTy       # youngsterdumbs-projects
+      VERCEL_PROJECT_ID: prj_vqfSP4LSw7oxdzDULQklokrfhJbN  # vietnam-history
       TARGET: ${{ github.ref_name == 'main' && 'production' || 'preview' }}
       PROD_FLAG: ${{ github.ref_name == 'main' && '--prod' || '' }}
     steps:
-      - name: Require Vercel secrets
+      - name: Require VERCEL_TOKEN secret
         run: |
-          for s in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
-            [ -n "${!s}" ] || { echo "::error::Missing repo secret $s (Settings > Secrets and variables > Actions)"; exit 1; }
-          done
+          [ -n "$VERCEL_TOKEN" ] || { echo "::error::Missing repo secret VERCEL_TOKEN (Settings > Secrets and variables > Actions)"; exit 1; }
       - uses: actions/checkout@v7
       - run: npm install --global vercel@latest
       - run: vercel pull --yes --environment="$TARGET" --token="$VERCEL_TOKEN"
