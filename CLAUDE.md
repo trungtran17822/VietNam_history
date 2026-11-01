@@ -12,7 +12,7 @@ Vietnamese-language, single-page classroom app that simulates a history lesson (
 - `docs/` - `prd/` (product requirements .docx) and `sources/` (textbook PDF cited by `prototype/data/sources.json`).
 - `.claude/` - `settings.json` (shared permissions), `rules/` (path-scoped guidance: content labeling, scene rendering, JS modules), `commands/` (`/serve`, `/check`), `skills/devops/` (CI/CD and Vercel).
 - `scripts/` - `check.sh`, the static verification script run by `/check` and by CI.
-- `.github/workflows/ci-cd.yml` + `vercel.json` - CI/CD: `check.sh` on every push, then Vercel Preview from `Staging` and Production (https://vietnam-history-two.vercel.app) from `main`. Branches: `<name>/feature/<topic>` → `Staging` → `main`.
+- `.github/workflows/ci-cd.yml` + `vercel.json` - CI/CD: `check.sh` on every push, then Vercel Preview from `Staging` and Production from `main`. Branches: `<name>/feature/<topic>` → `Staging` → `main`.
 
 ## Running
 

@@ -17,7 +17,7 @@ The app is a static site: `prototype/` is served as-is. There is no build, no pa
 
 Branch flow: `<name>/feature/<topic>` → `Staging` (Vercel **Preview**) → `main` (Vercel **Production**). Feature-branch pushes run `check` only.
 
-Deploys go through the Vercel CLI in Actions (`vercel pull` → `vercel build` → `vercel deploy --prebuilt`), so a deploy only happens after `check` passes. Vercel's Git integration stays off (`git.deploymentEnabled: false`) because the GitHub repo is owned by another account and a second deploy path would double-deploy.
+Deploys go through the Vercel CLI in Actions (`vercel pull` → `vercel build` → `vercel deploy --prebuilt`), so a deploy only happens after `check` passes. Vercel's Git integration stays off (`git.deploymentEnabled: false`) so Actions is the single deploy path; turning it on would double-deploy and skip the `check` gate.
 
 ## Changing the pipeline
 
@@ -28,14 +28,18 @@ Deploys go through the Vercel CLI in Actions (`vercel pull` → `vercel build` �
 
 ## Setup
 
-- Vercel project `vietnam-history` (`prj_vqfSP4LSw7oxdzDULQklokrfhJbN`) in team `youngsterdumbs-projects` (`team_6P2BlZoToZdS3VjdEqi6VnTy`), no Git connection. Both IDs are inlined in the workflow; they are not secret.
-- Production URL: https://vietnam-history-two.vercel.app. Previews sit behind Vercel Authentication (project default); production is public.
-- One repo secret, `VERCEL_TOKEN`: a token from vercel.com/account/tokens scoped to that team. Setting it needs admin on the GitHub repo (owner `trungtran17822`). The deploy job fails fast with a named error while it is missing.
+Trung owns both the GitHub repo (`trungtran17822`) and the Vercel account, so he does this once:
+
+1. From the repo root: `npx vercel@latest link` → creates/links the Vercel project and writes `orgId` and `projectId` to `.vercel/project.json` (gitignored). Leave the project unconnected to Git; `vercel.json` supplies the build settings.
+2. Create a token at vercel.com/account/tokens, scoped to the same team.
+3. Add repo secrets (Settings → Secrets and variables → Actions): `VERCEL_TOKEN`, `VERCEL_ORG_ID` = `orgId`, `VERCEL_PROJECT_ID` = `projectId`.
+
+The deploy job fails fast and names any missing secret. Preview URLs sit behind Vercel Authentication by default; production is public.
 
 ## When something fails
 
 1. CI `check` red: run `bash scripts/check.sh` locally; the FAIL line names the file.
-2. Deploy red: read the failing step in `gh run view --log-failed`. Missing `VERCEL_TOKEN` → see Setup. `vercel pull` 401/403 → token expired or wrong team. `vercel build` error → re-run the local build check above.
+2. Deploy red: read the failing step in `gh run view --log-failed`. Missing secret → Setup step 3. `vercel pull` 401/403 → token expired or wrong team. `vercel build` error → re-run the local build check above.
 3. Deployed but broken: inspect with the Vercel MCP tools (`list_deployments`, `get_deployment`, `get_runtime_errors`) using the team and project from Setup.
 
 ## Rollback
