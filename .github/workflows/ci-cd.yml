@@ -15,7 +15,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: bash scripts/check.sh
 
   deploy:
@@ -34,7 +34,7 @@ jobs:
           for s in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
             [ -n "${!s}" ] || { echo "::error::Missing repo secret $s (Settings > Secrets and variables > Actions)"; exit 1; }
           done
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm install --global vercel@latest
       - run: vercel pull --yes --environment="$TARGET" --token="$VERCEL_TOKEN"
       - run: vercel build $PROD_FLAG --token="$VERCEL_TOKEN"
