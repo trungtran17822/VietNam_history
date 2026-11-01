@@ -13,8 +13,8 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
 ### A. Giao diện Kế hoạch Bài dạy Chuẩn Sư Phạm (Classroom-Style Lesson UI)
 1. **Màn hình chính "Lịch bài giảng" (Schedule View)**:
    - Danh sách bài giảng phân bố theo ngày trong tuần (Thứ Hai, Thứ Tư, Thứ Sáu, Tuần sau...).
-   - Hiển thị đầy đủ thông tin: Đề bài, Môn học & Khối lớp (Lịch sử 11), Giáo viên phụ trách, Tiết học / Thời lượng (45 phút), Mục tiêu bài dạy, và Trạng thái (*Đang học / Đã học / Sắp có*).
-   - Bài học thí điểm **"Trận Ngọc Hồi - Hạ Hồi"** là thẻ hoạt động chính; kèm 2-3 thẻ bài học xám mờ "Sắp có" trong phân phối chương trình kèm ghi chú *"Dữ liệu minh họa"*.
+   - Hiển thị đầy đủ thông tin: Đề bài, Môn học & Khối lớp (Lịch sử 11), Giáo viên phụ trách, Tiết học / Thời lượng (45 phút), Mục tiêu bài dạy, và Trạng thái (*Nháp / Đã lên lịch / Đã dạy*).
+   - Bài học thí điểm **"Trận Ngọc Hồi - Hạ Hồi"** là bài duy nhất có đủ biến số mô phỏng; ba bài mẫu còn lại (Rạch Gầm, Chi Lăng, kháng chiến Mông - Nguyên) chỉ có dữ liệu cơ bản. Học sinh chỉ thấy bài có trạng thái *Đã dạy* và ngày dạy không muộn hơn hôm nay.
 2. **Trang chi tiết bài học (Lesson Detail Page)**:
    - Header hiển thị bài học, giáo viên, ngày dạy, khối lớp, mục tiêu và khung **"Đề bài / Câu hỏi trọng tâm"**.
    - Thanh tiến trình sư phạm (**Classroom Stepper**) 6 giai đoạn có ước lượng thời gian tương ứng với 6 màn hình:
