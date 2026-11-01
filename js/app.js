@@ -45,6 +45,12 @@
 
   // DOM Elements cache
   const elements = {};
+  const OFFICIAL_REFERENCE_SOURCES = [
+    { title: 'Chương trình môn Lịch sử · Bộ GD&ĐT', url: 'https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1483/vbhn-chuong-trinh-mon-lich-su.pdf', host: 'moet.gov.vn' },
+    { title: 'Bảo vật quốc gia: Trống Ngọc Lũ · Bảo tàng Lịch sử Quốc gia', url: 'https://baotanglichsu.vn/vi/Articles/1001/73637/bao-vat-quoc-gia-trong-ngoc-lu.html', host: 'baotanglichsu.vn' },
+    { title: 'Khái quát lịch sử Việt Nam · Bộ Ngoại giao', url: 'https://mofa.gov.vn/lich-su1', host: 'mofa.gov.vn' },
+    { title: 'Lịch sử Việt Nam · Cổng Thông tin điện tử Chính phủ', url: 'https://vietnam.gov.vn/default.aspx?catname=history-68964', host: 'vietnam.gov.vn' }
+  ];
 
   /**
    * Application Initialization
@@ -109,8 +115,23 @@
     elements.viewTeacherDashboard = document.getElementById('view-teacher-dashboard');
     elements.teacherLessonsGrid = document.getElementById('teacher-lessons-grid');
     elements.btnCreateLesson = document.getElementById('btn-create-lesson');
-    elements.btnExportJson = document.getElementById('btn-export-json');
-    elements.btnImportJson = document.getElementById('btn-import-json');
+    elements.contentIntakeForm = document.getElementById('form-content-intake');
+    elements.contentIntakeModal = document.getElementById('modal-content-intake');
+    elements.contentIntakeError = document.getElementById('content-intake-error');
+    elements.sourceIntakeStatus = document.getElementById('source-intake-status');
+    elements.intakeLessonTitle = document.getElementById('intake-lesson-title');
+    elements.intakeLessonContent = document.getElementById('intake-lesson-content');
+    elements.intakeSourceTitle = document.getElementById('intake-source-title');
+    elements.intakeSourcePublisher = document.getElementById('intake-source-publisher');
+    elements.intakeSourceUrl = document.getElementById('intake-source-url');
+    elements.intakeSourceYear = document.getElementById('intake-source-year');
+    elements.intakeSourceClaim = document.getElementById('intake-source-claim');
+    elements.intakeAIInstruction = document.getElementById('intake-ai-instruction');
+    elements.inputSourceReviewNotice = document.getElementById('source-review-notice');
+    elements.sourceReviewHeading = document.getElementById('source-review-heading');
+    elements.sourceReviewInfo = document.getElementById('source-review-info');
+    elements.sourceReviewLink = document.getElementById('source-review-link');
+    elements.btnMarkSourceReviewed = document.getElementById('btn-mark-source-reviewed');
     elements.inputSearchLessons = document.getElementById('input-search-lessons');
 
     // Teacher Editor View
@@ -209,11 +230,6 @@
     elements.assumptionsModalBody = document.getElementById('assumptions-modal-body');
     elements.modalConfirmPublish = document.getElementById('modal-confirm-publish');
     elements.btnConfirmPublishSubmit = document.getElementById('btn-confirm-publish-submit');
-    elements.modalImportJson = document.getElementById('modal-import-json');
-    elements.textareaImportJson = document.getElementById('textarea-import-json');
-    elements.fileInputJson = document.getElementById('file-input-json');
-    elements.importJsonError = document.getElementById('import-json-error');
-    elements.btnSubmitImportJson = document.getElementById('btn-submit-import-json');
   }
 
   /**
@@ -335,6 +351,14 @@
    * Global Event Listeners setup
    */
   function setupGlobalEventListeners() {
+    // Delegate this action so it remains wired if the dashboard markup is refreshed.
+    document.addEventListener('click', (event) => {
+      const trigger = event.target instanceof Element ? event.target.closest('#btn-open-content-intake') : null;
+      if (!trigger) return;
+      event.preventDefault();
+      openContentIntake();
+    }, true);
+
     elements.headerMenu.addEventListener('click', () => {
       const open = elements.mainHeader.classList.toggle('nav-open');
       elements.headerMenu.setAttribute('aria-expanded', String(open));
@@ -451,8 +475,9 @@
 
     // 8. Teacher Dashboard Events
     elements.btnCreateLesson.addEventListener('click', handleCreateLesson);
-    elements.btnExportJson.addEventListener('click', () => window.LessonStorage.downloadJSON());
-    elements.btnImportJson.addEventListener('click', openImportJsonModal);
+    elements.contentIntakeForm.addEventListener('submit', handleContentIntakeSubmit);
+    elements.intakeSourceUrl.addEventListener('input', updateSourceIntakeStatus);
+    elements.btnMarkSourceReviewed.addEventListener('click', markActiveLessonSourceReviewed);
 
     elements.inputSearchLessons.addEventListener('input', (e) => {
       renderTeacherDashboard(e.target.value);
@@ -491,10 +516,15 @@
     elements.btnEditorSaveDraft.addEventListener('click', () => saveActiveLessonWithStatus('Nháp'));
     elements.btnEditorSchedule.addEventListener('click', () => saveActiveLessonWithStatus('Đã lên lịch'));
     elements.btnEditorPublish.addEventListener('click', () => {
+      if (!canPublishActiveLesson()) return;
       elements.modalConfirmPublish.classList.add('active');
     });
 
     elements.btnConfirmPublishSubmit.addEventListener('click', () => {
+      if (!canPublishActiveLesson()) {
+        elements.modalConfirmPublish.classList.remove('active');
+        return;
+      }
       elements.modalConfirmPublish.classList.remove('active');
       saveActiveLessonWithStatus('Đã dạy');
     });
@@ -547,28 +577,18 @@
       if (activeLesson) navigateToLesson(activeLesson.id);
     });
 
-    if (elements.fileInputJson) {
-      elements.fileInputJson.addEventListener('change', (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          elements.textareaImportJson.value = evt.target.result;
-        };
-        reader.readAsText(file);
-      });
-    }
-
     // 11. Modal close handlers
     document.querySelectorAll('.btn-close-modal, [data-close]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const modalId = btn.getAttribute('data-close') || btn.closest('.modal-overlay').id;
         const modal = document.getElementById(modalId);
-        if (modal) modal.classList.remove('active');
+        if (modal) {
+          modal.classList.remove('active');
+          modal.setAttribute('aria-hidden', 'true');
+        }
       });
     });
 
-    elements.btnSubmitImportJson.addEventListener('click', handleImportJsonSubmit);
   }
 
   /**
@@ -861,6 +881,179 @@
     });
   }
 
+  function normalizeReferenceUrl(value) {
+    const parsed = new URL(value);
+    parsed.hash = '';
+    return parsed.href.replace(/\/$/, '');
+  }
+
+  function assessReferenceUrl(value) {
+    if (!value.trim()) return { status: 'empty' };
+    let parsed;
+    try { parsed = new URL(value.trim()); } catch (error) { return { status: 'invalid' }; }
+    if (parsed.protocol !== 'https:') return { status: 'https-required', host: parsed.hostname };
+    const host = parsed.hostname.toLowerCase();
+    const exact = OFFICIAL_REFERENCE_SOURCES.find((source) => {
+      try { return normalizeReferenceUrl(source.url) === normalizeReferenceUrl(parsed.href); } catch (error) { return false; }
+    });
+    if (exact) return { status: 'catalog-match', host, source: exact };
+    const official = OFFICIAL_REFERENCE_SOURCES.find((source) => host === source.host || host.endsWith(`.${source.host}`));
+    return official
+      ? { status: 'official-domain', host, source: official }
+      : { status: 'unlisted', host };
+  }
+
+  function updateSourceIntakeStatus() {
+    const result = assessReferenceUrl(elements.intakeSourceUrl.value);
+    const messages = {
+      empty: ['Thêm đường dẫn nguồn để kiểm tra mức độ nhận diện.', 'neutral'],
+      invalid: ['Đường dẫn chưa hợp lệ. Hãy nhập một URL HTTPS đầy đủ.', 'warning'],
+      'https-required': ['Chỉ nhận đường dẫn HTTPS. Nguồn vẫn cần được đối chiếu trực tiếp.', 'warning'],
+      'catalog-match': [`Khớp danh mục tham khảo chính thống: ${result.source.title}. Điều này xác nhận liên kết, không xác minh nội dung trích dẫn.`, 'recognized'],
+      'official-domain': [`Miền ${result.host} thuộc một cơ quan trong danh mục. Trang cụ thể và nội dung cần được đối chiếu trực tiếp.`, 'review'],
+      unlisted: [`Miền ${result.host} chưa có trong danh mục tham khảo. Nguồn sẽ được giữ ở trạng thái chờ kiểm duyệt.`, 'warning']
+    };
+    const [message, state] = messages[result.status];
+    elements.sourceIntakeStatus.textContent = message;
+    elements.sourceIntakeStatus.className = `source-intake-status ${state}`;
+    return result;
+  }
+
+  function openContentIntake() {
+    elements.contentIntakeForm.reset();
+    elements.contentIntakeError.hidden = true;
+    elements.contentIntakeError.textContent = '';
+    updateSourceIntakeStatus();
+    elements.contentIntakeModal.classList.add('active');
+    elements.contentIntakeModal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => elements.intakeLessonTitle.focus(), 40);
+  }
+
+  function handleContentIntakeSubmit(event) {
+    event.preventDefault();
+    const referenceCheck = updateSourceIntakeStatus();
+    if (referenceCheck.status === 'invalid' || referenceCheck.status === 'https-required') {
+      elements.contentIntakeError.textContent = 'Hãy nhập một đường dẫn HTTPS hợp lệ để lưu nguồn tham khảo.';
+      elements.contentIntakeError.hidden = false;
+      elements.intakeSourceUrl.focus();
+      return;
+    }
+
+    const title = elements.intakeLessonTitle.value.trim();
+    const content = elements.intakeLessonContent.value.trim();
+    const sourceTitle = elements.intakeSourceTitle.value.trim();
+    const sourcePublisher = elements.intakeSourcePublisher.value.trim();
+    const sourceUrl = elements.intakeSourceUrl.value.trim();
+    const sourceYear = elements.intakeSourceYear.value.trim();
+    const sourceClaim = elements.intakeSourceClaim.value.trim();
+    const aiInstruction = elements.intakeAIInstruction.value.trim();
+    const today = new Date();
+    const date = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const id = `lesson-${Date.now().toString(36)}`;
+    const sourceStatus = referenceCheck.status;
+    const recognitionText = sourceStatus === 'catalog-match'
+      ? `URL khớp với mục tham khảo: ${referenceCheck.source.title}.`
+      : sourceStatus === 'official-domain'
+        ? `Miền ${referenceCheck.host} được nhận diện; trang này chưa có trong danh mục tham khảo.`
+        : 'Nguồn chưa được nhận diện trong danh mục tham khảo chính thống.';
+    const source = {
+      book: sourceTitle,
+      chapter: sourceYear ? `Năm ${sourceYear}` : '',
+      quote: sourceClaim,
+      url: sourceUrl,
+      publisher: sourcePublisher,
+      verified: false,
+      note: `${recognitionText} Tình trạng kiểm chứng nội dung: chờ giáo viên đối chiếu trực tiếp.`
+    };
+    const lesson = {
+      id,
+      title,
+      subtitle: 'Bản nháp từ tư liệu · cần đối chiếu nguồn',
+      date,
+      teacher: currentUser ? currentUser.displayName : 'Giáo viên bộ môn',
+      class: 'Lớp 11A1',
+      subject: 'Lịch sử',
+      grade: 'Khối 11',
+      objectives: 'Bản nháp được tạo từ nội dung giáo viên cung cấp; cần biên tập và kiểm chứng trước khi phát hành.',
+      focusQuestion: '',
+      status: 'Nháp',
+      sections: [{
+        id: `sec-${Date.now().toString(36)}`,
+        title: 'Nội dung ban đầu',
+        narration: content,
+        caption: `Nguồn tham khảo: ${sourceTitle}`,
+        timelineRange: 0.1,
+        timeLabel: 'Tư liệu đầu vào',
+        source
+      }],
+      keyNotes: [],
+      privateNotes: aiInstruction ? `YÊU CẦU BIÊN TẬP CHO AI (được lưu để xử lý khi kết nối dịch vụ AI):\n${aiInstruction}` : '',
+      aiEditPrompt: aiInstruction,
+      sourceReview: {
+        sourceRecognition: sourceStatus,
+        recognizedReference: referenceCheck.source ? referenceCheck.source.title : '',
+        claimStatus: 'pending',
+        claim: sourceClaim,
+        sourceUrl,
+        createdAt: new Date().toISOString()
+      },
+      questions: [],
+      simulation: {
+        propsConfig: { palisade: true, tents: true, elephants: true, banners: true, fire: true, village: true, bamboo: true },
+        unitCounts: { taySonInfantry: 45, qingInfantry: 45 },
+        factionColors: { taySon: '#962d22', qing: '#1e3a8a' }
+      }
+    };
+
+    window.LessonStorage.saveLesson(lesson);
+    elements.contentIntakeModal.classList.remove('active');
+    openTeacherEditor(id);
+  }
+
+  function updateSourceReviewNotice(lesson) {
+    const review = lesson && lesson.sourceReview;
+    if (!review) {
+      elements.inputSourceReviewNotice.hidden = true;
+      return;
+    }
+    const checked = review.claimStatus === 'teacher-reviewed';
+    const recognized = review.sourceRecognition === 'catalog-match';
+    elements.inputSourceReviewNotice.hidden = false;
+    elements.inputSourceReviewNotice.classList.toggle('review-complete', checked);
+    elements.sourceReviewHeading.textContent = checked ? 'Đã xác nhận đối chiếu trực tiếp' : 'Nguồn và thông tin đang chờ đối chiếu';
+    elements.sourceReviewInfo.textContent = checked
+      ? `Bạn đã xác nhận đối chiếu nội dung với nguồn “${lesson.sections?.[0]?.source?.book || 'đã cung cấp'}”. Hệ thống chỉ nhận diện nguồn, không tự xác thực sự kiện.`
+      : `${recognized ? 'URL khớp một mục trong danh mục tham khảo chính thống. ' : 'URL chưa khớp mục tham khảo chính thống. '}Hãy mở nguồn, đối chiếu thông tin cụ thể, rồi xác nhận trước khi phát hành. Dịch vụ AI và kho tri thức chính phủ chưa được kết nối.`;
+    const sourceUrl = review.sourceUrl || lesson.sections?.[0]?.source?.url || '';
+    elements.sourceReviewLink.href = sourceUrl;
+    elements.sourceReviewLink.hidden = !sourceUrl;
+    elements.btnMarkSourceReviewed.hidden = checked;
+  }
+
+  function markActiveLessonSourceReviewed() {
+    if (!activeLesson || !activeLesson.sourceReview) return;
+    syncFormToActiveLesson();
+    activeLesson.sourceReview.claimStatus = 'teacher-reviewed';
+    activeLesson.sourceReview.reviewedAt = new Date().toISOString();
+    activeLesson.sourceReview.reviewedBy = currentUser ? currentUser.displayName : 'Giáo viên';
+    const citedSection = (activeLesson.sections || []).find((section) => section.source);
+    if (citedSection) {
+      citedSection.source.reviewedBy = activeLesson.sourceReview.reviewedBy;
+      citedSection.source.reviewedAt = activeLesson.sourceReview.reviewedAt;
+      citedSection.source.note = `Giáo viên đã xác nhận đối chiếu trực tiếp với nguồn này. Hệ thống chỉ nhận diện liên kết, không tự xác thực sự kiện.`;
+    }
+    window.LessonStorage.saveLesson(activeLesson);
+    updateSourceReviewNotice(activeLesson);
+  }
+
+  function canPublishActiveLesson() {
+    if (activeLesson && activeLesson.sourceReview && activeLesson.sourceReview.claimStatus === 'pending') {
+      alert('Bài nháp đang có thông tin chờ đối chiếu. Hãy mở nguồn tham khảo và xác nhận đã kiểm tra trước khi phát hành.');
+      return false;
+    }
+    return true;
+  }
+
   function handleCreateLesson() {
     const newId = `lesson-${Date.now().toString(36)}`;
     const newLesson = {
@@ -936,6 +1129,7 @@
     // Populate Tab d: Notes
     elements.editKeyNotes.value = Array.isArray(activeLesson.keyNotes) ? activeLesson.keyNotes.join('\n') : activeLesson.keyNotes || '';
     elements.editPrivateNotes.value = activeLesson.privateNotes || '';
+    updateSourceReviewNotice(activeLesson);
 
     // Render Tab a: Sections
     renderEditorSectionsList();
@@ -1705,7 +1899,7 @@
 
       card.innerHTML = `
         <div class="poster-thumbnail-wrap">
-          <div class="poster-seal-icon">SỬ</div>
+          <div class="poster-seal-icon">SV</div>
         </div>
         <div class="poster-body">
           <div class="poster-date">📅 ${lesson.date} · ${lesson.class || 'Lớp 11A1'}</div>
@@ -1900,13 +2094,26 @@
 
   function showSourceModal(source) {
     if (!source) return;
+    const sourceUrl = (() => {
+      try {
+        const parsed = new URL(source.url || '');
+        return parsed.protocol === 'https:' ? parsed.href : '';
+      } catch (error) { return ''; }
+    })();
+    const book = escapeHTML(source.book || source.title || 'Chính sử Việt Nam');
+    const chapter = escapeHTML(source.chapter || '');
+    const publisher = source.publisher ? `<div style="margin-bottom:12px;"><strong>Cơ quan / tác giả:</strong> ${escapeHTML(source.publisher)}</div>` : '';
+    const quote = escapeHTML(source.quote || '');
+    const note = escapeHTML(source.note || '');
     elements.sourceModalBody.innerHTML = `
-      <div style="margin-bottom:12px;"><strong>Bộ sách:</strong> ${source.book || 'Chính sử Việt Nam'}</div>
-      <div style="margin-bottom:12px;"><strong>Thiên / Quyển:</strong> ${source.chapter || ''}</div>
+      <div style="margin-bottom:12px;"><strong>Tài liệu:</strong> ${book}</div>
+      ${publisher}
+      <div style="margin-bottom:12px;"><strong>Thiên / Quyển / Năm:</strong> ${chapter}</div>
       <blockquote style="border-left: 3px solid var(--gold-bright); padding-left: 12px; margin-bottom: 14px; font-style: italic; color: var(--text-gold-bright);">
-        "${source.quote || ''}"
+        "${quote}"
       </blockquote>
-      <div style="font-size:0.85rem; color: var(--text-muted);">${source.note || ''}</div>
+      <div style="font-size:0.85rem; color: var(--text-muted);">${note}</div>
+      ${sourceUrl ? `<a href="${escapeHTML(sourceUrl)}" target="_blank" rel="noopener noreferrer">Mở tài liệu nguồn ↗</a>` : ''}
     `;
     elements.modalSource.classList.add('active');
   }
@@ -2358,33 +2565,8 @@
   }
 
   /* ==========================================================================
-     JSON IMPORT / EXPORT
+     Application startup
      ========================================================================== */
-  function openImportJsonModal() {
-    elements.textareaImportJson.value = '';
-    elements.importJsonError.style.display = 'none';
-    elements.modalImportJson.classList.add('active');
-  }
-
-  function handleImportJsonSubmit() {
-    const raw = elements.textareaImportJson.value.trim();
-    if (!raw) {
-      elements.importJsonError.textContent = 'Vui lòng dán chuỗi JSON hoặc tải tệp lên.';
-      elements.importJsonError.style.display = 'block';
-      return;
-    }
-
-    const res = window.LessonStorage.importJSON(raw);
-    if (res.success) {
-      alert(res.message);
-      elements.modalImportJson.classList.remove('active');
-      renderTeacherDashboard();
-    } else {
-      elements.importJsonError.textContent = res.message;
-      elements.importJsonError.style.display = 'block';
-    }
-  }
-
   // Start app
   document.addEventListener('DOMContentLoaded', init);
 })();
