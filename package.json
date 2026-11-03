@@ -1,0 +1,17 @@
+{
+  "name": "su-viet",
+  "private": true,
+  "description": "Sử Việt: 3D history lesson demo. frontend/ (static, Vercel) + backend/ (Cloudflare Worker).",
+  "scripts": {
+    "dev:frontend": "python3 -m http.server 8080 --directory frontend",
+    "dev:backend": "node backend/dev-server.js 8787",
+    "check": "bash scripts/check.sh",
+    "test:unit": "node --test tests/unit/ backend/test/",
+    "test:e2e": "playwright test",
+    "test": "npm run check && npm run test:unit && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1"
+  },
+  "engines": { "node": ">=18" }
+}

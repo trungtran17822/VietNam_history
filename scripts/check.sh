@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Static checks for the prototype (no build step or test suite exists).
+# Static checks for frontend/ and backend/ (unit and E2E tests: npm test).
 # Usage: bash scripts/check.sh   (run from anywhere)
 set -u
-cd "$(dirname "$0")/../prototype" || exit 1
+cd "$(dirname "$0")/../frontend" || exit 1
 
 fail=0
 err() { echo "FAIL: $*"; fail=1; }
@@ -28,6 +28,11 @@ for f in js/*.js; do
   name=$(basename "$f")
   [ "$name" = "scene3d.js" ] && continue
   grep -q "js/$name" index.html || err "$f is not loaded by index.html (add it, or delete it)"
+done
+
+# 5. Backend Worker sources (ES modules) must parse too.
+for f in ../backend/src/*.js ../backend/dev-server.js; do
+  node --check "$f" 2>&1 || err "syntax error in $f"
 done
 
 [ "$fail" -eq 0 ] && echo "OK: all checks passed"

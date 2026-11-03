@@ -22,3 +22,8 @@ build/
 
 # Vercel CLI local link / build output
 .vercel/
+
+# Test and tool output
+test-results/
+playwright-report/
+.wrangler/

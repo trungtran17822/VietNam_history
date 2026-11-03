@@ -3,6 +3,6 @@
   "framework": null,
   "installCommand": "",
   "buildCommand": "",
-  "outputDirectory": "prototype",
+  "outputDirectory": "frontend",
   "git": { "deploymentEnabled": false }
 }

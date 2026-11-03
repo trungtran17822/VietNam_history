@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sử Việt: học lịch sử Việt Nam qua sa bàn mô phỏng, thử phương án khác và so sánh cùng cả lớp.">
+  <meta name="theme-color" content="#244c40">
+  <link rel="icon" type="image/png" href="assets/logo/logo-transparent.png">
   <title>Sử Việt · Học lịch sử qua mô phỏng</title>
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/editorial.css">
   <link rel="stylesheet" href="css/redesign.css">
+  <link rel="stylesheet" href="css/classroom.css">
 </head>
 <body class="role-guest">
 
@@ -519,7 +523,7 @@
     <!-- Subtab 1: Key notes -->
     <div id="subtab-keynotes" class="student-subtab-pane active">
       <div class="paper-note-panel">
-        <h3>Các nội dung kiến thức cốt lõi</h3>
+        <h2 class="h3-size">Các nội dung kiến thức cốt lõi</h2>
         <ul id="student-keynotes-list" style="padding-left: 20px; line-height: 1.8; font-family: var(--font-serif); font-size: 1.05rem;">
           <!-- Populated by JS -->
         </ul>
@@ -575,7 +579,7 @@
       <h2 class="lesson-sub-title lesson-subtitle-text" style="font-size: 1rem; color: var(--text-secondary); font-weight: normal; margin-bottom: 16px;">Đại thắng mùa xuân Kỷ Dậu 1789</h2>
 
       <!-- Stepper of 6 Stages -->
-      <nav class="lesson-stepper">
+      <nav class="lesson-stepper" aria-label="Tiến trình 6 bước của bài học">
         <button class="step-node active" data-step="1" data-screen="screen-intro">
           <span class="step-num">1</span>
           <span class="step-name">Khởi động</span>
@@ -607,6 +611,8 @@
         </button>
       </nav>
     </section>
+
+    <div id="class-submit-toast" class="class-toast" role="status" hidden></div>
 
     <!-- SCREEN 1: Khởi động (Intro) -->
     <section id="screen-intro" class="screen-view active">
@@ -658,32 +664,37 @@
       </div>
     </section>
 
-    <!-- SCREEN 3: Câu hỏi của vua -->
+    <!-- SCREEN 3: Câu hỏi của vua (+ class session panel, F10) -->
     <section id="screen-question" class="screen-view" style="display: none;">
-      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
-        <!-- Character Speech Box -->
-        <div class="viet-border-card" style="padding: 24px; border-radius: 12px; display: flex; gap: 20px; align-items: center;">
-          <div style="width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--lacquer-red) 0%, #4a0c0e 100%); border: 2px solid var(--gold-bright); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; flex-shrink: 0;">
-            👑
+      <div class="question-layout">
+        <div class="question-main">
+          <div class="emperor-card viet-border-card">
+            <div class="emperor-avatar" aria-hidden="true">👑</div>
+            <div>
+              <h3 class="serif-title emperor-name">Hoàng đế Quang Trung</h3>
+              <p id="emperor-speech" class="emperor-speech">
+                "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc mờ sáng mùng 5 Tết, sáng tạo khiên rơm ướt phá tan hỏa khí và dùng 100 voi chiến mở toang cánh cửa Thăng Long. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 class="serif-title" style="color: var(--text-gold-bright); font-size: 1.25rem; margin-bottom: 4px;">Hoàng đế Quang Trung</h3>
-            <p style="font-size: 1rem; line-height: 1.6; color: var(--text-ivory);">
-              "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc mờ sáng mùng 5 Tết, sáng tạo khiên rơm ướt phá tan hỏa khí và dùng 100 voi chiến mở toang cánh cửa Thăng Long. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
-            </p>
+
+          <div id="variables-container" class="variables-list">
+            <!-- Populated by JS -->
+          </div>
+
+          <div id="question-empty-notice" class="stage-empty-notice" hidden>
+            <strong>Bài học này chưa có phần thử cách khác.</strong>
+            <p>Các biến số để học sinh đổi phương án đang được biên soạn. Em có thể quay lại xem diễn biến và nguồn tư liệu.</p>
+          </div>
+
+          <div class="question-actions">
+            <p id="class-submit-status" class="class-panel-status" role="status"></p>
+            <button id="btn-run-simulation" class="btn-action-primary btn-run-simulation">
+              Chạy mô phỏng phương án của em ➔
+            </button>
           </div>
         </div>
-
-        <!-- Tactical Variables Form -->
-        <div id="variables-container" style="display: flex; flex-direction: column; gap: 16px;">
-          <!-- Populated by JS -->
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-          <button id="btn-run-simulation" class="btn-action-primary" style="font-size: 1.05rem; padding: 12px 24px;">
-            🚀 Chạy mô phỏng phương án mới ➔
-          </button>
-        </div>
+        <aside id="class-panel" class="class-panel" aria-label="Phiên lớp" aria-live="polite" hidden></aside>
       </div>
     </section>
 
@@ -750,7 +761,7 @@
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">🛡️ Tổn thất ước tính:</span>
-                <div id="comp-orig-casualties" style="font-size: 1.25rem; font-weight: 700; color: #86efac;">1,800 binh sĩ</div>
+                <div id="comp-orig-casualties" style="font-size: 1.25rem; font-weight: 700; color: #2f6b47;">1,800 binh sĩ</div>
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">⭐ Điểm thế trận & Tinh thần:</span>
@@ -760,7 +771,7 @@
           </div>
 
           <div class="approach-column-card student">
-            <h3 class="serif-title" style="color: #38bdf8; margin-bottom: 12px;">Cách giả định của em</h3>
+            <h3 class="serif-title" style="color: var(--muted-indigo); margin-bottom: 12px;">Cách giả định của em</h3>
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ Thời gian chiến dịch:</span>
@@ -768,13 +779,13 @@
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">🛡️ Tổn thất ước tính:</span>
-                <div id="comp-cust-casualties" style="font-size: 1.25rem; font-weight: 700; color: #fca5a5;">-- binh sĩ</div>
+                <div id="comp-cust-casualties" style="font-size: 1.25rem; font-weight: 700; color: #9d3026;">-- binh sĩ</div>
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">⭐ Điểm thế trận & Tinh thần:</span>
-                <div id="comp-cust-score" style="font-size: 1.25rem; font-weight: 700; color: #38bdf8;">-- / 100</div>
+                <div id="comp-cust-score" style="font-size: 1.25rem; font-weight: 700; color: var(--muted-indigo);">-- / 100</div>
               </div>
-              <div id="comp-cust-outcome-summary" style="font-size: 0.95rem; color: #93c5fd; margin-top: 8px; line-height: 1.5;">
+              <div id="comp-cust-outcome-summary" style="font-size: 0.95rem; color: var(--muted-indigo); margin-top: 8px; line-height: 1.5;">
                 <!-- Summary -->
               </div>
             </div>
@@ -805,6 +816,7 @@
         <div id="explanation-closing-text" style="background: rgba(217, 119, 6, 0.1); border-left: 3px solid var(--gold-bright); padding: 14px 18px; border-radius: 4px; font-size: 0.98rem; color: var(--text-gold-bright); margin-bottom: 24px;">
           <!-- Closing -->
         </div>
+        <section id="class-survey" class="class-survey" aria-label="Khảo sát ẩn danh" hidden></section>
         <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
           <button id="btn-try-another-tactics" class="btn-action-secondary">🔄 Thử phương án chiến thuật khác</button>
           <button id="btn-finish-6stages" class="btn-action-primary">✅ Hoàn thành & Trở về bài giảng</button>
@@ -937,6 +949,9 @@
   <script src="js/storage.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/scene-map.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/class-session.js"></script>
+  <script src="js/class-panel.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

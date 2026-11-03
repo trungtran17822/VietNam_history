@@ -1075,7 +1075,7 @@ a:hover {
   position: relative;
 }
 
-.paper-note-panel h3 {
+.paper-note-panel h3, .paper-note-panel h2 {
   color: #5c181a;
   font-family: var(--font-serif);
   margin-bottom: 8px;

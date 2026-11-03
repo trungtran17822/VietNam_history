@@ -317,6 +317,7 @@
    * Switch between app views
    */
   function showView(viewId) {
+    if (viewId !== 'view-lesson-detail') teardown6StageLoop();
     document.querySelectorAll('.app-view').forEach((v) => {
       v.classList.remove('active');
     });
@@ -564,12 +565,16 @@
     });
 
     elements.btnBackFrom6stages.addEventListener('click', () => {
-      showView('view-student-viewer');
+      if (activeLesson) navigateToLesson(activeLesson.id);
+    });
+
+    document.querySelectorAll('.lesson-stepper .step-node').forEach((node) => {
+      node.addEventListener('click', () => goTo6StageScreen(Number(node.dataset.step)));
     });
 
     elements.btnStart6stages.addEventListener('click', () => goTo6StageScreen(2));
     elements.btnGotoQuestion.addEventListener('click', () => goTo6StageScreen(3));
-    elements.btnRunSimulation.addEventListener('click', () => goTo6StageScreen(4));
+    elements.btnRunSimulation.addEventListener('click', handleRunSimulation);
     elements.btnGotoComparison.addEventListener('click', () => goTo6StageScreen(5));
     elements.btnGotoExplanation.addEventListener('click', () => goTo6StageScreen(6));
     elements.btnTryAnotherTactics.addEventListener('click', () => goTo6StageScreen(3));
@@ -694,7 +699,7 @@
         window.location.replace(`#/lesson/${encodeURIComponent(lessonId)}`);
         return;
       }
-      if (subAction === 'interactive' && activeRole === 'student') {
+      if (subAction === 'interactive') {
         launch6StagesLoop(lesson);
       } else {
         isStudentPreview = false;
@@ -909,7 +914,7 @@
       empty: ['Thêm đường dẫn nguồn để kiểm tra mức độ nhận diện.', 'neutral'],
       invalid: ['Đường dẫn chưa hợp lệ. Hãy nhập một URL HTTPS đầy đủ.', 'warning'],
       'https-required': ['Chỉ nhận đường dẫn HTTPS. Nguồn vẫn cần được đối chiếu trực tiếp.', 'warning'],
-      'catalog-match': [`Khớp danh mục tham khảo chính thống: ${result.source.title}. Điều này xác nhận liên kết, không xác minh nội dung trích dẫn.`, 'recognized'],
+      'catalog-match': [`Khớp danh mục tham khảo chính thống: ${result.source?.title}. Điều này xác nhận liên kết, không xác minh nội dung trích dẫn.`, 'recognized'],
       'official-domain': [`Miền ${result.host} thuộc một cơ quan trong danh mục. Trang cụ thể và nội dung cần được đối chiếu trực tiếp.`, 'review'],
       unlisted: [`Miền ${result.host} chưa có trong danh mục tham khảo. Nguồn sẽ được giữ ở trạng thái chờ kiểm duyệt.`, 'warning']
     };
@@ -1623,7 +1628,7 @@
     if (tab === 'questions') {
       return questions.length ? `<div class="workspace-card-list">${questions.map((question, index) => `<article class="workspace-info-card"><span class="chapter-time-tag">CÂU ${index + 1}</span><h3>${escapeHTML(question.text || 'Câu hỏi')}</h3>${question.options && question.options.length ? `<ul>${question.options.map((option) => `<li>${escapeHTML(option.text)}</li>`).join('')}</ul>` : ''}</article>`).join('')}</div>` : '<div class="workspace-empty">Bài học chưa có câu hỏi.</div>';
     }
-    if (tab === 'simulation') return `<div class="workspace-info-card"><h3>${teacher && !preview ? 'Sa bàn 3D tương tác' : 'Mô phỏng của em'}</h3><p>${escapeHTML(lesson.simulationDisclaimer || 'Khám phá diễn biến bằng các góc nhìn và mốc thời gian.')}</p>${teacher && !preview ? '<button class="btn-action-secondary" type="button" data-focus-player>Đi tới mô phỏng 3D</button>' : '<button class="btn-action-primary" type="button" data-start-interactive>🚀 Bắt đầu mô phỏng tương tác</button>'}</div>`;
+    if (tab === 'simulation') return `<div class="workspace-info-card"><h3>${teacher && !preview ? 'Sa bàn 3D tương tác' : 'Mô phỏng của em'}</h3><p>${escapeHTML(lesson.simulationDisclaimer || 'Khám phá diễn biến bằng các góc nhìn và mốc thời gian.')}</p>${teacher && !preview ? '<div class="workspace-actions"><button class="btn-action-primary" type="button" data-start-interactive>Bắt đầu tiến trình 6 bước trên lớp</button><button class="btn-action-secondary" type="button" data-focus-player>Đi tới mô phỏng 3D</button></div>' : '<button class="btn-action-primary" type="button" data-start-interactive>🚀 Bắt đầu mô phỏng tương tác</button>'}</div>`;
     if (tab === 'notes' && teacher && !preview) return `<div class="workspace-info-card teacher-notes-card"><h3>Ghi chú giảng dạy · Nội bộ</h3><textarea class="form-input workspace-notes-input" rows="8" aria-label="Ghi chú giảng dạy">${escapeHTML(lesson.privateNotes || '')}</textarea><p class="workspace-hint">Ghi chú này chỉ hiển thị cho giáo viên.</p></div>`;
     if (tab === 'keynotes' || tab === 'notes') {
       const notes = Array.isArray(lesson.keyNotes) ? lesson.keyNotes : [];
@@ -2265,23 +2270,71 @@
     studentTacticalChoices = {};
     if (lesson.question && lesson.question.variables) {
       lesson.question.variables.forEach((v) => {
-        studentTacticalChoices[v.id] = v.options[0].id;
+        const original = (v.options || []).find((o) => o.isOriginal) || v.options[0];
+        if (original) studentTacticalChoices[v.id] = original.id;
       });
     }
 
+    const speech = lesson.question && lesson.question.character && lesson.question.character.speech;
+    if (speech) document.getElementById('emperor-speech').textContent = `"${speech}"`;
+    window.ClassPanel.markLessonStart();
     renderVariablesQuestionForm(lesson);
-    goTo6StageScreen(1);
     showView('view-lesson-detail');
+    goTo6StageScreen(1);
+  }
+
+  function lessonHasVariables(lesson) {
+    return Boolean(lesson && lesson.question && Array.isArray(lesson.question.variables) && lesson.question.variables.length);
+  }
+
+  function teardown6StageLoop() {
+    if (window.ClassPanel) window.ClassPanel.unmount();
+    if (originalStageSceneInstance) originalStageSceneInstance.destroy();
+    if (customStageSceneInstance) customStageSceneInstance.destroy();
+    originalStageSceneInstance = null;
+    customStageSceneInstance = null;
+  }
+
+  async function handleRunSimulation() {
+    if (!lessonHasVariables(activeLesson)) return;
+    const status = document.getElementById('class-submit-status');
+    const lesson = activeLesson;
+    const choices = { ...studentTacticalChoices };
+    goTo6StageScreen(4);
+    if (status) status.textContent = '';
+    const result = await window.ClassPanel.submitChoices(lesson, choices);
+    if (status && activeLesson === lesson) {
+      status.textContent = result.text;
+      status.dataset.tone = result.tone || '';
+    }
+    const toast = document.getElementById('class-submit-toast');
+    if (toast && result.text) {
+      toast.textContent = result.text;
+      toast.dataset.tone = result.tone || '';
+      toast.hidden = false;
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => { toast.hidden = true; }, 5000);
+    }
   }
 
   function goTo6StageScreen(stepIndex) {
+    // Without variables there is nothing to simulate: stage 3 explains, 4-6 are unreachable.
+    if (stepIndex > 3 && !lessonHasVariables(activeLesson)) stepIndex = 3;
     current6StageIndex = stepIndex;
 
     // Update Stepper UI
     document.querySelectorAll('.lesson-stepper .step-node').forEach((node) => {
       const idx = parseInt(node.getAttribute('data-step'), 10);
       node.classList.toggle('active', idx === stepIndex);
+      node.classList.toggle('complete', idx < stepIndex);
+      if (idx === stepIndex) node.setAttribute('aria-current', 'step');
+      else node.removeAttribute('aria-current');
+      node.disabled = idx > 3 && !lessonHasVariables(activeLesson);
     });
+    const activeNode = document.querySelector(`.lesson-stepper .step-node[data-step="${stepIndex}"]`);
+    if (activeNode && activeNode.scrollIntoView) activeNode.scrollIntoView({ block: 'nearest', inline: 'center' });
+
+    if (stepIndex !== 3) window.ClassPanel.unmount();
 
     // Hide all stage screens
     document.querySelectorAll('#view-lesson-detail .screen-view').forEach((s) => {
@@ -2308,13 +2361,20 @@
     // Screen specific logic
     if (stepIndex === 2) {
       mountOriginalStageScene();
+    } else if (stepIndex === 3) {
+      window.ClassPanel.mountQuestionPanel(document.getElementById('class-panel'), activeLesson, activeRole);
     } else if (stepIndex === 4) {
       mountCustomStageScene();
     } else if (stepIndex === 5) {
       computeAndRenderComparison();
     } else if (stepIndex === 6) {
       renderExplanationSummary();
+      window.ClassPanel.mountSurvey(document.getElementById('class-survey'), activeLesson, activeRole);
     }
+
+    // Bring the new stage into view; on the comparison stage the simulation notice comes first (FR-007).
+    const anchor = stepIndex === 5 ? document.querySelector('#screen-comparison .prominent-simulation-banner') : document.querySelector('#view-lesson-detail .lesson-stepper');
+    if (anchor && anchor.scrollIntoView) anchor.scrollIntoView({ block: 'start' });
   }
 
   function mountOriginalStageScene() {
@@ -2405,26 +2465,27 @@
 
     const q = lesson.question || {};
     const vars = q.variables || [];
+    const hasVars = vars.length > 0;
+    document.getElementById('question-empty-notice').hidden = hasVars;
+    elements.btnRunSimulation.hidden = !hasVars;
 
-    vars.forEach((v) => {
-      const vBox = document.createElement('div');
-      vBox.className = 'viet-border-card';
-      vBox.style.padding = '18px 20px';
-      vBox.style.borderRadius = '8px';
-
-      vBox.innerHTML = `
-        <h4 class="serif-title" style="color:var(--text-gold-bright); margin-bottom:6px;">${v.title}</h4>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">${v.description || ''}</p>
-        <div style="display:flex; flex-direction:column; gap:8px;">
+    vars.forEach((v, vIndex) => {
+      const box = document.createElement('fieldset');
+      box.className = 'variable-card';
+      box.innerHTML = `
+        <legend class="variable-title"><span class="variable-index">${vIndex + 1}</span>${escapeHTML(String(v.title || '').replace(/^\d+\.\s*/, ''))}</legend>
+        ${v.description ? `<p class="variable-desc">${escapeHTML(v.description)}</p>` : ''}
+        <div class="variable-options">
           ${(v.options || [])
             .map(
-              (opt, idx) => `
-            <label style="display:flex; align-items:flex-start; gap:10px; background:var(--bg-dark-input); padding:10px 14px; border-radius:6px; cursor:pointer;">
-              <input type="radio" name="var-${v.id}" value="${opt.id}" ${idx === 0 ? 'checked' : ''} style="margin-top:4px;" class="var-choice-radio">
-              <div>
-                <strong style="color:var(--text-ivory); font-size:0.95rem;">${opt.name}</strong>
-                <p style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">${opt.desc || ''}</p>
-              </div>
+              (opt) => `
+            <label class="variable-option${opt.isOriginal ? ' is-original' : ''}">
+              <input type="radio" name="var-${escapeHTML(v.id)}" value="${escapeHTML(opt.id)}" ${studentTacticalChoices[v.id] === opt.id ? 'checked' : ''} class="var-choice-radio">
+              <span class="variable-option-body">
+                <strong>${escapeHTML(opt.name)}</strong>
+                ${opt.isOriginal ? '<span class="original-badge">Cách của nghĩa quân Tây Sơn</span>' : ''}
+                ${opt.desc ? `<span class="variable-option-desc">${escapeHTML(opt.desc)}</span>` : ''}
+              </span>
             </label>
           `
             )
@@ -2432,13 +2493,13 @@
         </div>
       `;
 
-      vBox.querySelectorAll('.var-choice-radio').forEach((radio) => {
+      box.querySelectorAll('.var-choice-radio').forEach((radio) => {
         radio.addEventListener('change', (e) => {
           studentTacticalChoices[v.id] = e.target.value;
         });
       });
 
-      container.appendChild(vBox);
+      container.appendChild(box);
     });
   }
 
@@ -2511,11 +2572,11 @@
     window.LessonStorage.saveStudentRun(activeLesson.id, result);
 
     document.getElementById('comp-orig-duration').textContent = `${result.original.durationHours} giờ (~1.5 ngày)`;
-    document.getElementById('comp-orig-casualties').textContent = `${result.original.casualties.toLocaleString()} binh sĩ`;
+    document.getElementById('comp-orig-casualties').textContent = `${result.original.casualties.toLocaleString('vi-VN')} binh sĩ`;
     document.getElementById('comp-orig-score').textContent = `${result.original.positionScore} / 100`;
 
     document.getElementById('comp-cust-duration').textContent = `${result.student.durationHours} giờ`;
-    document.getElementById('comp-cust-casualties').textContent = `${result.student.casualties.toLocaleString()} binh sĩ`;
+    document.getElementById('comp-cust-casualties').textContent = `${result.student.casualties.toLocaleString('vi-VN')} binh sĩ`;
     document.getElementById('comp-cust-score').textContent = `${result.student.positionScore} / 100`;
     document.getElementById('comp-cust-outcome-summary').textContent = result.student.outcomeSummary;
 
