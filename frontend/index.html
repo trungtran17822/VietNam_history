@@ -3,13 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kế hoạch Bài dạy Lịch sử 3D · Đại thắng Kỷ Dậu 1789</title>
+  <meta name="description" content="Sử Việt: học lịch sử Việt Nam qua sa bàn mô phỏng, thử phương án khác và so sánh cùng cả lớp.">
+  <meta name="theme-color" content="#244c40">
+  <link rel="icon" type="image/png" href="assets/logo/logo-transparent.png">
+  <title>Sử Việt · Học lịch sử qua mô phỏng</title>
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/editorial.css">
+  <link rel="stylesheet" href="css/redesign.css">
+  <link rel="stylesheet" href="css/classroom.css">
 </head>
 <body class="role-guest">
+
+  <div class="heritage-watermark" aria-hidden="true">
+    <img class="watermark-flag" src="assets/vietnam-flag-art.svg" alt="">
+    <img src="assets/bronze-drum.svg" alt="">
+  </div>
 
   <!-- ==========================================================================
        APP HEADER: School Lesson Planner Header & Global Controls
@@ -17,9 +27,9 @@
   <header class="app-header" id="main-header" style="display: none;">
     <div class="header-left">
       <div class="brand-badge" id="btn-nav-brand">
-        <div class="brand-seal">SỬ</div>
+        <div class="brand-seal"><img src="assets/logo/logo-transparent.png" alt="Sử Việt"></div>
         <div class="brand-text">
-          <div class="brand-title">Mô Phỏng Lịch Sử 3D</div>
+          <div class="brand-title">Sử Việt</div>
           <div class="brand-subtitle" id="header-school-subtitle">Kế hoạch Giảng dạy · Bộ môn Lịch sử</div>
         </div>
       </div>
@@ -68,44 +78,35 @@
        ========================================================================== -->
   <main id="view-login" class="app-view active">
     <div class="login-view-wrapper">
-      <div class="login-card viet-border-card">
-        <div class="login-seal">
-          <span>SỬ</span>
-        </div>
-        <h1 class="login-title">Hệ Thống Mô Phỏng Lịch Sử 3D</h1>
-        <p class="login-subtitle">Kế hoạch Giảng dạy & Không gian Học tập Tương tác</p>
-
-        <!-- Role Tabs -->
-        <div class="login-role-tabs">
-          <button type="button" id="tab-login-teacher" class="btn-login-role active">Giáo viên</button>
-          <button type="button" id="tab-login-student" class="btn-login-role">Học sinh</button>
-        </div>
-
-        <form id="form-login" class="login-form">
-          <div id="login-error" class="login-error-msg"></div>
-
-          <div class="form-group">
-            <label for="input-username">Tên đăng nhập</label>
-            <input type="text" id="input-username" class="form-input" value="admin" placeholder="Nhập tên đăng nhập" required autocomplete="username">
+      <section class="login-card viet-border-card" aria-label="Đăng nhập">
+        <div class="login-story-panel">
+          <div class="login-brandline"><img class="login-brand-logo" src="assets/logo/logo-transparent.png" alt=""><span>Sử Việt</span></div>
+          <div class="login-story-copy">
+            <p class="login-kicker">HỌC TỪ QUÁ KHỨ · KIẾN TẠO TƯƠNG LAI</p>
+            <h1 class="login-title">Mỗi trang sử,<br>một hành trình.</h1>
+            <p class="login-subtitle">Khám phá lịch sử Việt Nam qua những bài học tương tác và mô phỏng 3D sống động.</p>
           </div>
-
-          <div class="form-group">
-            <label for="input-password">Mật khẩu</label>
-            <input type="password" id="input-password" class="form-input" value="123" placeholder="Nhập mật khẩu" required autocomplete="current-password">
+          <div class="login-art-stage" aria-hidden="true">
+            <figure class="login-art-drum"><img src="assets/bronze-drum.svg" alt=""><figcaption>ĐÔNG SƠN <span>•</span> 2.000 NĂM DI SẢN</figcaption></figure>
+            <figure class="login-art-flag"><img src="assets/vietnam-flag-art.svg" alt=""><figcaption>VIỆT NAM</figcaption></figure>
           </div>
-
-          <button type="submit" id="btn-submit-login" class="btn-login-submit">
-            Đăng nhập vào hệ thống
-          </button>
-        </form>
-
-        <div class="login-demo-hints">
-          <div>💡 <strong>Tài khoản demo:</strong> admin / 123 (cho cả 2 vai trò)</div>
-          <div style="margin-top: 4px; font-size: 0.78rem; color: #a89f91;">
-            📌 <em>Phiên bản thử nghiệm, chưa có bảo mật thật. Dữ liệu lưu trữ cục bộ trên trình duyệt.</em>
-          </div>
+          <div class="login-heritage-caption"><span class="caption-dot"></span> Tái hiện · Khám phá · Ghi nhớ</div>
         </div>
-      </div>
+        <div class="login-form-panel">
+          <div class="login-form-heading"><p class="login-kicker">KHÔNG GIAN HỌC TẬP</p><h2>Chào mừng trở lại</h2><p>Đăng nhập để tiếp tục hành trình của bạn.</p></div>
+          <div class="login-role-tabs" aria-label="Chọn vai trò">
+            <button type="button" id="tab-login-teacher" class="btn-login-role active">Giáo viên</button>
+            <button type="button" id="tab-login-student" class="btn-login-role">Học sinh</button>
+          </div>
+          <form id="form-login" class="login-form">
+            <div id="login-error" class="login-error-msg"></div>
+            <div class="form-group"><label for="input-username">Tên đăng nhập</label><input type="text" id="input-username" class="form-input" value="admin" placeholder="Nhập tên đăng nhập" required autocomplete="username"></div>
+            <div class="form-group"><label for="input-password">Mật khẩu</label><input type="password" id="input-password" class="form-input" value="123" placeholder="Nhập mật khẩu" required autocomplete="current-password"></div>
+            <button type="submit" id="btn-submit-login" class="btn-login-submit">Đăng nhập <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="login-demo-hints"><strong>Tài khoản trải nghiệm</strong><span>admin / 123 · Dùng cho cả hai vai trò</span><small>Phiên bản thử nghiệm · Dữ liệu được lưu trên trình duyệt này.</small></div>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -115,19 +116,17 @@
   <main id="view-teacher-dashboard" class="app-view">
     <div class="dashboard-hero-card">
       <div class="hero-left">
+        <p class="hero-kicker"><span></span> KHÔNG GIAN GIẢNG DẠY</p>
         <h1>Quản lý Kế hoạch Bài dạy</h1>
         <p>Danh sách bài giảng lịch sử, quản lý tiến trình soạn thảo và phát hành cho học sinh</p>
       </div>
       <div class="hero-actions">
-        <button id="btn-export-json" class="btn-action-secondary" title="Xuất toàn bộ bài giảng thành file JSON">
-          <span>📤 Xuất JSON</span>
-        </button>
-        <button id="btn-import-json" class="btn-action-secondary" title="Nhập danh sách bài giảng từ file JSON">
-          <span>📥 Nhập JSON</span>
-        </button>
-        <button id="btn-create-lesson" class="btn-action-primary">
-          <span>➕ Thêm bài giảng mới</span>
-        </button>
+        <section class="source-intake-prompt" aria-label="Thêm nội dung bài học">
+          <span class="intake-prompt-mark" aria-hidden="true">✦</span>
+          <div class="intake-prompt-copy"><strong>Nội dung mới cho một bài học</strong><small>Thêm tư liệu và nguồn để chuẩn bị biên tập</small></div>
+          <button id="btn-open-content-intake" type="button" class="btn-action-primary">Bắt đầu <span aria-hidden="true">→</span></button>
+        </section>
+        <button id="btn-create-lesson" type="button" class="btn-action-secondary"><span>＋ Bài giảng trống</span></button>
       </div>
     </div>
 
@@ -186,6 +185,12 @@
         </button>
       </div>
     </div>
+
+    <aside id="source-review-notice" class="source-review-notice" role="status" hidden>
+      <div class="source-review-symbol" aria-hidden="true">◈</div>
+      <div class="source-review-copy"><strong id="source-review-heading">Nguồn đang chờ đối chiếu</strong><p id="source-review-info"></p><a id="source-review-link" target="_blank" rel="noopener noreferrer">Mở nguồn tham khảo ↗</a></div>
+      <button id="btn-mark-source-reviewed" type="button" class="btn-action-secondary">Tôi đã đối chiếu nguồn</button>
+    </aside>
 
     <!-- 4 Tabs Navigation -->
     <div class="editor-nav-tabs">
@@ -413,6 +418,7 @@
        ========================================================================== -->
   <main id="view-student-dashboard" class="app-view">
     <div class="student-hero-banner">
+      <p class="hero-kicker"><span></span> KHÔNG GIAN KHÁM PHÁ</p>
       <h1>Không Gian Học Tập Lịch Sử 3D</h1>
       <p>Khám phá lại các bài học đã giảng dạy qua sa bàn 3D tương tác, ôn tập ghi chú cốt lõi và thử nghiệm các quyết định chiến thuật lịch sử.</p>
     </div>
@@ -517,7 +523,7 @@
     <!-- Subtab 1: Key notes -->
     <div id="subtab-keynotes" class="student-subtab-pane active">
       <div class="paper-note-panel">
-        <h3>Các nội dung kiến thức cốt lõi</h3>
+        <h2 class="h3-size">Các nội dung kiến thức cốt lõi</h2>
         <ul id="student-keynotes-list" style="padding-left: 20px; line-height: 1.8; font-family: var(--font-serif); font-size: 1.05rem;">
           <!-- Populated by JS -->
         </ul>
@@ -573,7 +579,7 @@
       <h2 class="lesson-sub-title lesson-subtitle-text" style="font-size: 1rem; color: var(--text-secondary); font-weight: normal; margin-bottom: 16px;">Đại thắng mùa xuân Kỷ Dậu 1789</h2>
 
       <!-- Stepper of 6 Stages -->
-      <nav class="lesson-stepper">
+      <nav class="lesson-stepper" aria-label="Tiến trình 6 bước của bài học">
         <button class="step-node active" data-step="1" data-screen="screen-intro">
           <span class="step-num">1</span>
           <span class="step-name">Khởi động</span>
@@ -605,6 +611,8 @@
         </button>
       </nav>
     </section>
+
+    <div id="class-submit-toast" class="class-toast" role="status" hidden></div>
 
     <!-- SCREEN 1: Khởi động (Intro) -->
     <section id="screen-intro" class="screen-view active">
@@ -656,32 +664,37 @@
       </div>
     </section>
 
-    <!-- SCREEN 3: Câu hỏi của vua -->
+    <!-- SCREEN 3: Câu hỏi của vua (+ class session panel, F10) -->
     <section id="screen-question" class="screen-view" style="display: none;">
-      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
-        <!-- Character Speech Box -->
-        <div class="viet-border-card" style="padding: 24px; border-radius: 12px; display: flex; gap: 20px; align-items: center;">
-          <div style="width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--lacquer-red) 0%, #4a0c0e 100%); border: 2px solid var(--gold-bright); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; flex-shrink: 0;">
-            👑
+      <div class="question-layout">
+        <div class="question-main">
+          <div class="emperor-card viet-border-card">
+            <div class="emperor-avatar" aria-hidden="true">👑</div>
+            <div>
+              <h3 class="serif-title emperor-name">Hoàng đế Quang Trung</h3>
+              <p id="emperor-speech" class="emperor-speech">
+                "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc mờ sáng mùng 5 Tết, sáng tạo khiên rơm ướt phá tan hỏa khí và dùng 100 voi chiến mở toang cánh cửa Thăng Long. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 class="serif-title" style="color: var(--text-gold-bright); font-size: 1.25rem; margin-bottom: 4px;">Hoàng đế Quang Trung</h3>
-            <p style="font-size: 1rem; line-height: 1.6; color: var(--text-ivory);">
-              "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc mờ sáng mùng 5 Tết, sáng tạo khiên rơm ướt phá tan hỏa khí và dùng 100 voi chiến mở toang cánh cửa Thăng Long. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
-            </p>
+
+          <div id="variables-container" class="variables-list">
+            <!-- Populated by JS -->
+          </div>
+
+          <div id="question-empty-notice" class="stage-empty-notice" hidden>
+            <strong>Bài học này chưa có phần thử cách khác.</strong>
+            <p>Các biến số để học sinh đổi phương án đang được biên soạn. Em có thể quay lại xem diễn biến và nguồn tư liệu.</p>
+          </div>
+
+          <div class="question-actions">
+            <p id="class-submit-status" class="class-panel-status" role="status"></p>
+            <button id="btn-run-simulation" class="btn-action-primary btn-run-simulation">
+              Chạy mô phỏng phương án của em ➔
+            </button>
           </div>
         </div>
-
-        <!-- Tactical Variables Form -->
-        <div id="variables-container" style="display: flex; flex-direction: column; gap: 16px;">
-          <!-- Populated by JS -->
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-          <button id="btn-run-simulation" class="btn-action-primary" style="font-size: 1.05rem; padding: 12px 24px;">
-            🚀 Chạy mô phỏng phương án mới ➔
-          </button>
-        </div>
+        <aside id="class-panel" class="class-panel" aria-label="Phiên lớp" aria-live="polite" hidden></aside>
       </div>
     </section>
 
@@ -748,7 +761,7 @@
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">🛡️ Tổn thất ước tính:</span>
-                <div id="comp-orig-casualties" style="font-size: 1.25rem; font-weight: 700; color: #86efac;">1,800 binh sĩ</div>
+                <div id="comp-orig-casualties" style="font-size: 1.25rem; font-weight: 700; color: #2f6b47;">1,800 binh sĩ</div>
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">⭐ Điểm thế trận & Tinh thần:</span>
@@ -758,7 +771,7 @@
           </div>
 
           <div class="approach-column-card student">
-            <h3 class="serif-title" style="color: #38bdf8; margin-bottom: 12px;">Cách giả định của em</h3>
+            <h3 class="serif-title" style="color: var(--muted-indigo); margin-bottom: 12px;">Cách giả định của em</h3>
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ Thời gian chiến dịch:</span>
@@ -766,13 +779,13 @@
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">🛡️ Tổn thất ước tính:</span>
-                <div id="comp-cust-casualties" style="font-size: 1.25rem; font-weight: 700; color: #fca5a5;">-- binh sĩ</div>
+                <div id="comp-cust-casualties" style="font-size: 1.25rem; font-weight: 700; color: #9d3026;">-- binh sĩ</div>
               </div>
               <div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">⭐ Điểm thế trận & Tinh thần:</span>
-                <div id="comp-cust-score" style="font-size: 1.25rem; font-weight: 700; color: #38bdf8;">-- / 100</div>
+                <div id="comp-cust-score" style="font-size: 1.25rem; font-weight: 700; color: var(--muted-indigo);">-- / 100</div>
               </div>
-              <div id="comp-cust-outcome-summary" style="font-size: 0.95rem; color: #93c5fd; margin-top: 8px; line-height: 1.5;">
+              <div id="comp-cust-outcome-summary" style="font-size: 0.95rem; color: var(--muted-indigo); margin-top: 8px; line-height: 1.5;">
                 <!-- Summary -->
               </div>
             </div>
@@ -803,6 +816,7 @@
         <div id="explanation-closing-text" style="background: rgba(217, 119, 6, 0.1); border-left: 3px solid var(--gold-bright); padding: 14px 18px; border-radius: 4px; font-size: 0.98rem; color: var(--text-gold-bright); margin-bottom: 24px;">
           <!-- Closing -->
         </div>
+        <section id="class-survey" class="class-survey" aria-label="Khảo sát ẩn danh" hidden></section>
         <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
           <button id="btn-try-another-tactics" class="btn-action-secondary">🔄 Thử phương án chiến thuật khác</button>
           <button id="btn-finish-6stages" class="btn-action-primary">✅ Hoàn thành & Trở về bài giảng</button>
@@ -828,8 +842,8 @@
   </main>
 
   <div id="cinematic-transition" class="cinematic-transition" aria-hidden="true">
-    <div class="transition-seal">SỬ</div>
-    <p class="transition-kicker">MÔ PHỎNG LỊCH SỬ 3D</p>
+    <div class="transition-seal"><img src="assets/logo/logo-transparent.png" alt="Sử Việt"></div>
+    <p class="transition-kicker">SỬ VIỆT</p>
     <h2 id="transition-title">Một hành trình lịch sử bắt đầu</h2>
     <span class="transition-rule"></span>
     <button type="button" id="btn-skip-transition">Bỏ qua · Đi đến bài học</button>
@@ -887,26 +901,42 @@
     </div>
   </div>
 
-  <!-- Modal: Import JSON -->
-  <div id="modal-import-json" class="modal-overlay">
-    <div class="modal-dialog">
+  <!-- Modal: New lesson content and source intake -->
+  <div id="modal-content-intake" class="modal-overlay" aria-hidden="true">
+    <section class="modal-dialog content-intake-dialog" role="dialog" aria-modal="true" aria-labelledby="content-intake-title">
       <div class="modal-header">
-        <h4>📥 Nhập Dữ Liệu Bài Giảng từ JSON</h4>
-        <button class="btn-close-modal" data-close="modal-import-json">&times;</button>
+        <div><span class="intake-modal-kicker">TẠO BẢN NHÁP TỪ TƯ LIỆU</span><h2 id="content-intake-title">Thêm nội dung & nguồn sử liệu</h2></div>
+        <button type="button" class="btn-close-modal" data-close="modal-content-intake" aria-label="Đóng">&times;</button>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px;">
-        <p style="font-size: 0.88rem; color: var(--text-muted);">
-          Dán nội dung JSON hoặc chọn tệp .json từ máy tính của bạn để đồng bộ danh sách bài giảng.
-        </p>
-        <input type="file" id="file-input-json" accept=".json" style="color: var(--text-secondary);">
-        <textarea id="textarea-import-json" class="form-input" style="min-height: 180px; font-family: monospace; font-size: 0.82rem;" placeholder="Dán chuỗi JSON vào đây..."></textarea>
-        <div id="import-json-error" style="color: #f87171; font-size: 0.85rem; display: none;"></div>
-        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <button class="btn-action-secondary" data-close="modal-import-json">Hủy</button>
-          <button id="btn-submit-import-json" class="btn-action-primary">Tiến hành Nhập</button>
+      <div class="content-intake-body">
+        <div class="official-source-policy">
+          <span class="policy-icon" aria-hidden="true">✓</span>
+          <div><strong>Đối chiếu với nguồn chính thống</strong><p>Hệ thống nhận diện liên kết trong danh mục tham khảo chính thức. Nội dung lịch sử vẫn cần đối chiếu trực tiếp trước khi phát hành.</p>
+            <nav class="official-source-links" aria-label="Danh mục nguồn chính thống">
+              <a href="https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1483/vbhn-chuong-trinh-mon-lich-su.pdf" target="_blank" rel="noopener noreferrer">Chương trình môn Lịch sử · Bộ GD&amp;ĐT</a>
+              <a href="https://baotanglichsu.vn/vi/Articles/1001/73637/bao-vat-quoc-gia-trong-ngoc-lu.html" target="_blank" rel="noopener noreferrer">Trống Ngọc Lũ · Bảo tàng Lịch sử Quốc gia</a>
+              <a href="https://mofa.gov.vn/lich-su1" target="_blank" rel="noopener noreferrer">Khái quát lịch sử · Bộ Ngoại giao</a>
+            </nav>
+          </div>
         </div>
+        <div id="source-intake-status" class="source-intake-status" aria-live="polite">Thêm đường dẫn nguồn để kiểm tra mức độ nhận diện.</div>
+        <form id="form-content-intake" class="content-intake-form">
+          <div class="form-group"><label for="intake-lesson-title">Tên bài học</label><input id="intake-lesson-title" class="form-input" required maxlength="140" placeholder="Ví dụ: Chiến thắng Ngọc Hồi – Đống Đa"></div>
+          <div class="form-group"><label for="intake-lesson-content">Nội dung cần biên tập</label><textarea id="intake-lesson-content" class="form-input" required maxlength="12000" placeholder="Dán ghi chú, đoạn tư liệu hoặc nội dung muốn phát triển thành bài học..."></textarea></div>
+          <div class="content-source-fields">
+            <div class="form-group"><label for="intake-source-title">Tên tài liệu / nguồn</label><input id="intake-source-title" class="form-input" required maxlength="180" placeholder="Tên sách, văn bản, hiện vật..."></div>
+            <div class="form-group"><label for="intake-source-publisher">Cơ quan / tác giả</label><input id="intake-source-publisher" class="form-input" required maxlength="180" placeholder="Ví dụ: Bộ Giáo dục và Đào tạo"></div>
+            <div class="form-group"><label for="intake-source-url">Liên kết nguồn</label><input id="intake-source-url" type="url" class="form-input" required placeholder="https://..."></div>
+            <div class="form-group"><label for="intake-source-year">Năm xuất bản (nếu có)</label><input id="intake-source-year" type="number" class="form-input" min="-3000" max="2100" placeholder="2024"></div>
+          </div>
+          <div class="form-group"><label for="intake-source-claim">Thông tin cụ thể cần đối chiếu</label><textarea id="intake-source-claim" class="form-input" required maxlength="2000" placeholder="Ghi rõ sự kiện, mốc thời gian, nhân vật hoặc nhận định được nguồn hỗ trợ..."></textarea></div>
+          <div class="form-group"><label for="intake-ai-instruction">Yêu cầu biên tập cho AI (tuỳ chọn)</label><input id="intake-ai-instruction" class="form-input" maxlength="500" placeholder="Ví dụ: Viết lại thành lời dẫn ngắn cho học sinh lớp 11"></div>
+          <p class="ai-connection-note"><span aria-hidden="true">✦</span> Bản này chưa kết nối dịch vụ AI. Nội dung và yêu cầu biên tập sẽ được lưu vào bài nháp để tiếp tục xử lý.</p>
+          <div id="content-intake-error" class="content-intake-error" role="alert" hidden></div>
+          <div class="content-intake-actions"><button type="button" class="btn-action-secondary" data-close="modal-content-intake">Huỷ</button><button type="submit" class="btn-action-primary">Tạo bài nháp &amp; mở biên tập <span aria-hidden="true">→</span></button></div>
+        </form>
       </div>
-    </div>
+    </section>
   </div>
 
   <!-- Scripts -->
@@ -919,6 +949,9 @@
   <script src="js/storage.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/scene-map.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/class-session.js"></script>
+  <script src="js/class-panel.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

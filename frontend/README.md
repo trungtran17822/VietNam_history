@@ -23,7 +23,7 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
    - **Chế độ Giáo viên**:
      - Hiển thị bảng **Sổ tay Sư phạm (Teaching Notes)** theo từng giai đoạn: Gợi ý lời giảng, câu hỏi gợi mở thảo luận nhóm, mục tiêu sư phạm.
      - Nút **"Chiếu lên lớp" (Presentation Mode)**: Tối ưu cho máy chiếu lớp học (phông chữ lớn, ẩn bớt thanh công cụ phụ, mở rộng khung sa bàn 3D).
-     - *(Chưa có trong prototype)* Biểu đồ phân bố phương án của cả lớp; xem yêu cầu F10 trong `docs/spec/SPEC.vi.md`.
+     - **Phiên lớp học** (giai đoạn 3): mở mã 6 ký tự, học sinh nhập mã trên máy của mình; giáo viên thấy số bài đã gửi và tỉ lệ từng phương án, tải CSV ẩn danh và xoá phiên. Cần máy chủ lớp học trong `backend/`; không có máy chủ thì bài học vẫn chạy bình thường.
    - **Chế độ Học sinh**: Tự động ẩn sổ tay sư phạm và số liệu giáo viên, tập trung vào trải nghiệm học tập và tương tác.
 4. **Nhãn cảnh báo & Tính minh bạch**:
    - Nhãn thường trực: *"⚠️ Nội dung minh họa, chưa được chuyên gia duyệt"*.
@@ -45,7 +45,7 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
 
 1. **Giai đoạn 1 - Khởi động (Intro Screen)**: Giới thiệu bối cảnh, mục tiêu học tập và nút "Bắt đầu bài học".
 2. **Giai đoạn 2 - Khám phá (3D gốc)**: Sa bàn 3D diễn biến gốc mùa xuân 1789, thanh trượt dòng thời gian, nút phát/dừng/tua và tra cứu sử liệu.
-3. **Giai đoạn 3 - Câu hỏi của vua (Question Screen)**: Vua Quang Trung đặt thử thách; học sinh chọn 4 biến số (Hướng tiến quân, Thời điểm, Loại khiên, Đội hình voi). Ở chế độ Giáo viên: xem biểu đồ phân bố lựa chọn demo của cả lớp.
+3. **Giai đoạn 3 - Câu hỏi của vua (Question Screen)**: Vua Quang Trung đặt thử thách; học sinh chọn 4 biến số (Hướng tiến quân, Thời điểm, Loại khiên, Đội hình voi). Phương án gốc được đánh dấu "Cách của nghĩa quân Tây Sơn". Bảng bên cạnh: giáo viên mở phiên lớp và xem tỉ lệ lựa chọn; học sinh nhập mã để gửi lựa chọn (không bắt buộc).
 4. **Giai đoạn 4 - Thử cách khác (New Scenario Simulation)**: Chạy sa bàn 3D mô phỏng lại theo đúng chiến thuật học sinh đã lựa chọn.
 5. **Giai đoạn 5 - So sánh (Comparison Screen)**: Đối chiếu định lượng giữa phương án gốc và giả định của học sinh; bảng ghi chú cảnh báo giả lập và danh sách công thức/giả định toán học.
 6. **Giai đoạn 6 - Giải thích & Củng cố (Explanation Screen)**: Vua Quang Trung bình luận, phân tích bối cảnh, tôn vinh tinh thần phản biện và giao nhiệm vụ tổng kết bài dạy.
@@ -58,20 +58,23 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
    ```bash
    python3 -m http.server 8080
    ```
-   Sau đó truy cập `http://localhost:8080` trên trình duyệt.
+   Sau đó truy cập `http://localhost:8080` trên trình duyệt. Muốn thử phiên lớp học, chạy thêm máy chủ lớp học ở thư mục gốc: `npm run dev:backend` (cổng 8787; xem `backend/README.md`).
 2. **Mở trực tiếp**: Nháy đúp `index.html`. Các phông Noto và dữ liệu seed được lưu cục bộ; tính năng không được trình duyệt cho phép từ `file:///` vẫn có thể cần server cục bộ.
 
 ## Kiến trúc
 
-Các tệp `js/*.js` là `<script>` thường (không phải ES module), giao tiếp qua đối tượng `window`. Thứ tự nạp trong `index.html`: `text.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `app.js`.
+Các tệp `js/*.js` là `<script>` thường (không phải ES module), giao tiếp qua đối tượng `window`. Thứ tự nạp trong `index.html`: `text.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `config.js` → `class-session.js` → `class-panel.js` → `app.js`.
 
 | Tệp | Vai trò |
 | --- | --- |
-| `app.js` | Bộ điều khiển: định tuyến theo hash (`#/teacher`, `#/student`, `#/lesson/<id>`, `.../edit`, `.../preview`), bảng điều khiển giáo viên, trình soạn bài (có hoàn tác/làm lại), màn hình học sinh và vòng lặp 6 giai đoạn. |
+| `app.js` | Bộ điều khiển: định tuyến theo hash (`#/teacher`, `#/student`, `#/lesson/<id>`, `.../edit`, `.../preview`, `.../interactive`), bảng điều khiển giáo viên, trình soạn bài (có hoàn tác/làm lại), màn hình học sinh và vòng lặp 6 giai đoạn. |
 | `lesson-data.js` | `SEED_LESSONS`: dữ liệu bài học mẫu (phần, câu hỏi, ghi chú giáo viên, biến mô phỏng, đạo cụ, camera). |
 | `storage.js` | `LessonStorage`: lưu bài học trong `localStorage`, nhập/xuất JSON; học sinh chỉ thấy bài có trạng thái "Đã dạy" và ngày không quá hôm nay. |
 | `engine.js` | `SimulationEngine`: tính toán xác định từ hệ số trong dữ liệu bài học. Chỉnh hệ số trong dữ liệu, không sửa mã. |
 | `scene-map.js` | `BattleScene3D`: sa bàn Three.js. `scene3d.js` là bản cũ, không được nạp. |
+| `config.js` | `APP_CONFIG`: địa chỉ máy chủ lớp học. Trên `localhost` là `http://localhost:8787`; bản triển khai dùng `DEPLOYED_API_BASE` (để trống thì tắt tính năng lớp học). |
+| `class-session.js` | `ClassSession`: gọi API phiên lớp (mở, tham gia, gửi, tổng hợp, CSV, xoá). |
+| `class-panel.js` | `ClassPanel`: bảng giáo viên / thẻ tham gia ở giai đoạn 3 và khảo sát ở giai đoạn 6. |
 | `auth.js` | Đăng nhập demo phía máy khách (`admin` / `123`, lưu trong `sessionStorage`). |
 | `text.js`, `audio.js` | Chuẩn hóa NFC tiếng Việt; âm thanh trận đánh bằng Web Audio. |
 

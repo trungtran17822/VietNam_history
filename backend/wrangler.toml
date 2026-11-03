@@ -1,0 +1,34 @@
+# Cloudflare Worker for the class session API (spec 001, docs/devops/DEPLOY.md).
+# Create each database once:  npx wrangler@3 d1 create sv-class-staging   (and sv-class-prod)
+# then paste its database_id below and apply migrations:
+#   npx wrangler@3 d1 migrations apply sv-class-staging --remote --env staging
+name = "sv-class-api"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# Request logs include client IPs; keep them off (privacy, FR-018).
+[observability]
+enabled = false
+
+[triggers]
+crons = ["0 3 * * *"]
+
+[env.staging]
+name = "sv-class-api-staging"
+vars = { ALLOWED_ORIGINS = "http://localhost:8080,https://*.vercel.app" }
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "sv-class-staging"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[env.production]
+name = "sv-class-api"
+# Narrow this to the production domain once it is fixed (CORS is not the access control; the teacher key is).
+vars = { ALLOWED_ORIGINS = "https://*.vercel.app" }
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "sv-class-prod"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
