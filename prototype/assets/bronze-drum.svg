@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" fill="none">
+  <defs>
+    <radialGradient id="bronze" cx=".36" cy=".3" r=".78">
+      <stop stop-color="#E8D29B"/><stop offset=".42" stop-color="#B6985E"/><stop offset=".74" stop-color="#8B6D40"/><stop offset="1" stop-color="#C4A66B"/>
+    </radialGradient>
+    <radialGradient id="patina" cx=".5" cy=".5" r=".5">
+      <stop stop-color="#D9C28B" stop-opacity=".08"/><stop offset="1" stop-color="#49391F" stop-opacity=".17"/>
+    </radialGradient>
+    <pattern id="grain" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 2h10M0 7h10" stroke="#F5E6BB" stroke-opacity=".14" stroke-width=".7"/>
+      <circle cx="3" cy="5" r=".7" fill="#574426" fill-opacity=".16"/>
+    </pattern>
+    <g id="bird" fill="url(#bronze)" stroke="#70552F" stroke-opacity=".62" stroke-width="1.4" stroke-linejoin="round">
+      <path d="m0 0 28-9-9 9 19-2-18 8-12-2-17 12 7-15-17-7 20 2 8-14-2 18Z"/>
+      <path d="m-4 0-13-10m20 5 10-10m-8 18 9 9" fill="none" stroke-linecap="round"/>
+    </g>
+    <g id="ray" stroke="#70552F" stroke-opacity=".76" stroke-width="2.2" stroke-linecap="round">
+      <path d="M300 109v31"/><circle cx="300" cy="101" r="2.8" fill="#E9D5A0" stroke="none"/>
+    </g>
+  </defs>
+  <!-- A frontal view of a Đông Sơn drum head, treated as a cast bronze medallion. -->
+  <circle cx="300" cy="300" r="282" fill="#4F3B22" fill-opacity=".18"/>
+  <circle cx="300" cy="294" r="276" fill="url(#bronze)" stroke="#76572E" stroke-width="3"/>
+  <circle cx="300" cy="294" r="265" fill="url(#patina)" stroke="#E9D6A4" stroke-opacity=".8" stroke-width="2"/>
+  <circle cx="300" cy="294" r="250" stroke="#75582F" stroke-opacity=".75" stroke-width="2"/>
+  <circle cx="300" cy="294" r="239" stroke="#E8D29B" stroke-opacity=".85" stroke-width="1.5"/>
+  <circle cx="300" cy="294" r="226" stroke="#75582F" stroke-opacity=".8" stroke-width="2" stroke-dasharray="2 6"/>
+  <circle cx="300" cy="294" r="216" fill="url(#grain)" stroke="#75582F" stroke-width="1.5"/>
+
+  <!-- Four directional bird processions around the central sun. -->
+  <g opacity=".96">
+    <use href="#bird" transform="translate(300 76) rotate(0)"/><use href="#bird" transform="translate(454 230) rotate(90)"/>
+    <use href="#bird" transform="translate(300 384) rotate(180)"/><use href="#bird" transform="translate(146 230) rotate(270)"/>
+  </g>
+  <circle cx="300" cy="294" r="170" stroke="#70552F" stroke-opacity=".84" stroke-width="2"/>
+  <circle cx="300" cy="294" r="160" stroke="#E9D6A4" stroke-opacity=".75" stroke-width="1.4" stroke-dasharray="1 7"/>
+  <circle cx="300" cy="294" r="148" fill="url(#patina)" stroke="#70552F" stroke-width="2"/>
+  <circle cx="300" cy="294" r="137" stroke="#E9D6A4" stroke-opacity=".72" stroke-width="1.4"/>
+  <g>
+    <use href="#bird" transform="translate(300 146) scale(.78)"/><use href="#bird" transform="translate(405 251) rotate(90) scale(.78)"/>
+    <use href="#bird" transform="translate(300 356) rotate(180) scale(.78)"/><use href="#bird" transform="translate(195 251) rotate(270) scale(.78)"/>
+  </g>
+
+  <!-- Twelve-ray sun, the unmistakable centre of the drum face. -->
+  <g>
+    <use href="#ray"/><use href="#ray" transform="rotate(30 300 294)"/><use href="#ray" transform="rotate(60 300 294)"/>
+    <use href="#ray" transform="rotate(90 300 294)"/><use href="#ray" transform="rotate(120 300 294)"/><use href="#ray" transform="rotate(150 300 294)"/>
+    <use href="#ray" transform="rotate(180 300 294)"/><use href="#ray" transform="rotate(210 300 294)"/><use href="#ray" transform="rotate(240 300 294)"/>
+    <use href="#ray" transform="rotate(270 300 294)"/><use href="#ray" transform="rotate(300 300 294)"/><use href="#ray" transform="rotate(330 300 294)"/>
+  </g>
+  <circle cx="300" cy="294" r="79" fill="url(#bronze)" stroke="#70552F" stroke-width="2.4"/>
+  <circle cx="300" cy="294" r="67" stroke="#E9D6A4" stroke-opacity=".88" stroke-width="1.5"/>
+  <circle cx="300" cy="294" r="58" stroke="#70552F" stroke-opacity=".8" stroke-width="1.5" stroke-dasharray="2 5"/>
+  <circle cx="300" cy="294" r="43" fill="#8D6F41" fill-opacity=".26" stroke="#70552F" stroke-width="2"/>
+  <circle cx="300" cy="294" r="10" fill="#E8D29B" stroke="#70552F" stroke-width="2"/>
+  <circle cx="300" cy="294" r="3" fill="#70552F"/>
+
+  <!-- Raised dotted rim. -->
+  <circle cx="300" cy="294" r="258" stroke="#F0DFAF" stroke-opacity=".85" stroke-width="3" stroke-dasharray="1 10" stroke-linecap="round"/>
+</svg>
