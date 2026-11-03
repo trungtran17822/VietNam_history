@@ -135,6 +135,13 @@ async function requireTeacher(request, session) {
   }
 }
 
+// Weak comparison (RFC 9110 §13.1.2): Cloudflare marks ETags weak (W/"…") when it compresses
+// a response, and the browser sends that form back.
+function etagMatches(header, etag) {
+  if (!header) return false;
+  return header.split(',').some((t) => t.trim().replace(/^W\//, '') === etag);
+}
+
 function publicSession(session, now) {
   return { code: session.code, lessonId: session.lessonId, expiresAt: session.expiresAt, open: now < session.expiresAt };
 }
@@ -231,21 +238,7 @@ async function putAnswer(request, { store, now }, code, clientId) {
   if ('ratings' in body) patch.ratings = parseRatings(body.ratings);
   if (!Object.keys(patch).length) throw new ApiError('bad_request');
 
-  const existing = await store.getAnswer(code, clientId);
-  if (!existing && (await store.countAnswers(code)) >= MAX_ANSWERS) throw new ApiError('full');
-  const base = existing || {
-    clientId,
-    choices: {},
-    durationSec: null,
-    ratings: { interest: null, visualize: null, again: null }
-  };
-  await store.upsertAnswer(code, {
-    clientId,
-    choices: patch.choices ?? base.choices,
-    durationSec: patch.durationSec ?? base.durationSec,
-    ratings: { ...base.ratings, ...(patch.ratings || {}) },
-    updatedAt: t
-  });
+  if (!(await store.saveAnswer(code, clientId, patch, t, MAX_ANSWERS))) throw new ApiError('full');
   return json(200, { ok: true });
 }
 
@@ -296,8 +289,15 @@ async function route(request, ctx) {
     if (method !== 'GET') throw new ApiError('method_not_allowed');
     const session = await loadSession(ctx.store, code);
     await requireTeacher(request, session);
+    if (parts[3] === 'summary') {
+      // The teacher polls every few seconds; most polls change nothing. The ETag comes from the
+      // session row (version bumps on every answer write), so a 304 costs no answer reads.
+      const now = ctx.now();
+      const etag = `"v${session.version}-${now < session.expiresAt ? 1 : 0}"`;
+      if (etagMatches(request.headers.get('If-None-Match'), etag)) return new Response(null, { status: 304, headers: { ETag: etag } });
+      return json(200, summarize(session, await ctx.store.listAnswers(code), now), { ETag: etag });
+    }
     const answers = await ctx.store.listAnswers(code);
-    if (parts[3] === 'summary') return json(200, summarize(session, answers, ctx.now()));
     return new Response(toCsv(session, answers), {
       status: 200,
       headers: {
@@ -325,8 +325,8 @@ function corsHeaders(request, allowedOrigins) {
   return {
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, X-Teacher-Key',
-    'Access-Control-Expose-Headers': 'Content-Disposition',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Teacher-Key, If-None-Match',
+    'Access-Control-Expose-Headers': 'Content-Disposition, ETag',
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin'
   };

@@ -137,8 +137,23 @@ server; only option ids.
 ## 7. Performance and capacity
 
 - Frontend: no build; heaviest asset is `three.min.js` (~603 KB, cached). Brand logo reduced from 821 KB to a small PNG. Low-quality scene mode for weak GPUs.
-- Backend per class (60 students, 45 min): ≈ 120 writes + ≈ 700 teacher polls → < 1% of the Workers free daily quota. D1 reads ≤ 60 rows per poll.
-- Latency: Cloudflare PoPs in Hanoi/HCMC; single-statement queries.
+- Backend per class (60 students, 45 min): ≈ 120 answer writes + ≈ 700 teacher polls.
+- Scaling out:
+  - Workers are stateless and run at the PoP nearest each user; there is no server to size.
+  - D1 is one SQLite primary per database, so the design keeps per-request work small and bounded instead of adding caches or queues.
+- Student submit (`PUT answers`) = 2 queries: read the session row, then one atomic upsert that also enforces the 60-device cap. No read-modify-write race.
+- Teacher poll (`GET summary`, every 4 s, paused while the tab is hidden, 30 s back-off on errors):
+  - Answers `304` from the session row alone when `sessions.version` is unchanged, which is most polls (1 row read, no body).
+  - A changed summary reads ≤ 60 answer rows.
+- Rough ceiling on the free plans (100k Worker requests/day, 5M D1 rows read/day, 100k rows written/day):
+  - ≈ 100 class-periods per day, bounded by Worker requests.
+  - Writes allow ≈ 400 (answer row + session version row per submit).
+  - Paid plans raise every limit; no code change is needed.
+- Next levers, only if usage shows the need:
+  - D1 read replication (Sessions API) for the session read.
+  - A Workers rate-limit binding on `POST /api/sessions`.
+  - Longer poll interval via `APP_CONFIG.pollIntervalMs`.
+- Latency: Cloudflare PoPs in Hanoi/HCMC; every query is a primary-key or index lookup.
 
 ## 8. Deployment
 

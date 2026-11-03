@@ -66,7 +66,13 @@ Paths in this section are relative to `frontend/`. Scripts are loaded as classic
 - `frontend/README.md` describes the 6-stage classroom flow in detail; its "Kiến trúc" section covers the teacher editor, auth, and storage layers.
 - Only the Ngọc Hồi lesson is complete (4 chapters, 4 variables); the other three seed lessons have no simulation variables, so the question, simulation and comparison stages have nothing to run for them. All numbers (baseline 36 h / 1,800 casualties / score 95 and every delta) are illustrative placeholders.
 - `docs/` and `specs/` are reference material, not code. `docs/spec/SPEC.md` is the checked record of what is built versus required; update it, `SPEC.vi.md` and (for requirement changes) `docs/srs/SRS.md` when behavior changes.
-- Deploy jobs need repo secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`; `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) and real D1 `database_id`s in `backend/wrangler.toml`. Missing ones make the job skip with a notice, not fail. Setup: `docs/devops/DEPLOY.md`.
+- Deploy jobs need repo secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`; `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`). Missing ones make the job skip with a notice, not fail.
+- The live deployment was made by hand (frontend https://vietnam-history-eight.vercel.app, API https://sv-class-api.suviet.workers.dev). The D1 ids in `backend/wrangler.toml` belong to that Cloudflare account. Details and redeploy commands: `docs/devops/DEPLOY.md` "Live now".
+- Backend scale rules:
+  - `saveAnswer` is one atomic SQL statement that also enforces the 60-device cap; don't split it into read-then-write.
+  - The summary's ETag comes from `sessions.version`, bumped by triggers in migration 0002, so a poll where nothing changed is a 304.
+  - Compare ETags weakly: Cloudflare adds `W/` when it compresses.
+  - After a backend change, run `node backend/scripts/smoke.mjs <worker-url> <site-origin>` against the deployed Worker.
 - Class sessions store no names or IPs (Worker logs are off). Keep it that way: no identity fields in `backend/` or in the CSV.
 - The post-login animation (`#cinematic-transition`) delays the dashboard by 2 s; E2E `login()` clicks "Bỏ qua" and waits for the route.
 - `README.md` at the root is a short index; details are in `frontend/README.md` and `backend/README.md`.

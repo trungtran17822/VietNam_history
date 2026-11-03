@@ -7,7 +7,7 @@
 (function (window) {
   'use strict';
 
-  var DEPLOYED_API_BASE = '';
+  var DEPLOYED_API_BASE = 'https://sv-class-api.suviet.workers.dev';
 
   var host = window.location.hostname;
   var isLocal = host === 'localhost' || host === '127.0.0.1' || host === '' || host === '[::1]';

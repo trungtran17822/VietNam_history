@@ -9,8 +9,8 @@ globalThis.crypto ??= webcrypto;
 function setup(start = Date.UTC(2026, 10, 3, 1, 0, 0)) {
   const clock = { t: start };
   const ctx = { store: new MemoryStore(), now: () => clock.t, allowedOrigins: 'http://localhost:8080,https://*.vercel.app' };
-  const call = async (method, path, { body, key, origin, raw } = {}) => {
-    const headers = {};
+  const call = async (method, path, { body, key, origin, raw, headers: extra } = {}) => {
+    const headers = { ...extra };
     if (body !== undefined) headers['Content-Type'] = 'application/json';
     if (key) headers['X-Teacher-Key'] = key;
     if (origin) headers.Origin = origin;
@@ -19,7 +19,7 @@ function setup(start = Date.UTC(2026, 10, 3, 1, 0, 0)) {
       ctx
     );
     const type = res.headers.get('Content-Type') || '';
-    const data = res.status === 204 ? null : type.includes('json') ? await res.json() : new TextDecoder('utf-8', { ignoreBOM: true }).decode(await res.arrayBuffer());
+    const data = res.status === 204 || res.status === 304 ? null : type.includes('json') ? await res.json() : new TextDecoder('utf-8', { ignoreBOM: true }).decode(await res.arrayBuffer());
     return { status: res.status, headers: res.headers, data };
   };
   const open = async () => (await call('POST', '/api/sessions', { body: { lessonId: 'ngoc-hoi-ha-hoi-1789' } })).data;
@@ -112,7 +112,7 @@ test('answer validation rejects bad input and stores nothing', async () => {
   for (const body of bad) assert.equal((await call('PUT', url, { body })).status, 400, JSON.stringify(body));
   assert.equal((await call('PUT', url, { raw: '{not json' })).status, 400);
   assert.equal((await call('PUT', `/api/sessions/${s.code}/answers/short`, { body: { durationSec: 1 } })).status, 400);
-  assert.equal(await ctx.store.countAnswers(s.code), 0);
+  assert.equal((await ctx.store.listAnswers(s.code)).length, 0);
 });
 
 test('oversized body is refused with 413', async () => {
@@ -133,6 +133,65 @@ test('session is capped at MAX_ANSWERS new devices; existing devices can still u
   assert.equal(full.status, 409);
   assert.equal(full.data.message, 'Phiên đã đủ số lượng.');
   assert.equal((await call('PUT', `/api/sessions/${s.code}/answers/${id(0)}`, { body: { durationSec: 5 } })).status, 200);
+});
+
+test('the cap holds when many new devices submit at the same time', async () => {
+  const { call, open } = setup();
+  const s = await open();
+  const results = await Promise.all(
+    Array.from({ length: MAX_ANSWERS + 10 }, (_, i) =>
+      call('PUT', `/api/sessions/${s.code}/answers/burst-${String(i).padStart(4, '0')}`, { body: { durationSec: i } })
+    )
+  );
+  assert.equal(results.filter((r) => r.status === 200).length, MAX_ANSWERS);
+  assert.equal(results.filter((r) => r.status === 409).length, 10);
+  assert.equal((await call('GET', `/api/sessions/${s.code}/summary`, { key: s.teacherKey })).data.count, MAX_ANSWERS);
+});
+
+test('summary answers 304 until an answer changes or the session closes', async () => {
+  const { clock, call, open } = setup();
+  const s = await open();
+  const url = `/api/sessions/${s.code}/summary`;
+  const first = await call('GET', url, { key: s.teacherKey });
+  const etag = first.headers.get('ETag');
+  assert.ok(etag);
+  assert.equal((await call('GET', url, { key: s.teacherKey, headers: { 'If-None-Match': etag } })).status, 304);
+  // Cloudflare turns the ETag weak when it compresses the response; the browser sends that back.
+  assert.equal((await call('GET', url, { key: s.teacherKey, headers: { 'If-None-Match': `W/${etag}` } })).status, 304);
+  // The ETag never stands in for the teacher key.
+  assert.equal((await call('GET', url, { headers: { 'If-None-Match': etag } })).status, 403);
+
+  await call('PUT', `/api/sessions/${s.code}/answers/${CLIENT_A}`, { body: { choices: { direction: 'frontal_allout' } } });
+  const changed = await call('GET', url, { key: s.teacherKey, headers: { 'If-None-Match': etag } });
+  assert.equal(changed.status, 200);
+  assert.equal(changed.data.count, 1);
+  const etag2 = changed.headers.get('ETag');
+  assert.notEqual(etag2, etag);
+
+  // Resubmitting the same answer still counts as a change (updatedAt moves).
+  await call('PUT', `/api/sessions/${s.code}/answers/${CLIENT_A}`, { body: { choices: { direction: 'frontal_allout' } } });
+  assert.equal((await call('GET', url, { key: s.teacherKey, headers: { 'If-None-Match': etag2 } })).status, 200);
+
+  const etag3 = (await call('GET', url, { key: s.teacherKey })).headers.get('ETag');
+  clock.t += SESSION_TTL_MS;
+  const closed = await call('GET', url, { key: s.teacherKey, headers: { 'If-None-Match': etag3 } });
+  assert.equal(closed.status, 200);
+  assert.equal(closed.data.open, false);
+});
+
+test('a partial update keeps the other fields', async () => {
+  const { call, open } = setup();
+  const s = await open();
+  const url = `/api/sessions/${s.code}/answers/${CLIENT_A}`;
+  await call('PUT', url, { body: { choices: { direction: 'frontal_allout' }, durationSec: 30 } });
+  await call('PUT', url, { body: { ratings: { interest: 4 } } });
+  await call('PUT', url, { body: { ratings: { visualize: 3 } } });
+  const sum = (await call('GET', `/api/sessions/${s.code}/summary`, { key: s.teacherKey })).data;
+  assert.deepEqual(sum.distribution, { direction: { frontal_allout: 1 } });
+  assert.deepEqual(sum.ratings.interest, { n: 1, avg: 4 });
+  assert.deepEqual(sum.ratings.visualize, { n: 1, avg: 3 });
+  const csv = (await call('GET', `/api/sessions/${s.code}/export.csv`, { key: s.teacherKey })).data;
+  assert.ok(csv.split('\r\n')[1].includes(',frontal_allout,30,4,3,,'));
 });
 
 test('expired session refuses answers with 410 but the teacher can still read and export', async () => {
@@ -187,7 +246,7 @@ test('delete removes the session and its answers', async () => {
   await call('PUT', `/api/sessions/${s.code}/answers/${CLIENT_A}`, { body: { durationSec: 1 } });
   assert.equal((await call('DELETE', `/api/sessions/${s.code}`, { key: s.teacherKey })).status, 204);
   assert.equal((await call('GET', `/api/sessions/${s.code}`)).status, 404);
-  assert.equal(await ctx.store.countAnswers(s.code), 0);
+  assert.equal((await ctx.store.listAnswers(s.code)).length, 0);
 });
 
 test('purge deletes only sessions older than the retention window', async () => {

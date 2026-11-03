@@ -11,6 +11,8 @@ Common rules
 - CORS: `Access-Control-Allow-Origin` echoes the request origin only if it is in `ALLOWED_ORIGINS`
   (comma-separated; `*` allowed in dev). Preflight `OPTIONS` → `204`.
 - `Cache-Control: no-store` on every response.
+- CORS allows request headers `Content-Type, X-Teacher-Key, If-None-Match` and exposes
+  `Content-Disposition, ETag`.
 
 | Error code | HTTP | Message |
 |---|---|---|
@@ -49,6 +51,7 @@ Body (every field optional, at least one required):
 
 `200 { "ok": true }`. Merges with the existing answer for the same `clientId`.
 `404/410` if the session is unknown/expired; `409 full` if this is a new `clientId` and 60 answers exist.
+The cap is checked in the same statement as the insert, so a burst of new devices never exceeds it.
 
 ## GET /api/sessions/:code/summary — class distribution (teacher)
 
@@ -59,6 +62,10 @@ Body (every field optional, at least one required):
   "ratings": { "interest": { "n": 10, "avg": 4.3 }, "visualize": { "n": 9, "avg": 3.9 }, "again": { "n": 10, "avg": 4.6 } },
   "updatedAt": 1762… }
 ```
+
+Response header `ETag: "v<version>-<open 1|0>"`. A request with a matching `If-None-Match` gets
+`304` with no body (the teacher key is still required). The version changes on every answer write,
+so a 304 means nothing changed; the client keeps showing its last summary.
 
 ## GET /api/sessions/:code/export.csv — anonymous trial data (teacher)
 

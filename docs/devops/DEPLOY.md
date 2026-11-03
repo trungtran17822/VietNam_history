@@ -9,6 +9,27 @@ Two independent deploys, both run by `.github/workflows/ci-cd.yml` after the `te
 
 Each deploy job **skips with a notice** (not a failure) when its secrets are missing, so CI stays green before setup is done. The lesson works without the backend; only the class session (F10/F11) needs it.
 
+## Live now (manual deploys, 2026-11-04)
+
+| Part | Where | URL |
+|---|---|---|
+| Frontend | Vercel project `vietnam-history` (account `youngsterdumb`) | https://vietnam-history-eight.vercel.app |
+| Backend, production | Cloudflare Worker `sv-class-api`, D1 `sv-class-prod` | https://sv-class-api.suviet.workers.dev |
+| Backend, staging | Cloudflare Worker `sv-class-api-staging`, D1 `sv-class-staging` | https://sv-class-api-staging.suviet.workers.dev |
+
+- The D1 ids in `backend/wrangler.toml` belong to that Cloudflare account (`suviet.workers.dev`).
+- `frontend/js/config.js` points every deployed copy, Vercel previews included, at the production Worker.
+- CI deploys go to the accounts whose secrets are in the repo. For CI to deploy here, the repo secrets must be this account's token and ids (Cloudflare) and this Vercel project's ids.
+- If the repo secrets belong to another Cloudflare account, recreate the databases there and replace the ids.
+
+Update by hand, from the repo root:
+
+```bash
+cd backend && npx wrangler@3 d1 migrations apply sv-class-prod --remote --env production && npx wrangler@3 deploy --env production && cd ..
+node backend/scripts/smoke.mjs https://sv-class-api.suviet.workers.dev https://vietnam-history-eight.vercel.app
+npx vercel deploy --prod
+```
+
 ## 1. Vercel (frontend), once
 
 1. Create a Vercel project from this repo. `vercel.json` already sets `outputDirectory: frontend`, no install or build command, and turns off Vercel's own Git deploys (CI deploys instead).
@@ -28,7 +49,8 @@ npx wrangler@3 d1 create sv-class-prod
 1. Paste each printed `database_id` into `backend/wrangler.toml` (`env.staging` and `env.production`) and commit. The id is not a secret. CI skips the backend deploy while the placeholder `00000000-…` is there.
 2. Create an API token (dash.cloudflare.com → My Profile → API Tokens → template "Edit Cloudflare Workers", plus permission **Account · D1 · Edit**).
 3. Add repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (Workers & Pages overview, right column).
-4. Push to `Staging`. CI applies migrations (`wrangler d1 migrations apply … --remote`) and deploys the Worker. Check: `curl https://sv-class-api-staging.<subdomain>.workers.dev/api/health` → `{"ok":true}`.
+4. Push to `Staging`. CI applies migrations (`wrangler d1 migrations apply … --remote`) and deploys the Worker. Check: `curl https://sv-class-api-staging.<subdomain>.workers.dev/api/health` → `{"ok":true}`, then `node backend/scripts/smoke.mjs <worker-url> <site-origin>` (opens a real session, bursts 70 devices, checks the cap, 304, CSV, then deletes it).
+5. A new Cloudflare account must register a `workers.dev` subdomain once (dashboard → Workers & Pages, or answer the prompt of the first `wrangler deploy`).
 
 Manual deploy from a laptop (same steps CI runs):
 
