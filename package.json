@@ -8,7 +8,11 @@
     "check": "bash scripts/check.sh",
     "test:unit": "node --test tests/unit/ backend/test/",
     "test:e2e": "playwright test",
-    "test": "npm run check && npm run test:unit && npm run test:e2e"
+    "test": "npm run check && npm run test:unit && npm run test:e2e",
+    "deploy:backend": "cd backend && npx --yes wrangler@3 d1 migrations apply sv-class-prod --remote --env production && npx --yes wrangler@3 deploy --env production",
+    "deploy:frontend": "npx --yes vercel deploy --prod --yes",
+    "smoke": "node backend/scripts/smoke.mjs https://sv-class-api.suviet.workers.dev https://vietnam-history-eight.vercel.app",
+    "deploy": "npm run check && npm run test:unit && npm run deploy:backend && npm run smoke && npm run deploy:frontend"
   },
   "devDependencies": {
     "@playwright/test": "1.49.1"

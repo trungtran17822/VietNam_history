@@ -29,20 +29,24 @@ Deploys go through the Vercel CLI in Actions (`vercel pull` → `vercel build` �
 
 ## Setup
 
-Trung owns both the GitHub repo (`trungtran17822`) and the Vercel account, so he does this once:
+Đạt (GitHub `YoungsterDumb`) is the main deployer. Trung's Vercel is no longer used.
 
-1. From the repo root: `npx vercel@latest link` → creates/links the Vercel project and writes `orgId` and `projectId` to `.vercel/project.json` (gitignored). Leave the project unconnected to Git; `vercel.json` supplies the build settings.
-2. Create a token at vercel.com/account/tokens, scoped to the same team.
-3. Add repo secrets (Settings → Secrets and variables → Actions): `VERCEL_TOKEN`, `VERCEL_ORG_ID` = `orgId`, `VERCEL_PROJECT_ID` = `projectId`.
+The repo is bound to Đạt's accounts:
+- Vercel project `vietnam-history`, team `youngsterdumbs-projects`. Its org and project ids are in `ci-cd.yml`.
+- Cloudflare account `suviet.workers.dev`. Its `account_id` and the D1 ids are in `backend/wrangler.toml`.
 
-For the backend, add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` and fill the D1 ids in `backend/wrangler.toml` (see DEPLOY.md). A deploy job without its secrets skips with a notice naming the missing one. Preview URLs sit behind Vercel Authentication by default; production is public.
+CI needs only the repo secrets `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`. Adding them needs admin on `trungtran17822/VietNam_history`, and Đạt currently has push only. Steps: `docs/devops/CI-CD_Vercel_VietnamHistory.md`.
+
+Until the secrets exist, deploy by hand with `npm run deploy` from a machine logged in to `vercel` and `wrangler@3`. It runs check, unit tests, D1 migrations, the Worker deploy, the smoke test, then `vercel deploy --prod`.
+
+A deploy job without its token skips with a notice. Preview URLs sit behind Vercel Authentication; production is public.
 
 ## When something fails
 
 1. CI `test` red: run `npm test` locally. Static FAIL lines name the file; E2E failures upload `playwright-report` / `test-results` as a workflow artifact (screenshots + traces).
 2. Deploy red: read the failing step in `gh run view --log-failed`. Missing secret → Setup step 3. `vercel pull` 401/403 → token expired or wrong team. `vercel build` error → re-run the local build check above.
 3. Backend deploy red: `wrangler` 10000/auth errors → token lacks Workers or D1 Edit permission; "database not found" → wrong `database_id` in `wrangler.toml`.
-4. Deployed but broken: inspect with the Vercel MCP tools (`list_deployments`, `get_deployment`, `get_runtime_errors`) using the team and project from Setup.
+4. Deployed but broken: run `npm run smoke` against the API. Inspect the frontend with the Vercel MCP tools (`list_deployments`, `get_deployment`) using team `team_6P2BlZoToZdS3VjdEqi6VnTy` and project `prj_yOHOIp7diLJsl0u98CfC6DDWnlnK`.
 
 ## Rollback
 

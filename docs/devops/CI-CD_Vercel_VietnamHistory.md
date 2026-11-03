@@ -1,155 +1,100 @@
-# Config CI/CD cho project
+# CI/CD: tự deploy lên Vercel và Cloudflare của Đạt
 
-Nov 1, 2026 · @Đây dích
+Cập nhật 2026-11-04. Người deploy chính: Đạt (Vercel `youngsterdumb`, Cloudflare `suviet.workers.dev`). Không còn dùng tài khoản Vercel của Trung.
 
 ## Tóm tắt
 
-Trung cần thêm **3 secrets** vào repo GitHub `trungtran17822/VietNam_history` để pipeline tự deploy lên Vercel của Trung. Mất khoảng 10 phút, chỉ làm **một lần**.
-
-- **Đã xong:** workflow `.github/workflows/ci-cd.yml` và `vercel.json` đã nằm trên nhánh `Staging`. Job kiểm tra (check) đang chạy tốt.
-- **Còn thiếu:** job deploy đang dừng với lỗi `Missing repo secret VERCEL_TOKEN`, vì repo chưa có secrets.
-- **Vì sao phải là Trung:** chỉ admin của repo mới thêm được secrets, và tài khoản Vercel là của Trung.
-
-Cần chuẩn bị: quyền admin repo GitHub, tài khoản Vercel, Node.js (để chạy `npx`
-
-## Pipeline hoạt động thế nào
-
-&#91;embedded content: luồng CI/CD · 1 bước kiểm tra, 3 nhánh\]
-
-Mỗi lần push, GitHub Actions chạy `scripts/check.sh`. Chỉ khi check đạt, code trên `Staging` mới được deploy bản Preview và code trên `main` mới lên Production. Sau khi cài đặt xong, Đạt chỉ cần push code; Trung không phải làm gì thêm.
-
-## Bước 1: Liên kết project Vercel và lấy 2 ID
-
-Mục tiêu của bước này là lấy `orgId` và `projectId` của project Vercel.
-
-1. Mở terminal ở thư mục gốc repo và cập nhật code:
-
-```bash
-cd VietNam_history
-git checkout Staging && git pull
-```
-
-2. Đăng nhập Vercel CLI. Trình duyệt sẽ mở ra để xác nhận:
-
-```bash
-npx vercel@latest login
-```
-
-3. Liên kết repo với một project Vercel:
-
-```bash
-npx vercel@latest link
-```
-
-Trả lời các câu hỏi của CLI:
-
-- **Set up and link?** → `Y`
-- **Which scope?** → chọn team hoặc tài khoản Vercel của Trung
-- **Link to existing project?** → `N` để tạo mới (hoặc `Y` nếu đã có sẵn project)
-- **Project name** → ví dụ `vietnam-history`
-- **Connect Git repository?** (nếu được hỏi) → `N`. Pipeline deploy qua GitHub Actions; nối Git sẽ gây deploy hai lần.
-- Các câu về build settings → giữ mặc định, vì `vercel.json` trong repo đã cấu hình sẵn.
-
-4. Xem 2 ID:
-
-```bash
-cat .vercel/project.json
-```
-
-Kết quả có dạng `{"projectId":"prj_...","orgId":"team_..."}`. Giữ cửa sổ này mở để copy ở Bước 3. Thư mục `.vercel/` đã có trong `.gitignore` nên không bị commit.
-
-Không muốn dùng CLI? Tạo project trên vercel.com rồi lấy Project ID ở **Project → Settings → General**, Team ID ở **Team Settings → General**. Với tài khoản cá nhân, ID nằm ở **Account Settings → General**.
-
-## Bước 2: Tạo Vercel token
-
-Token cho phép GitHub Actions deploy thay mặt Trung.
-
-1. Vào [vercel.com/account/tokens](https://vercel.com/account/tokens).
-2. Bấm **Create Token** và điền:
-   - **Token Name:** `github-actions-vietnam-history`
-   - **Scope:** chọn **đúng team** đã chọn ở Bước 1. Sai team thì deploy báo lỗi 403.
-   - **Expiration:** tùy chọn. Hết hạn thì phải tạo token mới và cập nhật lại secret.
-3. Bấm **Create** và **copy token ngay**. Vercel chỉ hiện token một lần.
-
-Token là thông tin mật: chỉ dán vào GitHub Secrets, không gửi qua chat hoặc commit vào code.
-
-## Bước 3: Thêm 3 secrets vào GitHub
-
-Tên secret phải gõ **chính xác**, kể cả chữ hoa, vì workflow đọc đúng tên này.
-
-| Tên secret | Giá trị | Lấy từ |
+| Phần | Nơi chạy | URL |
 | --- | --- | --- |
-| `VERCEL_TOKEN` | Token vừa tạo | Bước 2 |
-| `VERCEL_ORG_ID` | Chuỗi `team_...` | Trường `orgId` ở Bước 1 |
-| `VERCEL_PROJECT_ID` | Chuỗi `prj_...` | Trường `projectId` ở Bước 1 |
+| Frontend | Vercel project `vietnam-history` | https://vietnam-history-eight.vercel.app |
+| API production | Cloudflare Worker `sv-class-api` + D1 `sv-class-prod` | https://sv-class-api.suviet.workers.dev |
+| API staging | Cloudflare Worker `sv-class-api-staging` + D1 `sv-class-staging` | https://sv-class-api-staging.suviet.workers.dev |
 
-**Cách 1: trên giao diện GitHub**
+- **Đã xong:** cả hai đang chạy (deploy bằng tay từ máy Đạt).
+- **Đã ghi vào repo** (không phải bí mật):
+  - `VERCEL_ORG_ID` và `VERCEL_PROJECT_ID` trong `.github/workflows/ci-cd.yml`.
+  - `account_id` và `database_id` trong `backend/wrangler.toml`.
+- **Để CI tự deploy mỗi lần push:** repo cần 2 secret, `VERCEL_TOKEN` và `CLOUDFLARE_API_TOKEN`.
+- **Còn thiếu:** chỉ admin của repo mới thêm được secret, mà Đạt hiện mới có quyền push. Khi thiếu token, job deploy tự bỏ qua kèm thông báo, CI vẫn xanh.
 
-1. Mở [github.com/trungtran17822/VietNam\_history](https://github.com/trungtran17822/VietNam_history) → **Settings**.
-2. Menu trái: **Secrets and variables → Actions**.
-3. Tab **Secrets** → bấm **New repository secret**.
-4. Điền **Name** và **Secret** theo bảng trên, bấm **Add secret**.
-5. Lặp lại cho đủ 3 secrets.
+## Deploy bằng tay (dùng được ngay)
 
-**Cách 2: bằng GitHub CLI** (chạy ở thư mục gốc repo, sau Bước 1)
-
-```bash
-gh secret set VERCEL_TOKEN          # dán token khi được hỏi
-gh secret set VERCEL_ORG_ID     --body "$(node -p "require('./.vercel/project.json').orgId")"
-gh secret set VERCEL_PROJECT_ID --body "$(node -p "require('./.vercel/project.json').projectId")"
-gh secret list                      # kiểm tra đủ 3 tên
-```
-
-Sau khi thêm, GitHub chỉ hiện tên secret, không hiện giá trị. Nhập sai thì bấm **Update** để ghi đè.
-
-## Bước 4: Chạy lại workflow và kiểm tra
-
-Chạy lại lần deploy đã lỗi trên `Staging`, không cần commit mới.
-
-**Trên GitHub:** tab **Actions** → mở lần chạy mới nhất của `Staging` (dấu X đỏ) → **Re-run jobs → Re-run failed jobs**.
-
-**Hoặc bằng CLI:**
+Ở thư mục gốc repo, máy đã đăng nhập `vercel` và `wrangler`:
 
 ```bash
-id=$(gh run list --branch Staging --limit 1 --json databaseId --jq '.[0].databaseId')
-gh run rerun "$id" --failed
-gh run watch "$id"
+npm run deploy
 ```
 
-Deploy thành công khi:
+Lệnh này lần lượt:
 
-- [ ] Job `check` và job `deploy` đều có dấu tích xanh.
-- [ ] Log của bước `vercel deploy` in ra một URL dạng `https://<project>-<mã>-<team>.vercel.app`.
-- [ ] Trong dashboard Vercel, project có một deployment mới loại **Preview**.
+1. Chạy check và unit test.
+2. Áp migration D1 production và deploy Worker.
+3. Chạy smoke test trên API thật (mở một phiên thử, 70 máy gửi cùng lúc, kiểm tra giới hạn, 304, CSV, rồi xoá phiên).
+4. Deploy frontend lên Vercel production.
 
-Deploy Production lần đầu xảy ra khi có code được merge hoặc push vào `main`. Sau đó trang chính thức có dạng `https://<project>.vercel.app`, xem ở **Project → Domains**.
+Chỉ một phần: `npm run deploy:backend`, `npm run smoke`, `npm run deploy:frontend`.
+
+Đăng nhập lại khi cần: `npx vercel login`, `cd backend && npx wrangler@3 login`.
+
+## Bật CI tự deploy (làm một lần)
+
+### Bước 1: Có quyền admin repo
+
+Repo `trungtran17822/VietNam_history` thuộc tài khoản của Trung. Chọn một trong hai cách:
+
+- Trung vào **Settings → Collaborators** và đổi vai trò của `YoungsterDumb` thành **Admin**.
+- Hoặc Trung chuyển quyền sở hữu repo: **Settings → General → Transfer ownership**, sang `YoungsterDumb`.
+
+### Bước 2: Tạo Vercel token
+
+1. Vào [vercel.com/account/tokens](https://vercel.com/account/tokens) và bấm **Create Token**.
+2. Đặt tên `github-actions-vietnam-history`, Scope: **youngsterdumb's projects**.
+3. Copy token ngay, vì Vercel chỉ hiện một lần.
+
+### Bước 3: Tạo Cloudflare API token
+
+1. Vào [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens) và bấm **Create Token**.
+2. Chọn template **Edit Cloudflare Workers**.
+3. Thêm quyền **Account · D1 · Edit**.
+4. Account Resources: chọn tài khoản `Davidnguyen31082003@gmail.com's Account`.
+5. Tạo token rồi copy.
+
+### Bước 4: Thêm 2 secret vào GitHub
+
+Chạy ở thư mục gốc repo. Mỗi lệnh sẽ hỏi giá trị; dán token vào, không gõ token lên dòng lệnh:
+
+```bash
+gh secret set VERCEL_TOKEN
+gh secret set CLOUDFLARE_API_TOKEN
+gh secret list
+```
+
+Token chỉ dán vào GitHub Secrets, không gửi qua chat và không commit.
+
+### Bước 5: Kiểm tra
+
+Push hoặc merge vào `Staging`, rồi xem tab **Actions**:
+
+- Job `test` xanh.
+- `deploy-frontend` in URL bản Preview.
+- `deploy-backend` chạy migration, deploy `sv-class-api-staging` và smoke test đạt.
+
+Merge vào `main` sẽ cập nhật production: https://vietnam-history-eight.vercel.app và `sv-class-api`.
+
+## Lưu ý
+
+- Mọi bản deploy, kể cả Preview của `Staging`, đều gọi API production vì `frontend/js/config.js` chỉ có một `DEPLOYED_API_BASE`.
+- Bản Preview bị Vercel Authentication chặn với người ngoài; trang production thì công khai.
+- **Đổi domain trang web:** thêm domain mới vào `ALLOWED_ORIGINS` (env production) trong `backend/wrangler.toml` rồi deploy lại backend.
+- **Rollback:**
+  - Frontend: Vercel → Deployments → bản trước → **Instant Rollback**.
+  - Backend: `cd backend && npx wrangler@3 rollback --env production`.
 
 ## Xử lý sự cố
 
-Xem bước bị lỗi trong tab Actions, hoặc chạy `gh run view --log-failed`, rồi đối chiếu bảng dưới.
-
-| Thông báo lỗi | Nguyên nhân | Cách sửa |
+| Thông báo | Nguyên nhân | Cách sửa |
 | --- | --- | --- |
-| `Missing repo secret VERCEL_...` | Chưa thêm secret đó, hoặc gõ sai tên | Kiểm tra tên ở Bước 3 |
-| `vercel pull` báo 401 / 403 | Token sai, hết hạn, hoặc tạo ở team khác | Tạo lại token đúng team, cập nhật `VERCEL_TOKEN` |
-| `Project not found` | `VERCEL_ORG_ID` và `VERCEL_PROJECT_ID` không khớp nhau | Copy lại cả hai từ cùng một file `.vercel/project.json` |
-| Job `check` đỏ | Code có lỗi cú pháp JS, JSON hỏng, hoặc thiếu file | Chạy `bash scripts/check.sh` ở máy; dòng `FAIL` chỉ đúng file |
-| Deploy hai lần cho mỗi push | Project Vercel đang nối Git | Project → Settings → Git → **Disconnect** |
-
-Trang deploy xong nhưng lỗi: vào Vercel → Deployments, chọn bản trước đó → **Instant Rollback**.
-
-## Tùy chọn: cho Đạt xem bản Preview
-
-Mặc định, bản Preview (từ `Staging`) bị Vercel Authentication chặn, chỉ thành viên team Vercel mới mở được. Trang Production thì công khai. Chọn một trong hai cách:
-
-- **Mời Đạt vào team:** Team Settings → Members → Invite.
-- **Tắt bảo vệ Preview:** Project → Settings → Deployment Protection → tắt **Vercel Authentication**. Khi đó ai có link cũng xem được.
-
-## Checklist cuối
-
-- [ ] Bước 1: đã có `.vercel/project.json` với `orgId` và `projectId`
-- [ ] Project Vercel không nối Git
-- [ ] Bước 2: đã tạo token đúng team
-- [ ] Bước 3: `gh secret list` hiện đủ `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
-- [ ] Bước 4: job `deploy` trên `Staging` xanh, có URL Preview
-- [ ] Báo lại cho Đạt (kèm URL Preview nếu có)
+| `Skipping … VERCEL_TOKEN / CLOUDFLARE_API_TOKEN is not set` | Chưa thêm secret | Bước 4 |
+| `vercel pull` 401/403 | Token sai, hết hạn hoặc khác scope | Tạo lại token ở Bước 2 |
+| wrangler lỗi 10000 / authentication | Token thiếu quyền Workers hoặc D1 | Tạo lại token ở Bước 3 |
+| Smoke test `FAIL` | API deploy lỗi hoặc CORS sai origin | Đọc dòng `FAIL`; chạy `npm run smoke` ở máy |

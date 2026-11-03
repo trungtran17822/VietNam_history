@@ -4,6 +4,8 @@
 #   npx wrangler@3 d1 migrations apply sv-class-staging --remote --env staging
 name = "sv-class-api"
 main = "src/index.js"
+# Cloudflare account of the main deployer (suviet.workers.dev). Not a secret; CI only needs CLOUDFLARE_API_TOKEN.
+account_id = "f72a1c344e690d087729a615c64b9cc6"
 compatibility_date = "2026-10-01"
 workers_dev = true
 
