@@ -35,6 +35,7 @@ npm run check       # scripts/check.sh: node --check on frontend + backend JS, J
 npm run test:unit   # node:test: engine determinism (81 combos), grading-word scan, visibility rule, backend API
 npm run test:e2e    # Playwright, desktop 1280×720 + phone 360×800; starts both servers itself (reuses running ones locally)
 npm test            # all three
+npm run deploy      # manual production deploy (needs vercel + wrangler@3 logins); npm run smoke = API smoke test only
 ```
 
 First E2E run: `npm ci && npx playwright install chromium`. The E2E class-session test is slow (three browsers rendering WebGL in software).
@@ -66,7 +67,18 @@ Paths in this section are relative to `frontend/`. Scripts are loaded as classic
 - `frontend/README.md` describes the 6-stage classroom flow in detail; its "Kiến trúc" section covers the teacher editor, auth, and storage layers.
 - Only the Ngọc Hồi lesson is complete (4 chapters, 4 variables); the other three seed lessons have no simulation variables, so the question, simulation and comparison stages have nothing to run for them. All numbers (baseline 36 h / 1,800 casualties / score 95 and every delta) are illustrative placeholders.
 - `docs/` and `specs/` are reference material, not code. `docs/spec/SPEC.md` is the checked record of what is built versus required; update it, `SPEC.vi.md` and (for requirement changes) `docs/srs/SRS.md` when behavior changes.
-- Deploy jobs need repo secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`; `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) and real D1 `database_id`s in `backend/wrangler.toml`. Missing ones make the job skip with a notice, not fail. Setup: `docs/devops/DEPLOY.md`.
+- Đạt is the main deployer. The repo is bound to his accounts:
+  - Vercel project `vietnam-history`; the ids are in `ci-cd.yml`.
+  - Cloudflare `suviet.workers.dev`; `account_id` and D1 ids are in `wrangler.toml`.
+  - Live: frontend https://vietnam-history-eight.vercel.app, API https://sv-class-api.suviet.workers.dev.
+- CI needs only the repo secrets `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`. Without them the deploy jobs skip with a notice, not fail.
+- Manual deploy: `npm run deploy` (check, unit, D1 migrate, Worker deploy, smoke, Vercel prod).
+- Details: `docs/devops/DEPLOY.md` "Live now".
+- Backend scale rules:
+  - `saveAnswer` is one atomic SQL statement that also enforces the 60-device cap; don't split it into read-then-write.
+  - The summary's ETag comes from `sessions.version`, bumped by triggers in migration 0002, so a poll where nothing changed is a 304.
+  - Compare ETags weakly: Cloudflare adds `W/` when it compresses.
+  - After a backend change, run `node backend/scripts/smoke.mjs <worker-url> <site-origin>` against the deployed Worker.
 - Class sessions store no names or IPs (Worker logs are off). Keep it that way: no identity fields in `backend/` or in the CSV.
 - The post-login animation (`#cinematic-transition`) delays the dashboard by 2 s; E2E `login()` clicks "Bỏ qua" and waits for the route.
 - `README.md` at the root is a short index; details are in `frontend/README.md` and `backend/README.md`.

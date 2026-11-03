@@ -77,6 +77,7 @@
     var headers = {};
     if (options.body !== undefined) headers['Content-Type'] = 'application/json';
     if (options.teacherKey) headers['X-Teacher-Key'] = options.teacherKey;
+    if (options.etag) headers['If-None-Match'] = options.etag;
     var response;
     try {
       response = await window.fetch(config().apiBase + path, {
@@ -91,7 +92,7 @@
     } finally {
       if (timer) clearTimeout(timer);
     }
-    if (response.ok) return response;
+    if (response.ok || response.status === 304) return response;
     var data = null;
     try { data = await response.json(); } catch (error) { /* non-JSON error body */ }
     throw new ClassSessionError((data && data.error) || 'server_error', data && data.message, response.status);
@@ -119,11 +120,23 @@
     return saved;
   }
 
+  // Last summary per lesson, so a poll that nothing changed (304) costs the server no answer reads.
+  var lastSummary = {};
+
   async function fetchSummary(lessonId) {
     var saved = requireTeacher(lessonId);
+    var cached = lastSummary[lessonId];
+    if (cached && cached.code !== saved.code) cached = null;
     try {
-      var response = await request('GET', '/api/sessions/' + saved.code + '/summary', { teacherKey: saved.teacherKey });
-      return await response.json();
+      var response = await request('GET', '/api/sessions/' + saved.code + '/summary', {
+        teacherKey: saved.teacherKey,
+        etag: cached ? cached.etag : null
+      });
+      if (response.status === 304 && cached) return cached.summary;
+      var summary = await response.json();
+      var etag = response.headers.get('ETag');
+      lastSummary[lessonId] = etag ? { code: saved.code, etag: etag, summary: summary } : null;
+      return summary;
     } catch (error) {
       // The session was deleted elsewhere or purged: forget it on this device.
       if (error.status === 404 || error.status === 403) writeJson(TEACHER_KEY_PREFIX + lessonId, null);

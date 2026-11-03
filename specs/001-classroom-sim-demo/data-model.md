@@ -25,6 +25,7 @@ Two stores. **Browser** (unchanged): lessons, progress and the per-device class 
 | `teacher_key_hash` | TEXT NOT NULL | hex SHA-256 of the 32-hex-char teacher key |
 | `created_at` | INTEGER NOT NULL | epoch ms |
 | `expires_at` | INTEGER NOT NULL | `created_at + 12 h`; answers refused after it |
+| `version` | INTEGER NOT NULL DEFAULT 0 | bumped by triggers on every answer insert/update (migration 0002); drives the summary ETag |
 
 ### AnonymousAnswer (`answers`)
 
@@ -48,6 +49,8 @@ ClassSession:  open ──(now ≥ expires_at)──▶ closed ──(created_at
                  └──────────────(teacher DELETE)──────────────────────────────────▶ deleted
 AnonymousAnswer: upsert while session open; a later PUT merges only the fields it sends
                  (choices / duration_sec / ratings); count per session ≤ 60.
+                 Insert, merge and the cap check are one SQL statement, so the cap holds
+                 when many devices submit at once.
 ```
 
 - Distribution = for each variable id, count of answers per option id (computed from ≤60 rows).

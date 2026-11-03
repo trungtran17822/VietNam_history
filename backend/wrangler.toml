@@ -1,9 +1,11 @@
 # Cloudflare Worker for the class session API (spec 001, docs/devops/DEPLOY.md).
-# Create each database once:  npx wrangler@3 d1 create sv-class-staging   (and sv-class-prod)
-# then paste its database_id below and apply migrations:
+# Databases live in the Cloudflare account that deployed on 2026-11-03 (docs/devops/DEPLOY.md).
+# Apply migrations before each deploy:
 #   npx wrangler@3 d1 migrations apply sv-class-staging --remote --env staging
 name = "sv-class-api"
 main = "src/index.js"
+# Cloudflare account of the main deployer (suviet.workers.dev). Not a secret; CI only needs CLOUDFLARE_API_TOKEN.
+account_id = "f72a1c344e690d087729a615c64b9cc6"
 compatibility_date = "2026-10-01"
 workers_dev = true
 
@@ -20,15 +22,16 @@ vars = { ALLOWED_ORIGINS = "http://localhost:8080,https://*.vercel.app" }
 [[env.staging.d1_databases]]
 binding = "DB"
 database_name = "sv-class-staging"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "41cd4702-fe95-4d37-9e2d-a09add081dd9"
 migrations_dir = "migrations"
 
 [env.production]
 name = "sv-class-api"
-# Narrow this to the production domain once it is fixed (CORS is not the access control; the teacher key is).
-vars = { ALLOWED_ORIGINS = "https://*.vercel.app" }
+# The production site and its Vercel preview URLs. Add a domain here when the site moves
+# (CORS is not the access control; the teacher key is).
+vars = { ALLOWED_ORIGINS = "https://vietnam-history-eight.vercel.app,https://vietnam-history-*-youngsterdumbs-projects.vercel.app" }
 [[env.production.d1_databases]]
 binding = "DB"
 database_name = "sv-class-prod"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "319493f8-a94f-4660-9f29-851b1e6cc26b"
 migrations_dir = "migrations"

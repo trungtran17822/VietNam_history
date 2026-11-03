@@ -11,6 +11,8 @@ Hợp đồng HTTP: [specs/001-classroom-sim-demo/contracts/api.md](../specs/001
 | `src/index.js` | Điểm vào Worker: `fetch` và `scheduled` (cron 03:00 UTC xoá dữ liệu quá 180 ngày) |
 | `dev-server.js` | Máy chủ Node dùng `MemoryStore`, cho chạy trên máy và cho E2E |
 | `migrations/0001_init.sql` | Bảng `sessions`, `answers` |
+| `migrations/0002_session_version.sql` | Cột `sessions.version` và trigger tăng nó mỗi khi có bài gửi (cho ETag/304) |
+| `scripts/smoke.mjs` | Kiểm thử nhanh một API đang chạy (wrangler dev hoặc Worker thật): gửi dồn 70 máy cùng lúc, giới hạn 60, 304, CSV, xoá |
 | `wrangler.toml` | Cấu hình Worker, môi trường `staging` / `production`, liên kết D1 |
 | `test/handlers.test.js` | Unit test cho API (`node:test`, không cần phụ thuộc) |
 
@@ -28,7 +30,17 @@ Dữ liệu nằm trong bộ nhớ và mất khi tắt. Frontend trên `localhos
 
 ```bash
 node --test backend/test/
+node backend/scripts/smoke.mjs https://sv-class-api.suviet.workers.dev https://vietnam-history-eight.vercel.app
 ```
+
+Smoke test tạo một phiên thật rồi xoá nó khi xong.
+
+## Chịu tải khi đông người dùng
+
+- Worker không giữ trạng thái và chạy ở máy chủ Cloudflare gần người dùng nhất, nên không cần tăng cấu hình máy.
+- Học sinh gửi bài: 2 truy vấn (đọc phiên, rồi một câu `INSERT … ON CONFLICT` vừa ghi vừa kiểm tra giới hạn 60 máy). Nhiều máy gửi cùng lúc cũng không vượt giới hạn.
+- Giáo viên xem tổng hợp: cứ 4 giây hỏi một lần, tạm dừng khi tab bị ẩn. Nếu `sessions.version` không đổi, máy chủ trả `304` mà chỉ đọc một dòng.
+- Gói miễn phí đủ cho khoảng 100 tiết học mỗi ngày. Lên gói trả phí thì không cần sửa code. Chi tiết: [SYSTEM_DESIGN.md §7](../docs/architecture/SYSTEM_DESIGN.md).
 
 ## Quy tắc chính
 
@@ -39,4 +51,8 @@ node --test backend/test/
 
 ## Triển khai
 
-Xem [docs/devops/DEPLOY.md](../docs/devops/DEPLOY.md): tạo D1, điền `database_id`, thêm secret Cloudflare cho CI, rồi điền URL Worker vào `DEPLOYED_API_BASE` của frontend.
+Đang chạy:
+- production: https://sv-class-api.suviet.workers.dev
+- staging: https://sv-class-api-staging.suviet.workers.dev
+
+Cách deploy lại, CI và cách khôi phục bản cũ: [docs/devops/DEPLOY.md](../docs/devops/DEPLOY.md).
