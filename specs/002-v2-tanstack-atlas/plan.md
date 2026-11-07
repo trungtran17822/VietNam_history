@@ -24,19 +24,23 @@ sửa đúng mục đó trong cùng commit và ghi lý do vào `notes/<session>.
 2. **Implement**.
 3. **Verify → Fix → Verify**, tối đa **3 vòng**. Ở điểm có nhiều cách làm (renderer, nguồn dữ liệu, bố cục), thử tối đa 2-3 phương án, đo bằng số (kích thước bundle, FPS, thời gian tải, ảnh chụp Playwright) và **chọn phương án tốt nhất**, ghi bảng so sánh vào notes.
 4. **QA + QC**: `npm run check`, unit, E2E (desktop + phone), soát nhãn nội dung, soát ảnh chụp.
-5. Commit trên nhánh riêng, mở PR vào `Staging`. Không deploy.
+5. **Docs**: cập nhật ngay trong cùng nhánh mọi tài liệu bị ảnh hưởng bởi thay đổi của session: `docs/spec/SPEC.md` + `SPEC.vi.md` (đã làm / chưa làm), `docs/srs/SRS.md` (khi yêu cầu đổi), `docs/architecture/SYSTEM_DESIGN.md`, `docs/devops/DEPLOY.md`, `CLAUDE.md`, `README.md`, `frontend/README.md`, `backend/README.md`, và mục liên quan của tài liệu này. Không để docs lệch khỏi code khi kết thúc session.
+6. Commit trên nhánh riêng. Không push lên `Staging`/`main`, không deploy.
 
-## 3. Chia session
+## 3. Chia session (chạy tuần tự)
 
-| Session | Nhánh | Sở hữu (chỉ sửa những đường dẫn này) | Phụ thuộc |
+Do giới hạn dung lượng đĩa, các session chạy **lần lượt** trong cùng một checkout (không dùng worktree). Mỗi nhánh cắt từ nhánh của session trước, nên session sau dùng thẳng code của session trước.
+
+| Thứ tự | Session | Nhánh (cắt từ) | Trọng tâm |
 |---|---|---|---|
-| **S1 Nền tảng + giao diện** | `Dat/feature/v2-frontend` | toàn bộ `frontend/` **trừ** `frontend/src/features/atlas/**`, `frontend/src/content/atlas/**`, `frontend/src/routes/atlas*`, và các file bài giảng của S2; `package.json`, `vite`/`tsconfig`, `scripts/check.sh`, `tests/`, `.github/workflows/`, `vercel.json`; file bài `frontend/src/content/lessons/ngoc-hoi-ha-hoi-1789.json` | không |
-| **S2 Nội dung bài giảng + mô phỏng** | `Dat/feature/v2-lessons` | `frontend/src/content/lessons/*.json` trừ Ngọc Hồi; `tests/content/**` | hợp đồng §4.1 |
-| **S3 Atlas Việt Nam 3D** | `Dat/feature/v2-atlas` | `frontend/src/features/atlas/**`, `frontend/src/content/atlas/**`, `frontend/src/routes/atlas*`, `frontend/public/atlas/**`, `scripts/atlas/**` | hợp đồng §4.2; phần mount vào app chờ S1 |
-| **S4 Tích hợp + QA/QC + Staging** | `Dat/feature/v2-integration` | merge S1-S3, sửa lỗi tích hợp, docs (`docs/spec/SPEC*.md`, `docs/srs/SRS.md`, `CLAUDE.md`, READMEs) | S1, S2, S3 xong |
+| 1 | **S1 Nền tảng + giao diện** | `Dat/feature/v2-frontend` (từ `Dat/feature/core`) | stack mới, port toàn bộ tính năng, thiết kế lại, form biến số & hệ số, zod schema, file `ngoc-hoi-ha-hoi-1789.json`, tooling/CI |
+| 2 | **S2 Nội dung bài giảng + mô phỏng** | `Dat/feature/v2-lessons` (từ `v2-frontend`) | 5 file bài trong `frontend/src/content/lessons/`, test nội dung, `frontend/data/sources.json` |
+| 3 | **S3 Atlas Việt Nam 3D** | `Dat/feature/v2-atlas` (từ `v2-lessons`) | dữ liệu atlas, renderer, route `#/atlas`, liên kết bài giảng ↔ địa danh |
+| 4 | **S4 QA/QC + Staging** | `Dat/feature/v2-release` (từ `v2-atlas`) | kiểm thử toàn hệ thống, sửa lỗi, rà docs lần cuối, merge vào `Staging` để CI deploy preview |
 
-`package.json` gốc là file chung: S2/S3 chỉ được **thêm** dependency tối thiểu, xung đột giải quyết ở S4.
-Mỗi session ghi nhật ký riêng ở `specs/002-v2-tanstack-atlas/notes/<s1|s2|s3|s4>.md` (không sửa notes của session khác).
+Session sau không được viết lại phần của session trước trừ khi để sửa lỗi; mọi thay đổi như vậy ghi vào notes của mình.
+Mỗi session ghi nhật ký riêng ở `specs/002-v2-tanstack-atlas/notes/<s1|s2|s3|s4>.md`.
+Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đạt) và `venv/`.
 
 ## 4. Hợp đồng dữ liệu
 
