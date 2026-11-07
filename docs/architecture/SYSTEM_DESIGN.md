@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | v1.0, 2026-11-03 |
+| Status | v1.1, 2026-11-07 (frontend rebuilt as v2) |
 | Scope | Demo of one lesson (Ngọc Hồi - Hạ Hồi) per PRD; F1-F8 (P0), F10 and F11 (P1). F9 deferred |
 | Inputs | PRD (`docs/prd/`), spec [`specs/001-classroom-sim-demo/spec.md`](../../specs/001-classroom-sim-demo/spec.md), constitution (`.specify/memory/constitution.md`) |
 | Requirements doc | [SRS](../srs/SRS.md) |
@@ -11,7 +11,7 @@
 
 | Driver | Consequence for the design |
 |---|---|
-| Weak school PCs, projectors, phones; unreliable school internet | Lesson runs fully in the browser (offline-first); light 2.5D scene with a low-quality mode; no framework or build |
+| Weak school PCs, projectors, phones; unreliable school internet | Lesson runs fully in the browser (offline-first); light 2.5D scene with a low-quality mode; small initial bundle, 3D loaded lazily |
 | Minors' data (PRD NFR privacy) | No accounts; anonymous random ids; nothing identifying stored; 180-day retention |
 | Content correctness and explainability | Content labelled as unreviewed; deterministic engine driven by lesson data; assumptions shown |
 | One lesson, 12-week demo, 4-5 people | Smallest system that meets F10/F11: one Worker, one SQL database, polling |
@@ -26,7 +26,7 @@ flowchart LR
   T -- JSON API (teacher key) --> W[Cloudflare Worker<br/>backend/]
   S -- JSON API (join code) --> W
   W --> D[(Cloudflare D1<br/>sessions, answers)]
-  A[History advisor] -. reviews lesson data .-> L[lesson-data.js / JSON]
+  A[History advisor] -. reviews lesson data .-> L[lesson JSON<br/>frontend/src/content]
   L --> V
 ```
 
@@ -35,23 +35,28 @@ what, anonymously, for a class session.
 
 ## 3. Components
 
-### 3.1 Frontend (`frontend/`, static)
+### 3.1 Frontend (`frontend/`, Vite + React, v2)
 
-| Module (`window` global) | Responsibility |
+Static bundle built by Vite into `frontend/dist`. React 19 + TypeScript strict, TanStack Router
+(file routes, hash history, so `#/lesson/<id>/...` links from v1 keep working), TanStack Query only for
+the class API, Tailwind v4, zod. Domain modules have no UI and are unit-tested with Vitest.
+
+| Module (`frontend/src/`) | Responsibility |
 |---|---|
-| `text.js` | NFC normalisation of all text writes (loaded first) |
-| `config.js` → `APP_CONFIG` | `apiBase` per environment (localhost → `:8787`; deployed → Worker URL; empty → class features off) |
-| `auth.js` → `Auth` | Demo login (client-side only, not security) |
-| `lesson-data.js` → `SEED_LESSONS` | Lesson schema + seed content |
-| `storage.js` → `LessonStorage` | Lessons in localStorage, student visibility rule, import/export |
-| `engine.js` → `SimulationEngine` | Deterministic `calculate` + `generateExplanation` |
-| `scene-map.js` → `BattleScene3D` | three.js silk-map scene; one instance per surface; `destroy()` on teardown |
-| `audio.js` → `BattleAudio` | Procedural battle sound |
-| `class-session.js` → `ClassSession` | NEW: API client, teacher/student session state in localStorage, timeouts, Vietnamese error mapping |
-| `app.js` | Controller: router, views, editor, 6-stage loop; renders the class panel (stage 3) and survey (stage 6) |
+| `lib/lesson-schema.ts` | zod schema of a lesson (§4.1 of the v2 plan); every bundled lesson and every save is validated |
+| `content/lessons/*.json` | One file per lesson, loaded lazily; `revision` lets a changed seed reach browsers that already have data |
+| `lib/storage.ts` | Lessons in localStorage, one-time v1 migration, student visibility rule, import/export, per-lesson progress |
+| `lib/engine.ts` | Deterministic `calculate` + explanation from the lesson's coefficients |
+| `lib/class-session.ts` | API client, teacher/student session state in localStorage, timeouts, Vietnamese error mapping; `apiBase` per environment (localhost → `:8787`; deployed → Worker URL or `VITE_API_BASE`; empty → class features off) |
+| `lib/auth.ts`, `lib/audio.ts`, `lib/text.ts`, `lib/prefs.ts` | Demo login (not security), procedural battle sound, NFC at input/import boundaries, quality/presentation prefs |
+| `scene/silk-map.ts` → `SilkMapScene` | three.js silk-map scene driven by `simulation.scene`; the only three.js import, in a lazy chunk; `destroy()` on unmount |
+| `scene/artwork.ts` | Canvas painting of map, sprites and dashboard thumbnails (no three.js) |
+| `routes/*.tsx` | Thin route files with role guards |
+| `components/*.tsx` | Lesson page, 6-stage loop, editor + "Biến số & hệ số" form, player, class panel and survey |
 
-CSS cascade: `theme.css` (tokens) → `fonts.css` → `style.css` → `editorial.css` → `redesign.css`
-(Trung's Sử Việt identity) → `classroom.css` (class panel, survey, stage polish).
+Styling: `styles.css` holds the Tailwind theme tokens and component classes; the design system is
+`DESIGN.md` at the repo root. Initial JS ≈ 136 KB gzip; the three.js scene chunk (≈ 136 KB gzip) loads
+only when a map is shown.
 
 ### 3.2 Backend (`backend/`, Cloudflare Worker)
 
@@ -174,16 +179,16 @@ flowchart LR
 
 | Level | Tool | Covers |
 |---|---|---|
-| Static | `scripts/check.sh` | JS syntax, JSON, references, script load list |
-| Unit (frontend logic) | `node:test` + `vm` | Engine determinism over 81×2 runs, grading-word scan, storage visibility rule |
+| Static | `scripts/check.sh` | `tsc`, lesson schema for every lesson JSON, mandatory labels, NFC, backend syntax |
+| Unit (frontend logic) | Vitest | Lesson schema, engine determinism over all 81 combos, grading-word scan, storage visibility rule and v1 migration |
 | Unit (backend) | `node:test` + MemoryStore | Every endpoint, validation, cap, expiry, auth, CORS, CSV |
-| E2E | Playwright (desktop + 360 px) | 6-stage loop, labels, class session with 3 browser contexts, CSV, offline mode, intake gate |
+| E2E | Playwright (desktop + 360 px) | 6-stage loop, labels, class session with 3 browser contexts, CSV, offline mode, intake gate, authoring form (new lesson through all 6 stages) |
 
 ## 10. Decisions and trade-offs (ADR summary)
 
 | # | Decision | Trade-off accepted |
 |---|---|---|
-| 1 | Keep plain JS, no framework/build | `app.js` stays large; new logic goes into separate modules |
+| 1 | v1: plain JS, no build. v2 (2026-11): Vite + React + TypeScript | A build step and npm dependencies, in exchange for typed modules, tests next to code and lesson data validated by schema |
 | 2 | Workers + D1, not Vercel Functions + Postgres | Two vendors, but each does what it is best at and both are free at demo scale |
 | 3 | Polling, not websockets | Up to 4 s delay; acceptable for SC-003 |
 | 4 | Teacher key instead of accounts | Losing the teacher device's storage loses read access to that session (it still expires/purges) |

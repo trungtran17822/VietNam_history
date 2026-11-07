@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "khang-chien-mong-nguyen-vuon-khong",
+  "era": "1258-1288",
+  "atlasPlaceIds": [],
+  "factions": {
+    "a": {
+      "name": "Quân Đại Việt",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân Mông - Nguyên",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Kế Sách Vườn Không Nhà Trống - Ba Lần Kháng Chiến Chống Mông Nguyên",
+  "subtitle": "Nghệ thuật tiêu hao sinh lực địch và toàn dân đánh giặc thời nhà Trần",
+  "commander": "Quốc công Tiết chế Trần Hưng Đạo",
+  "opponent": "Đại quân Mông Cổ và Thoát Hoan",
+  "year": "Thế kỷ XIII (1258 - 1285 - 1288)",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 11A1",
+  "date": "2026-11-05",
+  "subject": "Lịch sử",
+  "grade": "Khối 11",
+  "period": "Tiết 1 · 07:15 - 08:00 (45 phút)",
+  "objectives": "Phân tích nghệ thuật \"lấy đoản binh chế trường trận\", sơ tán triệt để kinh thành tạo thế chủ động phản công.",
+  "focusQuestion": "Tại sao việc thực hiện \"vườn không nhà trống\" lại bẻ gãy kỵ binh bách chiến bách thắng của đế chế Mông Cổ?",
+  "status": "Nháp",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH.",
+  "introSummary": "Kế sách rút lui chiến lược bỏ lại kinh thành rỗng không khiến đạo kỵ binh viễn chinh Mông Cổ đói khát, hoang mang, rơi vào thế tiến thoái lưỡng nan trước khi quân dân nhà Trần mở cuộc phản công thần sầu.",
+  "sections": [],
+  "keyNotes": [
+    "Bài học đoàn kết \"vua tôi đồng lòng, anh em hòa thuận, cả nước góp sức\"."
+  ],
+  "privateNotes": "Đang soạn thảo đề cương bài giảng và kịch bản 3D.",
+  "questions": [],
+  "baseline": {
+    "durationHours": 72,
+    "casualties": 1500,
+    "positionScore": 90,
+    "ratingText": "Chiến lược toàn dân"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": true,
+      "tents": true,
+      "elephants": true,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "taySonInfantry": 40,
+      "taySonElephants": 2,
+      "qingInfantry": 40,
+      "qingCannons": 2
+    },
+    "factionColors": {
+      "taySon": "#854d0e",
+      "qing": "#0f172a"
+    },
+    "cameraPresets": {
+      "overview": {
+        "pos": [
+          0,
+          75,
+          110
+        ],
+        "target": [
+          0,
+          5,
+          0
+        ]
+      },
+      "follow_troops": {
+        "pos": [
+          -20,
+          20,
+          40
+        ],
+        "target": [
+          0,
+          5,
+          0
+        ]
+      },
+      "close_up": {
+        "pos": [
+          10,
+          10,
+          15
+        ],
+        "target": [
+          10,
+          5,
+          0
+        ]
+      },
+      "top_down": {
+        "pos": [
+          0,
+          100,
+          0
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "river",
+      "labels": [],
+      "features": [],
+      "routes": [],
+      "bSpecialKind": "boat"
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Trần Hưng Đạo"
+    },
+    "variables": []
+  }
+}

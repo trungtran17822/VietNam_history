@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "rach-gam-xoai-mut-1785",
+  "era": "1785",
+  "atlasPlaceIds": [],
+  "factions": {
+    "a": {
+      "name": "Quân Tây Sơn",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân Xiêm",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Trận Thủy Chiến Rạch Gầm - Xoài Mút (1785)",
+  "subtitle": "Nguyễn Huệ đại phá 5 vạn quân Xiêm trên sông Tiền",
+  "commander": "Long Nhương Tướng quân Nguyễn Huệ",
+  "opponent": "5 vạn quân thủy bộ Xiêm La (Chiêu Tăng, Chiêu Sương)",
+  "year": "Tháng 1 năm 1785",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 11A1",
+  "date": "2026-10-20",
+  "subject": "Lịch sử",
+  "grade": "Khối 11",
+  "period": "Tiết 1 · 07:15 - 08:00 (45 phút)",
+  "objectives": "Phân tích nghệ thuật nghi binh thủy chiến, lợi dụng dòng chảy thủy triều sông Tiền và đòn hỏa công tiêu diệt hạm đội 300 chiến thuyền giặc.",
+  "focusQuestion": "Tại sao Nguyễn Huệ chọn đoạn sông Rạch Gầm - Xoài Mút để lập trận địa mai phục quyết chiến chiến lược?",
+  "status": "Đã dạy",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.",
+  "introSummary": "Năm 1785, quân Xiêm xâm lược miền Nam nước ta. Nguyễn Huệ đưa thủy quân thần tốc vào Mỹ Tho, chọn đoạn sông hiểm trở giữa hai con rạch nhỏ lập trận địa mai phục, lợi dụng con nước ròng đánh tan tác 5 vạn quân giặc chỉ trong một ngày.",
+  "sections": [
+    {
+      "id": "rg-1",
+      "title": "Khảo sát địa hình và chuẩn bị trận địa mai phục",
+      "narration": "Nguyễn Huệ bí mật khảo sát đoạn sông Tiền từ Rạch Gầm đến Xoài Mút: lòng sông rộng, hai bên có lau sậy rậm rạp và cù lao Thới Sơn chắn giữa dòng.",
+      "caption": "Bố trí đại bác trên bờ và chiến thuyền giấu kín trong các nhánh rạch rậm rạp.",
+      "timelineRange": 0.2,
+      "timeLabel": "Đêm 18 rạng 19/01/1785",
+      "source": {
+        "book": "Đại Nam thực lục",
+        "chapter": "Tiền biên",
+        "quote": "Nguyễn Huệ thấy địa thế hiểm yếu, liền ngầm đặt thủy binh hai bên rạch, phục súng lớn trên bờ...",
+        "note": "Tư liệu lịch sử về nghệ thuật chọn địa hình tác chiến thủy quân."
+      }
+    },
+    {
+      "id": "rg-2",
+      "title": "Nghi binh dụ địch vào khúc sông tử địa",
+      "narration": "Sáng sớm, thuyền nhẹ Tây Sơn ra khiêu chiến rồi giả vờ thua chạy. Tướng giặc Chiêu Tăng đắc thắng đốc thúc toàn bộ thuyền chiến đuổi theo.",
+      "caption": "Thuyền giặc hăm hở lọt trọn vào khúc sông phục kích đúng lúc thủy triều rút mạnh.",
+      "timelineRange": 0.6,
+      "timeLabel": "Sáng ngày 19/01/1785",
+      "source": {
+        "book": "Gia Định thành thông chí",
+        "chapter": "Cương vực chí",
+        "quote": "Quân Tây Sơn giả thua rút lui, giặc đuổi theo đến Rạch Gầm thì trúng phục binh.",
+        "note": "Mưu chước nhử địch bậc thầy của danh tướng Nguyễn Huệ."
+      }
+    },
+    {
+      "id": "rg-3",
+      "title": "Hỏa công tổng kích - Hạm đội Xiêm tan tành",
+      "narration": "Pháo lệnh nổ vang, đại bác hai bên bờ và các hòn cù lao nhả đạn dữ dội. Thuyền chiến Tây Sơn từ các nhánh rạch lao ra phóng hỏa thiêu rụi hạm đội giặc.",
+      "caption": "300 chiến thuyền giặc bị thiêu rụi, tàn quân Xiêm 'sợ Tây Sơn như cọp'.",
+      "timelineRange": 1,
+      "timeLabel": "Chiều ngày 19/01/1785",
+      "source": {
+        "book": "Đại Nam chính biên liệt truyện",
+        "chapter": "Tây Sơn liệt truyện",
+        "quote": "Quân Xiêm vỡ trận nhảy xuống sông chết đuối vô kể, Chiêu Tăng dắt tàn quân theo đường bộ trốn về nước.",
+        "note": "Trận thủy chiến lẫy lừng bậc nhất Nam Bộ thế kỷ XVIII."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Trận Rạch Gầm - Xoài Mút là một trong những trận thủy chiến tiêu diệt chiến thuyền lớn nhất lịch sử chống ngoại xâm.",
+    "Nghệ thuật triệt để khai thác quy luật thủy triều sông Tiền kết hợp hỏa khí cơ động.",
+    "Chiến thắng đập tan hoàn toàn mưu đồ can thiệp của triều đình Xiêm La đối với miền Nam nước ta."
+  ],
+  "privateNotes": "Sổ tay sư phạm: Cho học sinh so sánh điểm giống và khác nhau giữa trận Rạch Gầm - Xoài Mút (1785) và trận Bạch Đằng (1288).",
+  "questions": [
+    {
+      "id": "rg-q1",
+      "text": "Nguyễn Huệ đã triệt để lợi dụng quy luật tự nhiên nào của dòng sông Tiền để tiêu diệt hạm đội thuyền Xiêm?",
+      "type": "multiple_choice",
+      "sectionId": "rg-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "rg-opt-1",
+          "text": "Con nước ròng rút nhanh khiến thuyền giặc bị mắc cạn và dồn ứ",
+          "isCorrect": true,
+          "explanation": "Thủy triều rút mạnh làm thuyền lớn quân Xiêm khó quay đầu, tạo điều kiện cho thuyền hỏa công Tây Sơn xuôi dòng tập kích."
+        },
+        {
+          "id": "rg-opt-2",
+          "text": "Sương mù dày đặc làm thuyền giặc đâm vào nhau",
+          "isCorrect": false,
+          "explanation": "Sông Tiền ban ngày tầm nhìn thoáng đãng."
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "durationHours": 24,
+    "casualties": 900,
+    "positionScore": 92,
+    "ratingText": "Toàn thắng thủy chiến"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": false,
+      "tents": true,
+      "elephants": false,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "taySonInfantry": 40,
+      "taySonElephants": 0,
+      "qingInfantry": 45,
+      "qingCannons": 8
+    },
+    "factionColors": {
+      "taySon": "#962d22",
+      "qing": "#15803d"
+    },
+    "cameraPresets": {
+      "overview": {
+        "pos": [
+          0,
+          80,
+          110
+        ],
+        "target": [
+          0,
+          5,
+          0
+        ]
+      },
+      "follow_troops": {
+        "pos": [
+          -20,
+          25,
+          40
+        ],
+        "target": [
+          0,
+          5,
+          0
+        ]
+      },
+      "close_up": {
+        "pos": [
+          10,
+          12,
+          15
+        ],
+        "target": [
+          12,
+          5,
+          5
+        ]
+      },
+      "top_down": {
+        "pos": [
+          0,
+          110,
+          0
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 0.5,
+        "preset": "follow_troops"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "river",
+      "labels": [],
+      "features": [],
+      "routes": [],
+      "aSpecialKind": "boat",
+      "bSpecialKind": "boat"
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Long Nhương Tướng quân Nguyễn Huệ",
+      "dynasty": "Tây Sơn",
+      "greeting": "Hỡi ba quân!",
+      "speech": "Nếu địch không đuổi theo vào đoạn sông hiểm trở, các ngươi sẽ làm gì?"
+    },
+    "variables": []
+  }
+}

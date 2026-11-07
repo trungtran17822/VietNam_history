@@ -108,73 +108,73 @@ P0 = bắt buộc có trong demo. P1 = nên có nếu còn thời gian. Tiêu ch
 | Quyền riêng tư | Học sinh là trẻ vị thành niên: chỉ thu thập dữ liệu ẩn danh, không thông tin cá nhân; cần phiếu đồng ý của nhà trường và phụ huynh trước buổi thử |
 | Tái sử dụng | Bộ máy, bộ tài nguyên và hệ thống nhân vật tách khỏi nội dung từng bài |
 
-## 7. Hiện trạng so với yêu cầu (đã kiểm tra ngày 03/11/2026)
+## 7. Hiện trạng so với yêu cầu (đã kiểm tra ngày 03/11/2026; frontend dựng lại thành v2 ngày 07/11/2026, hành vi giữ nguyên)
 
 Chú giải: **Đã có** = chạy được trong prototype; **Một phần**; **Chưa có**. "Đã có" không bao giờ có nghĩa là "đã duyệt": toàn bộ nội dung bài học là minh họa và chưa được duyệt.
 
 | ID | Trạng thái | Bằng chứng và lưu ý |
 |---|---|---|
-| F1 | Đã có (minh họa) | Cảnh bản đồ lụa 2.5D, 4 góc nhìn, 4 chương trên dòng thời gian ([scene-map.js](../../frontend/js/scene-map.js), [lesson-data.js](../../frontend/js/lesson-data.js)). Chưa được chuyên gia xác nhận nên tiêu chí chấp nhận **chưa đạt** |
-| F2 | Đã có | Nút phát/tạm dừng, tua lại, thanh dòng thời gian và các góc nhìn trong màn hình xem và trong các màn hình 6 giai đoạn ([index.html](../../frontend/index.html) khoảng L477-483, 639-645; [app.js](../../frontend/js/app.js) L1550) |
-| F3 | Đã có (nguồn chưa kiểm chứng) | Mỗi chương có thuyết minh, chú thích, nhãn thời gian và nút "Xem nguồn" ([app.js](../../frontend/js/app.js) L1656). Nguồn là các chuỗi `{book, chapter, quote, note}` nằm ngay trong dữ liệu (ví dụ *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); không có gì trong repo đối chiếu chúng với danh mục nguồn (xem mục 12 điểm 1) |
+| F1 | Đã có (minh họa) | Cảnh bản đồ lụa 2.5D, 4 góc nhìn, 4 chương trên dòng thời gian ([silk-map.ts](../../frontend/src/scene/silk-map.ts), [ngoc-hoi-ha-hoi-1789.json](../../frontend/src/content/lessons/ngoc-hoi-ha-hoi-1789.json)). Chưa được chuyên gia xác nhận nên tiêu chí chấp nhận **chưa đạt** |
+| F2 | Đã có | Nút phát/tạm dừng, tua lại, thanh dòng thời gian và các góc nhìn trên trang bài học và trong các màn hình 6 giai đoạn ([Player.tsx](../../frontend/src/components/Player.tsx)) |
+| F3 | Đã có (nguồn chưa kiểm chứng) | Mỗi chương có thuyết minh, chú thích, nhãn thời gian và nút "Xem nguồn" ([LessonPage.tsx](../../frontend/src/components/LessonPage.tsx)). Nguồn là các chuỗi `{book, chapter, quote, note}` nằm ngay trong dữ liệu (ví dụ *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); không có gì trong repo đối chiếu chúng với danh mục nguồn (xem mục 12 điểm 1) |
 | F4 | Đã có | Lời thoại `question.character` cùng câu hỏi `q-3` có cờ `isEmperorQuestion` |
 | F5 | Đã có | 4 biến số × 3 phương án = 81 tổ hợp (mục 9.2). Số phương án vượt mức tối thiểu 2 của PRD; cơ sở lịch sử của chúng chưa được duyệt |
-| F6 | Đã có, đã kiểm chứng | Đã chạy cả 81 tổ hợp hai lần qua `SimulationEngine.calculate`: kết quả giống hệt nhau. Bộ máy không có yếu tố ngẫu nhiên. Việc đơn vị trong cảnh xê dịch ngẫu nhiên dùng `Math.random` ([scene-map.js](../../frontend/js/scene-map.js) L429-511); không làm thay đổi con số nào |
-| F7 | Đã có | Thông báo "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." được viết cứng trên màn hình so sánh ([index.html](../../frontend/index.html) L732); giả định hiển thị từ `appliedAssumptions` ([app.js](../../frontend/js/app.js) L2322) |
-| F8 | Đã có | `generateExplanation` chọn đoạn `variableFeedbacks[variable][option]` có sẵn, kèm lời mở đầu và lời kết khích lệ ([engine.js](../../frontend/js/engine.js), [app.js](../../frontend/js/app.js) L2341). Kịch bản có sẵn, không dùng LLM |
+| F6 | Đã có, đã kiểm chứng | Cả 81 tổ hợp chạy hai lần qua `calculate` cho kết quả giống hệt nhau (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). Bộ máy không có yếu tố ngẫu nhiên. Việc đơn vị trong cảnh xê dịch ngẫu nhiên dùng `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); không làm thay đổi con số nào |
+| F7 | Đã có | Thông báo "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." luôn đứng đầu màn hình so sánh (`SIMULATION_NOTICE` trong [ui.tsx](../../frontend/src/components/ui.tsx), dùng ở [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx); `scripts/check.sh` báo lỗi nếu nó biến mất); giả định hiển thị từ `appliedAssumptions` |
+| F8 | Đã có | `generateExplanation` chọn đoạn `variableFeedbacks[variable][option]` có sẵn, kèm lời mở đầu và lời kết khích lệ ([engine.ts](../../frontend/src/lib/engine.ts), [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx)). Kịch bản có sẵn, không dùng LLM |
 | F9 | **Chưa có** | Không có LLM, không có máy chủ, do cách thiết kế của prototype |
-| F10 | Đã có (tối thiểu) | Phiên lớp học ở giai đoạn 3: giáo viên mở mã 6 ký tự, học sinh tham gia trên máy của mình, giáo viên thấy số bài đã gửi và thanh tỉ lệ cho từng phương án (cập nhật mỗi 4 giây). Backend: Cloudflare Worker + D1 trong `backend/`; frontend: [class-session.js](../../frontend/js/class-session.js), [class-panel.js](../../frontend/js/class-panel.js). Đặc tả: `specs/001-classroom-sim-demo/` |
+| F10 | Đã có (tối thiểu) | Phiên lớp học ở giai đoạn 3: giáo viên mở mã 6 ký tự, học sinh tham gia trên máy của mình, giáo viên thấy số bài đã gửi và thanh tỉ lệ cho từng phương án (cập nhật mỗi 4 giây). Backend: Cloudflare Worker + D1 trong `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Đặc tả: `specs/001-classroom-sim-demo/` |
 | F11 | Đã có (tối thiểu) | Theo từng máy trong phiên lớp: lựa chọn, thời gian dùng và khảo sát 3 câu (1-5, không bắt buộc) ở giai đoạn 6. Giáo viên tải CSV với mã ẩn danh (A01…), không có cột định danh, và có thể xoá phiên. Phiên hết hạn sau 12 giờ; dữ liệu tự xoá sau 180 ngày. Phiếu giấy vẫn là phương án dự phòng |
 
-Chỉ có **1 trong 4 bài mẫu là hoàn chỉnh**: Ngọc Hồi có 4 chương và 4 biến số. Rạch Gầm (3 chương), Chi Lăng (1 chương) và bài Mông-Nguyên (0 chương) không có biến số mô phỏng, nên các giai đoạn câu hỏi/mô phỏng/so sánh không có gì để chạy với chúng.
+Chỉ có **1 trong 4 bài mẫu là hoàn chỉnh**: Ngọc Hồi có 4 chương và 4 biến số. Rạch Gầm (3 chương), Chi Lăng (1 chương) và bài Mông-Nguyên (0 chương) không có biến số mô phỏng, nên các giai đoạn câu hỏi/mô phỏng/so sánh không có gì để chạy với chúng. Từ v2, giáo viên có thể thêm biến số cho bất kỳ bài nào ở thẻ "Biến số & hệ số" của trình soạn bài (mục 8); bài có một biến số là chạy đủ 6 giai đoạn.
 
 ## 8. Kiến trúc (đúng như đã xây)
 
-Hai thư mục. `frontend/`: ứng dụng web một trang, không có bước build, HTML/CSS/JS thuần cùng three.js đóng gói sẵn, triển khai tệp tĩnh lên Vercel ([vercel.json](../../vercel.json)). `backend/`: API nhỏ trên Cloudflare Worker + D1 (SQLite), chỉ dùng cho phiên lớp học (F10/F11); bài học chạy đầy đủ khi không có nó. Thiết kế đầy đủ: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md).
+Hai thư mục. `frontend/`: ứng dụng một trang build bằng Vite (React 19, TypeScript strict, TanStack Router với hash history, TanStack Query chỉ cho API lớp, Tailwind v4, zod, three.js từ npm) ra `frontend/dist`, triển khai tệp tĩnh lên Vercel ([vercel.json](../../vercel.json)). `backend/`: API nhỏ trên Cloudflare Worker + D1 (SQLite), chỉ dùng cho phiên lớp học (F10/F11); bài học chạy đầy đủ khi không có nó. Thiết kế đầy đủ: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); hệ thiết kế: [DESIGN.md](../../DESIGN.md).
 
 ```
 frontend/
-  index.html          mọi màn hình trong một trang, chuyển bằng showView
-  js/                 thẻ <script> cổ điển, chia sẻ qua biến toàn cục window
-  css/                theme.css (token, bảng màu cảnh) → fonts.css → style.css → editorial.css (nạp sau cùng)
-  vendor/             three.min.js (~603 KB), OrbitControls.js
-  fonts/ assets/      woff2 Noto cục bộ (108 KB); thư mục ghi đè sprite (12 KB)
-  data/               lesson.root-copy.json, sources.json  (KHÔNG script nào nạp)
+  index.html          điểm vào của Vite
+  src/routes/         mỗi route một tệp (TanStack Router); routeTree.gen.ts là tệp sinh ra
+  src/components/     màn hình: trang bài học, vòng 6 bước, soạn bài + form biến số, sa bàn, phiên lớp
+  src/lib/            module nghiệp vụ không có UI, có test Vitest
+  src/content/lessons mỗi bài một JSON, nạp lười
+  src/scene/          silk-map.ts (nơi duy nhất import three.js, chunk nạp lười), artwork.ts, sprites/
+  src/styles.css      token giao diện Tailwind và lớp thành phần
+  public/             phông Noto woff2, logo
+  data/sources.json   danh mục nguồn (code chưa nạp)
 ```
 
-**Thứ tự nạp script rất quan trọng** ([index.html](../../frontend/index.html) L913-922): `three.min.js` → `text.js` → `OrbitControls.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `config.js` → `class-session.js` → `class-panel.js` → `app.js`.
+| Module | Trách nhiệm |
+|---|---|
+| `lib/lesson-schema.ts` | Lược đồ zod của bài học; dùng trong kiểm tra build, mỗi lần lưu ở trình soạn bài và khi nhập JSON |
+| `lib/storage.ts` | Bài học trong `localStorage` (nạp từ JSON đóng gói, chuyển dữ liệu v1 một lần, cập nhật theo `revision`), nhập/xuất JSON, quy tắc hiển thị cho học sinh, lưu một lần chạy của học sinh cho mỗi bài |
+| `lib/engine.ts` | `calculate`, lời giải thích |
+| `lib/text.ts` | Chuẩn hóa NFC ở chỗ nhập liệu và nhập tệp |
+| `lib/auth.ts` | **Chỉ là đăng nhập demo phía trình duyệt** (`sessionStorage`); `admin` / `123` cho cả giáo viên và học sinh. Không phải bảo mật |
+| `lib/audio.ts` | Âm thanh trận đánh sinh bằng Web Audio |
+| `lib/class-session.ts` | Client API phiên lớp: mở/tham gia/gửi/tổng hợp/CSV/xoá, khoá giáo viên và mã học sinh trong `localStorage`; địa chỉ API theo môi trường (`localhost` → `:8787`; đã triển khai → `DEPLOYED_API_BASE` hoặc `VITE_API_BASE`, để trống thì tắt tính năng lớp học) |
+| `scene/silk-map.ts` | `SilkMapScene`: trình dựng bản đồ lụa Three.js theo `simulation.scene`; sprite `InstancedMesh`; 4 góc nhìn; nhãn địa hình là lớp phủ HTML (không bao giờ là chữ trong canvas/hình học); PNG trong `src/scene/sprites/` ghi đè sprite sinh tự động |
+| `components/StageLoop.tsx` | Vòng 6 giai đoạn |
+| `components/Editor.tsx`, `VariablesEditor.tsx` | Trình soạn bài có hoàn tác/làm lại; thẻ "Biến số & hệ số" sửa số liệu gốc, nhân vật, biến số và phương án (đúng một phương án gốc, 3 hệ số, giả định, nhận xét bước 6) kèm ô thử nhanh |
+| `components/ClassPanel.tsx` | Bảng giáo viên / thẻ tham gia của học sinh ở giai đoạn 3 và khảo sát ở giai đoạn 6 |
 
-| Module | Biến toàn cục | Trách nhiệm |
-|---|---|---|
-| `text.js` | - | Vá các setter `textContent`/`innerHTML` để chuẩn hóa NFC tiếng Việt. Phải nạp đầu tiên |
-| `auth.js` | `window.Auth` | **Chỉ là đăng nhập demo phía client** (`sessionStorage`); `admin` / `123` cho cả giáo viên và học sinh. Không phải bảo mật |
-| `audio.js` | `window.BattleAudio` | Âm thanh trận đánh sinh bằng Web Audio |
-| `lesson-data.js` | `SEED_LESSONS` | Lược đồ bài học đầy đủ và 4 bài mẫu |
-| `storage.js` | `window.LessonStorage` | Bài học trong `localStorage` (nạp mẫu khi trống), nhập/xuất JSON, quy tắc hiển thị cho học sinh, một lần chạy của học sinh cho mỗi bài |
-| `engine.js` | `window.SimulationEngine` | `calculate`, `generateExplanation` |
-| `scene-map.js` | `window.BattleScene3D` (lớp `SilkMapScene`) | Trình dựng bản đồ lụa Three.js; sprite `InstancedMesh`; 4 góc nhìn; nhãn địa hình là lớp phủ HTML (không bao giờ là chữ trong canvas/hình học); PNG trong `assets/sprites/` ghi đè sprite sinh tự động |
-| `config.js` | `window.APP_CONFIG` | Địa chỉ API theo môi trường (`localhost` → `:8787`; bản triển khai → `DEPLOYED_API_BASE`, để trống thì tắt tính năng lớp học) |
-| `class-session.js` | `window.ClassSession` | Client API phiên lớp: mở/tham gia/gửi/tổng hợp/CSV/xoá; khoá giáo viên và mã máy học sinh trong `localStorage` |
-| `class-panel.js` | `window.ClassPanel` | Bảng giáo viên / thẻ tham gia của học sinh ở giai đoạn 3 và khảo sát ở giai đoạn 6 |
-| `app.js` (~2500 dòng) | - | Bộ điều khiển: lưu DOM, bộ định tuyến hash, bảng điều khiển giáo viên + trình soạn thảo (undo/redo), bảng điều khiển học sinh + màn hình xem, vòng 6 giai đoạn |
-| `scene3d.js` | - | Trình dựng low-poly cũ, **không được nạp**; hãy sửa `scene-map.js` |
+**Các route** (hash history): `#/` (đăng nhập), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (vòng 6 giai đoạn, cả hai vai, `?step=n`), `#/atlas` (chỗ trống "Sắp ra mắt"), `#/fonttest` (kiểm tra glyph tiếng Việt, không cần đăng nhập).
 
-**Đường dẫn (route)** (bộ định tuyến hash): `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (vòng 6 giai đoạn, cả hai vai), `#/fonttest` (kiểm tra glyph tiếng Việt).
-
-**Quy tắc vòng đời cảnh:** mỗi bề mặt (xem trước trong trình soạn thảo, không gian bài học, màn hình xem của học sinh, giai đoạn gốc/tùy chỉnh) sở hữu một `SilkMapScene`, điều khiển qua `updateTimeline`, `setCameraPreset`, `updatePropsVisibility`/`applyPropConfig`, `updateFactionColors`, `updateUnitCounts`, `setQuality`. **Gọi `destroy()` khi gỡ màn hình** để các renderer không chồng chất.
+**Quy tắc vòng đời cảnh:** mỗi bề mặt (xem trước ở trình soạn, trang bài học, giai đoạn gốc/tùy chỉnh) gắn một `SilkMapScene` qua `SceneView`/`Player`; hai thành phần này gọi `destroy()` khi gỡ để trình dựng không dồn lại.
 
 **Lưu trữ**
 
 | Khóa | Nội dung |
 |---|---|
-| `history_sim_lessons_db_v2` | Toàn bộ bài học. `LessonStorage.init()` chỉ nạp mẫu khi khóa **chưa tồn tại**, nên sửa `SEED_LESSONS` sẽ không hiện trong trình duyệt đã có dữ liệu. Hãy xóa khóa hoặc tăng `STORAGE_KEY_LESSONS` |
-| `history_sim_student_runs` | `{ [lessonId]: {choices, results…, timestamp} }`, chỉ giữ lần chạy gần nhất |
+| `history_sim_lessons_db_v2` | Mọi bài học. Nạp từ JSON đóng gói; bài mẫu có `revision` cao hơn sẽ thay nội dung đã lưu nhưng giữ các trường kế hoạch của giáo viên (ngày, lớp, trạng thái) |
+| `history_sim_student_runs` | `{ [lessonId]: {choices, results…, timestamp} }`, chỉ lần chạy gần nhất |
 
-**Quy tắc hiển thị cho học sinh** ([storage.js](../../frontend/js/storage.js) L134-160): học sinh chỉ thấy bài học khi `status === 'Đã dạy'` **và** `date <= today`. Các trạng thái: `'Nháp' | 'Đã lên lịch' | 'Đã dạy'`.
+**Quy tắc hiển thị cho học sinh** ([storage.ts](../../frontend/src/lib/storage.ts)): học sinh chỉ thấy bài học khi `status === 'Đã dạy'` **và** `date <= today`. Các trạng thái: `'Nháp' | 'Đã lên lịch' | 'Đã dạy'` (giao diện hiện `Đã dạy` là "Đã phát hành").
 
 ## 9. Hợp đồng dữ liệu và mô phỏng
 
-### 9.1 Đối tượng bài học (một phần tử của `SEED_LESSONS` / JSON đã lưu)
+### 9.1 Đối tượng bài học (một tệp trong `frontend/src/content/lessons/`, kiểm tra bằng [lesson-schema.ts](../../frontend/src/lib/lesson-schema.ts))
 
 | Nhóm trường | Trường |
 |---|---|
@@ -183,21 +183,23 @@ frontend/
 | Chương | `sections[]`: `id`, `title`, `narration`, `caption`, `timelineRange` (0-1), `timeLabel`, `source {book, chapter, quote, note}` |
 | Câu hỏi | `questions[]`: `id`, `text`, `type` (`multiple_choice` hoặc `open_discussion`), `sectionId`, `isEmperorQuestion`, `isExplanationReleased`, `options[] {id, text, isCorrect, explanation}` hoặc `guide` |
 | Chỉ giáo viên | `privateNotes` (ẩn ở chế độ học sinh) |
-| Số liệu gốc | `baseline {durationHours, casualties, positionScore, ratingText}` |
-| Cảnh | `simulation {propsConfig, unitCounts, factionColors, cameraPresets (overview, follow_troops, close_up, top_down), keyframes[{time, preset}]}` |
-| Câu hỏi của Hoàng đế | `question {character {name, dynasty, avatarSvg, greeting, speech}, variables[]}` |
+| Số liệu gốc | `baseline {durationHours, casualties, positionScore, ratingText, minDurationHours?, minCasualties?}` |
+| Phiên bản | `schemaVersion`, `revision` (tăng khi sửa một bài mẫu để bản đã lưu trong trình duyệt được cập nhật) |
+| Hai phe | `factions {a {name, color}, b {name, color}}` |
+| Cảnh | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; các góc camera cố định trong trình dựng (overview, follow_troops, close_up, top_down) |
+| Câu hỏi của nhân vật | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
 | Biến số | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
 | Giải thích | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
 
 Quy tắc từ PRD: **chỉnh mô hình bằng cách sửa hệ số trong dữ liệu bài học, không bao giờ sửa trong code của bộ máy.** Các hệ số chính là danh sách giả định hiển thị cho học sinh.
 
-### 9.2 Bộ máy ([engine.js](../../frontend/js/engine.js))
+### 9.2 Bộ máy ([engine.ts](../../frontend/src/lib/engine.ts))
 
 Với mỗi biến số, lấy phương án đã chọn (nếu thiếu thì lấy phương án đầu tiên, rồi đến mặc định có độ lệch bằng 0), và cộng các độ lệch:
 
 ```
-student.durationHours = max(12,  baseline.durationHours + Σ timeDelta)
-student.casualties    = max(500, baseline.casualties    + Σ casualtyDelta)
+student.durationHours = max(baseline.minDurationHours ?? 12,  baseline.durationHours + Σ timeDelta)
+student.casualties    = max(baseline.minCasualties ?? 500,   baseline.casualties    + Σ casualtyDelta)
 student.positionScore = clamp(baseline.positionScore + Σ positionScoreDelta, 10, 100)
 isIdenticalToOriginal = mọi phương án đã chọn đều có isOriginal === true
 ```
@@ -219,8 +221,7 @@ Sắc thái kết quả theo `student.positionScore`: giống bản gốc → `p
 
 ### 9.3 Quy tắc ghi nhãn (phải giữ nguyên)
 
-- Dải thông báo toàn cục dưới tiêu đề luôn hiển thị "Nội dung minh họa, chưa được chuyên gia duyệt" ([index.html](../../frontend/index.html) L64).
-- Chân trang thường trực trên màn hình bài học: "⚠️ Nội dung minh họa, chưa được chuyên gia duyệt" ([index.html](../../frontend/index.html) L558).
+- Dải trên cùng và chân trang của mọi trang: "Nội dung minh họa, chưa được chuyên gia duyệt" (`PROTOTYPE_NOTICE` trong [ui.tsx](../../frontend/src/components/ui.tsx), hiển thị bởi [__root.tsx](../../frontend/src/routes/__root.tsx)).
 - Màn hình so sánh luôn hiện thông báo mô phỏng (mục 7, F7).
 - Không bao giờ trình bày số liệu mô phỏng như lịch sử. Không bịa số liệu lịch sử cụ thể trong nội dung bài học; ghi rõ con số nào là minh họa.
 - Nhãn địa hình là lớp phủ HTML; không bao giờ đặt chữ tiếng Việt trong canvas hoặc hình học (lỗi glyph và NFC).
@@ -229,17 +230,17 @@ Sắc thái kết quả theo `student.positionScore`: giống bản gốc → `p
 
 Tự động, chạy trong CI ở mọi lần push (`npm test` trên máy):
 
-- `bash scripts/check.sh` (cũng là `/check`): `node --check` cho `frontend/js/*.js` và mã backend; mọi `data/*.json` đều hợp lệ; mọi `src`/`href` cục bộ trong `index.html` đều tồn tại; mọi `js/*.js` (trừ `scene3d.js` cũ) đều được nạp.
-- Unit (`npm run test:unit`, `node:test`): bộ máy cho cùng kết quả ở cả 81 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
-- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, không cuộn ngang ở 360 px.
+- `bash scripts/check.sh` (cũng là `/check`): `tsc` (strict) cho `frontend/src`; mọi JSON bài học qua được lược đồ zod; các nhãn bắt buộc vẫn còn trong mã; mọi tệp nguồn ở dạng NFC; tham chiếu cục bộ trong `index.html` tồn tại; `node --check` cho mã backend.
+- Unit (`npm run test:unit`: Vitest cho `frontend/src/lib`, `node:test` cho backend): lược đồ bài học, chuyển dữ liệu v1, bộ máy cho cùng kết quả ở cả 81 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
+- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, form soạn biến số (bài trống được thêm một biến số, phát hành và chạy đủ 6 giai đoạn theo hệ số của nó, hoàn tác/làm lại), không cuộn ngang ở 360 px.
 - Sau CI: Vercel (frontend) và Cloudflare (backend) triển khai từ `Staging` (preview/staging) và `main` (production); mỗi job tự bỏ qua kèm thông báo nếu thiếu secret ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
-- Thủ công: nạp bằng `cd frontend && python3 -m http.server 8080`, rồi đi qua 6 giai đoạn ở vai giáo viên và học sinh; kiểm tra `#/fonttest`.
+- Thủ công: `npm run dev:frontend` (Vite, cổng 8080), rồi đi qua 6 giai đoạn ở vai giáo viên và học sinh; kiểm tra `#/fonttest`.
 
 **Danh sách chấp nhận cho demo (chạy xong trước T9, trước buổi dạy thử)**
 
 1. Cả 6 giai đoạn hoàn tất không có lỗi console, ở chế độ giáo viên và học sinh, trên một máy yếu thật của trường và một điện thoại.
 2. Màn hình so sánh hiện thông báo mô phỏng và danh sách giả định với từng tổ hợp trong 81 tổ hợp.
-3. Cùng lựa chọn cho cùng số liệu qua các lần tải lại (đã tự động: `tests/unit/engine.test.js`, `tests/e2e/lesson-flow.spec.js`).
+3. Cùng lựa chọn cho cùng số liệu qua các lần tải lại (đã tự động: `frontend/src/lib/domain.test.ts`, `tests/e2e/lesson-flow.spec.js`).
 4. Chế độ học sinh không bao giờ hiện `privateNotes`, và không bao giờ hiện bài học không thỏa cả hai điều kiện `Đã dạy` và `date <= today`.
 5. Mọi sự kiện hiển thị đều có nguồn mà cố vấn đã duyệt; không có nội dung nào đến học sinh khi chưa được duyệt.
 6. Dữ liệu xuất của F11 (hoặc phiếu giấy dự phòng) không có dữ liệu cá nhân.
@@ -297,13 +298,13 @@ Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 t
 3. **README từng nói quá về F10. Đã sửa.** `frontend/README.md` từng mô tả biểu đồ khảo sát của lớp ("38/40") mà không có code nào cài đặt; F10 nay đã có ở mức phiên lớp học tối thiểu (mục 7).
 4. **Tài khoản.** PRD đưa "tài khoản người dùng" ra ngoài phạm vi. Prototype có đăng nhập demo, bảng điều khiển giáo viên/trình soạn thảo với nhập/xuất nhiều hơn PRD yêu cầu. Giữ nhãn đăng nhập chỉ là demo; nó không bảo vệ gì. Cần quyết định trình soạn thảo thuộc phạm vi demo hay là phần thưởng phát sinh chi phí bảo trì.
 5. **F11. Đã sửa (tối thiểu).** Phiên lớp thu lựa chọn, thời gian dùng và khảo sát 3 câu theo từng máy, xuất CSV ẩn danh cho báo cáo bước 9. Phiếu đồng ý và bài kiểm tra trước/sau vẫn làm trên giấy.
-6. **PRD nói một tệp + `lesson.json`.** Ứng dụng đang chạy lấy bài học từ `js/lesson-data.js` và `localStorage`; `data/lesson.root-copy.json` không được nạp. Ổn với prototype; quy trình nội dung thật (bước 3 → 4) phải xác định một nguồn dữ liệu duy nhất.
+6. **PRD nói một tệp + `lesson.json`.** Từ v2 mỗi bài là một tệp JSON trong `frontend/src/content/lessons/`, kiểm tra bằng lược đồ zod; bản trong `localStorage` giữ phần giáo viên sửa. Quy trình nội dung thật (bước 3 → 4) vẫn phải quyết định nội dung đã duyệt nằm trong các tệp này hay trên máy chủ.
 7. **Thời lượng.** PRD: 15-20 phút. Giáo án của prototype: 45 phút (6 giai đoạn 5/10/8/7/8/7). Hai điều này khớp nhau chỉ khi 15-20 phút của PRD là phần mô phỏng cốt lõi nằm trong tiết 45 phút; cần xác nhận với giáo viên đối tác.
-8. **Viết cứng và theo dữ liệu.** Thông báo ở màn hình so sánh được viết cứng trong `index.html`; trường `simulationDisclaimer` của từng bài chỉ được đọc ở tab không gian bài học ([app.js](../../frontend/js/app.js) L1432). Đổi trường này không đổi chữ ở màn hình so sánh của 6 giai đoạn.
+8. **Viết cứng và theo dữ liệu.** Đã xử lý ở v2: thông báo bắt buộc là hằng `SIMULATION_NOTICE` và luôn đứng đầu màn hình so sánh; `simulationDisclaimer` của từng bài hiện ngay dưới (không lặp lại thông báo) và trên trang bài học.
 9. **Con số chưa duyệt.** Số liệu nền (36 giờ, 1.800 thương vong, 95) và mọi độ lệch đều là tạm. Văn bản mẫu cũng nêu các con số như "100 voi chiến" và "29 vạn quân" chưa gắn với nguồn đã duyệt. Chúng phải qua bước 3 trước khi học sinh nhìn thấy.
 10. **Ngẫu nhiên trong cảnh.** Vị trí các đơn vị trong cảnh được ngẫu nhiên hóa mỗi lần tải; hai lần chiếu cùng một bài trông hơi khác nhau. Chấp nhận được cho demo; chỉ quan trọng nếu cần ảnh chụp tái lập được.
 11. **Mâu thuẫn lộ trình. Đã sửa.** Tài liệu PRD (`docs/prd/…`) đã được cập nhật ngày 01/11/2026 theo cùng kế hoạch 12 tuần (tối đa 15), gồm biểu đồ Gantt, số tuần từng bước, các mốc và rủi ro. PRD chưa có dòng rủi ro "12 tuần quá gấp" và hai câu hỏi mở mới ở mục 13 (quy mô nhóm, cố vấn).
-12. **Lệch cách diễn đạt. Đã sửa.** Giao diện ghi "Nội dung minh họa, chưa được chuyên gia duyệt" (dải đầu trang và chân trang); `frontend/README.md`, `CLAUDE.md` ở thư mục gốc và `.claude/rules/content-labeling.md` nay ghi giống vậy. Tệp `data/lesson.root-copy.json` (không được nạp) vẫn còn ghi chú "Dữ liệu minh họa"; không ảnh hưởng lúc chạy.
+12. **Lệch cách diễn đạt. Đã sửa.** Giao diện ghi "Nội dung minh họa, chưa được chuyên gia duyệt" (dải đầu trang và chân trang); `frontend/README.md`, `CLAUDE.md` ở thư mục gốc và `.claude/rules/content-labeling.md` nay ghi giống vậy. Tệp `data/lesson.root-copy.json` (không được nạp, còn ghi chú "Dữ liệu minh họa" cũ) đã bị xoá cùng code v1.
 
 ## 13. Câu hỏi mở
 

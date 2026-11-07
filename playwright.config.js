@@ -1,8 +1,8 @@
-// E2E for the classroom demo (spec 001). Starts the static frontend and the in-memory API itself.
+// E2E for the classroom demo (spec 001). Builds and serves the frontend and starts the in-memory API itself.
 const { defineConfig, devices } = require('@playwright/test');
 
 const FRONTEND_PORT = Number(process.env.E2E_FRONTEND_PORT || 8080);
-const API_PORT = 8787; // frontend/js/config.js points to :8787 on localhost
+const API_PORT = 8787; // frontend/src/lib/class-session.ts points to :8787 on localhost
 
 module.exports = defineConfig({
   testDir: 'tests/e2e',
@@ -24,8 +24,10 @@ module.exports = defineConfig({
   ],
   webServer: [
     {
-      command: `python3 -m http.server ${FRONTEND_PORT} --directory frontend`,
-      url: `http://localhost:${FRONTEND_PORT}/index.html`,
+      // Locally an already running `npm run dev:frontend` (same port) is reused.
+      command: `npm run build && npm run preview -- --port ${FRONTEND_PORT}`,
+      url: `http://localhost:${FRONTEND_PORT}/`,
+      timeout: 120_000,
       reuseExistingServer: !process.env.CI
     },
     {

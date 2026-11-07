@@ -19,14 +19,14 @@ Each deploy job **skips with a notice** (not a failure) when its secrets are mis
 
 - The repo is bound to these accounts. The Vercel org/project ids are in `ci-cd.yml`; the Cloudflare `account_id` and D1 ids are in `backend/wrangler.toml`. None of them is secret.
 - CI needs only two repo secrets: `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`. Adding them needs repo admin rights. Step-by-step guide in Vietnamese: [CI-CD_Vercel_VietnamHistory.md](CI-CD_Vercel_VietnamHistory.md).
-- `frontend/js/config.js` points every deployed copy, Vercel previews included, at the production Worker.
+- `frontend/src/lib/class-session.ts` (`DEPLOYED_API_BASE`) points every deployed copy, Vercel previews included, at the production Worker. A build can override it with the env var `VITE_API_BASE`.
 - Manual deploy from a logged-in machine (check, unit, backend migrate + deploy, smoke, frontend): `npm run deploy`. The parts on their own: `deploy:backend`, `smoke`, `deploy:frontend`.
 
 The sections below are the from-scratch setup, for a new account.
 
 ## 1. Vercel (frontend), once
 
-1. Create a Vercel project from this repo. `vercel.json` already sets `outputDirectory: frontend`, no install or build command, and turns off Vercel's own Git deploys (CI deploys instead).
+1. Create a Vercel project from this repo. `vercel.json` already sets `installCommand: npm ci`, `buildCommand: npm run build` (Vite, Node 20.19+; CI uses Node 22), `outputDirectory: frontend/dist`, and turns off Vercel's own Git deploys (CI deploys instead).
 2. Put `orgId` and `projectId` from `.vercel/project.json` (after `npx vercel link`; do not commit `.vercel/`) into `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` in `ci-cd.yml`.
 3. Add the repo secret `VERCEL_TOKEN` (GitHub → Settings → Secrets and variables → Actions; vercel.com → Account Settings → Tokens).
 
@@ -55,7 +55,7 @@ npx wrangler@3 deploy --env staging
 
 ## 3. Connect the frontend to the backend
 
-1. Set `DEPLOYED_API_BASE` in `frontend/js/config.js` to the Worker origin (no trailing slash), e.g. `https://sv-class-api.<subdomain>.workers.dev`. Until then deployed sites show "class features not configured" and run everything else.
+1. Set `DEPLOYED_API_BASE` in `frontend/src/lib/class-session.ts` (or the build env var `VITE_API_BASE`) to the Worker origin (no trailing slash), e.g. `https://sv-class-api.<subdomain>.workers.dev`. Until then deployed sites show "class features not configured" and run everything else.
 2. `ALLOWED_ORIGINS` in `wrangler.toml` must include the site origin. Defaults: staging allows `http://localhost:8080` and `https://*.vercel.app`; production allows `https://*.vercel.app`. Narrow production to the real domain once it is fixed.
 
 ## 4. Rollback

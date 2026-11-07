@@ -3,7 +3,7 @@
 
 | | |
 |---|---|
-| Phiên bản | 1.0, 03/11/2026 |
+| Phiên bản | 1.1, 07/11/2026 (thêm form soạn biến số & hệ số, frontend v2) |
 | Trạng thái | Sẵn sàng triển khai (spec đã qua 3 vòng review) |
 | Chuẩn tham chiếu | Cấu trúc theo ISO/IEC/IEEE 29148 (kế thừa IEEE 830) |
 | Nguồn | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (cập nhật 01/11/2026); spec `specs/001-classroom-sim-demo/`; thiết kế hệ thống `docs/architecture/SYSTEM_DESIGN.md`; báo cáo nghiên cứu `docs/research/` |
@@ -49,7 +49,7 @@ data model, API contract, tasks); `docs/architecture/SYSTEM_DESIGN.md`; `.specif
 
 ### 2.1 Bối cảnh sản phẩm
 Hai phần tách thư mục:
-- **Frontend** (`frontend/`): trang web tĩnh (HTML/CSS/JS, three.js), chứa toàn bộ nội dung bài và
+- **Frontend** (`frontend/`): trang web tĩnh build bằng Vite (React, TypeScript, three.js), chứa toàn bộ nội dung bài và
   tính toán mô phỏng; chạy được cả khi không có mạng tới máy chủ lớp học. Triển khai trên Vercel.
 - **Backend** (`backend/`): một Cloudflare Worker và cơ sở dữ liệu D1, chỉ lưu phiên lớp và câu trả
   lời ẩn danh. Triển khai trên Cloudflare.
@@ -60,6 +60,7 @@ Hai phần tách thư mục:
 3. Phiên lớp: giáo viên xem phân bố lựa chọn của cả lớp (F10).
 4. Dữ liệu thử nghiệm ẩn danh: thời gian dùng, khảo sát 3 câu, xuất CSV (F11).
 5. Soạn bài nháp từ tư liệu có nguồn, chặn phát hành khi chưa đối chiếu nguồn (bản cập nhật UI của Trung).
+6. Soạn biến số và hệ số mô phỏng ngay trong trình soạn bài, để bài mới chạy được đủ 6 màn (v2).
 
 ### 2.3 Người dùng
 
@@ -76,7 +77,7 @@ của trường; máy chiếu 1280×720; điện thoại rộng từ 360 px. Phi
 
 ### 2.5 Ràng buộc
 - Giao diện và lời nhân vật 100% tiếng Việt, chuẩn hoá NFC; không vẽ chữ vào canvas/3D.
-- Không có bước build, không framework (giữ nhẹ và dễ bảo trì cho nhóm nhỏ).
+- Gói JS ban đầu ≤ 200 KB gzip (không tính chunk sa bàn 3D, nạp lười); ít thư viện phụ thuộc. (v1 không có bước build; từ v2 dùng Vite + React + TypeScript để có kiểu dữ liệu, test cạnh code và kiểm tra lược đồ bài học.)
 - Không thu thập thông tin cá nhân của học sinh.
 - Hạ tầng gói miễn phí (Vercel Hobby, Cloudflare Workers/D1 Free) cho giai đoạn demo.
 
@@ -133,12 +134,15 @@ Cột "PRD" ánh xạ về mã yêu cầu trong PRD; "Spec" ánh xạ về `spec
 | SRS-F-18 | Giáo viên tải CSV UTF-8 có BOM, mỗi thiết bị một dòng, mã ẩn danh A01, A02…; không có cột định danh; chống chèn công thức | P1 | F11 | FR-015 | Unit + E2E |
 | SRS-F-19 | Giáo viên xoá phiên (xoá cả câu trả lời); hệ thống tự xoá phiên quá 180 ngày | P1 | F11 | FR-016 | Unit |
 
-#### 3.1.5 Soạn bài từ tư liệu có nguồn
+#### 3.1.5 Soạn bài: tư liệu có nguồn, biến số và hệ số
 
 | Mã | Yêu cầu | Ưu tiên | PRD | Spec | Kiểm thử |
 |---|---|---|---|---|---|
 | SRS-F-20 | Giáo viên tạo bài nháp từ nội dung + nguồn (tên, cơ quan/tác giả, liên kết HTTPS, năm, thông tin cần đối chiếu); thiếu trường bắt buộc thì báo lỗi rõ | P1 | NFR độ đúng | FR-021 | E2E |
 | SRS-F-21 | Không phát hành được bài nháp khi giáo viên chưa xác nhận "Tôi đã đối chiếu nguồn" | P1 | NFR độ đúng | FR-021 | E2E |
+| SRS-F-24 | Thẻ "Biến số & hệ số" trong trình soạn bài: sửa số liệu gốc (thời gian, tổn thất, điểm thế trận), nhân vật đặt câu hỏi và nhãn cách gốc; thêm, sửa, xoá, đổi thứ tự biến số và phương án; mỗi phương án có 3 hệ số, giả định và lời nhận xét màn 6 | P1 | F5, F6 | v2 plan | E2E (`authoring.spec.js`) |
+| SRS-F-25 | Mỗi biến số có ≥2 phương án và đúng 1 phương án gốc với hệ số bằng 0; bài vi phạm lược đồ (zod) thì không lưu được và lỗi được liệt kê bằng tiếng Việt | P1 | F6 | v2 plan | Unit + E2E |
+| SRS-F-26 | Mọi thay đổi trong trình soạn bài hoàn tác/làm lại được; bài mới có ít nhất một biến số chạy được đủ 6 màn với kết quả tính từ hệ số giáo viên nhập | P1 | F5-F8 | v2 plan | E2E (`authoring.spec.js`) |
 
 #### 3.1.6 Vai trò và hiển thị
 
@@ -150,7 +154,7 @@ Cột "PRD" ánh xạ về mã yêu cầu trong PRD; "Spec" ánh xạ về `spec
 ### 3.2 Giao diện ngoài
 
 #### 3.2.1 Giao diện người dùng
-- Nhận diện "Sử Việt" (logo, trống đồng, màu sơn mài/vàng) theo bản cập nhật của Trung; hệ token màu trong `css/theme.css`.
+- Nhận diện "Sử Việt" (tên + logo con dấu); hệ thiết kế "The Lacquered Lesson Plan" trong `DESIGN.md`, token màu trong `frontend/src/styles.css`.
 - Dải "Nội dung minh họa, chưa được chuyên gia duyệt" dưới header và chân trang bài học luôn hiện.
 - Màn 3 hai cột trên màn rộng (câu hỏi + biến số | bảng phiên lớp), một cột trên điện thoại.
 - Nút cao ≥44 px, chữ thân ≥16 px; tương phản chữ ≥4.5:1; có trạng thái focus khi dùng bàn phím.

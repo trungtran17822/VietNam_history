@@ -46,7 +46,7 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
 
 ### 4.1 Lesson v2 (`frontend/src/content/lessons/<id>.json`, một file một bài)
 
-- Giữ nguyên toàn bộ shape hiện tại của `SEED_LESSONS` trong `frontend/js/lesson-data.js` (sections + `source`, `questions`, `keyNotes`, ghi chú riêng giáo viên, `question.character`, `question.variables[].options[]` với `isOriginal`, `timeDelta`, `casualtyDelta`, `positionScoreDelta`, `assumptions`, `baseline`, `simulation.propsConfig|unitCounts|factionColors|cameraPresets|keyframes`, `status`, `date`, `disclaimer`, `simulationDisclaimer`).
+- Giữ nguyên toàn bộ shape hiện tại của `SEED_LESSONS` trong `frontend/js/lesson-data.js` (code v1, đã xoá ở S1) (sections + `source`, `questions`, `keyNotes`, ghi chú riêng giáo viên, `question.character`, `question.variables[].options[]` với `isOriginal`, `timeDelta`, `casualtyDelta`, `positionScoreDelta`, `assumptions`, `baseline`, `simulation.propsConfig|unitCounts|factionColors|cameraPresets|keyframes`, `status`, `date`, `disclaimer`, `simulationDisclaimer`).
 - Thêm:
   ```jsonc
   {
@@ -73,6 +73,15 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
 - **Nguồn**: mọi `source.quote` phải là trích dẫn thật lấy từ tài liệu mà session thực sự đọc được (PDF SGK trong repo, hoặc trang web công khai đã mở được). Không đọc được nguyên văn thì để `quote: ""` và `note: "Cần bổ sung trích dẫn nguyên văn"`. Mọi con số mô phỏng là minh họa và ghi rõ. Giữ nhãn "Nội dung minh họa, chưa được chuyên gia duyệt".
 - Bảng màu phe: không dùng biểu tượng/cờ mang tính kỳ thị hay quân phiệt làm trang trí.
 - S1 là chủ của zod schema cuối cùng. Nếu phải lệch khỏi mục này, S1 sửa mục này và ghi vào `notes/s1.md`.
+- **Đã chốt ở S1** (schema thật: `frontend/src/lib/lesson-schema.ts`; chi tiết trong `notes/s1.md`):
+  - Tọa độ mặt bàn là x ∈ [-120, 120], z ∈ [-93, 93] (đúng kích thước sa bàn 240×186), +z hướng về người xem; không phải [-100, 100].
+  - `features[].type` thêm `camp` (trại quân); `features[]` có thêm `size` (tùy chọn).
+  - `scene` có thêm `formations {a?: {from, to}, b?: {from, to}}` (vị trí đầu và cuối của khối quân), `aSpecialKind`, `bSpecialKind` ∈ `elephant | cannon | boat | tank` (đơn vị đặc biệt; mặc định phe A là voi, phe B không có).
+  - Thêm `revision` (số nguyên ≥ 1): tăng khi sửa bài mẫu để trình duyệt đã lưu bản cũ nhận nội dung mới.
+  - Thêm `simulation.outcomes {perfect, positive, moderate, challenging}`, `baseline.minDurationHours`, `baseline.minCasualties` (mặc định 12 giờ / 500 như bộ máy cũ), `question.originalLabel` (nhãn cho phương án gốc, mặc định "Cách gốc trong lịch sử").
+  - `source.chapter`, `source.quote`, `source.note` và `question.character.speech` là tùy chọn.
+  - `factions[].color` là màu thật được vẽ trên sa bàn; `simulation.factionColors` và `simulation.cameraPresets` cũ vẫn được chấp nhận nhưng không dùng (4 góc camera cố định trong renderer).
+  - "Tối thiểu 3 biến, mỗi biến 3 phương án" là gợi ý (trình soạn bài báo nhắc), không chặn lưu; luật cứng là ≥ 2 phương án và đúng 1 `isOriginal` có delta 0. Bài có từ 1 biến số là chạy đủ 6 bước.
 
 ### 4.2 Atlas (`frontend/src/content/atlas/`)
 

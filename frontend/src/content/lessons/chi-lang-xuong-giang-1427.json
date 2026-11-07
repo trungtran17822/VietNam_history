@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "chi-lang-xuong-giang-1427",
+  "era": "1427",
+  "atlasPlaceIds": [],
+  "factions": {
+    "a": {
+      "name": "Nghĩa quân Lam Sơn",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân Minh",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Chiến Dịch Chi Lăng - Xương Giang (1427)",
+  "subtitle": "Khởi nghĩa Lam Sơn chém Liễu Thăng, đập tan 10 vạn viện binh Minh",
+  "commander": "Bình Định Vương Lê Lợi & Quân sư Nguyễn Trãi",
+  "opponent": "10 vạn viện binh Minh (Liễu Thăng, Mộc Thạnh, Lương Minh)",
+  "year": "Mùa thu năm 1427",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 11A1",
+  "date": "2026-10-30",
+  "subject": "Lịch sử",
+  "grade": "Khối 11",
+  "period": "Tiết 3 · 09:15 - 10:00 (45 phút)",
+  "objectives": "Phân tích chiến thuật \"vây thành diệt viện\", tài thao lược quân sự của Lê Lợi và Nguyễn Trãi tại cửa ải Chi Lăng.",
+  "focusQuestion": "Tại sao nghĩa quân Lam Sơn chủ trương tiêu diệt Liễu Thăng ở Chi Lăng trước khi hạ thành Đông Quan?",
+  "status": "Đã lên lịch",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ.",
+  "introSummary": "Mùa thu 1427, 15 vạn viện binh nhà Minh chia làm hai đạo ồ ạt kéo sang. Bộ chỉ huy nghĩa quân Lam Sơn quyết định tập trung lực lượng bẻ gãy đạo quân Liễu Thăng tại thung lũng hiểm trở Chi Lăng.",
+  "sections": [
+    {
+      "id": "cl-1",
+      "title": "Trận phục kích chém Liễu Thăng tại núi Mã Yên",
+      "narration": "Tướng Trần Lựu giả vờ thua liên tiếp để nhử Liễu Thăng vào đầm lầy Mã Yên. Khi ngựa Liễu Thăng sa lầy, phục binh Lam Sơn nhất tề xông ra chém đầu chủ tướng giặc.",
+      "caption": "Chém Liễu Thăng tại gò Mã Yên, làm rung chuyển tinh thần 10 vạn viện binh Minh.",
+      "timelineRange": 0.4,
+      "timeLabel": "Ngày 18/09 năm Đinh Mùi (1427)",
+      "source": {
+        "book": "Đại Việt sử ký toàn thư",
+        "chapter": "Bản kỷ thực lục",
+        "quote": "Liễu Thăng dẫn quân đuổi theo, đến núi Mã Yên sa vào bãi lầy... phục binh đâm chết Thăng."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Chiến thuật vây thành diệt viện mẫu mực trong nghệ thuật quân sự Việt Nam."
+  ],
+  "privateNotes": "Tài liệu mật dành cho giáo viên soạn bài.",
+  "questions": [],
+  "baseline": {
+    "durationHours": 48,
+    "casualties": 2100,
+    "positionScore": 94,
+    "ratingText": "Đại thắng Lam Sơn"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": true,
+      "tents": true,
+      "elephants": true,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "taySonInfantry": 45,
+      "taySonElephants": 4,
+      "qingInfantry": 50,
+      "qingCannons": 4
+    },
+    "factionColors": {
+      "taySon": "#b91c1c",
+      "qing": "#334155"
+    },
+    "cameraPresets": {
+      "overview": {
+        "pos": [
+          0,
+          75,
+          110
+        ],
+        "target": [
+          0,
+          5,
+          0
+        ]
+      },
+      "follow_troops": {
+        "pos": [
+          -20,
+          20,
+          40
+        ],
+        "target": [
+          0,
+          5,
+          0
+        ]
+      },
+      "close_up": {
+        "pos": [
+          10,
+          10,
+          15
+        ],
+        "target": [
+          10,
+          5,
+          0
+        ]
+      },
+      "top_down": {
+        "pos": [
+          0,
+          100,
+          0
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "mountain-pass",
+      "labels": [],
+      "features": [],
+      "routes": []
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Bình Định Vương Lê Lợi"
+    },
+    "variables": []
+  }
+}

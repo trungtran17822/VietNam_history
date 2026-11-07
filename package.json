@@ -1,12 +1,14 @@
 {
   "name": "su-viet",
   "private": true,
-  "description": "Sử Việt: 3D history lesson demo. frontend/ (static, Vercel) + backend/ (Cloudflare Worker).",
+  "description": "Sử Việt: 3D history lesson demo. frontend/ (Vite + React, Vercel) + backend/ (Cloudflare Worker).",
   "scripts": {
-    "dev:frontend": "python3 -m http.server 8080 --directory frontend",
+    "dev:frontend": "vite --config frontend/vite.config.ts",
     "dev:backend": "node backend/dev-server.js 8787",
+    "build": "vite build --config frontend/vite.config.ts",
+    "preview": "vite preview --config frontend/vite.config.ts",
     "check": "bash scripts/check.sh",
-    "test:unit": "node --test tests/unit/ backend/test/",
+    "test:unit": "vitest run --config frontend/vite.config.ts && node --test backend/test/*.test.js",
     "test:e2e": "playwright test",
     "test": "npm run check && npm run test:unit && npm run test:e2e",
     "deploy:backend": "cd backend && npx --yes wrangler@3 d1 migrations apply sv-class-prod --remote --env production && npx --yes wrangler@3 deploy --env production",
@@ -15,7 +17,27 @@
     "deploy": "npm run check && npm run test:unit && npm run deploy:backend && npm run smoke && npm run deploy:frontend"
   },
   "devDependencies": {
-    "@playwright/test": "1.49.1"
+    "@playwright/test": "1.49.1",
+    "@tailwindcss/vite": "4.3.5",
+    "@tanstack/router-plugin": "1.168.48",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.187.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "tailwindcss": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.6",
+    "vitest": "5.1.0"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=20.19"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "5.107.1",
+    "@tanstack/react-router": "1.170.46",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.187.0",
+    "zod": "4.6.7"
+  }
 }
