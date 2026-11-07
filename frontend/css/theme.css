@@ -285,3 +285,364 @@
   pointer-events: none;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
+
+/* ==========================================================================
+   ROUTE TRANSITIONS (View Transitions API + Fallbacks)
+   Pairs: login -> intro -> teacher/student dash -> editor -> lesson -> 6-stage loop
+   ========================================================================== */
+
+/* Header and stepper remain static */
+#main-header {
+  view-transition-name: site-header;
+}
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.lesson-stepper {
+  view-transition-name: lesson-stepper;
+}
+::view-transition-old(lesson-stepper),
+::view-transition-new(lesson-stepper) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Tier: HIGH (fade + trượt 12px + scale 0.98 -> 1) */
+html[data-quality="high"]::view-transition-old(root) {
+  animation: svVtOutHigh var(--dur-base) cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+html[data-quality="high"]::view-transition-new(root) {
+  animation: svVtInHigh var(--dur-base) var(--ease) forwards;
+}
+
+@keyframes svVtOutHigh {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+}
+@keyframes svVtInHigh {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Tier: MEDIUM (fade + trượt 8px) */
+html[data-quality="medium"]::view-transition-old(root) {
+  animation: svVtOutMed var(--dur-base) cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+html[data-quality="medium"]::view-transition-new(root) {
+  animation: svVtInMed var(--dur-base) var(--ease) forwards;
+}
+
+@keyframes svVtOutMed {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes svVtInMed {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tier: LOW (fade 120ms) */
+html[data-quality="low"]::view-transition-old(root) {
+  animation: svVtOutLow 120ms linear forwards;
+}
+html[data-quality="low"]::view-transition-new(root) {
+  animation: svVtInLow 120ms linear forwards;
+}
+
+@keyframes svVtOutLow {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes svVtInLow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) {
+    animation: svVtOutLow 120ms linear forwards !important;
+  }
+  ::view-transition-new(root) {
+    animation: svVtInLow 120ms linear forwards !important;
+  }
+}
+
+/* Fallback CSS classes when document.startViewTransition is not available */
+.view-fallback-exit {
+  opacity: 0 !important;
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+html[data-quality="high"] .view-fallback-exit {
+  transform: translateY(-12px) scale(0.98);
+}
+html[data-quality="medium"] .view-fallback-exit {
+  transform: translateY(-8px);
+}
+html[data-quality="low"] .view-fallback-exit {
+  transition-duration: 120ms !important;
+  transform: none !important;
+}
+
+.view-fallback-enter {
+  animation: svSlideUp var(--dur-base) var(--ease) forwards;
+}
+html[data-quality="low"] .view-fallback-enter {
+  animation: svFadeIn 120ms linear forwards;
+}
+
+/* ==========================================================================
+   INTRO SCREEN ("Một hành trình lịch sử bắt đầu")
+   ========================================================================== */
+.cinematic-transition {
+  background: radial-gradient(ellipse at center, rgba(30, 20, 14, 0.98), #090807 72%);
+  transition: opacity var(--dur-base) var(--ease), visibility var(--dur-base) var(--ease);
+}
+
+/* High tier: Nền chuyển sáng dần ấm áp */
+html[data-quality="high"] .cinematic-transition.active {
+  animation: svIntroBgGlow 2.2s var(--ease) forwards;
+}
+@keyframes svIntroBgGlow {
+  0% {
+    background: radial-gradient(ellipse at center, rgba(22, 14, 9, 0.98), #070605 75%);
+  }
+  100% {
+    background: radial-gradient(ellipse at center, rgba(88, 48, 25, 0.98), #120e0a 75%);
+  }
+}
+
+/* Tiêu đề Intro */
+.transition-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 14px 0 24px;
+  color: #fff0bb;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  line-height: 1.15;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.intro-line {
+  display: block;
+}
+
+/* High tier: Tiêu đề hiện từng dòng */
+html[data-quality="high"] .intro-line-1 {
+  opacity: 0;
+  animation: svIntroLineRise var(--dur-slow) var(--ease) 100ms forwards;
+}
+html[data-quality="high"] .intro-line-2 {
+  opacity: 0;
+  animation: svIntroLineRise var(--dur-slow) var(--ease) 340ms forwards;
+}
+@keyframes svIntroLineRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Medium tier: Tiêu đề fade toàn khối */
+html[data-quality="medium"] .transition-title {
+  animation: svFadeIn var(--dur-base) var(--ease) forwards;
+}
+
+/* Low tier: Màn tĩnh không hiệu ứng chữ */
+html[data-quality="low"] .intro-line {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Trống đồng SVG vẽ dần bằng stroke-dashoffset ở HIGH */
+.intro-drum-wrap {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 16px;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 0 20px rgba(233, 214, 164, 0.28));
+}
+.intro-drum-svg {
+  width: 100%;
+  height: 100%;
+}
+html[data-quality="high"] .intro-drum-svg .drum-stroke {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: svDrawDrumStroke 1.8s var(--ease) 80ms forwards;
+}
+@keyframes svDrawDrumStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Medium & Low tier: Trống đồng hiện tĩnh */
+html[data-quality="medium"] .intro-drum-svg .drum-stroke,
+html[data-quality="low"] .intro-drum-svg .drum-stroke {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+/* ==========================================================================
+   LOGIN SCREEN MOTION & HERITAGE COMPOSITION
+   ========================================================================== */
+
+/* Title shimmer: CHỈ ở high (class .fx-bg), một layer duy nhất, chỉ dùng transform */
+.login-title {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.title-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(245, 230, 187, 0.42) 50%,
+    transparent 75%
+  );
+  transform: translateX(-100%);
+}
+html[data-quality="high"] .title-shimmer {
+  animation: svTitleShimmer 5s var(--ease) infinite;
+}
+@keyframes svTitleShimmer {
+  0% { transform: translateX(-100%); }
+  35%, 100% { transform: translateX(100%); }
+}
+
+/* Trống đồng xoay rất chậm: CHỈ ở high, chỉ dùng transform */
+html[data-quality="high"] .drum-spin-slow {
+  animation: svDrumSpin 120s linear infinite;
+}
+@keyframes svDrumSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Gộp hình trống đồng và cờ thành một bố cục gọn, không chồng như sticker */
+.heritage-composition {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 380px;
+  height: 180px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at 30% 50%, rgba(36, 76, 64, 0.45), rgba(18, 38, 32, 0.85));
+  border: 1px solid rgba(229, 205, 151, 0.35);
+  box-shadow: 0 12px 30px rgba(10, 25, 20, 0.35);
+  overflow: hidden;
+}
+
+.heritage-composition figure {
+  margin: 0;
+}
+
+.heritage-drum {
+  flex: 0 0 115px;
+  width: 115px;
+  height: 115px;
+  display: grid;
+  place-items: center;
+}
+.heritage-drum img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+}
+
+.heritage-flag {
+  flex: 0 0 135px;
+  width: 135px;
+  display: grid;
+  place-items: center;
+}
+.heritage-flag img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.32));
+  transform: rotate(2deg);
+}
+
+.heritage-emblem-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #E8D29B;
+  background: rgba(14, 27, 21, 0.78);
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(229, 205, 151, 0.25);
+}
+
+@media (max-width: 760px) {
+  .heritage-composition {
+    height: 130px;
+    max-width: 320px;
+    gap: 12px;
+    padding: 10px 14px;
+  }
+  .heritage-drum {
+    flex: 0 0 85px;
+    width: 85px;
+    height: 85px;
+  }
+  .heritage-flag {
+    flex: 0 0 100px;
+    width: 100px;
+  }
+  .heritage-emblem-badge {
+    font-size: 0.55rem;
+    bottom: 5px;
+  }
+}

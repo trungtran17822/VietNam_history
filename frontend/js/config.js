@@ -10,11 +10,13 @@
   var DEPLOYED_API_BASE = 'https://sv-class-api.suviet.workers.dev';
 
   var host = window.location.hostname;
-  var isLocal = host === 'localhost' || host === '127.0.0.1' || host === '' || host === '[::1]';
+  var isLocal = (window.__SUVIET_ENV__ === 'production') ? false : (host === 'localhost' || host === '127.0.0.1' || host === '' || host === '[::1]');
 
   window.APP_CONFIG = Object.freeze({
     apiBase: isLocal ? 'http://localhost:8787' : DEPLOYED_API_BASE,
     pollIntervalMs: 4000,
-    requestTimeoutMs: 6000
+    requestTimeoutMs: 6000,
+    isLocal: isLocal,
+    isProduction: !isLocal
   });
 })(window);

@@ -60,6 +60,14 @@
     setupGlobalEventListeners();
     setupRouting();
 
+    // Production environment check: hide demo credentials and clear pre-filled form
+    if (window.APP_CONFIG && window.APP_CONFIG.isProduction) {
+      const demoHints = document.getElementById('login-demo-hints');
+      if (demoHints) demoHints.style.display = 'none';
+      if (elements.inputUsername) elements.inputUsername.value = '';
+      if (elements.inputPassword) elements.inputPassword.value = '';
+    }
+
     if (window.location.hash === '#/fonttest') {
       handleRoute();
       return;
@@ -314,37 +322,79 @@
   }
 
   /**
+   * Smooth route & screen transition handler.
+   * Uses View Transitions API if supported; falls back to CSS exit/enter classes.
+   */
+  function executeWithTransition(updateDomCallback) {
+    if (typeof document.startViewTransition === 'function') {
+      try {
+        return document.startViewTransition(updateDomCallback);
+      } catch (err) {
+        updateDomCallback();
+      }
+    } else {
+      // Fallback: exit -> update DOM -> enter
+      const currentActive = document.querySelector('.app-view.active') || document.querySelector('#view-lesson-detail .screen-view.active');
+      if (currentActive) {
+        currentActive.classList.add('view-fallback-exit');
+        const duration = (window.SuVietQuality && window.SuVietQuality.getCurrentTier && window.SuVietQuality.getCurrentTier() === 'low') ? 120 : 200;
+        setTimeout(() => {
+          currentActive.classList.remove('view-fallback-exit');
+          updateDomCallback();
+          const newActive = document.querySelector('.app-view.active') || document.querySelector('#view-lesson-detail .screen-view.active');
+          if (newActive) {
+            newActive.classList.add('view-fallback-enter');
+            setTimeout(() => newActive.classList.remove('view-fallback-enter'), 350);
+          }
+        }, duration);
+      } else {
+        updateDomCallback();
+      }
+    }
+  }
+
+  /**
    * Switch between app views
    */
   function showView(viewId) {
-    if (viewId !== 'view-lesson-detail') teardown6StageLoop();
-    document.querySelectorAll('.app-view').forEach((v) => {
-      v.classList.remove('active');
-    });
-
     const target = document.getElementById(viewId);
-    if (target) {
+    if (!target) return;
+    const currentActive = document.querySelector('.app-view.active');
+    if (currentActive === target) return;
+
+    const applyViewDom = () => {
+      if (viewId !== 'view-lesson-detail') teardown6StageLoop();
+      document.querySelectorAll('.app-view').forEach((v) => {
+        v.classList.remove('active');
+      });
+
       target.classList.add('active');
       window.scrollTo(0, 0);
-    }
 
-    // Update active state in header tabs
-    document.querySelectorAll('.nav-tab').forEach((tab) => {
-      tab.classList.remove('active');
-    });
+      // Update active state in header tabs
+      document.querySelectorAll('.nav-tab').forEach((tab) => {
+        tab.classList.remove('active');
+      });
 
-    if (viewId === 'view-teacher-dashboard') {
-      const t = document.getElementById('tab-nav-teacher-dash');
-      if (t) t.classList.add('active');
-    } else if (viewId === 'view-teacher-editor') {
-      const t = document.getElementById('tab-nav-teacher-edit');
-      if (t) t.classList.add('active');
-    } else if (viewId === 'view-student-dashboard') {
-      const t = document.getElementById('tab-nav-student-dash');
-      if (t) t.classList.add('active');
-    } else if (viewId === 'view-student-viewer' || viewId === 'view-lesson-detail' || viewId === 'view-lesson-workspace') {
-      const t = document.getElementById('tab-nav-student-view');
-      if (t) t.classList.add('active');
+      if (viewId === 'view-teacher-dashboard') {
+        const t = document.getElementById('tab-nav-teacher-dash');
+        if (t) t.classList.add('active');
+      } else if (viewId === 'view-teacher-editor') {
+        const t = document.getElementById('tab-nav-teacher-edit');
+        if (t) t.classList.add('active');
+      } else if (viewId === 'view-student-dashboard') {
+        const t = document.getElementById('tab-nav-student-dash');
+        if (t) t.classList.add('active');
+      } else if (viewId === 'view-student-viewer' || viewId === 'view-lesson-detail' || viewId === 'view-lesson-workspace') {
+        const t = document.getElementById('tab-nav-student-view');
+        if (t) t.classList.add('active');
+      }
+    };
+
+    if (currentActive) {
+      executeWithTransition(applyViewDom);
+    } else {
+      applyViewDom();
     }
   }
 
@@ -636,13 +686,72 @@
     window.addEventListener('hashchange', handleRoute);
   }
 
+  const INTRO_SHOWN_KEY = 'suviet:intro_shown';
+
+  function prefetchMainAssets() {
+    const assets = [
+      'vendor/three.min.js',
+      'js/scene3d.js',
+      'js/scene-map.js',
+      'js/scene-controls.js',
+      'js/diorama-models.js',
+      'js/diorama-textures.js',
+      'data/lesson.root-copy.json',
+      'assets/bronze-drum.svg',
+      'assets/vietnam-flag-art.svg'
+    ];
+    assets.forEach((href) => {
+      try {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = href;
+        if (href.endsWith('.js')) link.as = 'script';
+        else if (href.endsWith('.json')) link.as = 'fetch';
+        else if (href.endsWith('.svg') || href.endsWith('.png')) link.as = 'image';
+        document.head.appendChild(link);
+      } catch (_) {}
+    });
+  }
+
   function beginPostLoginTransition() {
+    let alreadyShown = false;
+    try {
+      alreadyShown = sessionStorage.getItem(INTRO_SHOWN_KEY) === 'true';
+    } catch (_) {
+      alreadyShown = false;
+    }
+
+    if (alreadyShown) {
+      finishPostLoginTransition();
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(INTRO_SHOWN_KEY, 'true');
+    } catch (_) {}
+
+    prefetchMainAssets();
+
     const isTeacher = activeRole === 'teacher';
-    elements.transitionTitle.textContent = isTeacher ? 'Quản lý bài giảng' : 'Bài đã học';
+    const kickerEl = document.querySelector('.transition-kicker');
+    if (kickerEl) {
+      kickerEl.textContent = isTeacher ? 'SỬ VIỆT · KHÔNG GIAN GIẢNG DẠY' : 'SỬ VIỆT · KHÔNG GIAN HỌC TẬP';
+    }
+
     elements.cinematicTransition.classList.add('active');
     elements.cinematicTransition.setAttribute('aria-hidden', 'false');
     clearTimeout(transitionTimer);
-    transitionTimer = window.setTimeout(finishPostLoginTransition, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 2000);
+
+    const activeTier = (window.SuVietQuality && window.SuVietQuality.getCurrentTier) ? window.SuVietQuality.getCurrentTier() : 'high';
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let duration = 2200;
+    if (isReduced || activeTier === 'low') {
+      duration = 600;
+    } else if (activeTier === 'medium') {
+      duration = 1200;
+    }
+
+    transitionTimer = window.setTimeout(finishPostLoginTransition, duration);
   }
 
   function finishPostLoginTransition() {
@@ -2375,12 +2484,6 @@
 
     if (stepIndex !== 3) window.ClassPanel.unmount();
 
-    // Hide all stage screens
-    document.querySelectorAll('#view-lesson-detail .screen-view').forEach((s) => {
-      s.style.display = 'none';
-      s.classList.remove('active');
-    });
-
     const screenMap = {
       1: 'screen-intro',
       2: 'screen-sim-original',
@@ -2392,12 +2495,9 @@
 
     const targetId = screenMap[stepIndex];
     const targetEl = document.getElementById(targetId);
-    if (targetEl) {
-      targetEl.style.display = 'block';
-      targetEl.classList.add('active');
-    }
+    const currentActiveStage = document.querySelector('#view-lesson-detail .screen-view.active');
 
-    // Screen specific logic
+    // Run data preparation & screen specific logic immediately
     if (stepIndex === 2) {
       mountOriginalStageScene();
     } else if (stepIndex === 3) {
@@ -2409,6 +2509,25 @@
     } else if (stepIndex === 6) {
       renderExplanationSummary();
       window.ClassPanel.mountSurvey(document.getElementById('class-survey'), activeLesson, activeRole);
+    }
+
+    const applyStageDom = () => {
+      // Hide all stage screens
+      document.querySelectorAll('#view-lesson-detail .screen-view').forEach((s) => {
+        s.style.display = 'none';
+        s.classList.remove('active');
+      });
+
+      if (targetEl) {
+        targetEl.style.display = 'block';
+        targetEl.classList.add('active');
+      }
+    };
+
+    if (currentActiveStage && currentActiveStage !== targetEl) {
+      executeWithTransition(applyStageDom);
+    } else {
+      applyStageDom();
     }
 
     // Bring the new stage into view; on the comparison stage the simulation notice comes first (FR-007).

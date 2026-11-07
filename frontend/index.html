@@ -84,28 +84,44 @@
           <div class="login-brandline"><img class="login-brand-logo" src="assets/logo/logo-transparent.png" alt=""><span>Sử Việt</span></div>
           <div class="login-story-copy">
             <p class="login-kicker">HỌC TỪ QUÁ KHỨ · KIẾN TẠO TƯƠNG LAI</p>
-            <h1 class="login-title">Mỗi trang sử,<br>một hành trình.</h1>
+            <h1 class="login-title">
+              Mỗi trang sử,<br>một hành trình.
+              <span class="title-shimmer fx-bg" aria-hidden="true"></span>
+            </h1>
             <p class="login-subtitle">Khám phá lịch sử Việt Nam qua những bài học tương tác và mô phỏng 3D sống động.</p>
           </div>
           <div class="login-art-stage" aria-hidden="true">
-            <figure class="login-art-drum"><img src="assets/bronze-drum.svg" alt=""><figcaption>ĐÔNG SƠN <span>•</span> 2.000 NĂM DI SẢN</figcaption></figure>
-            <figure class="login-art-flag"><img src="assets/vietnam-flag-art.svg" alt=""><figcaption>VIỆT NAM</figcaption></figure>
+            <div class="heritage-composition">
+              <figure class="heritage-drum fx-bg">
+                <img src="assets/bronze-drum.svg" alt="" class="drum-spin-slow">
+              </figure>
+              <figure class="heritage-flag">
+                <img src="assets/vietnam-flag-art.svg" alt="">
+              </figure>
+              <div class="heritage-emblem-badge">
+                <span>ĐÔNG SƠN · VIỆT NAM</span>
+              </div>
+            </div>
           </div>
           <div class="login-heritage-caption"><span class="caption-dot"></span> Tái hiện · Khám phá · Ghi nhớ</div>
         </div>
         <div class="login-form-panel">
-          <div class="login-form-heading"><p class="login-kicker">KHÔNG GIAN HỌC TẬP</p><h2>Chào mừng trở lại</h2><p>Đăng nhập để tiếp tục hành trình của bạn.</p></div>
-          <div class="login-role-tabs" aria-label="Chọn vai trò">
-            <button type="button" id="tab-login-teacher" class="btn-login-role active">Giáo viên</button>
-            <button type="button" id="tab-login-student" class="btn-login-role">Học sinh</button>
+          <div class="login-form-heading stagger">
+            <p class="login-kicker">KHÔNG GIAN HỌC TẬP</p>
+            <h2>Chào mừng trở lại</h2>
+            <p>Đăng nhập để tiếp tục hành trình của bạn.</p>
           </div>
-          <form id="form-login" class="login-form">
+          <div class="login-role-tabs" aria-label="Chọn vai trò">
+            <button type="button" id="tab-login-teacher" class="btn-login-role press active">Giáo viên</button>
+            <button type="button" id="tab-login-student" class="btn-login-role press">Học sinh</button>
+          </div>
+          <form id="form-login" class="login-form stagger">
             <div id="login-error" class="login-error-msg"></div>
             <div class="form-group"><label for="input-username">Tên đăng nhập</label><input type="text" id="input-username" class="form-input" value="admin" placeholder="Nhập tên đăng nhập" required autocomplete="username"></div>
             <div class="form-group"><label for="input-password">Mật khẩu</label><input type="password" id="input-password" class="form-input" value="123" placeholder="Nhập mật khẩu" required autocomplete="current-password"></div>
-            <button type="submit" id="btn-submit-login" class="btn-login-submit">Đăng nhập <span aria-hidden="true">→</span></button>
+            <button type="submit" id="btn-submit-login" class="btn-login-submit press">Đăng nhập <span aria-hidden="true">→</span></button>
           </form>
-          <div class="login-demo-hints"><strong>Tài khoản trải nghiệm</strong><span>admin / 123 · Dùng cho cả hai vai trò</span><small>Phiên bản thử nghiệm · Dữ liệu được lưu trên trình duyệt này.</small></div>
+          <div id="login-demo-hints" class="login-demo-hints"><strong>Tài khoản trải nghiệm</strong><span>admin / 123 · Dùng cho cả hai vai trò</span><small>Phiên bản thử nghiệm · Dữ liệu được lưu trên trình duyệt này.</small></div>
         </div>
       </section>
     </div>
@@ -843,11 +859,33 @@
   </main>
 
   <div id="cinematic-transition" class="cinematic-transition" aria-hidden="true">
+    <div class="intro-drum-wrap fx-bg" aria-hidden="true">
+      <svg class="intro-drum-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle class="drum-stroke drum-stroke-outer" cx="100" cy="100" r="92" stroke="#E9D6A4" stroke-width="2" />
+        <circle class="drum-stroke drum-stroke-ring1" cx="100" cy="100" r="80" stroke="#B6985E" stroke-width="1.5" stroke-dasharray="3 4" />
+        <circle class="drum-stroke drum-stroke-ring2" cx="100" cy="100" r="68" stroke="#E9D6A4" stroke-width="2" />
+        <circle class="drum-stroke drum-stroke-ring3" cx="100" cy="100" r="54" stroke="#B6985E" stroke-width="1.5" />
+        <g class="drum-stroke drum-stroke-sun" stroke="#F5E6BB" stroke-width="2">
+          <line x1="100" y1="62" x2="100" y2="76" />
+          <line x1="100" y1="124" x2="100" y2="138" />
+          <line x1="62" y1="100" x2="76" y2="100" />
+          <line x1="124" y1="100" x2="138" y2="100" />
+          <line x1="73" y1="73" x2="83" y2="83" />
+          <line x1="117" y1="117" x2="127" y2="127" />
+          <line x1="73" y1="127" x2="83" y2="117" />
+          <line x1="117" y1="83" x2="127" y2="73" />
+        </g>
+        <circle class="drum-stroke drum-stroke-sun-center" cx="100" cy="100" r="22" stroke="#E9D6A4" stroke-width="2" fill="rgba(182, 152, 94, 0.15)" />
+      </svg>
+    </div>
     <div class="transition-seal"><img src="assets/logo/logo-transparent.png" alt="Sử Việt"></div>
     <p class="transition-kicker">SỬ VIỆT</p>
-    <h2 id="transition-title">Một hành trình lịch sử bắt đầu</h2>
+    <h2 id="transition-title" class="transition-title">
+      <span class="intro-line intro-line-1">Một hành trình</span>
+      <span class="intro-line intro-line-2">lịch sử bắt đầu</span>
+    </h2>
     <span class="transition-rule"></span>
-    <button type="button" id="btn-skip-transition">Bỏ qua · Đi đến bài học</button>
+    <button type="button" id="btn-skip-transition" class="press">Bỏ qua · Đi đến bài học</button>
   </div>
 
   <main id="view-fonttest" class="app-view fonttest-view">
