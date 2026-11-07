@@ -1,0 +1,2403 @@
+[
+  {
+    "id": "co-loa",
+    "name": "Thành Cổ Loa",
+    "kind": "kinh-do",
+    "aliases": [
+      "Cổ Loa",
+      "Âu Lạc"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.11341,
+      105.87321
+    ],
+    "era": "Thế kỷ III TCN",
+    "summary": "Thành cổ nhiều vòng lũy, gắn với kinh đô nước Âu Lạc thời An Dương Vương. Năm 939, Ngô Quyền xưng vương và cũng đóng đô tại đây. Là di tích quốc gia đặc biệt.",
+    "qid": "Q798059",
+    "sources": [
+      {
+        "title": "Wikidata Q798059 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q798059",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Thành Cổ Loa (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A0nh_C%E1%BB%95_Loa",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "hoa-lu",
+    "name": "Cố đô Hoa Lư",
+    "kind": "kinh-do",
+    "tags": [
+      "unesco"
+    ],
+    "aliases": [
+      "Hoa Lư",
+      "Đại Cồ Việt"
+    ],
+    "provinceId": "ninh-binh",
+    "coords": [
+      20.25528,
+      105.95417
+    ],
+    "era": "968–1010",
+    "summary": "Kinh đô nước Đại Cồ Việt dưới các triều Đinh, Tiền Lê và đầu triều Lý (968–1010), trước khi Lý Thái Tổ dời đô ra Thăng Long. Nằm trong Quần thể danh thắng Tràng An và là di tích quốc gia đặc biệt.",
+    "qid": "Q2421186",
+    "sources": [
+      {
+        "title": "Wikidata Q2421186 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q2421186",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Cố đô Hoa Lư (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/C%E1%BB%91_%C4%91%C3%B4_Hoa_L%C6%B0",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "hoang-thanh-thang-long",
+    "name": "Hoàng thành Thăng Long",
+    "kind": "kinh-do",
+    "tags": [
+      "unesco"
+    ],
+    "aliases": [
+      "Thăng Long",
+      "Đông Kinh",
+      "Kinh thành Thăng Long"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.0325,
+      105.83972
+    ],
+    "era": "Từ 1010",
+    "summary": "Khu trung tâm kinh thành Thăng Long, nơi các triều Lý, Trần, Lê đóng đô từ năm 1010; các lớp khảo cổ còn ghi dấu thời trước Thăng Long và thành Hà Nội thời Nguyễn. UNESCO công nhận là Di sản văn hóa thế giới năm 2010; là di tích quốc gia đặc biệt.",
+    "qid": "Q206219",
+    "sources": [
+      {
+        "title": "Wikidata Q206219 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q206219",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Hoàng thành Thăng Long (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ho%C3%A0ng_th%C3%A0nh_Th%C4%83ng_Long",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 1328",
+        "url": "https://whc.unesco.org/en/list/1328",
+        "license": "CC BY-SA 3.0 IGO"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "thanh-nha-ho",
+    "name": "Thành nhà Hồ",
+    "kind": "kinh-do",
+    "tags": [
+      "unesco"
+    ],
+    "aliases": [
+      "Tây Đô",
+      "Thành Tây Giai",
+      "Đại Ngu"
+    ],
+    "provinceId": "thanh-hoa",
+    "coords": [
+      20.07806,
+      105.60472
+    ],
+    "era": "1397",
+    "summary": "Kinh đô nước Đại Ngu thời nhà Hồ, xây bằng những khối đá lớn trong khoảng ba tháng đầu năm 1397. UNESCO công nhận là Di sản văn hóa thế giới năm 2011.",
+    "qid": "Q190060",
+    "sources": [
+      {
+        "title": "Wikidata Q190060 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q190060",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Thành nhà Hồ (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A0nh_nh%C3%A0_H%E1%BB%93",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 1358",
+        "url": "https://whc.unesco.org/en/list/1358",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "kinh-thanh-hue",
+    "name": "Kinh thành Huế",
+    "kind": "kinh-do",
+    "tags": [
+      "unesco"
+    ],
+    "aliases": [
+      "Đại Nội",
+      "Phú Xuân",
+      "Cố đô Huế",
+      "Hoàng thành Huế"
+    ],
+    "provinceId": "hue",
+    "coords": [
+      16.46972,
+      107.57778
+    ],
+    "era": "1802–1945",
+    "summary": "Kinh thành của triều Nguyễn, nơi đóng đô từ 1802 đến 1945. Thành khởi công năm 1805 và hoàn chỉnh dưới thời Minh Mạng; là một phần của Quần thể di tích Cố đô Huế, được UNESCO công nhận năm 1993.",
+    "qid": "Q877185",
+    "sources": [
+      {
+        "title": "Wikidata Q877185 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q877185",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Kinh thành Huế (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Kinh_th%C3%A0nh_Hu%E1%BA%BF",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 678-001",
+        "url": "https://whc.unesco.org/en/list/678",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "vinh-ha-long",
+    "name": "Vịnh Hạ Long",
+    "kind": "unesco",
+    "tags": [
+      "danh-thang"
+    ],
+    "aliases": [
+      "Hạ Long",
+      "Cát Bà"
+    ],
+    "provinceId": "quang-ninh",
+    "coords": [
+      20.9,
+      107.2
+    ],
+    "era": "UNESCO 1994",
+    "summary": "Vùng vịnh có gần hai nghìn hòn đảo lớn nhỏ, phần lớn là đảo đá vôi, ở bờ tây vịnh Bắc Bộ. UNESCO công nhận là Di sản thiên nhiên thế giới năm 1994; năm 2023 di sản được mở rộng thành Vịnh Hạ Long – quần đảo Cát Bà.",
+    "qid": "Q190128",
+    "sources": [
+      {
+        "title": "Wikidata Q190128 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q190128",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vịnh Hạ Long (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 672",
+        "url": "https://whc.unesco.org/en/list/672",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "pho-co-hoi-an",
+    "name": "Phố cổ Hội An",
+    "kind": "unesco",
+    "aliases": [
+      "Hội An",
+      "Faifo"
+    ],
+    "provinceId": "da-nang",
+    "coords": [
+      15.87714,
+      108.32863
+    ],
+    "era": "Thế kỷ XVII–XVIII",
+    "summary": "Đô thị cổ ở hạ lưu sông Thu Bồn, từng là thương cảng quốc tế sầm uất, nơi thuyền buôn Nhật Bản, Trung Hoa và phương Tây lui tới trong thế kỷ XVII–XVIII. UNESCO công nhận là Di sản văn hóa thế giới năm 1999.",
+    "qid": "Q5965459",
+    "sources": [
+      {
+        "title": "Wikidata Q5965459 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q5965459",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Phố cổ Hội An (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 948",
+        "url": "https://whc.unesco.org/en/list/948",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "thanh-dia-my-son",
+    "name": "Thánh địa Mỹ Sơn",
+    "kind": "unesco",
+    "aliases": [
+      "Mỹ Sơn"
+    ],
+    "provinceId": "da-nang",
+    "coords": [
+      15.76324,
+      108.12445
+    ],
+    "era": "Chăm Pa",
+    "summary": "Quần thể đền tháp Chăm Pa trong một thung lũng có núi bao quanh, từng là nơi cúng tế của các vương triều Chăm Pa. UNESCO công nhận là Di sản văn hóa thế giới năm 1999; là di tích quốc gia đặc biệt.",
+    "qid": "Q391406",
+    "sources": [
+      {
+        "title": "Wikidata Q391406 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q391406",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Thánh địa Mỹ Sơn (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A1nh_%C4%91%E1%BB%8Ba_M%E1%BB%B9_S%C6%A1n",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 949",
+        "url": "https://whc.unesco.org/en/list/949",
+        "license": "CC BY-SA 3.0 IGO"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "phong-nha-ke-bang",
+    "name": "Vườn quốc gia Phong Nha – Kẻ Bàng",
+    "kind": "unesco",
+    "tags": [
+      "danh-thang"
+    ],
+    "aliases": [
+      "Phong Nha",
+      "Kẻ Bàng",
+      "Sơn Đoòng"
+    ],
+    "provinceId": "quang-tri",
+    "coords": [
+      17.53333,
+      106.15
+    ],
+    "era": "UNESCO 2003",
+    "summary": "Vườn quốc gia trên vùng núi đá vôi rộng lớn giáp biên giới Lào, nổi tiếng với hệ thống hang động. UNESCO công nhận là Di sản thiên nhiên thế giới năm 2003.",
+    "qid": "Q23513",
+    "sources": [
+      {
+        "title": "Wikidata Q23513 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q23513",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vườn quốc gia Phong Nha – Kẻ Bàng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phong_Nha_%E2%80%93_K%E1%BA%BB_B%C3%A0ng",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 951",
+        "url": "https://whc.unesco.org/en/list/951",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "trang-an",
+    "name": "Quần thể danh thắng Tràng An",
+    "kind": "unesco",
+    "tags": [
+      "danh-thang"
+    ],
+    "aliases": [
+      "Tràng An",
+      "Tam Cốc",
+      "Bích Động"
+    ],
+    "provinceId": "ninh-binh",
+    "coords": [
+      20.2557,
+      105.9156
+    ],
+    "era": "UNESCO 2014",
+    "summary": "Vùng núi đá vôi, hang động, sông và đầm ngập nước ở Ninh Bình, bao gồm cả khu cố đô Hoa Lư. UNESCO công nhận năm 2014; đây là di sản hỗn hợp văn hóa và thiên nhiên đầu tiên của Việt Nam.",
+    "qid": "Q10810559",
+    "sources": [
+      {
+        "title": "Wikidata Q10810559 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10810559",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Quần thể danh thắng Tràng An (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_th%E1%BB%83_danh_th%E1%BA%AFng_Tr%C3%A0ng_An",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 1438",
+        "url": "https://whc.unesco.org/en/list/1438",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "yen-tu",
+    "name": "Quần thể Yên Tử – Vĩnh Nghiêm – Côn Sơn, Kiếp Bạc",
+    "kind": "unesco",
+    "aliases": [
+      "Yên Tử",
+      "Trúc Lâm",
+      "Vĩnh Nghiêm",
+      "Côn Sơn"
+    ],
+    "provinceId": "quang-ninh",
+    "coords": [
+      21.0768,
+      106.719
+    ],
+    "era": "Thời Trần",
+    "summary": "Chuỗi di tích và danh thắng ở Quảng Ninh, Hải Phòng và Bắc Ninh, gắn với sự ra đời và lan tỏa của Thiền phái Trúc Lâm thời Trần. UNESCO công nhận là Di sản văn hóa thế giới ngày 12/7/2025.",
+    "qid": "Q16481408",
+    "sources": [
+      {
+        "title": "Wikidata Q16481408 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q16481408",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Quần thể di tích và danh thắng Yên Tử – Vĩnh Nghiêm – Côn Sơn, Kiếp Bạc (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_th%E1%BB%83_di_t%C3%ADch_v%C3%A0_danh_th%E1%BA%AFng_Y%C3%AAn_T%E1%BB%AD_%E2%80%93_V%C4%A9nh_Nghi%C3%AAm_%E2%80%93_C%C3%B4n_S%C6%A1n%2C_Ki%E1%BA%BFp_B%E1%BA%A1c",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 1732",
+        "url": "https://whc.unesco.org/en/list/1732",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "bach-dang",
+    "name": "Sông Bạch Đằng",
+    "kind": "chien-truong",
+    "aliases": [
+      "Bạch Đằng Giang",
+      "Bãi cọc Bạch Đằng"
+    ],
+    "provinceId": "hai-phong",
+    "coords": [
+      20.8442,
+      106.6317
+    ],
+    "era": "938 · 1288",
+    "summary": "Con sông nay là ranh giới giữa Hải Phòng và Quảng Ninh. Tại đây Ngô Quyền đánh tan quân Nam Hán năm 938, và quân dân nhà Trần đánh bại thủy quân Nguyên năm 1288; cả hai trận đều dựa vào bãi cọc và con nước triều. Di tích Bạch Đằng là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "khang-chien-mong-nguyen-vuon-khong"
+    ],
+    "qid": "Q4838688",
+    "sources": [
+      {
+        "title": "Wikidata Q4838688 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q4838688",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Sông Bạch Đằng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/S%C3%B4ng_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "nhu-nguyet",
+    "name": "Phòng tuyến sông Như Nguyệt",
+    "kind": "chien-truong",
+    "aliases": [
+      "Như Nguyệt",
+      "Sông Cầu"
+    ],
+    "provinceId": "bac-ninh",
+    "coords": [
+      21.22538,
+      106.03077
+    ],
+    "era": "1077",
+    "summary": "Khúc sông Cầu nơi quân Đại Việt do Lý Thường Kiệt chỉ huy chặn đánh quân Tống năm 1077, trận quyết định của cuộc kháng chiến chống Tống.",
+    "qid": "Q10829781",
+    "sources": [
+      {
+        "title": "Wikidata Q10829781 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10829781",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Trận Như Nguyệt (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_Nh%C6%B0_Nguy%E1%BB%87t",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "chi-lang",
+    "name": "Ải Chi Lăng",
+    "kind": "chien-truong",
+    "aliases": [
+      "Chi Lăng"
+    ],
+    "provinceId": "lang-son",
+    "coords": [
+      21.573556,
+      106.502583
+    ],
+    "coordsFrom": "osm:node/4753933781",
+    "coordsNote": "Ải Chi Lăng chưa có toạ độ trên Wikidata; điểm trên bản đồ là khu dân cư Chi Lăng trong thung lũng (OpenStreetMap).",
+    "era": "1427",
+    "summary": "Thung lũng hẹp giữa núi đá trên đường từ Lạng Sơn về Thăng Long. Năm 1427 nghĩa quân Lam Sơn phục kích tại đây, tướng Liễu Thăng của quân Minh tử trận. Là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "chi-lang-xuong-giang-1427"
+    ],
+    "qid": "Q10842855",
+    "sources": [
+      {
+        "title": "Wikidata Q10842855",
+        "url": "https://www.wikidata.org/wiki/Q10842855",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "OpenStreetMap node/4753933781 (toạ độ)",
+        "url": "https://www.openstreetmap.org/node/4753933781",
+        "license": "ODbL 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Chi Lăng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Chi_L%C4%83ng",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "xuong-giang",
+    "name": "Thành Xương Giang",
+    "kind": "chien-truong",
+    "aliases": [
+      "Xương Giang"
+    ],
+    "provinceId": "bac-ninh",
+    "coords": [
+      21.29136,
+      106.21498
+    ],
+    "era": "1427",
+    "summary": "Thành do quân Minh xây đầu thế kỷ XV. Năm 1427 nghĩa quân Lam Sơn hạ thành, rồi tiêu diệt đạo viện binh của quân Minh trên cánh đồng Xương Giang. Địa điểm chiến thắng Xương Giang là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "chi-lang-xuong-giang-1427"
+    ],
+    "qid": "Q30923609",
+    "sources": [
+      {
+        "title": "Wikidata Q30923609 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q30923609",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Thành Xương Giang (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A0nh_X%C6%B0%C6%A1ng_Giang",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "rach-gam",
+    "name": "Rạch Gầm",
+    "kind": "chien-truong",
+    "aliases": [
+      "Rạch Gầm – Xoài Mút",
+      "Sông Tiền"
+    ],
+    "provinceId": "dong-thap",
+    "coords": [
+      10.351471,
+      106.232359
+    ],
+    "coordsFrom": "osm:way/522522920",
+    "coordsNote": "Toạ độ của con rạch Rạch Gầm trên OpenStreetMap; Wikidata chỉ có toạ độ chung của trận đánh.",
+    "era": "1785",
+    "summary": "Con rạch đổ ra sông Tiền, một đầu của trận địa mai phục Nguyễn Huệ bố trí trên khúc sông Rạch Gầm – Xoài Mút, nơi quân Tây Sơn đánh tan quân Xiêm tháng 1 năm 1785. Địa điểm chiến thắng Rạch Gầm – Xoài Mút là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "rach-gam-xoai-mut-1785"
+    ],
+    "qid": "Q1047091",
+    "sources": [
+      {
+        "title": "Wikidata Q1047091",
+        "url": "https://www.wikidata.org/wiki/Q1047091",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "OpenStreetMap way/522522920 (toạ độ)",
+        "url": "https://www.openstreetmap.org/way/522522920",
+        "license": "ODbL 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Trận Rạch Gầm – Xoài Mút (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_R%E1%BA%A1ch_G%E1%BA%A7m_%E2%80%93_Xo%C3%A0i_M%C3%BAt",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "xoai-mut",
+    "name": "Rạch Xoài Mút",
+    "kind": "chien-truong",
+    "aliases": [
+      "Xoài Hột",
+      "Xoài Mút"
+    ],
+    "provinceId": "dong-thap",
+    "coords": [
+      10.359764,
+      106.301518
+    ],
+    "coordsFrom": "osm:way/482915518",
+    "coordsNote": "Toạ độ của rạch Xoài Hột trên OpenStreetMap; Wikidata chưa có toạ độ.",
+    "era": "1785",
+    "summary": "Con rạch nay gọi là rạch Xoài Hột, đổ ra sông Tiền; đầu còn lại của trận địa mai phục Rạch Gầm – Xoài Mút năm 1785.",
+    "lessonIds": [
+      "rach-gam-xoai-mut-1785"
+    ],
+    "qid": "Q109435571",
+    "sources": [
+      {
+        "title": "Wikidata Q109435571",
+        "url": "https://www.wikidata.org/wiki/Q109435571",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "OpenStreetMap way/482915518 (toạ độ)",
+        "url": "https://www.openstreetmap.org/way/482915518",
+        "license": "ODbL 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Rạch Xoài Hột (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/R%E1%BA%A1ch_Xo%C3%A0i_H%E1%BB%99t",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ha-hoi",
+    "name": "Đồn Hạ Hồi",
+    "kind": "chien-truong",
+    "aliases": [
+      "Hà Hồi",
+      "Đồn Hà Hồi"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      20.86056,
+      105.875
+    ],
+    "coordsNote": "Toạ độ là trung tâm xã Hà Hồi cũ (Thường Tín), không phải vị trí chính xác của đồn.",
+    "era": "1789",
+    "summary": "Đồn của quân Thanh ở Thường Tín, phía nam Thăng Long. Đêm mùng 3 Tết Kỷ Dậu (1789), quân Tây Sơn vây đồn và buộc quân giữ đồn đầu hàng.",
+    "lessonIds": [
+      "ngoc-hoi-ha-hoi-1789"
+    ],
+    "qid": "Q10770529",
+    "sources": [
+      {
+        "title": "Wikidata Q10770529 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10770529",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Hà Hồi (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/H%C3%A0_H%E1%BB%93i",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ngoc-hoi",
+    "name": "Đồn Ngọc Hồi",
+    "kind": "chien-truong",
+    "aliases": [
+      "Ngọc Hồi"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      20.91778,
+      105.84139
+    ],
+    "coordsNote": "Toạ độ là trung tâm xã Ngọc Hồi cũ (Thanh Trì), không phải vị trí chính xác của đồn.",
+    "era": "1789",
+    "summary": "Đồn lũy lớn của quân Thanh ở cửa ngõ phía nam Thăng Long, bị quân Tây Sơn đánh hạ rạng sáng mùng 5 Tết Kỷ Dậu (1789).",
+    "lessonIds": [
+      "ngoc-hoi-ha-hoi-1789"
+    ],
+    "qid": "Q10800616",
+    "sources": [
+      {
+        "title": "Wikidata Q10800616 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10800616",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Ngọc Hồi (xã) (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ng%E1%BB%8Dc_H%E1%BB%93i_(x%C3%A3)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "dong-da",
+    "name": "Gò Đống Đa",
+    "kind": "chien-truong",
+    "aliases": [
+      "Đống Đa",
+      "Ngọc Hồi – Đống Đa"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.012,
+      105.824
+    ],
+    "era": "1789",
+    "summary": "Gò đất bên phố Tây Sơn, Hà Nội, gắn với chiến thắng của quân Tây Sơn trước quân Thanh dịp Tết Kỷ Dậu 1789. Là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "ngoc-hoi-ha-hoi-1789"
+    ],
+    "qid": "Q10763516",
+    "sources": [
+      {
+        "title": "Wikidata Q10763516 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10763516",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Gò Đống Đa (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/G%C3%B2_%C4%90%E1%BB%91ng_%C4%90a",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "dien-bien-phu",
+    "name": "Chiến trường Điện Biên Phủ",
+    "kind": "chien-truong",
+    "aliases": [
+      "Điện Biên Phủ",
+      "Mường Thanh",
+      "Đồi A1"
+    ],
+    "provinceId": "dien-bien",
+    "coords": [
+      21.38694,
+      103.01556
+    ],
+    "era": "1954",
+    "summary": "Lòng chảo Mường Thanh, nơi Quân đội nhân dân Việt Nam bao vây và tiêu diệt tập đoàn cứ điểm của quân Pháp, kết thúc ngày 7/5/1954; chiến thắng mở đường cho Hiệp định Genève. Là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "dien-bien-phu-1954"
+    ],
+    "qid": "Q604897",
+    "sources": [
+      {
+        "title": "Wikidata Q604897 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q604897",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Chiến dịch Điện Biên Phủ (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_d%E1%BB%8Bch_%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "thanh-co-quang-tri",
+    "name": "Thành cổ Quảng Trị",
+    "kind": "chien-truong",
+    "aliases": [
+      "Cổ thành Quảng Trị"
+    ],
+    "provinceId": "quang-tri",
+    "coords": [
+      16.75392,
+      107.18951
+    ],
+    "era": "1972",
+    "summary": "Thành xây dưới triều Nguyễn, đầu thế kỷ XIX. Năm 1972 là nơi diễn ra 81 ngày đêm chiến đấu ác liệt. Là di tích quốc gia đặc biệt.",
+    "qid": "Q10825609",
+    "sources": [
+      {
+        "title": "Wikidata Q10825609 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10825609",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Thành cổ Quảng Trị (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A0nh_c%E1%BB%95_Qu%E1%BA%A3ng_Tr%E1%BB%8B",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "den-hung",
+    "name": "Đền Hùng",
+    "kind": "di-tich",
+    "aliases": [
+      "Hùng Vương",
+      "Nghĩa Lĩnh",
+      "Giỗ Tổ"
+    ],
+    "provinceId": "phu-tho",
+    "coords": [
+      21.36553,
+      105.32463
+    ],
+    "era": "Văn Lang (truyền thuyết)",
+    "summary": "Quần thể đền chùa trên núi Nghĩa Lĩnh thờ các Vua Hùng, nơi tổ chức Giỗ Tổ Hùng Vương hằng năm vào ngày 10 tháng 3 âm lịch. Là di tích quốc gia đặc biệt.",
+    "qid": "Q5964889",
+    "sources": [
+      {
+        "title": "Wikidata Q5964889 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q5964889",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Đền Hùng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_H%C3%B9ng",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "van-mieu",
+    "name": "Văn Miếu – Quốc Tử Giám",
+    "kind": "di-tich",
+    "aliases": [
+      "Văn Miếu",
+      "Quốc Tử Giám"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.02861,
+      105.83556
+    ],
+    "era": "1070",
+    "summary": "Quần thể gồm Văn Miếu thờ Khổng Tử và Quốc Tử Giám, được coi là trường đại học đầu tiên của Việt Nam, ở phía nam kinh thành Thăng Long thời Lý. Là di tích quốc gia đặc biệt.",
+    "qid": "Q1202019",
+    "sources": [
+      {
+        "title": "Wikidata Q1202019 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1202019",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Văn Miếu – Quốc Tử Giám (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "chua-mot-cot",
+    "name": "Chùa Một Cột",
+    "kind": "di-tich",
+    "aliases": [
+      "Diên Hựu",
+      "Liên Hoa Đài"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.03575,
+      105.83343
+    ],
+    "era": "1049",
+    "summary": "Ngôi chùa có điện thờ đặt trên một cột trụ, thuộc quần thể chùa Diên Hựu dựng thời Lý.",
+    "qid": "Q1186292",
+    "sources": [
+      {
+        "title": "Wikidata Q1186292 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1186292",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Chùa Một Cột (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "den-kiep-bac",
+    "name": "Đền Kiếp Bạc",
+    "kind": "di-tich",
+    "tags": [
+      "unesco"
+    ],
+    "aliases": [
+      "Kiếp Bạc",
+      "Trần Hưng Đạo",
+      "Vạn Kiếp"
+    ],
+    "provinceId": "hai-phong",
+    "coords": [
+      21.15105,
+      106.32759
+    ],
+    "era": "Thế kỷ XIII",
+    "summary": "Đền thờ Hưng Đạo Đại Vương Trần Quốc Tuấn, người chỉ huy quân dân Đại Việt kháng chiến chống quân Mông – Nguyên. Thuộc cụm Côn Sơn – Kiếp Bạc trong di sản thế giới Yên Tử – Vĩnh Nghiêm – Côn Sơn, Kiếp Bạc.",
+    "lessonIds": [
+      "khang-chien-mong-nguyen-vuon-khong"
+    ],
+    "qid": "Q10841684",
+    "sources": [
+      {
+        "title": "Wikidata Q10841684 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10841684",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Đền Kiếp Bạc (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Ki%E1%BA%BFp_B%E1%BA%A1c",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "lam-kinh",
+    "name": "Lam Kinh",
+    "kind": "di-tich",
+    "aliases": [
+      "Lam Sơn",
+      "Lê Lợi"
+    ],
+    "provinceId": "thanh-hoa",
+    "coords": [
+      19.92985,
+      105.40709
+    ],
+    "era": "Thế kỷ XV",
+    "summary": "Khu di tích ở quê hương Lam Sơn của Lê Lợi, người lãnh đạo khởi nghĩa Lam Sơn (1418–1428). Sau khi lên ngôi, Lê Thái Tổ cho xây dựng cung điện, lăng miếu tại đây. Là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "chi-lang-xuong-giang-1427"
+    ],
+    "qid": "Q10784247",
+    "sources": [
+      {
+        "title": "Wikidata Q10784247 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10784247",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Lam Kinh (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Lam_Kinh",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "pho-hien",
+    "name": "Phố Hiến",
+    "kind": "di-tich",
+    "provinceId": "hung-yen",
+    "coords": [
+      20.6409,
+      106.05692
+    ],
+    "era": "Thế kỷ XVI–XVII",
+    "summary": "Thương cảng sầm uất bên bờ tả ngạn sông Hồng trong thế kỷ XVI–XVII. Khu di tích Phố Hiến là di tích quốc gia đặc biệt.",
+    "qid": "Q10807145",
+    "sources": [
+      {
+        "title": "Wikidata Q10807145 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10807145",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Quần thể di tích Phố Hiến (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_th%E1%BB%83_di_t%C3%ADch_Ph%E1%BB%91_Hi%E1%BA%BFn",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "chua-thien-mu",
+    "name": "Chùa Thiên Mụ",
+    "kind": "di-tich",
+    "tags": [
+      "unesco"
+    ],
+    "aliases": [
+      "Linh Mụ"
+    ],
+    "provinceId": "hue",
+    "coords": [
+      16.4536,
+      107.54481
+    ],
+    "era": "1601",
+    "summary": "Ngôi chùa cổ trên đồi Hà Khê bên sông Hương, khởi lập năm 1601 thời chúa Nguyễn Hoàng; là một thành phần của Quần thể di tích Cố đô Huế.",
+    "qid": "Q975568",
+    "sources": [
+      {
+        "title": "Wikidata Q975568 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q975568",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Chùa Thiên Mụ (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Thi%C3%AAn_M%E1%BB%A5",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "UNESCO World Heritage List 678-002",
+        "url": "https://whc.unesco.org/en/list/678",
+        "license": "CC BY-SA 3.0 IGO"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "tay-son",
+    "name": "Khu di tích Tây Sơn Tam Kiệt",
+    "kind": "di-tich",
+    "aliases": [
+      "Bảo tàng Quang Trung",
+      "Quang Trung",
+      "Nguyễn Huệ",
+      "Tây Sơn"
+    ],
+    "provinceId": "gia-lai",
+    "coords": [
+      13.92058,
+      108.92083
+    ],
+    "era": "Thế kỷ XVIII",
+    "summary": "Quê hương của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ; Bảo tàng Quang Trung được xây trên nền nhà cũ của gia đình. Khu đền thờ Tây Sơn Tam Kiệt là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "rach-gam-xoai-mut-1785",
+      "ngoc-hoi-ha-hoi-1789"
+    ],
+    "qid": "Q98137184",
+    "sources": [
+      {
+        "title": "Wikidata Q98137184 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q98137184",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Bảo tàng Quang Trung (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_Quang_Trung",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "thap-po-nagar",
+    "name": "Tháp Po Nagar",
+    "kind": "di-tich",
+    "aliases": [
+      "Tháp Bà",
+      "Ponagar"
+    ],
+    "provinceId": "khanh-hoa",
+    "coords": [
+      12.26528,
+      109.19556
+    ],
+    "era": "Chăm Pa",
+    "summary": "Đền tháp Chăm Pa trên một ngọn đồi nhỏ ở cửa sông Cái, Nha Trang, thờ nữ thần Po Inư Nagar.",
+    "qid": "Q600269",
+    "sources": [
+      {
+        "title": "Wikidata Q600269 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q600269",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Tháp Po Nagar (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Po_Nagar",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "po-klong-garai",
+    "name": "Tháp Po Klong Garai",
+    "kind": "di-tich",
+    "aliases": [
+      "Pô Klong Garai",
+      "Tháp Chàm"
+    ],
+    "provinceId": "khanh-hoa",
+    "coords": [
+      11.60183,
+      108.94653
+    ],
+    "era": "Chăm Pa",
+    "summary": "Cụm ba tháp Chăm gồm tháp chính, tháp lửa và tháp cổng, thờ vua Po Klong Garai. Là di tích quốc gia đặc biệt.",
+    "qid": "Q1069757",
+    "sources": [
+      {
+        "title": "Wikidata Q1069757 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1069757",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Tháp Po Klong Garai (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Po_Klong_Garai",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "oc-eo",
+    "name": "Di chỉ Óc Eo – Ba Thê",
+    "kind": "di-tich",
+    "aliases": [
+      "Óc Eo",
+      "Ba Thê",
+      "Phù Nam"
+    ],
+    "provinceId": "an-giang",
+    "coords": [
+      10.23294,
+      105.16299
+    ],
+    "era": "Phù Nam",
+    "summary": "Di chỉ khảo cổ ở khu vực núi Ba Thê, gắn với văn hóa Óc Eo và vương quốc Phù Nam; được khai quật lần đầu năm 1944. Óc Eo – Ba Thê là di tích quốc gia đặc biệt.",
+    "qid": "Q2344822",
+    "sources": [
+      {
+        "title": "Wikidata Q2344822 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q2344822",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Óc Eo (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C3%93c_Eo",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "go-thap",
+    "name": "Khu di tích Gò Tháp",
+    "kind": "di-tich",
+    "aliases": [
+      "Gò Tháp",
+      "Thiên Hộ Dương"
+    ],
+    "provinceId": "dong-thap",
+    "coords": [
+      10.59742,
+      105.82495
+    ],
+    "era": "Phù Nam · thế kỷ XIX",
+    "summary": "Khu di tích khảo cổ giữa Đồng Tháp Mười gắn với văn hóa Óc Eo, đồng thời là căn cứ của cuộc khởi nghĩa Thiên Hộ Dương chống Pháp thế kỷ XIX. Là di tích quốc gia đặc biệt.",
+    "qid": "Q10763514",
+    "sources": [
+      {
+        "title": "Wikidata Q10763514 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10763514",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Gò Tháp (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/G%C3%B2_Th%C3%A1p",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ben-nha-rong",
+    "name": "Bến Nhà Rồng",
+    "kind": "di-tich",
+    "aliases": [
+      "Nhà Rồng"
+    ],
+    "provinceId": "ho-chi-minh",
+    "coords": [
+      10.76824,
+      106.7068
+    ],
+    "era": "1911",
+    "summary": "Nơi Nguyễn Tất Thành lên tàu ra đi tìm đường cứu nước ngày 5/6/1911; nay là Bảo tàng Hồ Chí Minh – chi nhánh TP Hồ Chí Minh.",
+    "qid": "Q10743440",
+    "sources": [
+      {
+        "title": "Wikidata Q10743440 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10743440",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Bến Nhà Rồng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/B%E1%BA%BFn_Nh%C3%A0_R%E1%BB%93ng",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "kim-lien",
+    "name": "Khu di tích Kim Liên",
+    "kind": "di-tich",
+    "aliases": [
+      "Làng Sen",
+      "Hoàng Trù",
+      "Nam Đàn"
+    ],
+    "provinceId": "nghe-an",
+    "coords": [
+      18.67402,
+      105.55443
+    ],
+    "era": "1890",
+    "summary": "Khu di tích ở xã Kim Liên, Nghệ An, gồm làng Hoàng Trù quê ngoại, nơi Chủ tịch Hồ Chí Minh sinh năm 1890, và làng Sen quê nội. Là di tích quốc gia đặc biệt.",
+    "qid": "Q6409093",
+    "sources": [
+      {
+        "title": "Wikidata Q6409093 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q6409093",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Khu di tích lịch sử Kim Liên (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Khu_di_t%C3%ADch_l%E1%BB%8Bch_s%E1%BB%AD_Kim_Li%C3%AAn",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "hoa-lo",
+    "name": "Nhà tù Hỏa Lò",
+    "kind": "di-tich",
+    "aliases": [
+      "Hỏa Lò",
+      "Maison Centrale"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.02528,
+      105.84639
+    ],
+    "era": "Thời Pháp thuộc",
+    "summary": "Nhà tù do thực dân Pháp xây dựng ở Hà Nội, nơi từng giam giữ nhiều nhà cách mạng Việt Nam.",
+    "qid": "Q1359941",
+    "sources": [
+      {
+        "title": "Wikidata Q1359941 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1359941",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Nhà tù Hỏa Lò (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_t%C3%B9_H%E1%BB%8Fa_L%C3%B2",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "nha-tu-con-dao",
+    "name": "Nhà tù Côn Đảo",
+    "kind": "di-tich",
+    "aliases": [
+      "Côn Đảo",
+      "Côn Lôn"
+    ],
+    "provinceId": "ho-chi-minh",
+    "coords": [
+      8.6889,
+      106.6148
+    ],
+    "era": "1862–1975",
+    "summary": "Hệ thống nhà tù do thực dân Pháp lập trên đảo Côn Sơn từ năm 1862 để giam giữ tù chính trị, tiếp tục được sử dụng trong Chiến tranh Việt Nam. Là di tích quốc gia đặc biệt.",
+    "qid": "Q2879088",
+    "sources": [
+      {
+        "title": "Wikidata Q2879088 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q2879088",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Nhà tù Côn Đảo (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_t%C3%B9_C%C3%B4n_%C4%90%E1%BA%A3o",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "pac-bo",
+    "name": "Khu di tích Pác Bó",
+    "kind": "di-tich",
+    "aliases": [
+      "Pác Bó",
+      "Hang Cốc Bó",
+      "Suối Lê-nin"
+    ],
+    "provinceId": "cao-bang",
+    "coords": [
+      22.978,
+      106.054
+    ],
+    "era": "1941",
+    "summary": "Khu di tích ở xã Trường Hà, Cao Bằng, nơi Nguyễn Ái Quốc sống và làm việc sau khi trở về nước năm 1941. Là di tích quốc gia đặc biệt.",
+    "qid": "Q7263979",
+    "sources": [
+      {
+        "title": "Wikidata Q7263979 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q7263979",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Khu di tích Pác Bó (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Khu_di_t%C3%ADch_P%C3%A1c_B%C3%B3",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "tan-trao",
+    "name": "Chiến khu Tân Trào",
+    "kind": "di-tich",
+    "aliases": [
+      "Tân Trào",
+      "Đình Tân Trào"
+    ],
+    "provinceId": "tuyen-quang",
+    "coords": [
+      21.77722,
+      105.46806
+    ],
+    "coordsNote": "Toạ độ là trung tâm xã Tân Trào.",
+    "era": "1945",
+    "summary": "Trung tâm khu giải phóng năm 1945, nơi họp Quốc dân Đại hội Tân Trào ngay trước Cách mạng tháng Tám. Là di tích quốc gia đặc biệt.",
+    "qid": "Q10830937",
+    "sources": [
+      {
+        "title": "Wikidata Q10830937 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10830937",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Tân Trào (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/T%C3%A2n_Tr%C3%A0o",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "atk-dinh-hoa",
+    "name": "An toàn khu (ATK) Định Hóa",
+    "kind": "di-tich",
+    "aliases": [
+      "ATK",
+      "An toàn khu",
+      "Định Hóa"
+    ],
+    "provinceId": "thai-nguyen",
+    "coords": [
+      21.89722,
+      105.63361
+    ],
+    "coordsNote": "Toạ độ là trung tâm huyện Định Hóa cũ.",
+    "era": "1947–1954",
+    "summary": "Căn cứ an toàn của các cơ quan đầu não trong kháng chiến chống thực dân Pháp. Là di tích quốc gia đặc biệt.",
+    "qid": "Q5278299",
+    "sources": [
+      {
+        "title": "Wikidata Q5278299 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q5278299",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Định Hóa (huyện) (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Bnh_H%C3%B3a_(huy%E1%BB%87n)",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "hien-luong",
+    "name": "Đôi bờ Hiền Lương – Bến Hải",
+    "kind": "di-tich",
+    "aliases": [
+      "Cầu Hiền Lương",
+      "Bến Hải",
+      "Vĩ tuyến 17"
+    ],
+    "provinceId": "quang-tri",
+    "coords": [
+      17.00437,
+      107.05175
+    ],
+    "era": "1954–1975",
+    "summary": "Cây cầu bắc qua sông Bến Hải ở vĩ tuyến 17, ranh giới tạm thời chia cắt hai miền Nam – Bắc từ 1954 đến 1975. Là di tích quốc gia đặc biệt.",
+    "qid": "Q1537236",
+    "sources": [
+      {
+        "title": "Wikidata Q1537236 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1537236",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Cầu Hiền Lương (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/C%E1%BA%A7u_Hi%E1%BB%81n_L%C6%B0%C6%A1ng",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "dia-dao-vinh-moc",
+    "name": "Địa đạo Vịnh Mốc",
+    "kind": "di-tich",
+    "aliases": [
+      "Vịnh Mốc"
+    ],
+    "provinceId": "quang-tri",
+    "coords": [
+      17.073,
+      107.111
+    ],
+    "era": "Chiến tranh Việt Nam",
+    "summary": "Làng hầm dưới lòng đất ở bờ bắc sông Bến Hải, nơi người dân trú ẩn và sinh hoạt trong những năm bom đạn của Chiến tranh Việt Nam.",
+    "qid": "Q738218",
+    "sources": [
+      {
+        "title": "Wikidata Q738218 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q738218",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Địa đạo Vịnh Mốc (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Ba_%C4%91%E1%BA%A1o_V%E1%BB%8Bnh_M%E1%BB%91c",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "nghia-trang-truong-son",
+    "name": "Nghĩa trang liệt sĩ Trường Sơn",
+    "kind": "di-tich",
+    "aliases": [
+      "Đường Trường Sơn",
+      "Đường mòn Hồ Chí Minh"
+    ],
+    "provinceId": "quang-tri",
+    "coords": [
+      16.95862,
+      106.95486
+    ],
+    "era": "Chiến tranh Việt Nam",
+    "summary": "Nơi quy tập phần mộ các liệt sĩ đã hy sinh trên tuyến đường Trường Sơn – đường Hồ Chí Minh.",
+    "qid": "Q7849235",
+    "sources": [
+      {
+        "title": "Wikidata Q7849235 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q7849235",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Nghĩa trang liệt sĩ Trường Sơn (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ngh%C4%A9a_trang_li%E1%BB%87t_s%C4%A9_Tr%C6%B0%E1%BB%9Dng_S%C6%A1n",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "dia-dao-cu-chi",
+    "name": "Địa đạo Củ Chi",
+    "kind": "di-tich",
+    "aliases": [
+      "Củ Chi"
+    ],
+    "provinceId": "ho-chi-minh",
+    "coords": [
+      11.061,
+      106.526
+    ],
+    "era": "1946–1975",
+    "summary": "Hệ thống đường hầm dưới lòng đất ở xã An Nhơn Tây, được đào và mở rộng qua hai cuộc kháng chiến, có cả nơi ở, bếp, kho và nơi làm việc. Là di tích quốc gia đặc biệt.",
+    "qid": "Q192721",
+    "sources": [
+      {
+        "title": "Wikidata Q192721 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q192721",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Địa đạo Củ Chi (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Ba_%C4%91%E1%BA%A1o_C%E1%BB%A7_Chi",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "dinh-doc-lap",
+    "name": "Dinh Độc Lập",
+    "kind": "di-tich",
+    "aliases": [
+      "Hội trường Thống Nhất",
+      "Dinh Norodom",
+      "30/4/1975"
+    ],
+    "provinceId": "ho-chi-minh",
+    "coords": [
+      10.77705,
+      106.69537
+    ],
+    "era": "1975",
+    "summary": "Dinh thự từng là nơi ở và làm việc của Tổng thống Việt Nam Cộng hòa. Trưa 30/4/1975, xe tăng Quân Giải phóng tiến vào dinh, kết thúc Chiến dịch Hồ Chí Minh. Là di tích quốc gia đặc biệt.",
+    "lessonIds": [
+      "chien-dich-ho-chi-minh-1975"
+    ],
+    "qid": "Q933384",
+    "sources": [
+      {
+        "title": "Wikidata Q933384 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q933384",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Dinh Độc Lập (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Dinh_%C4%90%E1%BB%99c_L%E1%BA%ADp",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "chua-huong",
+    "name": "Quần thể Hương Sơn (Chùa Hương)",
+    "kind": "di-tich",
+    "tags": [
+      "danh-thang"
+    ],
+    "aliases": [
+      "Chùa Hương",
+      "Hương Sơn",
+      "Hương Tích"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      20.61833,
+      105.7475
+    ],
+    "summary": "Quần thể chùa, đền, đình trong vùng núi đá vôi Hương Sơn, trung tâm là chùa Trong trong động Hương Tích bên sông Đáy. Là di tích quốc gia đặc biệt.",
+    "qid": "Q7168306",
+    "sources": [
+      {
+        "title": "Wikidata Q7168306 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q7168306",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Chùa Hương (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_H%C6%B0%C6%A1ng",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ho-hoan-kiem",
+    "name": "Hồ Hoàn Kiếm",
+    "kind": "danh-thang",
+    "tags": [
+      "di-tich"
+    ],
+    "aliases": [
+      "Hồ Gươm",
+      "Đền Ngọc Sơn"
+    ],
+    "provinceId": "ha-noi",
+    "coords": [
+      21.02889,
+      105.8525
+    ],
+    "summary": "Hồ nước ngọt tự nhiên ở trung tâm Hà Nội, gắn với truyền thuyết vua Lê Lợi trả gươm. Hồ Hoàn Kiếm và đền Ngọc Sơn là di tích quốc gia đặc biệt.",
+    "qid": "Q1151254",
+    "sources": [
+      {
+        "title": "Wikidata Q1151254 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1151254",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Hồ Hoàn Kiếm (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Di tích quốc gia đặc biệt (Việt Nam), danh sách xếp hạng",
+        "url": "https://vi.wikipedia.org/wiki/Di_t%C3%ADch_qu%E1%BB%91c_gia_%C4%91%E1%BA%B7c_bi%E1%BB%87t_(Vi%E1%BB%87t_Nam)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "fansipan",
+    "name": "Đỉnh Fansipan",
+    "kind": "danh-thang",
+    "aliases": [
+      "Phan Xi Păng",
+      "Hoàng Liên Sơn"
+    ],
+    "provinceId": "lao-cai",
+    "coords": [
+      22.30333,
+      103.77531
+    ],
+    "summary": "Đỉnh núi cao nhất Việt Nam và bán đảo Đông Dương, khoảng 3.147 m, trên dãy Hoàng Liên Sơn.",
+    "qid": "Q123782",
+    "sources": [
+      {
+        "title": "Wikidata Q123782 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q123782",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Fansipan (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Fansipan",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "sa-pa",
+    "name": "Sa Pa",
+    "kind": "danh-thang",
+    "aliases": [
+      "Sapa"
+    ],
+    "provinceId": "lao-cai",
+    "coords": [
+      22.3357,
+      103.84169
+    ],
+    "summary": "Vùng núi cao trên dãy Hoàng Liên Sơn, nổi tiếng với khí hậu mát mẻ và ruộng bậc thang.",
+    "qid": "Q7395483",
+    "sources": [
+      {
+        "title": "Wikidata Q7395483 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q7395483",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Sa Pa (thị xã) (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Sa_Pa_(th%E1%BB%8B_x%C3%A3)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "mu-cang-chai",
+    "name": "Mù Cang Chải",
+    "kind": "danh-thang",
+    "aliases": [
+      "Mù Căng Chải",
+      "Ruộng bậc thang"
+    ],
+    "provinceId": "lao-cai",
+    "coords": [
+      21.833,
+      104.167
+    ],
+    "summary": "Vùng núi nổi tiếng với những thửa ruộng bậc thang của đồng bào Mông.",
+    "qid": "Q10796264",
+    "sources": [
+      {
+        "title": "Wikidata Q10796264 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10796264",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Mù Cang Chải (huyện) (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/M%C3%B9_Cang_Ch%E1%BA%A3i_(huy%E1%BB%87n)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "dong-van",
+    "name": "Cao nguyên đá Đồng Văn",
+    "kind": "danh-thang",
+    "aliases": [
+      "Đồng Văn",
+      "Hà Giang"
+    ],
+    "provinceId": "tuyen-quang",
+    "coords": [
+      23.19222,
+      105.19694
+    ],
+    "summary": "Vùng cao nguyên núi đá vôi ở cực bắc Việt Nam, được UNESCO công nhận là Công viên địa chất toàn cầu năm 2010.",
+    "qid": "Q10744325",
+    "sources": [
+      {
+        "title": "Wikidata Q10744325 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10744325",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Cao nguyên đá Đồng Văn (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Cao_nguy%C3%AAn_%C4%91%C3%A1_%C4%90%E1%BB%93ng_V%C4%83n",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ma-pi-leng",
+    "name": "Đèo Mã Pí Lèng",
+    "kind": "danh-thang",
+    "aliases": [
+      "Mã Pì Lèng",
+      "Nho Quế"
+    ],
+    "provinceId": "tuyen-quang",
+    "coords": [
+      23.24,
+      105.4
+    ],
+    "summary": "Đèo trên quốc lộ 4C (đường Hạnh Phúc) giữa Đồng Văn và Mèo Vạc, nhìn xuống hẻm sông Nho Quế.",
+    "qid": "Q6949928",
+    "sources": [
+      {
+        "title": "Wikidata Q6949928 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q6949928",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Đèo Mã Pí Lèng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A8o_M%C3%A3_P%C3%AD_L%C3%A8ng",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "thac-ban-gioc",
+    "name": "Thác Bản Giốc",
+    "kind": "danh-thang",
+    "aliases": [
+      "Bản Giốc"
+    ],
+    "provinceId": "cao-bang",
+    "coords": [
+      22.85639,
+      106.72194
+    ],
+    "summary": "Nhóm thác trên sông Quây Sơn ở biên giới Việt Nam – Trung Quốc, phần phía Việt Nam thuộc xã Đàm Thủy, Cao Bằng.",
+    "qid": "Q983252",
+    "sources": [
+      {
+        "title": "Wikidata Q983252 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q983252",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Thác Bản Giốc (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3n_Gi%E1%BB%91c",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ho-ba-be",
+    "name": "Hồ Ba Bể",
+    "kind": "danh-thang",
+    "aliases": [
+      "Ba Bể"
+    ],
+    "provinceId": "thai-nguyen",
+    "coords": [
+      22.40528,
+      105.61528
+    ],
+    "summary": "Hồ nước ngọt tự nhiên lớn nhất Việt Nam, nằm trong Vườn quốc gia Ba Bể.",
+    "qid": "Q1328473",
+    "sources": [
+      {
+        "title": "Wikidata Q1328473 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1328473",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Hồ Ba Bể (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/H%E1%BB%93_Ba_B%E1%BB%83",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "cuc-phuong",
+    "name": "Vườn quốc gia Cúc Phương",
+    "kind": "danh-thang",
+    "aliases": [
+      "Cúc Phương"
+    ],
+    "provinceId": "ninh-binh",
+    "coords": [
+      20.31667,
+      105.60833
+    ],
+    "summary": "Vườn quốc gia đầu tiên của Việt Nam (1962), với rừng mưa nhiệt đới trên núi đá vôi giữa Ninh Bình, Phú Thọ và Thanh Hóa.",
+    "qid": "Q478280",
+    "sources": [
+      {
+        "title": "Wikidata Q478280 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q478280",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vườn quốc gia Cúc Phương (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_C%C3%BAc_Ph%C6%B0%C6%A1ng",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "bach-ma",
+    "name": "Vườn quốc gia Bạch Mã",
+    "kind": "danh-thang",
+    "aliases": [
+      "Bạch Mã"
+    ],
+    "provinceId": "hue",
+    "coords": [
+      16.2,
+      107.86667
+    ],
+    "summary": "Vườn quốc gia ở phía nam Huế, thành lập năm 1991.",
+    "qid": "Q649680",
+    "sources": [
+      {
+        "title": "Wikidata Q649680 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q649680",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vườn quốc gia Bạch Mã (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_B%E1%BA%A1ch_M%C3%A3",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ngu-hanh-son",
+    "name": "Ngũ Hành Sơn",
+    "kind": "danh-thang",
+    "aliases": [
+      "Non Nước",
+      "Núi Đá Non Nước"
+    ],
+    "provinceId": "da-nang",
+    "coords": [
+      16,
+      108.26
+    ],
+    "summary": "Cụm núi đá vôi nhô lên trên bãi cát ven biển phía đông nam Đà Nẵng, có nhiều hang động và chùa chiền.",
+    "qid": "Q6755207",
+    "sources": [
+      {
+        "title": "Wikidata Q6755207 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q6755207",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Ngũ Hành Sơn (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ng%C5%A9_H%C3%A0nh_S%C6%A1n",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "cu-lao-cham",
+    "name": "Cù lao Chàm",
+    "kind": "danh-thang",
+    "aliases": [
+      "Cù Lao Chàm"
+    ],
+    "provinceId": "da-nang",
+    "coords": [
+      15.952,
+      108.512
+    ],
+    "coordsFrom": "osm:relation/10354855",
+    "coordsNote": "Tâm quần đảo theo đường bao OSM; toạ độ Wikidata lệch ra biển ~15 km.",
+    "summary": "Cụm đảo ngoài khơi Hội An, nay thuộc xã đảo Tân Hiệp, thành phố Đà Nẵng.",
+    "qid": "Q386184",
+    "sources": [
+      {
+        "title": "Wikidata Q386184",
+        "url": "https://www.wikidata.org/wiki/Q386184",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "OpenStreetMap relation/10354855 (toạ độ)",
+        "url": "https://www.openstreetmap.org/relation/10354855",
+        "license": "ODbL 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Cù lao Chàm (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/C%C3%B9_lao_Ch%C3%A0m",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ly-son",
+    "name": "Đảo Lý Sơn",
+    "kind": "danh-thang",
+    "aliases": [
+      "Cù lao Ré",
+      "Lý Sơn"
+    ],
+    "provinceId": "quang-ngai",
+    "coords": [
+      15.38083,
+      109.1175
+    ],
+    "summary": "Đảo hình thành từ núi lửa, nay là đặc khu thuộc tỉnh Quảng Ngãi; quê hương của nhiều người lính Hải đội Hoàng Sa thời chúa Nguyễn.",
+    "qid": "Q1320095",
+    "sources": [
+      {
+        "title": "Wikidata Q1320095 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1320095",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Lý Sơn (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/L%C3%BD_S%C6%A1n",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ganh-da-dia",
+    "name": "Gành Đá Đĩa",
+    "kind": "danh-thang",
+    "aliases": [
+      "Ghềnh Đá Đĩa"
+    ],
+    "provinceId": "dak-lak",
+    "coords": [
+      13.335,
+      109.298
+    ],
+    "summary": "Đoạn bờ biển có các cột đá bazan hình lăng trụ xếp sát nhau, ở xã Tuy An Đông.",
+    "qid": "Q20984274",
+    "sources": [
+      {
+        "title": "Wikidata Q20984274 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q20984274",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Gành Đá Đĩa (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/G%C3%A0nh_%C4%90%C3%A1_%C4%90%C4%A9a",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ho-lak",
+    "name": "Hồ Lắk",
+    "kind": "danh-thang",
+    "aliases": [
+      "Buôn Jun",
+      "Lắk"
+    ],
+    "provinceId": "dak-lak",
+    "coords": [
+      12.4225,
+      108.18
+    ],
+    "summary": "Hồ nước ngọt tự nhiên lớn ở Tây Nguyên, bên buôn Jun của người M'Nông.",
+    "qid": "Q10771975",
+    "sources": [
+      {
+        "title": "Wikidata Q10771975 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10771975",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Hồ Lắk (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/H%E1%BB%93_L%E1%BA%AFk",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "ho-xuan-huong",
+    "name": "Hồ Xuân Hương",
+    "kind": "danh-thang",
+    "aliases": [
+      "Đà Lạt"
+    ],
+    "provinceId": "lam-dong",
+    "coords": [
+      11.94185,
+      108.44684
+    ],
+    "summary": "Hồ nhân tạo hình trăng lưỡi liềm ở trung tâm Đà Lạt.",
+    "qid": "Q10772055",
+    "sources": [
+      {
+        "title": "Wikidata Q10772055 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10772055",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Hồ Xuân Hương (hồ nước) (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/H%E1%BB%93_Xu%C3%A2n_H%C6%B0%C6%A1ng_(h%E1%BB%93_n%C6%B0%E1%BB%9Bc)",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "mui-ne",
+    "name": "Mũi Né",
+    "kind": "danh-thang",
+    "aliases": [
+      "Đồi cát Mũi Né",
+      "Phan Thiết"
+    ],
+    "provinceId": "lam-dong",
+    "coords": [
+      10.982,
+      108.25118
+    ],
+    "summary": "Vùng biển có những đồi cát ven bờ, nay là phường Mũi Né, tỉnh Lâm Đồng.",
+    "qid": "Q1317125",
+    "sources": [
+      {
+        "title": "Wikidata Q1317125 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1317125",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Mũi Né (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/M%C5%A9i_N%C3%A9",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "cat-tien",
+    "name": "Vườn quốc gia Cát Tiên",
+    "kind": "danh-thang",
+    "aliases": [
+      "Cát Tiên",
+      "Nam Cát Tiên"
+    ],
+    "provinceId": "dong-nai",
+    "coords": [
+      11.34722,
+      107.15139
+    ],
+    "summary": "Vườn quốc gia bảo tồn rừng nhiệt đới đất thấp, cách TP Hồ Chí Minh khoảng 150 km về phía bắc.",
+    "qid": "Q1421202",
+    "sources": [
+      {
+        "title": "Wikidata Q1421202 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1421202",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vườn quốc gia Cát Tiên (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_C%C3%A1t_Ti%C3%AAn",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "nui-ba-den",
+    "name": "Núi Bà Đen",
+    "kind": "danh-thang",
+    "aliases": [
+      "Bà Đen"
+    ],
+    "provinceId": "tay-ninh",
+    "coords": [
+      11.36667,
+      106.16667
+    ],
+    "summary": "Ngọn núi lửa đã tắt, cao khoảng 986 m, cao nhất Nam Bộ.",
+    "qid": "Q4922113",
+    "sources": [
+      {
+        "title": "Wikidata Q4922113 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q4922113",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Núi Bà Đen (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/N%C3%BAi_B%C3%A0_%C4%90en",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "con-dao",
+    "name": "Vườn quốc gia Côn Đảo",
+    "kind": "danh-thang",
+    "aliases": [
+      "Côn Sơn"
+    ],
+    "provinceId": "ho-chi-minh",
+    "coords": [
+      8.69167,
+      106.63333
+    ],
+    "summary": "Vườn quốc gia trên quần đảo Côn Đảo, thành lập năm 1993, bảo tồn rừng và hệ sinh thái biển.",
+    "qid": "Q1258339",
+    "sources": [
+      {
+        "title": "Wikidata Q1258339 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1258339",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vườn quốc gia Côn Đảo (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_C%C3%B4n_%C4%90%E1%BA%A3o",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "cho-noi-cai-rang",
+    "name": "Chợ nổi Cái Răng",
+    "kind": "danh-thang",
+    "aliases": [
+      "Cái Răng"
+    ],
+    "provinceId": "can-tho",
+    "coords": [
+      10.005,
+      105.746
+    ],
+    "summary": "Chợ nổi đầu mối trên sông Cần Thơ, chuyên mua bán trái cây và nông sản; là Di sản văn hóa phi vật thể quốc gia từ năm 2016.",
+    "qid": "Q10748803",
+    "sources": [
+      {
+        "title": "Wikidata Q10748803 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q10748803",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Chợ nổi Cái Răng (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i_C%C3%A1i_R%C4%83ng",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "tram-chim",
+    "name": "Vườn quốc gia Tràm Chim",
+    "kind": "danh-thang",
+    "aliases": [
+      "Tràm Chim",
+      "Đồng Tháp Mười",
+      "Sếu đầu đỏ"
+    ],
+    "provinceId": "dong-thap",
+    "coords": [
+      10.725,
+      105.517
+    ],
+    "summary": "Vùng đất ngập nước Đồng Tháp Mười, nơi có sếu đầu đỏ, một loài chim quý hiếm.",
+    "qid": "Q586985",
+    "sources": [
+      {
+        "title": "Wikidata Q586985 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q586985",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Vườn quốc gia Tràm Chim (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Tr%C3%A0m_Chim",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "phu-quoc",
+    "name": "Đảo Phú Quốc",
+    "kind": "danh-thang",
+    "aliases": [
+      "Phú Quốc"
+    ],
+    "provinceId": "an-giang",
+    "coords": [
+      10.22889,
+      103.95722
+    ],
+    "summary": "Đảo lớn nhất Việt Nam, nay là đặc khu thuộc tỉnh An Giang.",
+    "qid": "Q146695",
+    "sources": [
+      {
+        "title": "Wikidata Q146695 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q146695",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Phú Quốc (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/Ph%C3%BA_Qu%E1%BB%91c",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  },
+  {
+    "id": "mui-ca-mau",
+    "name": "Mũi Cà Mau",
+    "kind": "danh-thang",
+    "aliases": [
+      "Đất Mũi",
+      "Mũi Bãi Bùng"
+    ],
+    "provinceId": "ca-mau",
+    "coords": [
+      8.63167,
+      104.71389
+    ],
+    "summary": "Mũi đất cực nam trên đất liền của Việt Nam, vẫn tiếp tục lấn ra biển nhờ phù sa.",
+    "qid": "Q1394226",
+    "sources": [
+      {
+        "title": "Wikidata Q1394226 (toạ độ)",
+        "url": "https://www.wikidata.org/wiki/Q1394226",
+        "license": "CC0 1.0"
+      },
+      {
+        "title": "Wikipedia tiếng Việt: Mũi Cà Mau (đối chiếu, không chép)",
+        "url": "https://vi.wikipedia.org/wiki/M%C5%A9i_C%C3%A0_Mau",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "illustrative": true
+  }
+]
