@@ -646,3 +646,492 @@ html[data-quality="high"] .drum-spin-slow {
     bottom: 5px;
   }
 }
+
+/* ==========================================================================
+   LƯỢT 3: TRANG QUẢN LÝ BÀI GIẢNG (MANAGEMENT DASHBOARD)
+   ========================================================================== */
+
+/* Unified hero card (compact, merged banner) */
+.dashboard-hero-card {
+  min-height: auto;
+  padding: clamp(20px, 3.2vw, 32px);
+  margin-bottom: 20px;
+  border-radius: var(--sv-radius-lg, 14px);
+  background: linear-gradient(115deg, #21483c 0%, #18382f 69%, #284d3c 100%);
+  box-shadow: 0 10px 28px rgba(24, 56, 47, 0.14);
+}
+.hero-featured-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 8px 16px;
+  background: rgba(14, 27, 21, 0.72);
+  border: 1px solid rgba(229, 205, 151, 0.35);
+  border-radius: 8px;
+  color: #F3DDA6;
+  font-size: 0.86rem;
+  backdrop-filter: blur(4px);
+}
+.hero-featured-inline strong {
+  color: #FFFFFF;
+}
+.btn-hero-goto {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--sv-red, #9E2A2B);
+  color: #FFFFFF;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.btn-hero-goto:hover {
+  background: #B23536;
+}
+
+/* 3-column lesson grid (tablet 2, mobile 1) */
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+@media (max-width: 1040px) {
+  .lessons-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .lessons-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Lesson manage card: Stagger (first 8), hover lift 2-4px via transform */
+.lesson-manage-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background: var(--paper-card, #FFFDF7);
+  border: 1px solid rgba(165, 135, 78, 0.38);
+  border-radius: 12px;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.lesson-manage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(24, 45, 35, 0.12);
+}
+
+.lessons-grid > .lesson-manage-card:nth-child(1) { animation: svSlideUp var(--dur-base) var(--ease) 30ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(2) { animation: svSlideUp var(--dur-base) var(--ease) 60ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(3) { animation: svSlideUp var(--dur-base) var(--ease) 90ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(4) { animation: svSlideUp var(--dur-base) var(--ease) 120ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(5) { animation: svSlideUp var(--dur-base) var(--ease) 150ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(6) { animation: svSlideUp var(--dur-base) var(--ease) 180ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(7) { animation: svSlideUp var(--dur-base) var(--ease) 210ms both; }
+.lessons-grid > .lesson-manage-card:nth-child(8) { animation: svSlideUp var(--dur-base) var(--ease) 240ms both; }
+
+html[data-quality="low"] .lessons-grid > .lesson-manage-card {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Green bordered edit button */
+.btn-card-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1.5px solid var(--sv-jade, #244C40) !important;
+  border-radius: 6px;
+  background: transparent !important;
+  color: var(--sv-jade, #244C40) !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.btn-card-edit:hover {
+  background: var(--sv-jade, #244C40) !important;
+  color: #FFFFFF !important;
+}
+
+/* Action icons & delete button on hover */
+.card-action-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-icon-action {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(122, 92, 62, 0.25);
+  border-radius: 6px;
+  background: #FFFDF7;
+  color: #5D5143;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.btn-icon-action:hover {
+  background: #F0EAD8;
+  color: #242B27;
+}
+
+.btn-card-delete {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.btn-card-delete:hover {
+  background: rgba(168, 65, 47, 0.12) !important;
+  color: var(--action, #8E2B22) !important;
+  border-color: rgba(168, 65, 47, 0.35) !important;
+}
+.lesson-manage-card:hover .btn-card-delete,
+.lesson-manage-card:focus-within .btn-card-delete {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (hover: none) {
+  .btn-card-delete {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Filter chips smooth transition & fade on filter */
+.filter-chip {
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.filter-chip:active {
+  transform: scale(0.97);
+}
+.lessons-grid.filtering {
+  animation: svFadeIn var(--dur-base) var(--ease);
+}
+html[data-quality="low"] .lessons-grid.filtering {
+  animation: none !important;
+}
+
+/* ==========================================================================
+   LƯỢT 3: TRANG BÀI GIẢNG VÀ VÒNG LẶP 6 BƯỚC
+   ========================================================================== */
+
+/* 6-stage clear progress bar */
+.lesson-stepper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--paper-card, #F8F4EA);
+  border: 1px solid var(--border-gold, #B08D4A);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(24, 45, 35, 0.08);
+}
+.stepper-progress-track {
+  position: absolute;
+  top: 50%;
+  left: 36px;
+  right: 36px;
+  height: 4px;
+  background: rgba(176, 141, 74, 0.22);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.stepper-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sv-jade, #244C40), #C79E5C);
+  border-radius: 2px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform var(--dur-base) var(--ease);
+}
+html[data-quality="low"] .stepper-progress-fill {
+  transition: none !important;
+}
+
+.step-node {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #FFFDF7;
+  border: 1px solid rgba(176, 141, 74, 0.4);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.step-node .step-num {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(36, 76, 64, 0.12);
+  color: var(--sv-jade, #244C40);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.step-node .step-name {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--text-dark, #2D241E);
+}
+.step-node.active {
+  background: var(--sv-jade, #244C40);
+  border-color: #E8D29B;
+  box-shadow: 0 4px 14px rgba(36, 76, 64, 0.28);
+  transform: scale(1.03);
+}
+.step-node.active .step-num {
+  background: #E8D29B;
+  color: #16362C;
+}
+.step-node.active .step-name {
+  color: #FBF7EC;
+  font-weight: 700;
+}
+.step-node.complete .step-num {
+  background: var(--sv-jade, #244C40);
+  color: #FFFFFF;
+}
+
+/* Horizontal slide on stage change */
+html[data-quality="high"] .screen-view.active,
+html[data-quality="medium"] .screen-view.active {
+  animation: svStageSlideIn var(--dur-base) var(--ease) forwards;
+}
+@keyframes svStageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+html[data-quality="low"] .screen-view.active {
+  animation: svFadeIn 120ms linear forwards;
+}
+
+/* Royal decree card (Thư triều đình vua Quang Trung) */
+.royal-decree-card {
+  position: relative;
+  background: radial-gradient(ellipse at 20% 30%, #F8F2E2, #ECE1C8);
+  border: 1px solid var(--border-gold-strong, #B08D4A) !important;
+  border-left: 6px solid var(--action, #8E2B22) !important;
+  padding: 24px 28px;
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(40, 30, 20, 0.14);
+  animation: svRoyalDecreeSlide var(--dur-slow) var(--ease) forwards;
+}
+@keyframes svRoyalDecreeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+html[data-quality="low"] .royal-decree-card {
+  animation: none !important;
+  transform: none !important;
+}
+
+.emperor-speech {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  line-height: 1.85;
+  color: #2D241E;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  margin-top: 6px;
+}
+
+/* Increased font size & line height in right narration panel */
+.chapters-panel,
+.chapter-item-card {
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+.chapter-narration-snippet {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-dark, #2D241E);
+}
+
+/* ==========================================================================
+   LƯỢT 3: TRÌNH SOẠN THẢO (EDITOR)
+   ========================================================================== */
+
+/* Toolbar icons */
+.btn-history-tool {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(122, 92, 62, 0.28);
+  border-radius: 6px;
+  background: var(--paper-card, #FFFDF7);
+  color: #4B574F;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.btn-history-tool:hover:not(:disabled) {
+  background: #EFE8D6;
+  color: #172E28;
+}
+.btn-history-tool:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 2-column general info form grouped by theme */
+.editor-general-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 800px) {
+  .editor-general-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tab content change with short fade */
+.editor-tab-panel.active {
+  animation: svFadeIn var(--dur-fast) var(--ease) forwards;
+}
+
+/* Save draft success badge (1 second checkmark) */
+.btn-save-success {
+  background: #2E7D32 !important;
+  color: #FFFFFF !important;
+  border-color: #2E7D32 !important;
+}
+
+/* Modal open scale + fade */
+.modal-overlay.active {
+  animation: svFadeIn var(--dur-base) var(--ease) forwards;
+}
+.modal-box {
+  animation: svModalScale var(--dur-base) var(--ease) forwards;
+}
+@keyframes svModalScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+html[data-quality="low"] .modal-box {
+  animation: none !important;
+}
+
+/* Toast corner animation */
+.toast-corner {
+  animation: svToastSlideIn var(--dur-base) var(--ease) forwards;
+}
+@keyframes svToastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   LƯỢT 3: TOÀN APP (GLOBAL ACCESSIBILITY & UTILITIES)
+   ========================================================================== */
+
+/* Keyboard focus ring (WCAG AA) */
+:focus-visible {
+  outline: 2px solid var(--border-gold-strong, #B08D4A) !important;
+  outline-offset: 2px !important;
+}
+
+/* Fast UI transitions (<= 150ms) */
+header,
+.site-header,
+.user-menu-popover,
+.header-overflow-popover,
+.nav-tab,
+.btn-header-tool,
+.tooltip {
+  transition-duration: var(--dur-fast) !important;
+}
+
+/* Single thin fixed disclaimer strip at bottom */
+.global-notice-strip {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  height: 24px;
+  background: rgba(24, 20, 16, 0.96);
+  border-top: 1px solid rgba(176, 141, 74, 0.45);
+  color: #D9C8A5;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+/* Hide redundant disclaimers in pages */
+.lesson-disclaimer,
+.workspace-disclaimer {
+  display: none !important;
+}
+
+/* Simple Skeleton loader */
+.skeleton-box {
+  position: relative;
+  overflow: hidden;
+  background: rgba(176, 141, 74, 0.12);
+  border-radius: 6px;
+}
+.skeleton-box::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: translateX(-100%);
+  animation: svSkeletonMove 1.5s infinite;
+  content: "";
+}
+@keyframes svSkeletonMove {
+  100% {
+    transform: translateX(100%);
+  }
+}
+html[data-quality="low"] .skeleton-box::after {
+  animation: none !important;
+  display: none !important;
+}
+

@@ -69,6 +69,11 @@
     }
 
     if (window.location.hash === '#/fonttest') {
+      if (window.APP_CONFIG && window.APP_CONFIG.isProduction) {
+        window.location.hash = '#/';
+        showView('view-login');
+        return;
+      }
       handleRoute();
       return;
     }
@@ -270,7 +275,7 @@
       const btnDash = document.createElement('button');
       btnDash.className = 'nav-tab active';
       btnDash.id = 'tab-nav-teacher-dash';
-      btnDash.innerHTML = '<span>📅 Quản lý bài giảng</span>';
+      btnDash.innerHTML = '<span>Quản lý bài giảng</span>';
       btnDash.addEventListener('click', () => {
         window.location.hash = '#/teacher';
         showRoleHub();
@@ -279,7 +284,7 @@
       const btnEdit = document.createElement('button');
       btnEdit.className = 'nav-tab';
       btnEdit.id = 'tab-nav-teacher-edit';
-      btnEdit.innerHTML = '<span>✍️ Soạn thảo bài giảng</span>';
+      btnEdit.innerHTML = '<span>Soạn thảo bài giảng</span>';
       btnEdit.addEventListener('click', () => {
         if (!activeLesson) {
           const all = window.LessonStorage.getAllLessons();
@@ -294,7 +299,7 @@
       const btnDash = document.createElement('button');
       btnDash.className = 'nav-tab active';
       btnDash.id = 'tab-nav-student-dash';
-      btnDash.innerHTML = '<span>📚 Bài đã học</span>';
+      btnDash.innerHTML = '<span>Bài đã học</span>';
       btnDash.addEventListener('click', () => {
         window.location.hash = '#/student';
         showRoleHub();
@@ -303,7 +308,7 @@
       const btnView = document.createElement('button');
       btnView.className = 'nav-tab';
       btnView.id = 'tab-nav-student-view';
-      btnView.innerHTML = '<span>📖 Xem bài học</span>';
+      btnView.innerHTML = '<span>Xem bài học</span>';
       btnView.addEventListener('click', () => {
         if (!activeLesson) {
           const visible = window.LessonStorage.getVisibleLessonsForStudent();
@@ -493,7 +498,9 @@
       if (window.BattleAudio) {
         const isAudioOn = window.BattleAudio.toggle();
         elements.labelAudioMode.textContent = isAudioOn ? 'Âm thanh: Bật' : 'Âm thanh: Tắt';
-        elements.btnToggleAudio.querySelector('.tool-icon').textContent = isAudioOn ? '🔊' : '🔇';
+        elements.btnToggleAudio.querySelector('.tool-icon').innerHTML = isAudioOn
+          ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>'
+          : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
         elements.btnToggleAudio.classList.toggle('active', isAudioOn);
       }
     });
@@ -795,6 +802,10 @@
   function handleRoute() {
     const hash = window.location.hash || '';
     if (hash === '#/fonttest') {
+      if (window.APP_CONFIG && window.APP_CONFIG.isProduction) {
+        showRoleHub();
+        return;
+      }
       elements.mainHeader.style.display = 'none';
       showView('view-fonttest');
       renderFontTest();
@@ -928,33 +939,46 @@
   function getTeacherFeaturedLesson(lessons) {
     if (!lessons.length) return null;
     const today = new Date().toISOString().slice(0, 10);
-    const byDate = lessons.slice().sort((a, b) => String(a.date || '9999').localeCompare(String(b.date || '9999')));
+    // Only upcoming or ongoing lessons (Đã lên lịch, Đã dạy), never blank drafts
+    const valid = lessons.filter((l) => (l.status === 'Đã lên lịch' || l.status === 'Đã dạy'));
+    if (!valid.length) return null;
+    const byDate = valid.slice().sort((a, b) => String(a.date || '9999').localeCompare(String(b.date || '9999')));
     return byDate.find((lesson) => lesson.date === today) ||
       byDate.find((lesson) => lesson.status === 'Đã lên lịch' && lesson.date >= today) || byDate[0];
   }
 
   function renderTeacherFeaturedLesson(lessons) {
-    const dashboard = elements.viewTeacherDashboard;
-    let featured = dashboard.querySelector('.dashboard-featured-lesson');
-    if (!featured) {
-      featured = document.createElement('section');
-      featured.className = 'dashboard-featured-lesson';
-      dashboard.querySelector('.dashboard-hero-card').insertAdjacentElement('afterend', featured);
-    }
+    const inlineContainer = document.getElementById('teacher-hero-featured');
+    const oldFeatured = elements.viewTeacherDashboard?.querySelector('.dashboard-featured-lesson');
+    if (oldFeatured) oldFeatured.remove();
+
     const lesson = getTeacherFeaturedLesson(lessons);
-    if (!lesson) {
-      featured.innerHTML = '<div class="featured-empty"><span class="featured-eyebrow">KHÔNG GIAN GIẢNG DẠY</span><h2>Chưa có bài giảng nào</h2><p>Tạo bài giảng đầu tiên để bắt đầu xây dựng hành trình học tập.</p><button class="btn-action-primary" type="button" data-create-first>＋ Thêm bài giảng mới</button></div>';
-      featured.querySelector('[data-create-first]').addEventListener('click', handleCreateLesson);
+    if (!lesson || !inlineContainer) {
+      if (inlineContainer) inlineContainer.style.display = 'none';
       return;
     }
-    featured.innerHTML = `<div class="featured-copy"><span class="featured-eyebrow">✦ BÀI GIẢNG NỔI BẬT · ${lesson.date === new Date().toISOString().slice(0, 10) ? 'HÔM NAY' : 'LỊCH GẦN NHẤT'}</span><h2>${escapeHTML(lesson.title)}</h2><p>${escapeHTML(lesson.objectives || lesson.subtitle || 'Mở bài giảng để xem nội dung và sa bàn tương tác.')}</p><div class="featured-meta"><span>📅 ${escapeHTML(lesson.date || 'Chưa định ngày')}</span><span>🏫 ${escapeHTML(lesson.class || 'Chưa phân lớp')}</span><span>${escapeHTML(lesson.status || 'Nháp')}</span></div></div><button class="featured-open" type="button" data-lesson-id="${escapeHTML(lesson.id)}">Vào bài giảng <span>↗</span></button>`;
-    featured.querySelector('[data-lesson-id]').addEventListener('click', () => navigateToLesson(lesson.id));
+    const today = new Date().toISOString().slice(0, 10);
+    const isToday = lesson.date === today;
+    const badgeText = isToday ? 'Hôm nay' : (lesson.status === 'Đã lên lịch' ? 'Sắp dạy' : 'Đang dạy');
+    inlineContainer.style.display = 'inline-flex';
+    inlineContainer.innerHTML = `
+      <span>✦ <strong>${badgeText}:</strong> ${escapeHTML(lesson.title)} (${escapeHTML(lesson.date || 'Chưa định ngày')})</span>
+      <button class="btn-hero-goto" type="button" data-featured-id="${escapeHTML(lesson.id)}">
+        Vào bài giảng ↗
+      </button>
+    `;
+    inlineContainer.querySelector('[data-featured-id]').addEventListener('click', () => navigateToLesson(lesson.id));
   }
 
   function renderTeacherDashboard(searchTerm = '', statusFilter = 'all') {
     elements.teacherLessonsGrid.innerHTML = '';
     const all = window.LessonStorage.getAllLessons();
     renderTeacherFeaturedLesson(all);
+
+    // Trigger smooth fade transition on grid
+    elements.teacherLessonsGrid.classList.remove('filtering');
+    void elements.teacherLessonsGrid.offsetWidth;
+    elements.teacherLessonsGrid.classList.add('filtering');
 
     const filtered = all.filter((l) => {
       const matchesSearch = !searchTerm || l.title.toLowerCase().includes(searchTerm.toLowerCase()) || (l.class && l.class.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -985,24 +1009,31 @@
       card.innerHTML = `
         <div>
           <div class="card-top-row">
-            <span class="card-date-badge">📅 ${lesson.date || 'Chưa định ngày'}</span>
-            <span class="status-chip ${chipClass}">${lesson.status || 'Nháp'}</span>
+            <span class="card-date-badge">${escapeHTML(lesson.date || 'Chưa định ngày')}</span>
+            <span class="status-chip ${chipClass}">${escapeHTML(lesson.status || 'Nháp')}</span>
           </div>
-          <h3 class="card-title">${lesson.title}</h3>
-          <p class="card-objective">${lesson.objectives || 'Chưa có tóm tắt mục tiêu bài học.'}</p>
+          <h3 class="card-title">${escapeHTML(lesson.title)}</h3>
+          <p class="card-objective">${escapeHTML(lesson.objectives || 'Chưa có tóm tắt mục tiêu bài học.')}</p>
           <div class="card-meta-chips">
-            <span class="meta-pill">${lesson.subject || 'Lịch sử'}</span>
-            <span class="meta-pill">${lesson.class || 'Lớp 11A1'}</span>
             <span class="meta-pill">${(lesson.sections && lesson.sections.length) || 0} giai đoạn</span>
             <span class="meta-pill">${(lesson.questions && lesson.questions.length) || 0} câu hỏi</span>
           </div>
         </div>
         <div class="card-footer-actions">
-          <button class="btn-card-edit" data-id="${lesson.id}">✏️ Soạn thảo</button>
+          <button class="btn-card-edit" data-id="${lesson.id}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>Soạn thảo</span>
+          </button>
           <div class="card-action-icons">
-            <button class="btn-icon-action" data-action="preview" data-id="${lesson.id}" title="Xem thử bài giảng">👁️</button>
-            <button class="btn-icon-action" data-action="duplicate" data-id="${lesson.id}" title="Nhân bản bài học">📋</button>
-            <button class="btn-icon-action danger" data-action="delete" data-id="${lesson.id}" title="Xóa bài học">🗑️</button>
+            <button class="btn-icon-action" data-action="preview" data-id="${lesson.id}" title="Xem thử bài giảng" aria-label="Xem thử bài giảng">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button class="btn-icon-action" data-action="duplicate" data-id="${lesson.id}" title="Nhân bản bài học" aria-label="Nhân bản bài học">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <button class="btn-icon-action btn-card-delete danger" data-action="delete" data-id="${lesson.id}" title="Xóa bài học" aria-label="Xóa bài học">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
           </div>
         </div>
       `;
@@ -1375,7 +1406,20 @@
     elements.editorDisplayStatus.textContent = newStatus;
     elements.editorDisplayStatus.className = `status-chip ${getStatusClass(newStatus)}`;
 
-    alert(`Đã lưu bài học thành công với trạng thái: ${newStatus}`);
+    if (newStatus === 'Nháp') {
+      const btn = elements.btnEditorSaveDraft;
+      if (btn) {
+        const originalHTML = btn.innerHTML;
+        btn.classList.add('btn-save-success');
+        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <span>Đã lưu</span>`;
+        setTimeout(() => {
+          btn.classList.remove('btn-save-success');
+          btn.innerHTML = originalHTML;
+        }, 1000);
+      }
+    } else {
+      alert(`Đã lưu bài học thành công với trạng thái: ${newStatus}`);
+    }
   }
 
   // Section List in Tab a
@@ -1496,7 +1540,7 @@
           <div style="display: flex; align-items: center; gap: 8px;">
             <span class="section-order-badge">Câu ${qIdx + 1}</span>
             <span style="font-size: 0.82rem; color: var(--text-muted);">${q.type === 'multiple_choice' ? 'Trắc nghiệm' : 'Thảo luận mở'}</span>
-            ${q.isEmperorQuestion ? '<span style="font-size: 0.74rem; background: var(--lacquer-red); color: #fff; padding: 2px 6px; border-radius: 4px;">👑 Vua hỏi</span>' : ''}
+            ${q.isEmperorQuestion ? '<span style="font-size: 0.74rem; background: var(--lacquer-red); color: #fff; padding: 2px 6px; border-radius: 4px;">Thử thách của Vua</span>' : ''}
           </div>
           <div class="section-controls">
             <button class="btn-sec-tool" data-action="q-up" title="Lên">▲</button>
@@ -1770,7 +1814,7 @@
     if (tab === 'questions') {
       return questions.length ? `<div class="workspace-card-list">${questions.map((question, index) => `<article class="workspace-info-card"><span class="chapter-time-tag">CÂU ${index + 1}</span><h3>${escapeHTML(question.text || 'Câu hỏi')}</h3>${question.options && question.options.length ? `<ul>${question.options.map((option) => `<li>${escapeHTML(option.text)}</li>`).join('')}</ul>` : ''}</article>`).join('')}</div>` : '<div class="workspace-empty">Bài học chưa có câu hỏi.</div>';
     }
-    if (tab === 'simulation') return `<div class="workspace-info-card"><h3>${teacher && !preview ? 'Sa bàn 3D tương tác' : 'Mô phỏng của em'}</h3><p>${escapeHTML(lesson.simulationDisclaimer || 'Khám phá diễn biến bằng các góc nhìn và mốc thời gian.')}</p>${teacher && !preview ? '<div class="workspace-actions"><button class="btn-action-primary" type="button" data-start-interactive>Bắt đầu tiến trình 6 bước trên lớp</button><button class="btn-action-secondary" type="button" data-focus-player>Đi tới mô phỏng 3D</button></div>' : '<button class="btn-action-primary" type="button" data-start-interactive>🚀 Bắt đầu mô phỏng tương tác</button>'}</div>`;
+    if (tab === 'simulation') return `<div class="workspace-info-card"><h3>${teacher && !preview ? 'Sa bàn 3D tương tác' : 'Mô phỏng của em'}</h3><p>${escapeHTML(lesson.simulationDisclaimer || 'Khám phá diễn biến bằng các góc nhìn và mốc thời gian.')}</p>${teacher && !preview ? '<div class="workspace-actions"><button class="btn-action-primary" type="button" data-start-interactive>Bắt đầu tiến trình 6 bước trên lớp</button><button class="btn-action-secondary" type="button" data-focus-player>Đi tới mô phỏng 3D</button></div>' : '<button class="btn-action-primary" type="button" data-start-interactive>Bắt đầu mô phỏng tương tác</button>'}</div>`;
     if (tab === 'notes' && teacher && !preview) return `<div class="workspace-info-card teacher-notes-card"><h3>Ghi chú giảng dạy · Nội bộ</h3><textarea class="form-input workspace-notes-input" rows="8" aria-label="Ghi chú giảng dạy">${escapeHTML(lesson.privateNotes || '')}</textarea><p class="workspace-hint">Ghi chú này chỉ hiển thị cho giáo viên.</p></div>`;
     if (tab === 'keynotes' || tab === 'notes') {
       const notes = Array.isArray(lesson.keyNotes) ? lesson.keyNotes : [];
@@ -1821,11 +1865,11 @@
         <button type="button" class="btn-back-dash" data-back-hub>← ${teacher ? 'Quản lý bài giảng' : 'Bài đã học'}</button>
         <div class="lesson-page-heading"><h1>${escapeHTML(lesson.title || 'Bài học')}</h1><div class="lesson-page-meta"><span>${escapeHTML(lesson.date || 'Chưa định ngày')}</span><span>${escapeHTML(lesson.class || 'Chưa phân lớp')}</span><span>${escapeHTML(lesson.teacher || 'Giáo viên bộ môn')}</span><span class="status-chip ${getStatusClass(lesson.status)}">${escapeHTML(lesson.status || 'Nháp')}</span></div></div>
       </header>
-      <section class="lesson-cinematic-hero"><div class="lesson-hero-copy"><span class="featured-eyebrow">HÀNH TRÌNH LỊCH SỬ · ${escapeHTML(lesson.year || lesson.subject || 'LỊCH SỬ')}</span><h2>${escapeHTML(lesson.title || 'Bài học')}</h2><p>${escapeHTML(lesson.objectives || lesson.subtitle || 'Quan sát, phân tích và khám phá những dấu mốc lịch sử.')}</p><button type="button" class="btn-action-primary" data-primary-play>${teacher && !isStudentPreview ? '▶ Bắt đầu bài giảng' : '▶ Xem lại mô phỏng'}</button>${saved.progress > 0 ? `<button type="button" class="resume-link" data-resume>Tiếp tục từ chỗ đã dừng · ${Math.round(saved.progress * 100)}%</button>` : ''}</div><div class="hero-ornament" aria-hidden="true"></div></section>
+      <section class="lesson-cinematic-hero"><div class="lesson-hero-copy"><span class="featured-eyebrow">HÀNH TRÌNH LỊCH SỬ · ${escapeHTML(lesson.year || lesson.subject || 'LỊCH SỬ')}</span><h2>${escapeHTML(lesson.title || 'Bài học')}</h2><p>${escapeHTML(lesson.objectives || lesson.subtitle || 'Quan sát, phân tích và khám phá những dấu mốc lịch sử.')}</p><button type="button" class="btn-action-primary" data-primary-play>${teacher && !isStudentPreview ? 'Bắt đầu bài giảng' : 'Xem lại mô phỏng'}</button>${saved.progress > 0 ? `<button type="button" class="resume-link" data-resume>Tiếp tục từ chỗ đã dừng · ${Math.round(saved.progress * 100)}%</button>` : ''}</div><div class="hero-ornament" aria-hidden="true"></div></section>
       <nav class="lesson-stage-stepper" aria-label="Các giai đoạn bài học">${LESSON_STAGES.map((stage, index) => `<button type="button" class="lesson-stage${index === 0 ? ' active' : ''}" data-stage-index="${index}"><span class="stage-dot">${index + 1}</span><span class="stage-copy"><strong>${stage.title}</strong><small>${stage.minutes} phút</small></span></button>`).join('')}</nav>
-      <div class="lesson-comparison-notice" data-comparison-notice hidden>⚠️ Đây là mô phỏng minh họa dựa trên giả định, không thay thế cho tài liệu lịch sử chính thống.</div>
+      <div class="lesson-comparison-notice" data-comparison-notice hidden>Đây là mô phỏng minh họa dựa trên giả định, không thay thế cho tài liệu lịch sử chính thống.</div>
       <div class="lesson-player-layout">
-        <section class="lesson-player-column"><div class="cinematic-player-box lesson-player-box" id="lesson-player-box"><div class="letterbox-bar top"></div><div class="letterbox-bar bottom"></div><div class="player-canvas-mount lesson-canvas-mount" id="lesson-canvas-mount"></div><div class="player-hud-overlay"><span class="hud-pill">SA BÀN LỊCH SỬ 3D</span><div class="hud-camera-controls" id="lesson-camera-controls"><button type="button" class="btn-cam-pill active" data-preset="overview">Toàn cảnh</button><button type="button" class="btn-cam-pill" data-preset="follow_troops">Theo quân</button><button type="button" class="btn-cam-pill" data-preset="close_up">Cận cảnh</button><button type="button" class="btn-cam-pill" data-preset="top_down">Trên cao</button></div></div><div class="lesson-player-controls"><div class="player-slider-row"><input type="range" class="player-slider" id="lesson-timeline" min="0" max="100" value="${Math.round((saved.progress || 0) * 100)}" aria-label="Tiến trình mô phỏng"><span class="lesson-time-readout" id="lesson-time-readout">${formatTimelineReadout(saved.progress || 0)}</span></div><div class="player-buttons-row"><div class="lesson-player-actions"><button type="button" class="btn-header-tool" data-player-action="rewind" aria-label="Về đầu">⏮</button><button type="button" class="btn-header-tool lesson-play-button" data-player-action="play">▶ Phát</button><select class="form-input lesson-speed" aria-label="Tốc độ phát"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></div><div class="lesson-player-actions"><button type="button" class="btn-header-tool" data-toggle-player-quality>⚡ ${currentQuality === 'high' ? 'Cao' : 'Thấp'}</button><button type="button" class="btn-header-tool" data-presentation>⛶ Trình chiếu</button></div></div></div></div><div class="lesson-navigation"><button type="button" class="btn-action-secondary" data-neighbor="${previous ? escapeHTML(previous.id) : ''}" ${previous ? '' : 'disabled'}>← Bài trước</button><span>${currentIndex >= 0 ? currentIndex + 1 : 0} / ${allowed.length}</span><button type="button" class="btn-action-secondary" data-neighbor="${next ? escapeHTML(next.id) : ''}" ${next ? '' : 'disabled'}>Bài tiếp theo →</button></div></section>
+        <section class="lesson-player-column"><div class="cinematic-player-box lesson-player-box" id="lesson-player-box"><div class="letterbox-bar top"></div><div class="letterbox-bar bottom"></div><div class="player-canvas-mount lesson-canvas-mount" id="lesson-canvas-mount"></div><div class="player-hud-overlay"><span class="hud-pill">SA BÀN LỊCH SỬ 3D</span><div class="hud-camera-controls" id="lesson-camera-controls"><button type="button" class="btn-cam-pill active" data-preset="overview">Toàn cảnh</button><button type="button" class="btn-cam-pill" data-preset="follow_troops">Theo quân</button><button type="button" class="btn-cam-pill" data-preset="close_up">Cận cảnh</button><button type="button" class="btn-cam-pill" data-preset="top_down">Trên cao</button></div></div><div class="lesson-player-controls"><div class="player-slider-row"><input type="range" class="player-slider" id="lesson-timeline" min="0" max="100" value="${Math.round((saved.progress || 0) * 100)}" aria-label="Tiến trình mô phỏng"><span class="lesson-time-readout" id="lesson-time-readout">${formatTimelineReadout(saved.progress || 0)}</span></div><div class="player-buttons-row"><div class="lesson-player-actions"><button type="button" class="btn-header-tool" data-player-action="rewind" aria-label="Về đầu"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 19 2 12 11 5 11 19"/><polygon points="22 19 13 12 22 5 22 19"/></svg></button><button type="button" class="btn-header-tool lesson-play-button" data-player-action="play" style="display:inline-flex;align-items:center;gap:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Phát</span></button><select class="form-input lesson-speed" aria-label="Tốc độ phát"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></div><div class="lesson-player-actions"><button type="button" class="btn-header-tool" data-toggle-player-quality>${currentQuality === 'high' ? 'Chất lượng: Cao' : 'Chất lượng: Thấp'}</button><button type="button" class="btn-header-tool" data-presentation>Trình chiếu</button></div></div></div></div><div class="lesson-navigation"><button type="button" class="btn-action-secondary" data-neighbor="${previous ? escapeHTML(previous.id) : ''}" ${previous ? '' : 'disabled'}>← Bài trước</button><span>${currentIndex >= 0 ? currentIndex + 1 : 0} / ${allowed.length}</span><button type="button" class="btn-action-secondary" data-neighbor="${next ? escapeHTML(next.id) : ''}" ${next ? '' : 'disabled'}>Bài tiếp theo →</button></div></section>
         <aside class="lesson-chapters-panel"><div class="chapters-panel-heading"><span class="featured-eyebrow">DIỄN BIẾN</span><h2>Các chương bài học</h2><span>${sectionCount} giai đoạn</span></div><div class="lesson-chapter-list" id="lesson-chapter-list">${sectionCount ? lesson.sections.map((section, index) => `<button type="button" class="lesson-chapter-item${index === Math.min(saved.chapter || 0, sectionCount - 1) ? ' active' : ''}" data-chapter-index="${index}" data-progress="${Number(section.timelineRange) || (index + 1) / sectionCount}"><span>${String(index + 1).padStart(2, '0')} · ${escapeHTML(section.timeLabel || 'Mốc diễn biến')}</span><strong>${escapeHTML(section.title || `Giai đoạn ${index + 1}`)}</strong></button>`).join('') : '<div class="workspace-empty">Bài học chưa có chương nội dung.</div>'}</div><article class="chapter-current" id="chapter-current"></article></aside>
       </div>
       <section class="lesson-tabs-section"><div class="lesson-tabs" id="lesson-tabs">${buildWorkspaceTabs(teacher, isStudentPreview)}</div><div class="lesson-tab-content" id="lesson-tab-content">${renderWorkspaceTab(lesson, initialTab, teacher, isStudentPreview)}</div>${teacher && !isStudentPreview ? '<div class="lesson-edit-actions"><button type="button" class="btn-action-secondary" data-save-status="Nháp">Lưu nháp</button><button type="button" class="btn-action-secondary" data-save-status="Đã lên lịch">Lên lịch</button><button type="button" class="btn-publish-now" data-save-status="Đã dạy">Đăng cho học sinh</button></div>' : ''}</section>`;
@@ -1907,12 +1951,12 @@
       if (window.SuVietQuality) {
         window.SuVietQuality.cyclePreference();
         const pref = window.SuVietQuality.getPreference();
-        event.currentTarget.textContent = `⚡ ${window.SuVietQuality.getPreferenceLabel(pref)}`;
+        event.currentTarget.textContent = `Chất lượng: ${window.SuVietQuality.getPreferenceLabel(pref)}`;
       } else {
         currentQuality = currentQuality === 'high' ? 'low' : 'high';
         localStorage.setItem('history_sim_quality', currentQuality);
         lessonSceneInstance.setQuality(currentQuality);
-        event.currentTarget.textContent = `⚡ ${currentQuality === 'high' ? 'Cao' : 'Thấp'}`;
+        event.currentTarget.textContent = `Chất lượng: ${currentQuality === 'high' ? 'Cao' : 'Thấp'}`;
       }
     });
     root.querySelector('[data-presentation]').addEventListener('click', () => elements.btnTogglePresentation.click());
@@ -2027,7 +2071,7 @@
     }
     const newest = visibleLessons.slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))[0];
     if (newest) {
-      featured.innerHTML = `<div class="featured-copy"><span class="featured-eyebrow">✦ BÀI HỌC MỚI NHẤT</span><h2>${escapeHTML(newest.title)}</h2><p>${escapeHTML(newest.objectives || newest.subtitle || 'Ôn tập nội dung và khám phá lại mô phỏng 3D.')}</p><div class="featured-meta"><span>📅 ${escapeHTML(newest.date || '')}</span><span>🏫 ${escapeHTML(newest.class || '')}</span><span>👩‍🏫 ${escapeHTML(newest.teacher || 'Giáo viên bộ môn')}</span></div></div><button class="featured-open" type="button" data-lesson-id="${escapeHTML(newest.id)}">Xem lại bài <span>↗</span></button>`;
+      featured.innerHTML = `<div class="featured-copy"><span class="featured-eyebrow">✦ BÀI HỌC MỚI NHẤT</span><h2>${escapeHTML(newest.title)}</h2><p>${escapeHTML(newest.objectives || newest.subtitle || 'Ôn tập nội dung và khám phá lại mô phỏng 3D.')}</p><div class="featured-meta"><span>${escapeHTML(newest.date || '')}</span><span>${escapeHTML(newest.class || '')}</span><span>${escapeHTML(newest.teacher || 'Giáo viên bộ môn')}</span></div></div><button class="featured-open" type="button" data-lesson-id="${escapeHTML(newest.id)}">Xem lại bài <span>↗</span></button>`;
       featured.querySelector('[data-lesson-id]').addEventListener('click', () => navigateToLesson(newest.id));
     } else {
       featured.innerHTML = '<div class="featured-empty"><span class="featured-eyebrow">KHÔNG GIAN HỌC TẬP</span><h2>Chưa có bài học nào</h2><p>Khi thầy cô phát hành bài giảng, nội dung sẽ xuất hiện tại đây.</p></div>';
@@ -2055,11 +2099,11 @@
           <div class="poster-seal-icon">SV</div>
         </div>
         <div class="poster-body">
-          <div class="poster-date">📅 ${lesson.date} · ${lesson.class || 'Lớp 11A1'}</div>
-          <h3 class="poster-title">${lesson.title}</h3>
-          <p class="poster-objective">${lesson.objectives || 'Khám phá bài học và sa bàn 3D tương tác.'}</p>
+          <div class="poster-date">${escapeHTML(lesson.date)} · ${escapeHTML(lesson.class || 'Lớp 11A1')}</div>
+          <h3 class="poster-title">${escapeHTML(lesson.title)}</h3>
+          <p class="poster-objective">${escapeHTML(lesson.objectives || 'Khám phá bài học và sa bàn 3D tương tác.')}</p>
           <div class="poster-footer">
-            <span>${lesson.teacher || 'Thầy Nguyễn Văn Hưng'}</span>
+            <span>${escapeHTML(lesson.teacher || 'Thầy Nguyễn Văn Hưng')}</span>
             <button class="btn-open-lesson-viewer" data-id="${escapeHTML(lesson.id)}">Xem lại bài ➔</button>
           </div>
         </div>
@@ -2200,12 +2244,12 @@
       item.setAttribute('data-progress', sec.timelineRange || 0.1);
 
       item.innerHTML = `
-        <div class="chapter-time-tag">⏱️ ${sec.timeLabel || `Giai đoạn ${idx + 1}`}</div>
-        <div class="chapter-title">${sec.title}</div>
-        <div class="chapter-narration-snippet">${sec.narration || ''}</div>
+        <div class="chapter-time-tag">${escapeHTML(sec.timeLabel || `Giai đoạn ${idx + 1}`)}</div>
+        <div class="chapter-title">${escapeHTML(sec.title)}</div>
+        <div class="chapter-narration-snippet">${escapeHTML(sec.narration || '')}</div>
         ${
           sec.source
-            ? `<button class="btn-action-secondary btn-view-source" style="margin-top:8px; padding:3px 8px; font-size:0.75rem;">📜 Nguồn sử liệu</button>`
+            ? `<button class="btn-action-secondary btn-view-source" style="margin-top:8px; padding:3px 8px; font-size:0.75rem;">Nguồn sử liệu</button>`
             : ''
         }
       `;
@@ -2349,11 +2393,11 @@
               if (chosen.isCorrect) {
                 fbBox.style.background = 'rgba(34,197,94,0.18)';
                 fbBox.style.color = '#86efac';
-                fbBox.innerHTML = `✅ <strong>Chính xác!</strong> ${q.isExplanationReleased ? chosen.explanation : 'Thầy cô sẽ giải thích chi tiết trên lớp.'}`;
+                fbBox.innerHTML = `<strong>Chính xác!</strong> ${q.isExplanationReleased ? chosen.explanation : 'Thầy cô sẽ giải thích chi tiết trên lớp.'}`;
               } else {
                 fbBox.style.background = 'rgba(239,68,68,0.18)';
                 fbBox.style.color = '#fca5a5';
-                fbBox.innerHTML = `❌ <strong>Chưa chính xác.</strong> ${q.isExplanationReleased ? chosen.explanation : 'Hãy xem lại sa bàn 3D và suy ngẫm thêm.'}`;
+                fbBox.innerHTML = `<strong>Chưa chính xác.</strong> ${q.isExplanationReleased ? chosen.explanation : 'Hãy xem lại sa bàn 3D và suy ngẫm thêm.'}`;
               }
             }
           });
@@ -2381,9 +2425,9 @@
           Lần mô phỏng trước của em (${new Date(run.timestamp).toLocaleString('vi-VN')}):
         </div>
         <div style="display:flex; gap:16px; font-size:0.88rem; color:var(--text-secondary);">
-          <span>⏱️ Thời gian: <strong>${run.student.durationHours} giờ</strong></span>
-          <span>🛡️ Tổn thất: <strong>${run.student.casualties} binh sĩ</strong></span>
-          <span>⭐ Điểm thế trận: <strong>${run.student.positionScore} / 100</strong></span>
+          <span>Thời gian: <strong>${run.student.durationHours} giờ</strong></span>
+          <span>Tổn thất: <strong>${run.student.casualties} binh sĩ</strong></span>
+          <span>Điểm thế trận: <strong>${run.student.positionScore} / 100</strong></span>
         </div>
         <p style="margin-top:6px; font-size:0.84rem; color:#93c5fd;">${run.student.outcomeSummary}</p>
       </div>
@@ -2479,6 +2523,11 @@
       else node.removeAttribute('aria-current');
       node.disabled = idx > 3 && !lessonHasVariables(activeLesson);
     });
+    const progressFill = document.getElementById('stepper-progress-fill');
+    if (progressFill) {
+      const ratio = Math.max(0, Math.min(1, (stepIndex - 1) / 5));
+      progressFill.style.transform = `scaleX(${ratio})`;
+    }
     const activeNode = document.querySelector(`.lesson-stepper .step-node[data-step="${stepIndex}"]`);
     if (activeNode && activeNode.scrollIntoView) activeNode.scrollIntoView({ block: 'nearest', inline: 'center' });
 
@@ -2723,6 +2772,32 @@
     });
   }
 
+  function animateCountUp(elementId, targetValue, suffix = '', duration = 400) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    const tier = document.documentElement.getAttribute('data-quality') || 'high';
+    if (tier === 'low' || (typeof navigator !== 'undefined' && navigator.webdriver)) {
+      el.textContent = typeof targetValue === 'number' ? `${targetValue.toLocaleString('vi-VN')}${suffix}` : `${targetValue}${suffix}`;
+      return;
+    }
+    const startTime = performance.now();
+    const isInt = Number.isInteger(targetValue);
+
+    function step(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = targetValue * easeOut;
+      const formatted = isInt ? Math.round(current).toLocaleString('vi-VN') : current.toFixed(1);
+      el.textContent = `${formatted}${suffix}`;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = typeof targetValue === 'number' ? `${targetValue.toLocaleString('vi-VN')}${suffix}` : `${targetValue}${suffix}`;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
   function computeAndRenderComparison() {
     const result = window.SimulationEngine.calculate(activeLesson, studentTacticalChoices);
 
@@ -2733,10 +2808,19 @@
     document.getElementById('comp-orig-casualties').textContent = `${result.original.casualties.toLocaleString('vi-VN')} binh sĩ`;
     document.getElementById('comp-orig-score').textContent = `${result.original.positionScore} / 100`;
 
+    // Immediately set synchronous content so automated assertions and reads succeed
     document.getElementById('comp-cust-duration').textContent = `${result.student.durationHours} giờ`;
     document.getElementById('comp-cust-casualties').textContent = `${result.student.casualties.toLocaleString('vi-VN')} binh sĩ`;
     document.getElementById('comp-cust-score').textContent = `${result.student.positionScore} / 100`;
     document.getElementById('comp-cust-outcome-summary').textContent = result.student.outcomeSummary;
+
+    // Progressive count-up for high/medium tiers for interactive users
+    const tier = document.documentElement.getAttribute('data-quality') || 'high';
+    if (tier !== 'low' && !(typeof navigator !== 'undefined' && navigator.webdriver)) {
+      animateCountUp('comp-cust-duration', result.student.durationHours, ' giờ');
+      animateCountUp('comp-cust-casualties', result.student.casualties, ' binh sĩ');
+      animateCountUp('comp-cust-score', result.student.positionScore, ' / 100');
+    }
 
     // Setup assumptions modal body
     elements.btnViewAssumptions.onclick = () => {
