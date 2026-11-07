@@ -194,3 +194,36 @@ flowchart LR
 
 Server-side approved lesson store with advisor sign-off workflow; F9 RAG character with citations
 and "tài liệu không ghi lại"; QR code join; teacher accounts via school SSO.
+
+## 12. Atlas Việt Nam (v2, branch `Dat/feature/v2-atlas`)
+
+Static data plus a framework-agnostic renderer; no backend involvement.
+
+```
+scripts/atlas/build-*.mjs ──(OSM, Natural Earth, Wikidata, AWS Terrain Tiles)──▶
+  frontend/src/content/atlas/{provinces.topo.json, landmarks.json}   (bundled with the route chunk)
+  frontend/public/atlas/terrain.png                                  (fetched at runtime)
+routes/atlas.tsx ── validateSearch(decodeAtlasState) ──▶ features/atlas/AtlasView.tsx (React, Tailwind)
+                                                          └─▶ features/atlas/scene.ts (three.js)
+                                                          └─▶ features/atlas/search.ts (pure, unit-tested)
+```
+
+- **Scene** (`VietnamAtlasScene`): a CPU-displaced plane (256 or 128 segments; raycasts hit the real
+  surface) with a shader that tints height, depth and hillshade from `terrain.png` using the palette
+  from CSS variables. A runtime canvas mask marks Viet Nam's land and the selected unit. Province
+  borders are line segments draped over the relief. Markers are one `InstancedMesh` per kind, each
+  kind with its own shape, scaled with camera distance. Labels are HTML spans placed by greedy
+  collision culling, avoiding boxes the view reserves for its buttons. It renders on demand only.
+  `focusPlace` flies the camera with easing, or jumps under `prefers-reduced-motion`. `setViewInsets`
+  uses a camera view offset so the target stays centred above a phone bottom sheet. `destroy()`
+  disposes GPU objects and calls `forceContextLoss`.
+- **Ids**: province, archipelago and landmark ids share one space (tested disjoint), so `onSelect`
+  and `?place=` take any of them.
+- **Lessons ↔ places**: both directions are honoured: `landmark.lessonIds` and `lesson.atlasPlaceIds`.
+- **Budget**: atlas chunk 69.6 KB gzip + shared three.js 136 KB, loaded only on `#/atlas`;
+  boundaries 37 KB gzip; terrain 1 MB. A failed WebGL context shows a Vietnamese message and the
+  lists keep working.
+- **ADR**: draped border lines over a texture-baked border or flat extruded units (measured, see
+  `notes/s3.md`); a small built-in TopoJSON decoder instead of `topojson-client` at runtime; OSM borders
+  clipped to land instead of a dissolve of the 63 old provinces (more accurate; the dissolve is the
+  cross-check and the fallback via `ATLAS_BOUNDARIES=dissolve`).

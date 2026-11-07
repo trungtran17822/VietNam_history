@@ -51,6 +51,8 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
   const [active, setActive] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(Boolean(state.place || state.q));
   const cardHeading = useRef<HTMLHeadingElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const homeRef = useRef<HTMLButtonElement>(null);
 
   const update = (patch: Partial<AtlasState>, replace = false) => onSearch(encodeAtlasState({ ...latest.current.state, ...patch }), replace);
 
@@ -76,6 +78,21 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
       focused.current = undefined;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- one scene per mount; quality is applied below
+
+  // On phones the panel is a sheet over the map: the scene centres the camera above it and keeps
+  // labels out from under the "Toàn quốc" button.
+  useEffect(() => {
+    const panel = panelRef.current!, map = mapRef.current!, home = homeRef.current!;
+    const ro = new ResizeObserver(() => {
+      const origin = map.getBoundingClientRect(), b = home.getBoundingClientRect();
+      sceneRef.current?.setViewInsets({
+        bottom: getComputedStyle(panel).position === 'absolute' ? panel.offsetHeight : 0,
+        reserved: [{ x: b.left - origin.left, y: b.top - origin.top, width: b.width, height: b.height }],
+      });
+    });
+    [panel, map, home].forEach((el) => ro.observe(el));
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => sceneRef.current?.setQuality(quality), [quality]);
   const kindKey = state.kinds.join();
@@ -138,9 +155,10 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
   return (
     <main id="view-atlas" className="atlas-view relative flex h-[calc(100dvh-5.5rem)] min-h-[520px] flex-col-reverse md:flex-row">
       <section
+        ref={panelRef}
         aria-label="Tìm và chọn địa danh"
         data-open={sheetOpen}
-        className="atlas-panel absolute inset-x-0 bottom-0 z-20 flex max-h-[62%] flex-col rounded-t-2xl border-t border-rule bg-card shadow-[0_-8px_28px_rgb(43_41_38/0.16)] data-[open=false]:max-h-[11.5rem] md:static md:max-h-none md:w-[23rem] md:flex-none md:rounded-none md:border-t-0 md:border-r md:shadow-none md:data-[open=false]:max-h-none"
+        className="atlas-panel absolute inset-x-0 bottom-0 z-20 flex max-h-[62%] flex-col rounded-t-2xl border-t border-rule bg-card shadow-[0_-8px_28px_rgb(43_41_38/0.16)] data-[open=false]:max-h-[12.5rem] md:static md:max-h-none md:w-[23rem] md:flex-none md:rounded-none md:border-t-0 md:border-r md:shadow-none md:data-[open=false]:max-h-none"
       >
         <button
           type="button"
@@ -159,7 +177,7 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
             <input
               id="atlas-q"
               type="search"
-              className="field pl-10"
+              className="field pl-10 placeholder:text-muted"
               placeholder="Tìm địa danh, tỉnh, thành phố…"
               autoComplete="off"
               role="combobox"
@@ -180,6 +198,7 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
               </button>
             ))}
           </div>
+          <Attribution className="mt-1.5 md:hidden" />
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto border-t border-rule px-4 py-3">
@@ -224,16 +243,21 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
             <p className="max-w-sm">{error} Danh sách địa danh bên cạnh vẫn dùng được.</p>
           </div>
         )}
-        <button type="button" className="btn-cam-pill absolute right-3 top-3 z-10 inline-flex items-center gap-1.5" onClick={goHome}>
+        <button ref={homeRef} type="button" className="btn-cam-pill absolute right-3 top-3 z-10 inline-flex items-center gap-1.5" onClick={goHome}>
           <Icon name="map" /> Toàn quốc
         </button>
-        <p className="pointer-events-auto absolute bottom-1 right-2 z-10 t-xs text-[#4d3a20] max-md:bottom-[11.75rem]">
-          Bản đồ ©{' '}
-          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>
-          {' '}contributors, Natural Earth, SRTM
-        </p>
+        <Attribution className="absolute bottom-1 right-2 z-10 hidden rounded bg-[rgb(246_238_219/0.85)] px-1.5 md:block" />
       </div>
     </main>
+  );
+}
+
+// ODbL: the borders and islands are an OpenStreetMap derivative, so the credit stays visible.
+function Attribution({ className }: { className: string }) {
+  return (
+    <p className={`t-xs text-[#4d3a20] ${className}`}>
+      Bản đồ © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors, Natural Earth, SRTM
+    </p>
   );
 }
 

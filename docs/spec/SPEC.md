@@ -333,3 +333,39 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 | Trial lands on a school break or exam period | Fix T1 from the school calendar; confirm the trial date with the school by T5; the 15-week maximum leaves no room to move step 9 past Tết if T1 is late (§11) |
 | School or parents refuse data collection from minors | Consent forms ready by T9; anonymous data only; paper-survey fallback |
 | 12 weeks is too tight (advisor approval slips, part-time staffing) | Gates and reserve in §11; cut F9, F10 and F11 first; never extend past T15 |
+
+## 15. Atlas Việt Nam (v2, session S3, branch `Dat/feature/v2-atlas`)
+
+A 3D map of Viet Nam for finding lessons by place. Route `#/atlas?place=<id>&kind=<kind,…>&q=<text>`
+(login required, both roles); the URL state makes any view shareable. Content is illustrative and
+not expert-reviewed, like the lessons; every landmark carries `illustrative: true` and its sources.
+
+**Requirements and status (2026-11-08)**
+
+| Requirement | Status |
+|---|---|
+| 34 province-level units in force since 1/7/2025 (25 tỉnh + 9 thành phố as of 20/9/2026), Hoàng Sa in Đà Nẵng, Trường Sa in Khánh Hòa | Built; unit tests |
+| Boundary data ≤ 400 KB gzip; terrain ≤ 2 MB | 37 KB gzip; `terrain.png` 1 MB |
+| Landmarks: UNESCO sites, special national relics, scenic sites, battlefields and capitals, with the 13 lesson-critical ids | 71 landmarks (9 World Heritage sites incl. Yên Tử 2025); unit tests |
+| Every landmark inside its province (coastal points within 10 km), ids unique kebab-case and disjoint from province ids, all strings NFC | Unit tests |
+| Diacritic-insensitive search, GeoGnos-style scoring, Levenshtein ≤ 2, kind filter, URL codec | Built; unit tests |
+| Renderer API `VietnamAtlasScene(container, { quality, onSelect })`: `setQuality`, `focusPlace(id \| null)`, `setFilter`, `setViewInsets`, `destroy` | Built |
+| HTML labels only, palette from CSS variables, `InstancedMesh` markers, low-quality mode for phones, `destroy()` on unmount | Built |
+| Place card: summary, era, province, sources with licences, "Mở bài giảng" links (landmark `lessonIds` ∪ lessons whose `atlasPlaceIds` name the place; students see only visible lessons) | Built |
+| Keyboard: combobox (arrows, Enter, Escape), chips and lists are buttons, map canvas takes arrow keys | Built |
+| Phone layout: bottom sheet; the camera centres above it; OSM credit in the sheet | Built; screenshots 360×800 |
+| Three.js and atlas in a lazy route chunk; initial JS ≤ 200 KB gzip | Atlas chunk 69.6 KB gzip, shared three.js 136 KB, initial JS 115 KB (built against S1 347d2c4) |
+| ≥ 55 FPS desktop, ≥ 30 FPS phone | **Not verified on a GPU.** Headless SwiftShader only: 3.1 FPS desktop (148k triangles), 15.9 FPS phone |
+| E2E for `#/atlas` | **Not written** (S4, after merging S1) |
+
+**Rendering choice.** Three ways to draw borders were measured in the harness (`npm run atlas:shoot`):
+borders baked into the mask texture (blur and thicken when zoomed in), flat province slabs (lose the
+relief and the borders) and border line segments draped over the relief (crisp at every zoom, same
+speed). The draped lines shipped; the numbers are in `specs/002-v2-tanstack-atlas/notes/s3.md`.
+
+**Data and licences**: see [SOURCES.md](../../frontend/src/content/atlas/SOURCES.md). The boundary
+file is an ODbL derivative of OpenStreetMap, so "© OpenStreetMap contributors" must stay visible on
+the map. No analytics, no user geolocation, nothing taken from GeoGnos.
+
+**Open for S4**: replace S1's `#/atlas` placeholder (and the "placeholder" note in §8) with S3's
+route; write the E2E; check FPS on a real phone and a school PC.

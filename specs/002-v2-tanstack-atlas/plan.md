@@ -38,6 +38,8 @@ Do giới hạn dung lượng đĩa, các session chạy **lần lượt** trong
 | 3 | **S3 Atlas Việt Nam 3D** | `Dat/feature/v2-atlas` (từ `v2-lessons`) | dữ liệu atlas, renderer, route `#/atlas`, liên kết bài giảng ↔ địa danh |
 | 4 | **S4 QA/QC + Staging** | `Dat/feature/v2-release` (từ `v2-atlas`) | kiểm thử toàn hệ thống, sửa lỗi, rà docs lần cuối, merge vào `Staging` để CI deploy preview |
 
+**Thực tế đã chạy:** S3 chạy **song song** với S1 (Đạt cho phép, đĩa đủ cho thêm một worktree), trong worktree riêng, nhánh `Dat/feature/v2-atlas` cắt từ `Dat/feature/core` (không có code S1/S2). S3 chỉ chạm các đường dẫn atlas; S4 gộp `v2-frontend`, `v2-lessons` và `v2-atlas` (xung đột chắc chắn duy nhất: `frontend/src/routes/atlas.tsx`, lấy bản S3). Chi tiết ở `notes/s3.md`.
+
 Session sau không được viết lại phần của session trước trừ khi để sửa lỗi; mọi thay đổi như vậy ghi vào notes của mình.
 Mỗi session ghi nhật ký riêng ở `specs/002-v2-tanstack-atlas/notes/<s1|s2|s3|s4>.md`.
 Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đạt) và `venv/`.
@@ -81,6 +83,13 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
 - `elevation`: ảnh heightmap/texture trong `frontend/public/atlas/` từ nguồn public domain hoặc giấy phép mở (SRTM/GEBCO...).
 - `SOURCES.md` trong thư mục atlas: liệt kê từng nguồn dữ liệu + giấy phép + cách tái tạo (`scripts/atlas/`).
 - API renderer: `new VietnamAtlasScene(container, { quality, onSelect })` với `setQuality`, `focusPlace(id)`, `setFilter({ kinds, query })`, `destroy()`. Nhãn là HTML overlay, không vẽ chữ trong canvas (giống quy tắc `scene-map`).
+- **Đã chốt ở S3** (chi tiết `notes/s3.md`, nguồn và giấy phép ở `frontend/src/content/atlas/SOURCES.md`):
+  - `provinces.topo.json` có hai object: `provinces` (thêm `label: [lat, lng]`, điểm đặt tên nằm trên đất liền) và `archipelagos` (`{ id, name, provinceId, label, islands: [{ qid, name, coords }] }`). Vùng hai quần đảo cũng nằm trong hình học của tỉnh chủ quản. `type` là trạng thái hiện hành: Đồng Nai, Quảng Ninh, Bắc Ninh đã lên thành phố (2026), nên có 25 tỉnh + 9 thành phố.
+  - `landmarks.json` thêm `tags?` (loại phụ, ví dụ kinh đô cũng là di sản UNESCO), `aliases?` (tên gọi khác cho tìm kiếm), `coordsFrom?` (`osm:<type>/<id>` khi không dùng toạ độ Wikidata), `coordsNote?`, `qid`, `illustrative: true`. Có 9 di sản UNESCO (kể cả Yên Tử – Vĩnh Nghiêm – Côn Sơn, Kiếp Bạc, 2025).
+  - Id tỉnh, quần đảo và địa danh cùng một không gian, không trùng nhau (có test), nên `?place=` và `onSelect` nhận bất kỳ loại nào. **Không đổi id đã phát hành**: bài giảng tham chiếu qua `atlasPlaceIds`.
+  - Liên kết hai chiều: thẻ địa danh lấy bài từ `lessonIds` của địa danh và từ `atlasPlaceIds` của bài. Id bài Mông - Nguyên là `khang-chien-mong-nguyen-vuon-khong` (id thật ở S1).
+  - API: `onSelect(id | null)` (null = bấm ra biển), `focusPlace(null)` về toàn quốc, thêm `setViewInsets({ bottom, reserved })` cho bottom sheet trên phone, `ready` (Promise khi địa hình đã tải). `elevation` là `frontend/public/atlas/terrain.png` (R độ cao, G độ sâu, B bóng địa hình).
+  - URL: `#/atlas?place=<id>&kind=<loại,…>&q=<chữ>` (`kind` cách nhau bằng dấu phẩy, `q` tối đa 80 ký tự).
 
 ## 5. Ngân sách tối ưu và khả năng mở rộng
 

@@ -32,7 +32,7 @@ const S = 10; // scene units per degree of latitude
 const EXAG = 14; // vertical exaggeration of the relief
 const WIDTH = (BBOX.east - BBOX.west) * KX * S;
 const DEPTH = (BBOX.north - BBOX.south) * S;
-const HOME = { lat: 15.6, lng: 108.6, fit: [WIDTH * 0.92, DEPTH * 0.98] as const };
+const HOME = { lat: 15.6, lng: (BBOX.west + BBOX.east) / 2, fit: [WIDTH, DEPTH * 0.98] as const };
 const QUALITY = {
   high: { segments: 256, mask: 2048, pixelRatio: 1.5, labels: 60 },
   low: { segments: 128, mask: 1024, pixelRatio: 1, labels: 26 },
@@ -177,6 +177,8 @@ export class VietnamAtlasScene {
   private down?: Vector2;
   private raycaster = new Raycaster();
   private destroyed = false;
+  private insetBottom = 0; // px of the canvas hidden under the view's bottom sheet
+  private reserved: number[][] = []; // [x0, y0, x1, y1] boxes of view controls that labels must avoid
   /** Frames actually rendered; the harness reads it to measure FPS. */
   renderedFrames = 0;
 
@@ -199,6 +201,7 @@ export class VietnamAtlasScene {
     if (getComputedStyle(container).position === 'static') container.style.position = 'relative'; // anchors the label overlay
     container.append(canvas);
     this.overlay.style.cssText = 'position:absolute;inset:0;overflow:hidden;pointer-events:none';
+    this.overlay.setAttribute('aria-hidden', 'true'); // names repeat the view's list, which is the accessible path
     container.append(this.overlay);
 
     this.controls = new MapControls(this.camera, canvas);
@@ -253,6 +256,18 @@ export class VietnamAtlasScene {
     if (arch) distance = 90;
     this.flyTo(lat, lng, distance, animate);
     return true;
+  }
+
+  /**
+   * UI drawn over the canvas: `bottom` px hidden under a bottom sheet (the camera centres on what stays
+   * visible) and `reserved` boxes (buttons) that labels must not sit under. Pixels relative to the container.
+   */
+  setViewInsets({ bottom = 0, reserved = [] }: { bottom?: number; reserved?: { x: number; y: number; width: number; height: number }[] }) {
+    this.reserved = reserved.map((b) => [b.x, b.y, b.x + b.width, b.y + b.height]);
+    this.dirty = true;
+    if (Math.abs(bottom - this.insetBottom) < 1) return;
+    this.insetBottom = bottom;
+    this.resize();
   }
 
   setFilter(filter: Filter) {
@@ -464,11 +479,11 @@ export class VietnamAtlasScene {
 
   /** Greedy collision culling, highest priority first; landmarks outrank provinces when close. */
   private layoutLabels() {
-    const w = this.container.clientWidth, h = this.container.clientHeight;
+    const w = this.container.clientWidth, h = this.visibleHeight();
     const dist = this.camera.position.distanceTo(this.controls.target);
     const near = dist < 70;
     const max = QUALITY[this.quality].labels;
-    const placed: number[][] = [];
+    const placed: number[][] = [...this.reserved];
     const v = new Vector3();
     const order = this.labels.map((l) => {
       let p = l.priority;
@@ -493,10 +508,15 @@ export class VietnamAtlasScene {
   // --- camera
 
   private fitDistance(width: number, depth: number) {
-    const aspect = this.container.clientWidth / Math.max(1, this.container.clientHeight);
+    const aspect = this.container.clientWidth / Math.max(1, this.visibleHeight());
     const vfov = MathUtils.degToRad(this.camera.fov);
     const hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
-    return Math.max(depth / 2 / Math.tan(vfov / 2), width / 2 / Math.tan(hfov / 2)) * 0.95;
+    return Math.max(depth / 2 / Math.tan(vfov / 2), width / 2 / Math.tan(hfov / 2));
+  }
+
+  private visibleHeight() {
+    const h = this.container.clientHeight;
+    return h - MathUtils.clamp(this.insetBottom, 0, h * 0.7);
   }
 
   private home(animate: boolean) {
@@ -523,7 +543,11 @@ export class VietnamAtlasScene {
     if (!w || !h) return;
     this.renderer.setPixelRatio(Math.min(devicePixelRatio || 1, QUALITY[this.quality].pixelRatio));
     this.renderer.setSize(w, h, false);
-    this.camera.aspect = w / h;
+    // A view offset taller than the frustum keeps the projection centre in the visible strip above the sheet.
+    const visible = this.visibleHeight();
+    this.camera.aspect = w / visible;
+    if (visible < h) this.camera.setViewOffset(w, visible, 0, 0, w, h);
+    else this.camera.clearViewOffset();
     this.camera.updateProjectionMatrix();
     this.dirty = true;
   }
