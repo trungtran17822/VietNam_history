@@ -9,7 +9,7 @@
     "type": "sgk",
     "tier": "A",
     "tierReason": "Đây là sách giáo khoa được dùng làm tuyến nội dung chính của bài học.",
-    "whatItSupports": "Bài 1, Chương 1, printed pages 8-11: headings, timeline, NEP table, 1922 USSR map, figure captions, data table, stated achievements, limitations, and activities.",
+    "whatItSupports": "Bài 1, Chương 1, printed pages 8-11: headings, timeline, NEP table, 1922 USSR map, figure captions, data table, stated achievements, limitations, and activities. Bài 16 (Chương 4, tr. 80, 82–86): Đông – Xuân 1953 – 1954, kế hoạch Na-va, chiến dịch Điện Biên Phủ (ba đợt, 13 – 3 đến 7 – 5 – 1954), Hiệp định Giơ-ne-vơ, nguyên nhân và ý nghĩa; dùng cho bài dien-bien-phu-1954. Bài 18 (mục 3, tr. 98–102): Hiệp định Pa-ri, Phước Long, kế hoạch giải phóng miền Nam, Tây Nguyên, Huế – Đà Nẵng, chiến dịch Hồ Chí Minh (26 – 30 – 4 – 1975), ý nghĩa; dùng cho bài chien-dich-ho-chi-minh-1975. Trích dẫn nguyên văn đọc từ ảnh trang (OCR tiếng Việt rồi đối chiếu bằng mắt); số trang là số in trong sách (trang PDF = trang sách + 3).",
     "verification": "1 nguồn",
     "licenseNote": "Tài liệu có bản quyền Nhà xuất bản Giáo dục Việt Nam. Dùng cho bản thử nghiệm; cần xin phép Nhà xuất bản Giáo dục Việt Nam trước khi triển khai rộng. Không sao chép ảnh hoặc đoạn văn dài.",
     "disputed": false,
@@ -62,5 +62,37 @@
     "licenseNote": "Không sao chép nội dung; cần lấy và kiểm tra bản gốc trước khi phát hành.",
     "disputed": false,
     "disputedNote": "Liên kết trả lỗi truy cập trong lần kiểm tra; chi tiết Quốc kỳ chưa xác minh."
+  },
+  {
+    "id": "vnsl-tran-trong-kim",
+    "title": "Việt Nam sử lược",
+    "authorOrPublisher": "Trần Trọng Kim; bản số hóa trên Wikisource tiếng Việt",
+    "year": 1920,
+    "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược",
+    "accessedDate": "2026-11-08",
+    "type": "sach-su",
+    "tier": "B",
+    "tierReason": "Sách sử tổng quát kinh điển, đã thuộc phạm vi công cộng, có bản số hóa đọc được nguyên văn; không phải sách giáo khoa hiện hành và có chỗ ghi niên đại không thống nhất.",
+    "whatItSupports": "Quyển I, Phần III, Chương VII – VIII (kháng chiến chống Nguyên 1285, 1287 – 1288: Diên Hồng, rời Thăng Long, Vân Đồn, Bạch Đằng) cho bài khang-chien-mong-nguyen-vuon-khong; Chương XIV mục 19 – 20 (Chi Lăng, Xương Giang, Vương Thông xin hòa) cho bài chi-lang-xuong-giang-1427; Quyển II (bản 1971), Phần IV, Chương VIII mục 6 – 7 (quân Xiêm sang Gia Định, Nguyễn Huệ phá quân Xiêm ở Rạch Gầm – Xoài Mút) cho bài rach-gam-xoai-mut-1785.",
+    "verification": "1 nguồn",
+    "licenseNote": "Phạm vi công cộng. Trích nguyên văn theo bản Wikisource, giữ cả chữ Hán, dấu chú thích và lỗi chép của bản số hóa.",
+    "disputed": true,
+    "disputedNote": "Sách ghi tháng của trận Chi Lăng không thống nhất (tháng chạp năm bính-ngọ, tháng mười, ngày 18 tháng 9). Số quân, số thuyền của quân Xiêm và quân Nguyên cần đối chiếu Đại Việt sử ký toàn thư, Đại Nam thực lục."
+  },
+  {
+    "id": "wiki-vi-rach-gam-xoai-mut",
+    "title": "Trận Rạch Gầm – Xoài Mút",
+    "authorOrPublisher": "Wikipedia tiếng Việt (cộng đồng biên tập)",
+    "year": 2026,
+    "url": "https://vi.wikipedia.org/wiki/Trận_Rạch_Gầm_–_Xoài_Mút",
+    "accessedDate": "2026-11-08",
+    "type": "bach-khoa-mo",
+    "tier": "C",
+    "tierReason": "Bách khoa mở, chỉ dùng làm đầu mối tìm nguồn gốc; không trích làm bằng chứng.",
+    "whatItSupports": "Đầu mối cho cách bố trí trận địa (thuyền giấu trong rạch, quân và pháo trên bờ, cù lao Thới Sơn) ở mục rg-4 và biến số 3 của bài rach-gam-xoai-mut-1785; mục đó để trống trích dẫn.",
+    "verification": "chưa xác minh",
+    "licenseNote": "CC BY-SA; không sao chép đoạn văn.",
+    "disputed": true,
+    "disputedNote": "Ngày trận đánh ghi không thống nhất trong bài (18 – 19 hay 19 – 20 tháng 1 năm 1785)."
   }
 ]

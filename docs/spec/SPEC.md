@@ -124,7 +124,7 @@ Status key: **Built** = works in the prototype; **Partial**; **Not built**. "Bui
 | F10 | Built (minimal) | Class session on stage 3: the teacher opens a 6-character code, students join on their own devices, the teacher sees answer count and per-option bars (polling every 4 s). Backend: Cloudflare Worker + D1 in `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Spec: `specs/001-classroom-sim-demo/` |
 | F11 | Built (minimal) | Per device in a class session: choices, time used and an optional 3-question survey (1-5) on stage 6. The teacher downloads a CSV with anonymous ids (A01…) and no identity columns, and can delete the session. Sessions expire after 12 h; data is purged after 180 days. Paper forms stay the fallback |
 
-Only **1 of the 4 seeded lessons is complete**: Ngọc Hồi has 4 chapters and 4 variables. Rạch Gầm (3 chapters), Chi Lăng (1) and the Mongol-Nguyên lesson (0) have no simulation variables, so the question/simulation/comparison stages have nothing to run for them. Since v2 a teacher can add variables to any lesson in the editor tab "Biến số & hệ số" (§8), and a lesson with one variable runs all 6 stages.
+**All 5 bundled lessons run the 6 stages** (v2 session S2): Ngọc Hồi (4 chapters, 4 variables), Rạch Gầm – Xoài Mút 1785 (5, 3), Chi Lăng – Xương Giang 1427 (6, 4), Kháng chiến chống Mông – Nguyên 1285 – 1288 (6, 3), Điện Biên Phủ 1954 (5, 4) and Chiến dịch Hồ Chí Minh 1975 (5, 3). The two new lessons quote the SGK *Lịch sử và Địa lí 9 – Chân trời sáng tạo* (Bài 16, Bài 18) with page numbers; the three older ones were rewritten from *Việt Nam sử lược* (Wikisource). One chapter (Rạch Gầm, troop layout) has no verbatim quote yet and says so. A Vitest check holds every lesson to the contract (schema, ≥ 4 sourced chapters, outcomes, every combination in range, no grading words); an E2E plays Điện Biên Phủ through all stages on desktop and phone. A teacher can still add variables to any lesson in the editor tab "Biến số & hệ số" (§8).
 
 ## 8. Architecture (as built)
 
@@ -184,7 +184,7 @@ frontend/
 | Baseline | `baseline {durationHours, casualties, positionScore, ratingText, minDurationHours?, minCasualties?}` |
 | Versioning | `schemaVersion`, `revision` (bump it when a bundled lesson changes so stored copies update) |
 | Factions | `factions {a {name, color}, b {name, color}}` |
-| Scene | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; camera presets are fixed in the renderer (overview, follow_troops, close_up, top_down) |
+| Scene | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; feature types river, hill, fort, village, forest, road, marsh, airfield, camp, stakes; routes are drawn on the table as the timeline reaches them; camera presets are fixed in the renderer (overview, follow_troops, close_up, top_down) |
 | The character's question | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
 | Variables | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
 | Explanation | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
@@ -291,7 +291,7 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 
 ## 12. Discrepancies and gaps (decide or fix before relying on the docs)
 
-1. **`frontend/data/sources.json` is for a different lesson.** Its 4 entries cover Soviet NEP / the 1922 USSR map (textbook *Lịch sử và Địa lí 9*, Bài 1), the 2013 Constitution, the Ngọc Lũ drum and a flag-usage guideline. None supports Ngọc Hồi - Hạ Hồi. The Ngọc Hồi lesson cites its sources inline instead, and nothing links the two. So the PRD's "approved data set" (plan step 3) **does not exist yet**.
+1. **`frontend/data/sources.json` is partly connected.** It now lists the textbook pages behind Điện Biên Phủ and the 1975 campaign (Bài 16, 18), *Việt Nam sử lược* (tier B) for Rạch Gầm, Chi Lăng and Mông – Nguyên, and a Wikipedia pointer (tier C). Nothing supports Ngọc Hồi - Hạ Hồi, whose inline quotes were never checked. No historian has reviewed any of it, so the PRD's "approved data set" (plan step 3) **does not exist yet**.
 2. **Grade level.** The seed lesson says `grade: 'Khối 11'` (THPT). The only textbook in the repo is *Lịch sử và Địa lí 9* (THCS). The PRD leaves THCS-vs-THPT open. Settle it in step 1; it decides which textbook is the reference and the vocabulary level.
 3. **README overclaimed F10. Fixed.** `frontend/README.md` described a class-survey chart ("38/40") that no code implemented. F10 is now built as a minimal class session (§7).
 4. **Accounts.** The PRD puts "tài khoản người dùng" out of scope. The prototype has a demo login and a teacher dashboard/editor with import/export beyond what the PRD asks for. Keep the login labelled demo-only; it protects nothing. Decide whether the editor is in scope for the demo or a bonus that costs maintenance.

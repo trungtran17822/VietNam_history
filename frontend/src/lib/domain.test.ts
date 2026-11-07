@@ -43,6 +43,58 @@ describe('lesson contract (plan §4.1)', () => {
   });
 });
 
+const allCombos = (l: Lesson) => (l.question?.variables ?? []).reduce<Choices[]>((acc, v) => acc.flatMap((c) => v.options.map((o) => ({ ...c, [v.id]: o.id }))), [{}]);
+const gradingWords = new RegExp(`(^|[^\\p{L}])(${['sai lầm', 'sai', 'thất bại', 'kém', 'tệ', 'dở', 'ngu'].join('|')})(?=$|[^\\p{L}])`, 'iu');
+
+describe('lesson contract: every bundled lesson reaches stage 6 (plan §4.1, S2)', () => {
+  test.each(Object.entries(lessonFiles))('%s has full content, sources and scene', (_, json) => {
+    const l = json as Lesson;
+    expect(playabilityIssues(l)).toEqual([]);
+    expect(l.introSummary?.length).toBeGreaterThan(0);
+    expect(l.sections.length).toBeGreaterThanOrEqual(4);
+    for (const s of l.sections) {
+      expect(s.source?.book, s.id).toBeTruthy();
+      // An unread quote stays empty and says so; never a paraphrase in its place.
+      if (!s.source?.quote) expect(s.source?.note, s.id).toContain('Cần bổ sung trích dẫn nguyên văn');
+    }
+    expect(l.keyNotes?.length).toBeGreaterThan(0);
+    expect(l.privateNotes).toBeTruthy();
+    expect(l.question?.character?.name).toBeTruthy();
+    expect(l.questions.some((q) => q.type === 'open_discussion')).toBe(true);
+    for (const q of l.questions) {
+      if (q.type === 'multiple_choice') for (const o of q.options ?? []) expect(o.explanation, o.id).toBeTruthy();
+    }
+    expect(l.baseline).toBeTruthy();
+    expect(Object.keys(l.simulation.outcomes ?? {}).sort()).toEqual(['challenging', 'moderate', 'perfect', 'positive']);
+    expect(l.simulation.keyframes?.length).toBeGreaterThan(0);
+    expect(l.factions).toBeTruthy();
+    expect(l.simulation.scene?.features.length).toBeGreaterThan(0);
+    expect(l.atlasPlaceIds?.length).toBeGreaterThan(0);
+  });
+
+  test.each(Object.entries(lessonFiles))('%s: every combination is sane, explained and never grades', (_, json) => {
+    const l = json as Lesson;
+    const b = l.baseline!;
+    const combos = allCombos(l);
+    expect(combos.filter((c) => calculate(l, c).isIdenticalToOriginal)).toEqual([originalChoices(l)]);
+    for (const choices of combos) {
+      const r = calculate(l, choices);
+      // Unclamped: the declared deltas alone keep every result in range.
+      expect(b.durationHours + r.student.timeDelta).toBeGreaterThanOrEqual(b.minDurationHours ?? 12);
+      expect(b.casualties + r.student.casualtyDelta).toBeGreaterThanOrEqual(b.minCasualties ?? 500);
+      expect(b.positionScore + r.student.scoreDelta).toBeLessThanOrEqual(100);
+      // ponytail: the pilot's worst combination dips below the score floor (raw -2, shown as 10); S2 lessons stay above it.
+      if (!l.isPilot) expect(b.positionScore + r.student.scoreDelta).toBeGreaterThanOrEqual(10);
+      const e = generateExplanation(l, choices);
+      expect(e.variablePoints).toHaveLength(l.question!.variables.length);
+      for (const t of [r.student.outcomeSummary, e.intro, e.encouragement, ...e.variablePoints.map((p) => p.text)]) {
+        expect(t, t).toBeTruthy();
+        expect(t.normalize('NFC').match(gradingWords), t).toBeNull();
+      }
+    }
+  });
+});
+
 describe('engine', () => {
   test('deterministic: every combination gives identical numbers on a second run (SC-002)', () => {
     for (const choices of combos) expect(calculate(structuredClone(pilot), { ...choices })).toEqual(calculate(pilot, choices));
@@ -114,7 +166,8 @@ describe('storage', () => {
     expect(ownAfter.factions.a.color).toBe('#111111');
     expect(ownAfter.simulation.scene.terrain).toBe('plain');
     // v1 knew the other seeds; they were absent here, so the teacher had deleted them: they stay deleted.
-    expect(storage.getAllLessons()).toHaveLength(2);
+    // Lessons added after v1 (Điện Biên Phủ, 1975) are new to this browser and arrive.
+    expect(storage.getAllLessons().map((l) => l.id).sort()).toEqual(['chien-dich-ho-chi-minh-1975', 'dien-bien-phu-1954', 'lesson-abc', 'ngoc-hoi-ha-hoi-1789']);
     const once = memory.get(storage.STORAGE_KEY);
     await storage.initStorage();
     expect(memory.get(storage.STORAGE_KEY)).toBe(once);

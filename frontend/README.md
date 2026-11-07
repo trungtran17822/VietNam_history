@@ -64,10 +64,10 @@ Bài mới tạo từ "Bài giảng trống" hoặc "Tạo bài từ tư liệu"
 | `src/routes/` | Một file cho mỗi route (TanStack Router). `__root.tsx` là khung trang: dải nhãn, header, chân trang, màn chuyển cảnh sau đăng nhập. `routeTree.gen.ts` do plugin Vite sinh ra, không sửa tay. |
 | `src/components/` | Màn hình: `LessonPage` (trang bài học, xem trước), `StageLoop` (6 bước), `Editor` + `VariablesEditor` (soạn bài), `Player` (sa bàn + điều khiển), `ClassPanel` (phiên lớp, khảo sát), `ui.tsx` (icon SVG, modal, `PROTOTYPE_NOTICE`, `SIMULATION_NOTICE`). |
 | `src/lib/` | Logic không có UI, có test Vitest (`domain.test.ts`): `lesson-schema` (zod), `engine` (tính toán xác định), `storage` (localStorage, luật hiển thị, nhập/xuất), `class-session` (API lớp), `auth`, `audio`, `text` (NFC), `intake`, `prefs`, `guards`, `transition`. |
-| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Bài Ngọc Hồi đầy đủ; ba bài còn lại chưa có biến số. |
+| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Cả 5 bài đều chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
 | `src/scene/` | `silk-map.ts` (lớp `SilkMapScene`, chỉ file này import three, nạp lười), `artwork.ts` (vẽ bản đồ, họa tiết, ảnh thu nhỏ bằng canvas), `counts.ts`, `sprites/` (PNG thay họa tiết). |
 | `public/` | Phông Noto (woff2) và logo, phục vụ nguyên trạng. |
-| `data/sources.json` | Danh mục nguồn đã duyệt (chưa được code nạp). |
+| `data/sources.json` | Danh mục nguồn (chưa được code nạp, chưa có chuyên gia duyệt): SGK Lịch sử và Địa lí 9 (Bài 1, 16, 18), Việt Nam sử lược, một mục Wikipedia làm đầu mối. |
 
 Mọi thứ riêng của từng bài nằm trong JSON: biến số, hệ số, giả định, nhận xét, nhân vật, và
 `simulation.scene` (địa hình, đặc điểm, nhãn, mũi tiến quân, đội hình, đơn vị đặc biệt). Muốn đổi kết quả

@@ -1,9 +1,13 @@
 {
   "schemaVersion": 2,
-  "revision": 1,
+  "revision": 2,
   "id": "rach-gam-xoai-mut-1785",
   "era": "1785",
-  "atlasPlaceIds": [],
+  "atlasPlaceIds": [
+    "rach-gam",
+    "xoai-mut",
+    "tay-son"
+  ],
   "factions": {
     "a": {
       "name": "Quân Tây Sơn",
@@ -14,109 +18,212 @@
       "color": "#3e5c76"
     }
   },
-  "title": "Trận Thủy Chiến Rạch Gầm - Xoài Mút (1785)",
-  "subtitle": "Nguyễn Huệ đại phá 5 vạn quân Xiêm trên sông Tiền",
-  "commander": "Long Nhương Tướng quân Nguyễn Huệ",
-  "opponent": "5 vạn quân thủy bộ Xiêm La (Chiêu Tăng, Chiêu Sương)",
-  "year": "Tháng 1 năm 1785",
+  "title": "Trận Rạch Gầm - Xoài Mút (1785)",
+  "subtitle": "Nguyễn Huệ phá quân Xiêm trên sông Tiền",
+  "commander": "Nguyễn Huệ (Long Nhương tướng quân)",
+  "opponent": "Quân Xiêm do Chiêu Tăng, Chiêu Sương chỉ huy (theo Việt Nam sử lược: hai vạn quân, 300 chiếc thuyền)",
+  "year": "Năm Giáp Thìn – Ất Tị (1784 – 1785)",
   "teacher": "Thầy Nguyễn Văn Hưng",
   "class": "Lớp 11A1",
   "date": "2026-10-20",
   "subject": "Lịch sử",
   "grade": "Khối 11",
-  "period": "Tiết 1 · 07:15 - 08:00 (45 phút)",
-  "objectives": "Phân tích nghệ thuật nghi binh thủy chiến, lợi dụng dòng chảy thủy triều sông Tiền và đòn hỏa công tiêu diệt hạm đội 300 chiến thuyền giặc.",
-  "focusQuestion": "Tại sao Nguyễn Huệ chọn đoạn sông Rạch Gầm - Xoài Mút để lập trận địa mai phục quyết chiến chiến lược?",
+  "period": "Tiết 2 · 08:15 - 09:00 (45 phút)",
+  "objectives": "Trình bày bối cảnh quân Xiêm sang Gia Định; phân tích cách Nguyễn Huệ nhử quân Xiêm vào khúc sông Rạch Gầm – Xoài Mút rồi đánh một trận quyết định; nêu ý nghĩa của trận đánh.",
+  "focusQuestion": "Vì sao Nguyễn Huệ chọn nhử quân Xiêm vào khúc sông Rạch Gầm – Xoài Mút thay vì đánh ngay khi gặp địch?",
   "status": "Đã dạy",
   "isPilot": false,
   "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
-  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.",
-  "introSummary": "Năm 1785, quân Xiêm xâm lược miền Nam nước ta. Nguyễn Huệ đưa thủy quân thần tốc vào Mỹ Tho, chọn đoạn sông hiểm trở giữa hai con rạch nhỏ lập trận địa mai phục, lợi dụng con nước ròng đánh tan tác 5 vạn quân giặc chỉ trong một ngày.",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Thời gian, tổn thất và điểm thế trận đều là số minh họa từ giả định của bài học, không phải số liệu lịch sử.",
+  "introSummary": "Năm 1784, vua Xiêm sai Chiêu Tăng, Chiêu Sương đem quân và thuyền sang Gia Định giúp Nguyễn Ánh. Quân Xiêm đi đến đâu quấy nhiễu dân đến đó. Tướng Tây Sơn ở Gia Định là Trương Văn Đa báo về Quy Nhơn; Nguyễn Huệ được sai đem binh vào. Đầu năm 1785, Nguyễn Huệ nhử quân Xiêm đến khúc sông Rạch Gầm – Xoài Mút, phía trên Mỹ Tho, rồi đánh một trận lớn.",
   "sections": [
     {
       "id": "rg-1",
-      "title": "Khảo sát địa hình và chuẩn bị trận địa mai phục",
-      "narration": "Nguyễn Huệ bí mật khảo sát đoạn sông Tiền từ Rạch Gầm đến Xoài Mút: lòng sông rộng, hai bên có lau sậy rậm rạp và cù lao Thới Sơn chắn giữa dòng.",
-      "caption": "Bố trí đại bác trên bờ và chiến thuyền giấu kín trong các nhánh rạch rậm rạp.",
-      "timelineRange": 0.2,
-      "timeLabel": "Đêm 18 rạng 19/01/1785",
+      "title": "Quân Xiêm sang Gia Định",
+      "narration": "Năm 1784, Nguyễn Ánh sang Vọng Các (kinh đô Xiêm) xin binh cứu viện. Vua Xiêm sai hai tướng Chiêu Tăng, Chiêu Sương đem quân và thuyền sang giúp. Quân Xiêm lấy được Rạch Giá, Ba Thắc, Trà Ôn, Mân Thít, Sa Đéc.",
+      "caption": "Một đạo quân ngoại bang theo đường sông tiến vào đồng bằng.",
+      "timelineRange": 0.15,
+      "timeLabel": "Năm 1784",
       "source": {
-        "book": "Đại Nam thực lục",
-        "chapter": "Tiền biên",
-        "quote": "Nguyễn Huệ thấy địa thế hiểm yếu, liền ngầm đặt thủy binh hai bên rạch, phục súng lớn trên bờ...",
-        "note": "Tư liệu lịch sử về nghệ thuật chọn địa hình tác chiến thủy quân."
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển II (bản 1971), Phần IV, Chương VIII “Vận trung suy của chúa Nguyễn”",
+        "quote": "Tiêm-vương tiếp đãi Nguyễn-vương rất hậu, và sai hai tướng là Chiêu Tăng 昭 曽, Chiêu Sương 昭 霜 đem hai vạn quân cùng 300 chiếc thuyền sang giúp Nguyễn-vương.",
+        "note": "Việt Nam sử lược viết “Tiêm-la” cho nước Xiêm. Số quân, số thuyền là theo sách này; các nguồn khác ghi khác, cần đối chiếu.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_II/1971/Phần_IV/Chương_VIII"
       }
     },
     {
       "id": "rg-2",
-      "title": "Nghi binh dụ địch vào khúc sông tử địa",
-      "narration": "Sáng sớm, thuyền nhẹ Tây Sơn ra khiêu chiến rồi giả vờ thua chạy. Tướng giặc Chiêu Tăng đắc thắng đốc thúc toàn bộ thuyền chiến đuổi theo.",
-      "caption": "Thuyền giặc hăm hở lọt trọn vào khúc sông phục kích đúng lúc thủy triều rút mạnh.",
-      "timelineRange": 0.6,
-      "timeLabel": "Sáng ngày 19/01/1785",
+      "title": "Lòng dân oán giận",
+      "narration": "Quân Xiêm ỷ thế, đi đến đâu quấy nhiễu dân đến đó. Lòng người ở Gia Định oán giận, điều này về sau giúp quân Tây Sơn có thêm sự ủng hộ của dân vùng sông nước.",
+      "caption": "Quân đông mà mất lòng dân.",
+      "timelineRange": 0.3,
+      "timeLabel": "Cuối năm 1784",
       "source": {
-        "book": "Gia Định thành thông chí",
-        "chapter": "Cương vực chí",
-        "quote": "Quân Tây Sơn giả thua rút lui, giặc đuổi theo đến Rạch Gầm thì trúng phục binh.",
-        "note": "Mưu chước nhử địch bậc thầy của danh tướng Nguyễn Huệ."
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển II (bản 1971), Phần IV, Chương VIII “Vận trung suy của chúa Nguyễn”",
+        "quote": "Từ đó quân Tiêm ỷ thế đi đến đâu quấy-nhiễu dân sự, làm nhiều điều tàn-ác, cho nên lòng người oán-hận lắm.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_II/1971/Phần_IV/Chương_VIII"
       }
     },
     {
       "id": "rg-3",
-      "title": "Hỏa công tổng kích - Hạm đội Xiêm tan tành",
-      "narration": "Pháo lệnh nổ vang, đại bác hai bên bờ và các hòn cù lao nhả đạn dữ dội. Thuyền chiến Tây Sơn từ các nhánh rạch lao ra phóng hỏa thiêu rụi hạm đội giặc.",
-      "caption": "300 chiến thuyền giặc bị thiêu rụi, tàn quân Xiêm 'sợ Tây Sơn như cọp'.",
-      "timelineRange": 1,
-      "timeLabel": "Chiều ngày 19/01/1785",
+      "title": "Nguyễn Huệ vào Gia Định",
+      "narration": "Tướng Tây Sơn giữ Gia Định là Trương Văn Đa thấy thế lực quân Xiêm mạnh, sai người về Quy Nhơn báo gấp. Vua Tây Sơn (Nguyễn Nhạc) sai Nguyễn Huệ đem binh vào chống giữ.",
+      "caption": "Quân tiếp viện từ Quy Nhơn vào Nam.",
+      "timelineRange": 0.45,
+      "timeLabel": "Cuối năm 1784",
       "source": {
-        "book": "Đại Nam chính biên liệt truyện",
-        "chapter": "Tây Sơn liệt truyện",
-        "quote": "Quân Xiêm vỡ trận nhảy xuống sông chết đuối vô kể, Chiêu Tăng dắt tàn quân theo đường bộ trốn về nước.",
-        "note": "Trận thủy chiến lẫy lừng bậc nhất Nam Bộ thế kỷ XVIII."
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển II (bản 1971), Phần IV, Chương VIII, mục 7 “Nguyễn Huệ phá quân Tiêm-la”",
+        "quote": "Tướng Tây-sơn giữ đất Gia-định là Trương văn Đa 張 文 多, thấy quân Tiêm-la sang đánh phá, thế-lực mạnh lắm, bèn sai người về Qui-nhơn phi-báo. Vua Tây-sơn sai Nguyễn Huệ 阮 惠 đem binh vào chống giữ.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_II/1971/Phần_IV/Chương_VIII"
+      }
+    },
+    {
+      "id": "rg-4",
+      "title": "Chọn khúc sông, giấu quân",
+      "narration": "Nguyễn Huệ chọn khúc sông Tiền từ Rạch Gầm đến Xoài Mút làm trận địa. Theo các tài liệu phổ thông, thuyền chiến được giấu trong các rạch nhánh và sau cù lao, bộ binh và pháo đặt trên bờ, chờ đoàn thuyền Xiêm đi vào giữa khúc sông.",
+      "caption": "Mai phục hai bên bờ và trong các rạch nhánh.",
+      "timelineRange": 0.6,
+      "timeLabel": "Đầu năm 1785",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển II (bản 1971), Phần IV, Chương VIII “Vận trung suy của chúa Nguyễn”",
+        "quote": "",
+        "note": "Cần bổ sung trích dẫn nguyên văn. Việt Nam sử lược không mô tả cách bố trí trận địa. Chi tiết giấu thuyền trong rạch và đặt quân trên bờ, cù lao hiện chỉ có ở Wikipedia tiếng Việt (nguồn tham khảo, tier C); cần trích từ Đại Nam thực lục hoặc sách giáo khoa.",
+        "url": "https://vi.wikipedia.org/wiki/Trận_Rạch_Gầm_–_Xoài_Mút"
+      }
+    },
+    {
+      "id": "rg-5",
+      "title": "Trận đánh trên sông Tiền",
+      "narration": "Quân Xiêm bị nhử đến khúc sông Rạch Gầm – Xoài Mút, phía trên Mỹ Tho. Quân Tây Sơn đổ ra đánh; quân Xiêm tan vỡ, chỉ còn vài nghìn người chạy theo đường bộ về nước.",
+      "caption": "Một trận quyết định trên sông.",
+      "timelineRange": 1,
+      "timeLabel": "Tháng 1 – 1785",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển II (bản 1971), Phần IV, Chương VIII “Vận trung suy của chúa Nguyễn”",
+        "quote": "Nguyễn Huệ vào đến Gia-định nhử quân Tiêm-la đến gần Rạch-gằm và Xoài-mút ở phía trên Mỹ-tho, rồi đánh phá một trận, giết quân Tiêm chỉ còn được vài nghìn người, chạy theo đường thượng-đạo trốn về nước.",
+        "note": "Ngày cụ thể của trận đánh các nguồn ghi không thống nhất (khoảng 18 – 20 tháng 1 năm 1785, dương lịch); khi dạy chỉ dùng “tháng 1 năm 1785”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_II/1971/Phần_IV/Chương_VIII"
       }
     }
   ],
   "keyNotes": [
-    "Trận Rạch Gầm - Xoài Mút là một trong những trận thủy chiến tiêu diệt chiến thuyền lớn nhất lịch sử chống ngoại xâm.",
-    "Nghệ thuật triệt để khai thác quy luật thủy triều sông Tiền kết hợp hỏa khí cơ động.",
-    "Chiến thắng đập tan hoàn toàn mưu đồ can thiệp của triều đình Xiêm La đối với miền Nam nước ta."
+    "Quân Xiêm sang Gia Định năm 1784 theo lời cầu viện của Nguyễn Ánh; theo Việt Nam sử lược có hai vạn quân và 300 chiếc thuyền.",
+    "Quân Xiêm quấy nhiễu dân, “lòng người oán-hận lắm”.",
+    "Nguyễn Huệ không đánh ngay mà nhử quân Xiêm vào khúc sông Rạch Gầm – Xoài Mút (phía trên Mỹ Tho), rồi mới đánh.",
+    "Kết quả theo Việt Nam sử lược: quân Xiêm chỉ còn vài nghìn người, chạy theo đường bộ về nước."
   ],
-  "privateNotes": "Sổ tay sư phạm: Cho học sinh so sánh điểm giống và khác nhau giữa trận Rạch Gầm - Xoài Mút (1785) và trận Bạch Đằng (1288).",
+  "privateNotes": "Sổ tay giáo viên:\n- Nguồn chính: Việt Nam sử lược (Trần Trọng Kim; bản 1971 trên Wikisource), Quyển II Phần IV Chương VIII. Các trích dẫn cũ gán cho Đại Nam thực lục và Hoàng Lê nhất thống chí đã bỏ vì chưa đọc được nguyên văn.\n- Mục “Chọn khúc sông, giấu quân” chưa có trích dẫn nguyên văn; chi tiết bố trí trận địa hiện chỉ từ Wikipedia. Cần bổ sung.\n- Số liệu bước 5 (24 giờ, 900 tổn thất ước tính, 92 điểm) là minh họa để so sánh các phương án.\n- Gợi ý: so sánh cách “nhử địch vào nơi mình chọn” ở Rạch Gầm với Chi Lăng (1427) và Bạch Đằng (1288).",
   "questions": [
     {
       "id": "rg-q1",
-      "text": "Nguyễn Huệ đã triệt để lợi dụng quy luật tự nhiên nào của dòng sông Tiền để tiêu diệt hạm đội thuyền Xiêm?",
+      "text": "Theo Việt Nam sử lược, vì sao lòng người ở Gia Định oán giận quân Xiêm?",
       "type": "multiple_choice",
       "sectionId": "rg-2",
       "isEmperorQuestion": false,
       "isExplanationReleased": true,
       "options": [
         {
-          "id": "rg-opt-1",
-          "text": "Con nước ròng rút nhanh khiến thuyền giặc bị mắc cạn và dồn ứ",
+          "id": "rg-q1-a",
+          "text": "Vì quân Xiêm ỷ thế, đi đến đâu quấy nhiễu dân đến đó",
           "isCorrect": true,
-          "explanation": "Thủy triều rút mạnh làm thuyền lớn quân Xiêm khó quay đầu, tạo điều kiện cho thuyền hỏa công Tây Sơn xuôi dòng tập kích."
+          "explanation": "“Từ đó quân Tiêm ỷ thế đi đến đâu quấy-nhiễu dân sự...”."
         },
         {
-          "id": "rg-opt-2",
-          "text": "Sương mù dày đặc làm thuyền giặc đâm vào nhau",
+          "id": "rg-q1-b",
+          "text": "Vì quân Xiêm đánh thuế muối rất nặng",
           "isCorrect": false,
-          "explanation": "Sông Tiền ban ngày tầm nhìn thoáng đãng."
+          "explanation": "Sách không nhắc đến thuế muối; lí do được nêu là quân Xiêm quấy nhiễu dân."
+        },
+        {
+          "id": "rg-q1-c",
+          "text": "Vì quân Xiêm phá các chùa ở Mỹ Tho",
+          "isCorrect": false,
+          "explanation": "Việt Nam sử lược không nêu chi tiết này."
         }
       ]
+    },
+    {
+      "id": "rg-q2",
+      "text": "Ai báo tin quân Xiêm về Quy Nhơn để Nguyễn Huệ được sai vào Nam?",
+      "type": "multiple_choice",
+      "sectionId": "rg-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "rg-q2-a",
+          "text": "Trương Văn Đa, tướng Tây Sơn giữ Gia Định",
+          "isCorrect": true,
+          "explanation": "Trương Văn Đa thấy thế quân Xiêm mạnh nên sai người về Quy Nhơn báo gấp."
+        },
+        {
+          "id": "rg-q2-b",
+          "text": "Chiêu Tăng, tướng Xiêm",
+          "isCorrect": false,
+          "explanation": "Chiêu Tăng là một trong hai tướng chỉ huy quân Xiêm."
+        },
+        {
+          "id": "rg-q2-c",
+          "text": "Nguyễn Ánh",
+          "isCorrect": false,
+          "explanation": "Nguyễn Ánh là người sang Xiêm cầu viện."
+        }
+      ]
+    },
+    {
+      "id": "rg-q3",
+      "text": "Nguyễn Huệ đánh quân Xiêm ở đâu?",
+      "type": "multiple_choice",
+      "sectionId": "rg-5",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "rg-q3-a",
+          "text": "Ở khúc sông Rạch Gầm – Xoài Mút, phía trên Mỹ Tho",
+          "isCorrect": true,
+          "explanation": "Nguyễn Huệ nhử quân Xiêm đến đây rồi mới đánh."
+        },
+        {
+          "id": "rg-q3-b",
+          "text": "Ở cửa biển Cần Giờ, khi quân Xiêm vừa tới",
+          "isCorrect": false,
+          "explanation": "Nguyễn Huệ không đánh ngay ở cửa biển mà nhử vào khúc sông đã chọn."
+        },
+        {
+          "id": "rg-q3-c",
+          "text": "Ở thành Quy Nhơn",
+          "isCorrect": false,
+          "explanation": "Quy Nhơn là căn cứ của Tây Sơn; trận đánh diễn ra ở Gia Định."
+        }
+      ]
+    },
+    {
+      "id": "rg-q4",
+      "text": "Nếu em là Nguyễn Huệ, em sẽ chọn nơi đánh quân Xiêm dựa vào những điều gì (địa hình, lòng dân, thời điểm)? Vì sao?",
+      "type": "open_discussion",
+      "sectionId": "rg-4",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở: khúc sông có rạch nhánh và cù lao để giấu thuyền; dân vùng sông nước đang oán quân Xiêm; quân Xiêm đông nhưng đi trên sông lạ. Lưu ý: chi tiết bố trí trận địa cần đối chiếu nguồn."
     }
   ],
   "baseline": {
     "durationHours": 24,
     "casualties": 900,
     "positionScore": 92,
-    "ratingText": "Toàn thắng thủy chiến"
+    "ratingText": "Quân Xiêm tan vỡ trên sông Tiền"
   },
   "simulation": {
     "propsConfig": {
-      "palisade": false,
+      "palisade": true,
       "tents": true,
-      "elephants": false,
+      "elephants": true,
       "banners": true,
       "fire": true,
       "village": true,
@@ -124,64 +231,10 @@
       "river": true
     },
     "unitCounts": {
-      "taySonInfantry": 40,
-      "taySonElephants": 0,
-      "qingInfantry": 45,
-      "qingCannons": 8
-    },
-    "factionColors": {
-      "taySon": "#962d22",
-      "qing": "#15803d"
-    },
-    "cameraPresets": {
-      "overview": {
-        "pos": [
-          0,
-          80,
-          110
-        ],
-        "target": [
-          0,
-          5,
-          0
-        ]
-      },
-      "follow_troops": {
-        "pos": [
-          -20,
-          25,
-          40
-        ],
-        "target": [
-          0,
-          5,
-          0
-        ]
-      },
-      "close_up": {
-        "pos": [
-          10,
-          12,
-          15
-        ],
-        "target": [
-          12,
-          5,
-          5
-        ]
-      },
-      "top_down": {
-        "pos": [
-          0,
-          110,
-          0
-        ],
-        "target": [
-          0,
-          0,
-          0
-        ]
-      }
+      "aInfantry": 30,
+      "aSpecial": 6,
+      "bInfantry": 40,
+      "bArtillery": 8
     },
     "keyframes": [
       {
@@ -189,8 +242,16 @@
         "preset": "overview"
       },
       {
-        "time": 0.5,
+        "time": 0.3,
         "preset": "follow_troops"
+      },
+      {
+        "time": 0.6,
+        "preset": "top_down"
+      },
+      {
+        "time": 0.85,
+        "preset": "close_up"
       },
       {
         "time": 1,
@@ -199,20 +260,435 @@
     ],
     "scene": {
       "terrain": "river",
-      "labels": [],
-      "features": [],
-      "routes": [],
+      "labels": [
+        {
+          "text": "Sông Tiền",
+          "at": [
+            -84,
+            -2
+          ]
+        },
+        {
+          "text": "Rạch Gầm",
+          "at": [
+            -22,
+            -40
+          ]
+        },
+        {
+          "text": "Xoài Mút",
+          "at": [
+            40,
+            34
+          ]
+        },
+        {
+          "text": "Cù lao (Thới Sơn)",
+          "at": [
+            24,
+            -22
+          ]
+        },
+        {
+          "text": "Hướng Mỹ Tho",
+          "at": [
+            96,
+            30
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "river",
+          "points": [
+            [
+              -120,
+              -18
+            ],
+            [
+              -60,
+              -8
+            ],
+            [
+              0,
+              -10
+            ],
+            [
+              60,
+              0
+            ],
+            [
+              120,
+              8
+            ]
+          ],
+          "size": 30
+        },
+        {
+          "type": "river",
+          "points": [
+            [
+              -24,
+              -10
+            ],
+            [
+              -26,
+              -40
+            ],
+            [
+              -34,
+              -80
+            ]
+          ],
+          "size": 7
+        },
+        {
+          "type": "river",
+          "points": [
+            [
+              30,
+              -2
+            ],
+            [
+              38,
+              34
+            ],
+            [
+              44,
+              76
+            ]
+          ],
+          "size": 7
+        },
+        {
+          "type": "marsh",
+          "at": [
+            20,
+            -10
+          ],
+          "size": 10
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              -60,
+              -40
+            ],
+            [
+              -10,
+              -60
+            ]
+          ]
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              0,
+              30
+            ],
+            [
+              60,
+              50
+            ]
+          ]
+        },
+        {
+          "type": "camp",
+          "at": [
+            -36,
+            -52
+          ],
+          "size": 16,
+          "faction": "a"
+        },
+        {
+          "type": "camp",
+          "at": [
+            52,
+            44
+          ],
+          "size": 16,
+          "faction": "a"
+        },
+        {
+          "type": "village",
+          "at": [
+            92,
+            50
+          ],
+          "size": 14
+        },
+        {
+          "type": "village",
+          "at": [
+            -90,
+            40
+          ],
+          "size": 12
+        }
+      ],
+      "routes": [
+        {
+          "faction": "b",
+          "points": [
+            [
+              -118,
+              -16
+            ],
+            [
+              -60,
+              -8
+            ],
+            [
+              8,
+              -8
+            ]
+          ],
+          "from": 0.05,
+          "to": 0.6
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              -30,
+              -50
+            ],
+            [
+              -24,
+              -16
+            ],
+            [
+              -6,
+              -8
+            ]
+          ],
+          "from": 0.62,
+          "to": 0.8
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              48,
+              40
+            ],
+            [
+              36,
+              6
+            ],
+            [
+              16,
+              -6
+            ]
+          ],
+          "from": 0.64,
+          "to": 0.82
+        },
+        {
+          "faction": "b",
+          "points": [
+            [
+              0,
+              -6
+            ],
+            [
+              -40,
+              12
+            ],
+            [
+              -110,
+              40
+            ]
+          ],
+          "from": 0.84,
+          "to": 0.98
+        }
+      ],
+      "formations": {
+        "a": {
+          "from": [
+            10,
+            44
+          ],
+          "to": [
+            6,
+            -2
+          ]
+        },
+        "b": {
+          "from": [
+            -80,
+            -12
+          ],
+          "to": [
+            0,
+            -8
+          ]
+        }
+      },
       "aSpecialKind": "boat",
       "bSpecialKind": "boat"
+    },
+    "outcomes": {
+      "perfect": "Các lựa chọn của em trùng với cách Nguyễn Huệ đã làm năm 1785: quân Xiêm bị nhử vào khúc sông đã chọn và tan vỡ.",
+      "positive": "Theo giả định của bài, quân Tây Sơn vẫn thắng nhưng trận đánh kéo dài hơn và tổn thất nhiều hơn.",
+      "moderate": "Thế trận giằng co: quân Xiêm còn giữ được đội hình thuyền và rút về được một phần.",
+      "challenging": "Thế trận khó khăn: quân Tây Sơn phải đánh ở nơi đối phương có lợi, chiến dịch kéo dài."
     }
   },
   "question": {
     "character": {
-      "name": "Long Nhương Tướng quân Nguyễn Huệ",
-      "dynasty": "Tây Sơn",
-      "greeting": "Hỡi ba quân!",
-      "speech": "Nếu địch không đuổi theo vào đoạn sông hiểm trở, các ngươi sẽ làm gì?"
+      "name": "Long Nhương tướng quân Nguyễn Huệ",
+      "dynasty": "Tây Sơn (1778 – 1802)",
+      "greeting": "Chào các em, những người đọc sử đời sau!",
+      "speech": "Năm ấy ta không đánh ngay khi gặp thuyền Xiêm, mà nhử chúng vào khúc sông ta đã chọn. Nếu các em cầm quân, các em sẽ đánh ở đâu, lúc nào?"
     },
-    "variables": []
+    "originalLabel": "Cách của Nguyễn Huệ năm 1785",
+    "variables": [
+      {
+        "id": "battlefield",
+        "title": "1. Chọn nơi đánh",
+        "description": "Quân Xiêm đi theo sông Tiền, đóng ở nhiều nơi.",
+        "options": [
+          {
+            "id": "rach_gam",
+            "isOriginal": true,
+            "name": "Nhử vào khúc sông Rạch Gầm – Xoài Mút (cách gốc)",
+            "shortName": "Khúc sông Rạch Gầm – Xoài Mút",
+            "desc": "Chọn khúc sông có rạch nhánh và cù lao, phía trên Mỹ Tho.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: nhử quân Xiêm đến gần Rạch Gầm và Xoài Mút rồi đánh."
+          },
+          {
+            "id": "upstream",
+            "isOriginal": false,
+            "name": "Đánh thẳng vào nơi quân Xiêm đóng ở thượng nguồn",
+            "shortName": "Đánh vào nơi quân Xiêm đóng",
+            "desc": "Chủ động tìm đến nơi đối phương đóng quân.",
+            "timeDelta": 24,
+            "casualtyDelta": 700,
+            "positionScoreDelta": -18,
+            "assumptions": "Giả định của bài: đối phương đánh trên địa bàn đã quen, có chuẩn bị; quân Tây Sơn mất lợi thế bất ngờ."
+          },
+          {
+            "id": "land",
+            "isOriginal": false,
+            "name": "Đợi quân Xiêm lên bộ rồi mới đánh",
+            "shortName": "Đánh trên bộ",
+            "desc": "Tránh đánh trên sông, chờ đối phương đổ bộ.",
+            "timeDelta": 36,
+            "casualtyDelta": 500,
+            "positionScoreDelta": -14,
+            "assumptions": "Giả định của bài: chờ lâu hơn; trong lúc đó quân Xiêm tiếp tục quấy nhiễu dân."
+          }
+        ]
+      },
+      {
+        "id": "lure",
+        "title": "2. Cách đưa quân Xiêm vào trận địa",
+        "description": "Làm sao để đoàn thuyền Xiêm đi vào nơi đã chọn?",
+        "options": [
+          {
+            "id": "lure",
+            "isOriginal": true,
+            "name": "Nhử bằng một cánh quân nhỏ rồi lui (cách gốc)",
+            "shortName": "Nhử rồi lui",
+            "desc": "Một cánh quân ra khiêu chiến rồi lui về phía khúc sông đã chọn.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược chỉ ghi “nhử quân Tiêm-la đến gần Rạch-gằm và Xoài-mút”; cách nhử cụ thể cần đối chiếu nguồn."
+          },
+          {
+            "id": "night_raid",
+            "isOriginal": false,
+            "name": "Đánh úp ban đêm vào nơi thuyền Xiêm neo đậu",
+            "shortName": "Đánh úp ban đêm",
+            "desc": "Bất ngờ tấn công khi đối phương chưa chuẩn bị.",
+            "timeDelta": 6,
+            "casualtyDelta": 400,
+            "positionScoreDelta": -10,
+            "assumptions": "Giả định của bài: gây thiệt hại nhưng không đưa được cả đoàn thuyền vào nơi đã chọn; một phần quân Xiêm còn nguyên."
+          },
+          {
+            "id": "wait",
+            "isOriginal": false,
+            "name": "Chờ quân Xiêm tự đi qua, không nhử",
+            "shortName": "Chờ địch tự đến",
+            "desc": "Không chủ động, chờ thời cơ.",
+            "timeDelta": 72,
+            "casualtyDelta": 200,
+            "positionScoreDelta": -16,
+            "assumptions": "Giả định của bài: thời gian kéo dài, quân Xiêm có thể không đi vào khúc sông đã chọn."
+          }
+        ]
+      },
+      {
+        "id": "ambush",
+        "title": "3. Cách bố trí quân khi đánh",
+        "description": "Đặt thuyền, quân, pháo ở đâu?",
+        "options": [
+          {
+            "id": "hidden_both",
+            "isOriginal": true,
+            "name": "Giấu thuyền trong rạch, đặt quân và pháo trên bờ, cù lao (cách gốc theo tài liệu phổ thông)",
+            "shortName": "Giấu thuyền, đánh từ hai bờ",
+            "desc": "Đánh từ nhiều phía cùng lúc khi đoàn thuyền vào giữa khúc sông.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Chi tiết bố trí lấy từ tài liệu phổ thông (Wikipedia), chưa có trích dẫn nguyên văn từ sử liệu; cần đối chiếu."
+          },
+          {
+            "id": "midstream",
+            "isOriginal": false,
+            "name": "Dàn thuyền chặn giữa dòng, đánh trực diện",
+            "shortName": "Chặn giữa dòng",
+            "desc": "Đối đầu trực diện với đoàn thuyền Xiêm.",
+            "timeDelta": 8,
+            "casualtyDelta": 800,
+            "positionScoreDelta": -20,
+            "assumptions": "Giả định của bài: đánh trực diện với đoàn thuyền đông hơn; tổn thất lớn hơn."
+          },
+          {
+            "id": "cannon_only",
+            "isOriginal": false,
+            "name": "Chỉ bắn từ bờ, không đưa thuyền ra",
+            "shortName": "Chỉ bắn từ bờ",
+            "desc": "Giữ thuyền an toàn, chỉ dùng hỏa lực trên bờ.",
+            "timeDelta": 4,
+            "casualtyDelta": 300,
+            "positionScoreDelta": -12,
+            "assumptions": "Giả định của bài: đối phương có đường rút trên sông; trận đánh không dứt điểm."
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Cảm ơn các em đã thử cầm quân trên sông Tiền năm 1785. Mỗi lựa chọn đều có lí lẽ riêng; ta cùng xem cái được và cái mất.",
+    "variableFeedbacks": {
+      "battlefield": {
+        "rach_gam": "Em đã chọn nơi có rạch nhánh và cù lao: chính dòng sông trở thành đồng minh của mình.",
+        "upstream": "Chủ động tìm đánh cho thấy quyết tâm; nhưng đánh ở nơi đối phương đã quen thì khó bất ngờ.",
+        "land": "Đánh trên bộ là cách tránh thế mạnh thủy quân của đối phương; cái giá là thời gian và nỗi khổ của dân."
+      },
+      "lure": {
+        "lure": "Em đã thấy giá trị của việc đưa đối phương đến nơi mình chọn, thay vì đánh ở nơi đối phương chọn.",
+        "night_raid": "Đánh úp ban đêm tạo bất ngờ; câu hỏi là có đưa được cả đoàn thuyền vào trận địa hay không.",
+        "wait": "Kiên nhẫn là đức tính tốt; nhưng chờ quá lâu thì thế chủ động có thể rơi vào tay đối phương."
+      },
+      "ambush": {
+        "hidden_both": "Em đã biết đánh từ nhiều phía: đoàn thuyền giữa dòng khó xoay trở khi bị đánh từ hai bờ.",
+        "midstream": "Chặn giữa dòng là cách đánh can đảm; nhưng đối đầu trực diện thì hai bên cùng chịu tổn thất lớn.",
+        "cannon_only": "Giữ thuyền an toàn là thận trọng; nhưng không có thuyền chặn thì đối phương còn đường rút."
+      }
+    },
+    "encouragingConclusion": "Trận Rạch Gầm – Xoài Mút cho thấy chọn đúng nơi đánh và lòng dân ủng hộ có thể giúp một đạo quân ít hơn thắng đạo quân đông hơn. Hãy tiếp tục tìm đọc nguồn để kiểm chứng các chi tiết."
   }
 }

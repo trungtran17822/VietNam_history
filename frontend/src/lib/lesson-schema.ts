@@ -15,7 +15,7 @@ const faction = z.enum(['a', 'b']);
 
 export const STATUSES = ['Nháp', 'Đã lên lịch', 'Đã dạy'] as const;
 export const TERRAINS = ['plain', 'river', 'mountain-pass', 'basin', 'coast-river', 'urban'] as const;
-export const FEATURE_TYPES = ['river', 'hill', 'fort', 'village', 'forest', 'road', 'marsh', 'airfield', 'camp'] as const;
+export const FEATURE_TYPES = ['river', 'hill', 'fort', 'village', 'forest', 'road', 'marsh', 'airfield', 'camp', 'stakes'] as const;
 export const SPECIAL_KINDS = ['elephant', 'cannon', 'boat', 'tank'] as const;
 export const CAMERA_PRESETS = ['overview', 'follow_troops', 'close_up', 'top_down'] as const;
 const LINE_FEATURES = new Set(['river', 'road']);

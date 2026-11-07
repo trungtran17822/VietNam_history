@@ -78,6 +78,10 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
   - `features[].type` thêm `camp` (trại quân); `features[]` có thêm `size` (tùy chọn).
   - `scene` có thêm `formations {a?: {from, to}, b?: {from, to}}` (vị trí đầu và cuối của khối quân), `aSpecialKind`, `bSpecialKind` ∈ `elephant | cannon | boat | tank` (đơn vị đặc biệt; mặc định phe A là voi, phe B không có).
   - Thêm `revision` (số nguyên ≥ 1): tăng khi sửa bài mẫu để trình duyệt đã lưu bản cũ nhận nội dung mới.
+- **Thêm ở S2** (chi tiết trong `notes/s2.md`):
+  - `features[].type` thêm `stakes` (bãi cọc, dạng `points` hoặc `at`), dùng cho Bạch Đằng 1288.
+  - `routes[]` nay được vẽ trên sa bàn 3D (mũi tên dài dần từ `from` đến `to` của dòng thời gian), không chỉ trên ảnh thu nhỏ.
+  - Các bài S2 điền `source.url` (trường tùy chọn đã có từ S1) để dẫn tới trang đã đọc.
   - Thêm `simulation.outcomes {perfect, positive, moderate, challenging}`, `baseline.minDurationHours`, `baseline.minCasualties` (mặc định 12 giờ / 500 như bộ máy cũ), `question.originalLabel` (nhãn cho phương án gốc, mặc định "Cách gốc trong lịch sử").
   - `source.chapter`, `source.quote`, `source.note` và `question.character.speech` là tùy chọn.
   - `factions[].color` là màu thật được vẽ trên sa bàn; `simulation.factionColors` và `simulation.cameraPresets` cũ vẫn được chấp nhận nhưng không dùng (4 góc camera cố định trong renderer).

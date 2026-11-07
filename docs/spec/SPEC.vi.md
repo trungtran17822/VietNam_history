@@ -126,7 +126,7 @@ Chú giải: **Đã có** = chạy được trong prototype; **Một phần**; *
 | F10 | Đã có (tối thiểu) | Phiên lớp học ở giai đoạn 3: giáo viên mở mã 6 ký tự, học sinh tham gia trên máy của mình, giáo viên thấy số bài đã gửi và thanh tỉ lệ cho từng phương án (cập nhật mỗi 4 giây). Backend: Cloudflare Worker + D1 trong `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Đặc tả: `specs/001-classroom-sim-demo/` |
 | F11 | Đã có (tối thiểu) | Theo từng máy trong phiên lớp: lựa chọn, thời gian dùng và khảo sát 3 câu (1-5, không bắt buộc) ở giai đoạn 6. Giáo viên tải CSV với mã ẩn danh (A01…), không có cột định danh, và có thể xoá phiên. Phiên hết hạn sau 12 giờ; dữ liệu tự xoá sau 180 ngày. Phiếu giấy vẫn là phương án dự phòng |
 
-Chỉ có **1 trong 4 bài mẫu là hoàn chỉnh**: Ngọc Hồi có 4 chương và 4 biến số. Rạch Gầm (3 chương), Chi Lăng (1 chương) và bài Mông-Nguyên (0 chương) không có biến số mô phỏng, nên các giai đoạn câu hỏi/mô phỏng/so sánh không có gì để chạy với chúng. Từ v2, giáo viên có thể thêm biến số cho bất kỳ bài nào ở thẻ "Biến số & hệ số" của trình soạn bài (mục 8); bài có một biến số là chạy đủ 6 giai đoạn.
+**Cả 5 bài mẫu chạy đủ 6 giai đoạn** (phiên v2 S2): Ngọc Hồi (4 chương, 4 biến số), Rạch Gầm – Xoài Mút 1785 (5, 3), Chi Lăng – Xương Giang 1427 (6, 4), Kháng chiến chống Mông – Nguyên 1285 – 1288 (6, 3), Điện Biên Phủ 1954 (5, 4) và Chiến dịch Hồ Chí Minh 1975 (5, 3). Hai bài mới trích SGK *Lịch sử và Địa lí 9 – Chân trời sáng tạo* (Bài 16, Bài 18) kèm số trang; ba bài cũ được viết lại theo *Việt Nam sử lược* (Wikisource). Một chương (Rạch Gầm, cách bố trí quân) chưa có trích dẫn nguyên văn và ghi rõ điều đó. Một bài kiểm tra Vitest giữ mọi bài theo hợp đồng (lược đồ, ≥ 4 chương có nguồn, kết cục, mọi tổ hợp nằm trong khoảng hợp lý, không có từ chấm điểm); một bài E2E chơi Điện Biên Phủ qua đủ các giai đoạn trên máy tính và điện thoại. Giáo viên vẫn có thể thêm biến số cho bất kỳ bài nào ở thẻ "Biến số & hệ số" (mục 8).
 
 ## 8. Kiến trúc (đúng như đã xây)
 
@@ -186,7 +186,7 @@ frontend/
 | Số liệu gốc | `baseline {durationHours, casualties, positionScore, ratingText, minDurationHours?, minCasualties?}` |
 | Phiên bản | `schemaVersion`, `revision` (tăng khi sửa một bài mẫu để bản đã lưu trong trình duyệt được cập nhật) |
 | Hai phe | `factions {a {name, color}, b {name, color}}` |
-| Cảnh | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; các góc camera cố định trong trình dựng (overview, follow_troops, close_up, top_down) |
+| Cảnh | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; loại địa vật river, hill, fort, village, forest, road, marsh, airfield, camp, stakes (bãi cọc); đường tiến quân được vẽ lên mặt bàn khi dòng thời gian chạy tới; các góc camera cố định trong trình dựng (overview, follow_troops, close_up, top_down) |
 | Câu hỏi của nhân vật | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
 | Biến số | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
 | Giải thích | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
@@ -293,7 +293,7 @@ Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 t
 
 ## 12. Mâu thuẫn và khoảng trống (cần quyết định hoặc sửa trước khi dựa vào tài liệu)
 
-1. **`frontend/data/sources.json` thuộc về một bài khác.** 4 mục của nó nói về NEP của Liên Xô / bản đồ Liên Xô năm 1922 (sách *Lịch sử và Địa lí 9*, Bài 1), Hiến pháp 2013, trống đồng Ngọc Lũ và hướng dẫn sử dụng cờ. Không mục nào hỗ trợ Ngọc Hồi - Hạ Hồi. Bài Ngọc Hồi ghi nguồn ngay trong dữ liệu bài, và không có gì liên kết hai nơi này. Như vậy "bộ dữ liệu đã duyệt" của PRD (bước 3) **chưa tồn tại**.
+1. **`frontend/data/sources.json` mới liên kết một phần.** Nay danh mục có các trang SGK dùng cho Điện Biên Phủ và chiến dịch 1975 (Bài 16, 18), *Việt Nam sử lược* (hạng B) cho Rạch Gầm, Chi Lăng, Mông – Nguyên, và một mục Wikipedia (hạng C) chỉ làm đầu mối. Chưa có nguồn nào cho Ngọc Hồi - Hạ Hồi; các trích dẫn trong bài này chưa từng được đối chiếu. Chưa có chuyên gia nào duyệt, nên "bộ dữ liệu đã duyệt" của PRD (bước 3) **vẫn chưa tồn tại**.
 2. **Cấp học.** Bài mẫu ghi `grade: 'Khối 11'` (THPT). Sách giáo khoa duy nhất trong repo là *Lịch sử và Địa lí 9* (THCS). PRD để ngỏ THCS hay THPT. Cần chốt ở bước 1; điều này quyết định sách tham chiếu và mức từ vựng.
 3. **README từng nói quá về F10. Đã sửa.** `frontend/README.md` từng mô tả biểu đồ khảo sát của lớp ("38/40") mà không có code nào cài đặt; F10 nay đã có ở mức phiên lớp học tối thiểu (mục 7).
 4. **Tài khoản.** PRD đưa "tài khoản người dùng" ra ngoài phạm vi. Prototype có đăng nhập demo, bảng điều khiển giáo viên/trình soạn thảo với nhập/xuất nhiều hơn PRD yêu cầu. Giữ nhãn đăng nhập chỉ là demo; nó không bảo vệ gì. Cần quyết định trình soạn thảo thuộc phạm vi demo hay là phần thưởng phát sinh chi phí bảo trì.

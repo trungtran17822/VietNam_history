@@ -7,7 +7,7 @@ import {
 } from 'three';
 import type { Lesson, Point } from '../lib/lesson-schema';
 import { normalizeCounts } from './counts';
-import { TABLE, paintMap, paintSprite, palette, type Palette, type SpriteKind } from './artwork';
+import { TABLE, paintMap, paintRoutes, paintSprite, palette, routeReveal, type Palette, type SpriteKind } from './artwork';
 
 export type Quality = 'high' | 'low';
 export type PresetName = 'overview' | 'follow_troops' | 'close_up' | 'top_down';
@@ -67,6 +67,7 @@ export class SilkMapScene {
   private destroyed = false;
   private pointer: { x: number; y: number } | null = null;
   private infantry = { a: 0, b: 0 };
+  private routeLayer?: { context: CanvasRenderingContext2D; texture: Texture; drawn: string };
   currentTime = 0;
   isPlaying = false;
   playbackSpeed = 1;
@@ -93,6 +94,7 @@ export class SilkMapScene {
     this.scene.fog = this.fogSettings;
 
     this.buildMap();
+    this.buildRouteLayer();
     this.buildUnits();
     this.buildFog();
     this.caveat = this.buildLabels();
@@ -128,6 +130,37 @@ export class SilkMapScene {
     mesh.rotation.x = -Math.PI / 2;
     mesh.position.y = -0.25;
     this.scene.add(mesh);
+  }
+
+  // Advance arrows live on their own transparent layer above the map, redrawn as the timeline moves.
+  private buildRouteLayer() {
+    if (!this.sim.scene.routes.length) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = TABLE.canvasWidth / 2;
+    canvas.height = TABLE.canvasHeight / 2;
+    const context = canvas.getContext('2d')!;
+    const texture = this.texture(canvas);
+    const mesh = new Mesh(new PlaneGeometry(TABLE.width, TABLE.depth), this.material({ map: texture, transparent: true, depthWrite: false }));
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.y = -0.1;
+    this.scene.add(mesh);
+    this.routeLayer = { context, texture, drawn: '' };
+  }
+
+  private paintRouteLayer(time: number) {
+    const layer = this.routeLayer;
+    if (!layer) return;
+    const routes = this.sim.scene.routes;
+    // ponytail: redraw only when some route grew by a 1/60 step, so playback uploads ~60 textures per route.
+    const key = `${this.colors.a}${this.colors.b}${routes.map((r) => Math.round(routeReveal(r, time) * 60)).join()}`;
+    if (key === layer.drawn) return;
+    layer.drawn = key;
+    const { context } = layer;
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.setTransform(0.5, 0, 0, 0.5, 0, 0);
+    paintRoutes(context, routes, this.colors, time);
+    layer.texture.needsUpdate = true;
   }
 
   private spriteCanvas(kind: SpriteKind, variant: number, side: 'a' | 'b') {
@@ -181,7 +214,10 @@ export class SilkMapScene {
       batches.push({ mesh, shadows, records: own, material });
     }
     this.scene.add(group);
-    this.groups[name] = { kind, side, troops, batches, baseCount: count, visibleCount: count };
+    // A lesson may have several forts or camps: keep every group (palisade, palisade-2, ...).
+    let key = name;
+    for (let n = 2; this.groups[key]; n++) key = `${name}-${n}`;
+    this.groups[key] = { kind, side, troops, batches, baseCount: count, visibleCount: count };
   }
 
   /** Troops and props, placed from the scene's formations and features. */
@@ -371,12 +407,16 @@ export class SilkMapScene {
         batch.shadows.instanceMatrix.needsUpdate = true;
       }
     }
+    this.paintRouteLayer(time);
     this.options.onProgressUpdate?.(this.currentTime);
   }
 
   applyPropConfig(config: Record<string, boolean | undefined>) {
     for (const [prop, names] of Object.entries(PROP_GROUPS)) {
-      for (const name of names) for (const batch of this.groups[name]?.batches ?? []) batch.mesh.visible = batch.shadows.visible = config[prop] !== false;
+      for (const [key, group] of Object.entries(this.groups)) {
+        if (!names.some((name) => key === name || key.startsWith(`${name}-`))) continue;
+        for (const batch of group.batches) batch.mesh.visible = batch.shadows.visible = config[prop] !== false;
+      }
     }
   }
   /** v1 name, kept for callers that toggle a single prop. */
@@ -389,6 +429,7 @@ export class SilkMapScene {
     for (const side of ['a', 'b'] as const) {
       if (!next[side] || next[side] === this.colors[side]) continue;
       this.colors[side] = next[side]!;
+      this.paintRouteLayer(this.currentTime);
       for (const group of Object.values(this.groups)) {
         if (group.side !== side || !TEAM_KINDS.has(group.kind)) continue;
         group.batches.forEach((batch, variant) => {

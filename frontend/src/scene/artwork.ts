@@ -302,6 +302,17 @@ export function paintMap(canvas: HTMLCanvasElement, scene: Scene, colors: Palett
       context.lineWidth = 3;
       context.setLineDash([24, 18]);
       context.beginPath(); context.moveTo(-rx + 20, 0); context.lineTo(rx - 20, 0); context.stroke();
+    } else if (feature.type === 'stakes') {
+      // A field of sharpened stakes in the water: short slanted ink strokes in staggered rows.
+      const { cx, cy, rx, ry } = areaOf(feature);
+      context.strokeStyle = colors.ink;
+      context.lineWidth = 4;
+      for (let i = 0; i < 70; i++) {
+        const x = cx + (random() - 0.5) * 2 * rx;
+        const y = cy + (random() - 0.5) * 2 * ry;
+        context.globalAlpha = 0.45 + random() * 0.3;
+        context.beginPath(); context.moveTo(x, y + 9); context.lineTo(x + 4, y - 9); context.stroke();
+      }
     }
     context.restore();
   }
@@ -348,6 +359,52 @@ export function paintThumbnail(canvas: HTMLCanvasElement, scene: Scene, factionC
     context.stroke();
   }
   return canvas;
+}
+
+/** How far along each route is drawn at timeline `time` (0 before `from`, 1 after `to`). */
+export function routeReveal(route: Scene['routes'][number], time: number) {
+  return Math.min(1, Math.max(0, (time - route.from) / Math.max(0.001, route.to - route.from)));
+}
+
+/**
+ * Advance arrows on the table (canvas coordinates of TABLE): each route grows from its first point
+ * as the timeline passes from `from` to `to`, with an arrowhead at the tip.
+ */
+export function paintRoutes(context: CanvasRenderingContext2D, routes: Scene['routes'], factionColors: { a: string; b: string }, time: number) {
+  context.save();
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+  for (const route of routes) {
+    const reveal = routeReveal(route, time);
+    if (reveal <= 0) continue;
+    const pts = route.points.map(toCanvas);
+    const lengths = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]));
+    const total = lengths.reduce((a, b) => a + b, 0);
+    // Only the first `reveal` of the smoothed path is stroked (a dash as long as the visible part).
+    smoothPath(context, route.points);
+    context.setLineDash([total * reveal, total * 2]);
+    context.strokeStyle = factionColors[route.faction];
+    context.globalAlpha = 0.72;
+    context.lineWidth = 11;
+    context.stroke();
+    // Arrowhead where the drawn part ends, pointing along that segment.
+    let left = total * reveal;
+    let i = 0;
+    while (i < lengths.length - 1 && left > lengths[i]) left -= lengths[i++];
+    const t = lengths[i] ? Math.min(1, left / lengths[i]) : 1;
+    const tip: Point = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * t, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * t];
+    const angle = Math.atan2(pts[i + 1][1] - pts[i][1], pts[i + 1][0] - pts[i][0]);
+    context.setLineDash([]);
+    context.globalAlpha = 0.85;
+    context.fillStyle = factionColors[route.faction];
+    context.beginPath();
+    context.moveTo(tip[0] + Math.cos(angle) * 22, tip[1] + Math.sin(angle) * 22);
+    context.lineTo(tip[0] + Math.cos(angle + 2.5) * 22, tip[1] + Math.sin(angle + 2.5) * 22);
+    context.lineTo(tip[0] + Math.cos(angle - 2.5) * 22, tip[1] + Math.sin(angle - 2.5) * 22);
+    context.closePath();
+    context.fill();
+  }
+  context.restore();
 }
 
 export type SpriteKind = 'soldier' | 'elephant' | 'cannon' | 'boat' | 'tank' | 'tent' | 'watchtower' | 'village' | 'bamboo' | 'palisade' | 'torch' | 'banner';
