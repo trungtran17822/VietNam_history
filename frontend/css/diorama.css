@@ -1,0 +1,87 @@
+/* Diorama sand table: overlays (plaque, legend scroll, paper labels) and the wood/bronze control strip. */
+
+.diorama-host { position: relative; overflow: hidden; background: var(--diorama-backdrop-deep); }
+.diorama-host > canvas { display: block; touch-action: none; cursor: grab; }
+.diorama-host > canvas:active { cursor: grabbing; }
+
+.diorama-overlay { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; font-family: var(--font-serif, "Noto Serif", Georgia, serif); }
+.diorama-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, transparent 52%, rgba(4, 11, 8, .62) 100%); }
+
+/* Bronze plaque title: engraved-look text placed over the 3D plate. */
+.diorama-plaque { position: absolute; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; gap: .1em; opacity: 0; transition: opacity .25s ease; text-align: center; will-change: transform; }
+.diorama-plaque.is-visible { opacity: 1; }
+.diorama-plaque__title { color: #F3DDA6; font-weight: 700; font-size: 1em; line-height: 1.15; letter-spacing: .02em; text-shadow: 0 -1px 0 rgba(30, 18, 6, .9), 0 1px 0 rgba(255, 236, 190, .35), 0 2px 3px rgba(0, 0, 0, .55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.diorama-plaque__year { color: #E7C98A; font-size: .62em; letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 -1px 0 rgba(30, 18, 6, .9), 0 1px 2px rgba(0, 0, 0, .5); }
+
+/* Old-map legend scroll, always visible. */
+.diorama-legend { position: absolute; left: 14px; top: calc(var(--diorama-inset-top, 0px) + 6px); min-width: 168px; padding: 12px 14px 10px; color: var(--diorama-ink); background:
+    linear-gradient(90deg, rgba(122, 88, 44, .25), transparent 9%, transparent 91%, rgba(122, 88, 44, .25)),
+    radial-gradient(ellipse at 30% 20%, #F6EBD0, var(--diorama-paper) 60%, #DCC79C);
+  border-top: 5px solid var(--diorama-wood); border-bottom: 5px solid var(--diorama-wood); border-radius: 3px; box-shadow: 0 6px 16px rgba(0, 0, 0, .45), inset 0 0 18px rgba(122, 88, 44, .28); }
+.diorama-legend::before, .diorama-legend::after { content: ""; position: absolute; left: -5px; right: -5px; height: 9px; border-radius: 5px; background: linear-gradient(#7A4A2C, #3A1F12); }
+.diorama-legend::before { top: -8px; }
+.diorama-legend::after { bottom: -8px; }
+.diorama-legend__title { margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(90, 60, 30, .35); color: #7A2E1E; font-weight: 700; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; }
+.diorama-legend ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.diorama-legend li { display: flex; align-items: center; gap: 8px; font-size: .86rem; font-weight: 600; line-height: 1.25; }
+.diorama-legend svg { flex: none; }
+
+/* Paper tag labels with a pointer towards the unit or place. */
+.diorama-label { position: absolute; left: 0; top: 0; padding: 3px 9px 4px; color: var(--diorama-ink); background: linear-gradient(#F7EDD3, var(--diorama-paper)); border: 1px solid var(--diorama-paper-edge); border-radius: 2px; box-shadow: 0 3px 8px rgba(0, 0, 0, .4); font-size: .8rem; font-weight: 700; white-space: nowrap; opacity: 0; transition: opacity .2s ease; will-change: transform; }
+.diorama-label.is-visible { opacity: 1; }
+.diorama-label.is-measuring { opacity: 0 !important; transform: none !important; }
+.diorama-label::after { content: ""; position: absolute; left: 50%; bottom: -8px; margin-left: -6px; border: 6px solid transparent; border-top: 6px solid var(--diorama-paper-edge); border-bottom: 0; }
+.diorama-label--unit.diorama-label--a { border-left: 5px solid var(--diorama-side-a); }
+.diorama-label--unit.diorama-label--b { border-left: 5px solid var(--diorama-side-b); }
+.diorama-label--place { font-weight: 600; font-style: italic; background: rgba(239, 226, 194, .9); }
+.diorama-caveat.lesson-scene-caveat { z-index: 4; right: 10px; bottom: auto; top: calc(var(--diorama-inset-top, 0px) + 2px); max-width: 46%; background: rgba(239, 226, 194, .85); color: #4A3A28; }
+
+.diorama-compact .diorama-legend { top: calc(var(--diorama-inset-top, 0px) + 6px); bottom: auto; left: 8px; min-width: 0; padding: 5px 8px 4px; }
+.diorama-compact .diorama-legend li { font-size: .72rem; gap: 5px; }
+.diorama-compact .diorama-legend li:nth-child(n+3) { display: none; }
+.diorama-compact .diorama-legend__title { display: none; }
+.diorama-compact .diorama-label { font-size: .68rem; padding: 2px 6px; }
+.diorama-compact .diorama-caveat { display: none; }
+
+/* ---------- HUD and wood/bronze control strip ---------- */
+.cinematic-player-box, .sim-preview-viewport { background: var(--diorama-backdrop-deep); }
+.player-hud-overlay .hud-pill, .player-hud-overlay .hud-camera-controls {
+  background: linear-gradient(#4A2A1A, #2B170D); border: 1px solid #A8834A; box-shadow: 0 3px 10px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 220, 160, .2); backdrop-filter: none; }
+.player-hud-overlay .hud-pill { display: inline-flex; align-items: center; gap: 6px; color: #F0D9A4; font-family: var(--font-serif, "Noto Serif", serif); font-size: .85rem; }
+.player-hud-overlay .hud-camera-controls { flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 8px; }
+.player-hud-overlay .btn-cam-pill { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 11px; border: 1px solid transparent; border-radius: 6px; color: #EBD7AE; font-size: .82rem; font-weight: 700; }
+.player-hud-overlay .btn-cam-pill:hover { background: rgba(212, 166, 70, .18); color: #FFF1CF; }
+.player-hud-overlay .btn-cam-pill.active { background: linear-gradient(#C9483A, #8E2B22); border-color: #E2B866; color: #FFF7E6; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25); }
+.player-hud-overlay .btn-cam-pill:focus-visible, .player-controls-bottom button:focus-visible, .lesson-player-controls button:focus-visible { outline: 3px solid #F2C46A; outline-offset: 2px; }
+
+.player-controls-bottom, .lesson-player-controls, .cinematic-player-box:hover .player-controls-bottom, .cinematic-player-box:hover .lesson-player-controls {
+  opacity: 1 !important; pointer-events: auto !important; border: 1px solid #A8834A !important; border-radius: 10px !important;
+  background: linear-gradient(180deg, #5A321F 0%, #3A1E10 55%, #2A150B 100%) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 220, 160, .22), inset 0 -2px 0 rgba(0, 0, 0, .35) !important; backdrop-filter: none !important; }
+.player-controls-bottom::before, .lesson-player-controls::before { content: ""; position: absolute; left: 10px; right: 10px; top: 4px; height: 2px; background: linear-gradient(90deg, transparent, #B8925A, transparent); opacity: .7; pointer-events: none; }
+.player-controls-bottom .btn-header-tool, .lesson-player-controls .btn-header-tool {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 44px; min-height: 42px; padding: 8px 14px;
+  border: 1px solid #B8925A !important; border-radius: 8px; background: linear-gradient(#7A5432, #4A2E19) !important; color: #FBEBC8 !important; font-weight: 700; font-size: .9rem; cursor: pointer; }
+.player-controls-bottom .btn-header-tool:hover, .lesson-player-controls .btn-header-tool:hover { background: linear-gradient(#8D6440, #5A381F) !important; }
+.player-controls-bottom [id^="btn-play-"], #btn-student-play, .lesson-player-controls .lesson-play-button {
+  min-width: 112px; background: linear-gradient(#CF4D3C, #8E2B22) !important; border-color: #E8BE6C !important; color: #FFF8EA !important; }
+.player-controls-bottom select, .lesson-player-controls select { min-height: 40px; border: 1px solid #B8925A; border-radius: 8px; background: #2A170C; color: #FBEBC8; font-weight: 700; }
+.player-controls-bottom span, .lesson-player-controls .lesson-time-readout { color: #F2D9A2 !important; font-weight: 700; }
+.player-slider { height: 8px; background: linear-gradient(90deg, #8E6A3A, #C9A15C) !important; border: 1px solid #2A150B; border-radius: 4px; }
+.player-slider::-webkit-slider-thumb { width: 20px; height: 20px; background: radial-gradient(circle at 35% 35%, #FFE7A8, #B8862E 70%) !important; border: 2px solid #3A1E10; box-shadow: 0 2px 6px rgba(0, 0, 0, .5) !important; }
+.player-slider::-moz-range-thumb { width: 18px; height: 18px; background: #C9973A; border: 2px solid #3A1E10; border-radius: 50%; }
+.sv-icon { flex: none; }
+.sv-btn-label { line-height: 1; }
+
+@media (max-width: 640px) {
+  .player-hud-overlay .btn-cam-pill .sv-btn-label { display: none; }
+  .player-hud-overlay .btn-cam-pill { min-width: 36px; padding: 6px 8px; justify-content: center; }
+  .player-hud-overlay .hud-pill { font-size: 0.76rem; padding: 4px 8px; }
+  .player-controls-bottom { padding: 8px 10px; gap: 6px; }
+  .player-controls-bottom .player-buttons-row { flex-wrap: wrap; gap: 6px; }
+  .player-controls-bottom [id^="btn-play-"], #btn-student-play, .lesson-player-controls .lesson-play-button { min-width: 86px; padding: 6px 10px; font-size: 0.82rem; }
+  .player-controls-bottom #btn-goto-question { padding: 6px 10px; font-size: 0.78rem; white-space: nowrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diorama-label, .diorama-plaque { transition: none; }
+}
