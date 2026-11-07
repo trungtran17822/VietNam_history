@@ -14,7 +14,7 @@ done
 
 # 2. JSON data files must parse.
 for f in data/*.json; do
-  python3 -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$f" 2>/dev/null \
+  (python3 -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$f" 2>/dev/null || python -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$f" 2>/dev/null || node -e "JSON.parse(require('fs').readFileSync(process.argv[1]))" "$f" 2>/dev/null) \
     || err "invalid JSON: $f"
 done
 

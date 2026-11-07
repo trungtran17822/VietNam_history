@@ -37,7 +37,7 @@
 
   // Audio & Presentation State
   let isPresentationMode = false;
-  let currentQuality = window.localStorage ? window.localStorage.getItem('history_sim_quality') || 'high' : 'high';
+  let currentQuality = (window.SuVietQuality && window.SuVietQuality.getCurrentTier && window.SuVietQuality.getCurrentTier() === 'low') ? 'low' : (window.localStorage ? window.localStorage.getItem('history_sim_quality') || 'high' : 'high');
   let transitionTimer = null;
   let lessonSceneInstance = null;
   let activeLessonChapter = 0;
@@ -448,17 +448,50 @@
       }
     });
 
-    // 6. Quality Toggle
-    elements.btnToggleQuality.addEventListener('click', () => {
-      currentQuality = currentQuality === 'high' ? 'low' : 'high';
-      if (window.localStorage) {
-        window.localStorage.setItem('history_sim_quality', currentQuality);
+    // 6. Quality Toggle (Nâng cấp thành 4 lựa chọn: Tự động / Cao / Trung bình / Thấp)
+    function syncQualityUi() {
+      if (!window.SuVietQuality) return;
+      const pref = window.SuVietQuality.getPreference();
+      const prefLabel = window.SuVietQuality.getPreferenceLabel(pref);
+      const activeTier = window.SuVietQuality.getCurrentTier();
+      if (elements.labelQualityMode) {
+        elements.labelQualityMode.textContent = `Chất lượng: ${prefLabel}`;
       }
-      elements.labelQualityMode.textContent = currentQuality === 'high' ? 'Chất lượng: Cao' : 'Chất lượng: Thấp';
+      if (elements.btnToggleQuality) {
+        elements.btnToggleQuality.title = `Chế độ: ${prefLabel} (Đang chạy: ${activeTier === 'high' ? 'Cao' : activeTier === 'medium' ? 'Trung bình' : 'Thấp'})`;
+      }
+      currentQuality = activeTier === 'low' ? 'low' : 'high';
+    }
 
-      if (editorSceneInstance) editorSceneInstance.setQuality(currentQuality);
-      if (studentViewerSceneInstance) studentViewerSceneInstance.setQuality(currentQuality);
-      if (lessonSceneInstance) lessonSceneInstance.setQuality(currentQuality);
+    elements.btnToggleQuality.addEventListener('click', () => {
+      if (window.SuVietQuality) {
+        window.SuVietQuality.cyclePreference();
+        syncQualityUi();
+      } else {
+        currentQuality = currentQuality === 'high' ? 'low' : 'high';
+        if (window.localStorage) {
+          window.localStorage.setItem('history_sim_quality', currentQuality);
+        }
+        elements.labelQualityMode.textContent = currentQuality === 'high' ? 'Chất lượng: Cao' : 'Chất lượng: Thấp';
+        if (editorSceneInstance) editorSceneInstance.setQuality(currentQuality);
+        if (studentViewerSceneInstance) studentViewerSceneInstance.setQuality(currentQuality);
+        if (lessonSceneInstance) lessonSceneInstance.setQuality(currentQuality);
+      }
+    });
+
+    syncQualityUi();
+
+    // Nối sự kiện quality-change để điều khiển sa bàn 3D mà không sửa file sa bàn
+    window.addEventListener('quality-change', (e) => {
+      const tier = e.detail; // 'high' | 'medium' | 'low'
+      const simQuality = tier === 'low' ? 'low' : 'high';
+      currentQuality = simQuality;
+      if (editorSceneInstance) editorSceneInstance.setQuality(simQuality);
+      if (studentViewerSceneInstance) studentViewerSceneInstance.setQuality(simQuality);
+      if (lessonSceneInstance) lessonSceneInstance.setQuality(simQuality);
+      if (originalStageSceneInstance) originalStageSceneInstance.setQuality(simQuality);
+      if (customStageSceneInstance) customStageSceneInstance.setQuality(simQuality);
+      syncQualityUi();
     });
 
     // 7. Presentation Mode Toggle
@@ -1762,10 +1795,16 @@
       lessonSceneInstance.setCameraPreset(button.dataset.preset);
     }));
     root.querySelector('[data-toggle-player-quality]').addEventListener('click', (event) => {
-      currentQuality = currentQuality === 'high' ? 'low' : 'high';
-      localStorage.setItem('history_sim_quality', currentQuality);
-      lessonSceneInstance.setQuality(currentQuality);
-      event.currentTarget.textContent = `⚡ ${currentQuality === 'high' ? 'Cao' : 'Thấp'}`;
+      if (window.SuVietQuality) {
+        window.SuVietQuality.cyclePreference();
+        const pref = window.SuVietQuality.getPreference();
+        event.currentTarget.textContent = `⚡ ${window.SuVietQuality.getPreferenceLabel(pref)}`;
+      } else {
+        currentQuality = currentQuality === 'high' ? 'low' : 'high';
+        localStorage.setItem('history_sim_quality', currentQuality);
+        lessonSceneInstance.setQuality(currentQuality);
+        event.currentTarget.textContent = `⚡ ${currentQuality === 'high' ? 'Cao' : 'Thấp'}`;
+      }
     });
     root.querySelector('[data-presentation]').addEventListener('click', () => elements.btnTogglePresentation.click());
     root.querySelectorAll('[data-chapter-index]').forEach((button) => button.addEventListener('click', () => {

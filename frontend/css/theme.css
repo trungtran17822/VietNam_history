@@ -146,4 +146,142 @@
   --shadow-lg: 0 16px 38px rgba(43, 41, 38, .14);
   --shadow-gold: 0 0 20px rgba(176, 141, 74, .08);
   --shadow-red: 0 4px 12px rgba(142, 43, 34, .18);
+
+  /* Motion Tokens */
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 450ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Quality Tier Overrides */
+[data-quality="medium"] {
+  --dur-slow: 300ms;
+}
+
+[data-quality="low"] {
+  --dur-fast: 80ms;
+  --dur-base: 120ms;
+  --dur-slow: 150ms;
+}
+
+[data-quality="low"] .fx-bg,
+[data-quality="medium"] .fx-bg {
+  display: none !important; /* hiệu ứng nền chỉ ở high */
+}
+
+[data-quality="low"] * {
+  animation-iteration-count: 1 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reusable Motion Utility Classes */
+.fade-in {
+  animation: svFadeIn var(--dur-base) var(--ease) forwards;
+}
+
+.slide-up {
+  animation: svSlideUp var(--dur-base) var(--ease) forwards;
+}
+
+@keyframes svFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes svSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger delay: index --i * 40ms for first 8 elements */
+.stagger > *:nth-child(1) { animation-delay: calc(1 * 40ms); }
+.stagger > *:nth-child(2) { animation-delay: calc(2 * 40ms); }
+.stagger > *:nth-child(3) { animation-delay: calc(3 * 40ms); }
+.stagger > *:nth-child(4) { animation-delay: calc(4 * 40ms); }
+.stagger > *:nth-child(5) { animation-delay: calc(5 * 40ms); }
+.stagger > *:nth-child(6) { animation-delay: calc(6 * 40ms); }
+.stagger > *:nth-child(7) { animation-delay: calc(7 * 40ms); }
+.stagger > *:nth-child(8) { animation-delay: calc(8 * 40ms); }
+
+.press {
+  transition: transform var(--dur-fast) var(--ease);
+}
+.press:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lift-hover {
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .lift-hover:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Downgrade Toast Notification (Non-blocking) */
+.quality-downgrade-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(24, 20, 16, 0.94);
+  color: #FBF7EC;
+  border: 1px solid var(--border-gold, #B08D4A);
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  font-family: var(--font-sans, "Noto Sans", sans-serif);
+  font-size: 0.86rem;
+  backdrop-filter: blur(6px);
+  animation: svSlideUp var(--dur-base) var(--ease);
+}
+.quality-downgrade-toast button {
+  background: var(--action, #8E2B22);
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.quality-downgrade-toast button:active {
+  transform: scale(0.96);
+}
+
+/* Development Debug HUD */
+.quality-debug-hud {
+  position: fixed;
+  top: 60px;
+  right: 14px;
+  z-index: 9998;
+  background: rgba(14, 27, 21, 0.92);
+  color: #F3DDA6;
+  border: 1px solid #C79E5C;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: monospace;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
