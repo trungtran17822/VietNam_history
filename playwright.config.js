@@ -20,7 +20,7 @@ module.exports = defineConfig({
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 720 } }, testIgnore: /layout\.spec/ },
-    { name: 'phone-360', use: { ...devices['Pixel 5'], viewport: { width: 360, height: 800 } }, testMatch: /(layout|lesson-flow|lesson-dbp)\.spec/ }
+    { name: 'phone-360', use: { ...devices['Pixel 5'], viewport: { width: 360, height: 800 } }, testMatch: /(layout|lesson-flow|lesson-dbp|atlas)\.spec/ }
   ],
   webServer: [
     {

@@ -1,6 +1,6 @@
 // Atlas data contract (plan §4.2). Run: node --test tests/atlas/
 import assert from 'node:assert/strict';
-import { readFileSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { test } from 'node:test';
 import { gzipSync } from 'node:zlib';
 import { feature } from 'topojson-client';
@@ -15,7 +15,9 @@ const archipelagos = feature(topo, topo.objects.archipelagos).features;
 const byId = new Map(provinces.map((p) => [p.properties.id, p]));
 const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const KINDS = ['di-tich', 'danh-thang', 'unesco', 'chien-truong', 'kinh-do'];
-const LESSONS = ['ngoc-hoi-ha-hoi-1789', 'rach-gam-xoai-mut-1785', 'chi-lang-xuong-giang-1427', 'khang-chien-mong-nguyen-vuon-khong', 'dien-bien-phu-1954', 'chien-dich-ho-chi-minh-1975'];
+const lessonDir = new URL('../../frontend/src/content/lessons/', import.meta.url);
+const lessons = readdirSync(lessonDir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, lessonDir), 'utf8')));
+const LESSONS = lessons.map((l) => l.id);
 const COAST_KM = 10; // coastal points may sit just off a simplified, ~200 m-quantized coastline
 
 test('exactly 34 province-level units with the 2025 shape', () => {
@@ -114,4 +116,14 @@ test('every unit has a label point on its own land', () => {
     assert.ok(inGeometry(p.geometry, [lng, lat]), `${p.properties.id} label ${lat},${lng}`);
   }
   for (const a of archipelagos) assert.equal(a.properties.label.length, 2);
+});
+
+test('lessons and places link both ways: every atlasPlaceIds value is a landmark, unit or archipelago', () => {
+  assert.ok(LESSONS.length >= 6, 'bundled lessons found');
+  const places = new Set([...provinces, ...archipelagos].map((f) => f.properties.id).concat(landmarks.map((l) => l.id)));
+  for (const lesson of lessons) {
+    assert.ok(lesson.atlasPlaceIds?.length, `${lesson.id} has atlasPlaceIds`);
+    for (const id of lesson.atlasPlaceIds) assert.ok(places.has(id), `${lesson.id} → unknown atlas place "${id}"`);
+  }
+  // The other direction (landmark.lessonIds → a bundled lesson) is checked in the §4.2 fields test above.
 });

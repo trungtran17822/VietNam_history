@@ -10,7 +10,8 @@ và [`PRODUCT.md`](../PRODUCT.md) ở gốc repo.
 
 ## Chạy
 
-Cần Node 20.19 trở lên. Từ thư mục gốc repo:
+Cần Node 20.19 trở lên (CI dùng Node 24; trên máy Đạt `node` mặc định là v18, nên chạy trước
+`export PATH=$HOME/.nvm/versions/node/v24.22.0/bin:$PATH`). Từ thư mục gốc repo:
 
 ```bash
 npm ci
@@ -18,15 +19,34 @@ npm run dev:frontend   # Vite, http://localhost:8080
 npm run dev:backend    # máy chủ phiên lớp, cổng 8787 (không bắt buộc)
 npm run build          # frontend/dist (bản Vercel phục vụ)
 npm run preview        # phục vụ frontend/dist
+npm run budget         # sau build: JS ban đầu ≤ 200 KB gzip, three.js và atlas chỉ nằm trong chunk tải lười
 ```
 
 Đăng nhập demo: `admin` / `123` cho cả giáo viên và học sinh. Trang kiểm tra glyph tiếng Việt:
 `#/fonttest` (không cần đăng nhập).
 
+## Atlas Việt Nam (`#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`)
+
+Bản đồ 3D 34 tỉnh, thành phố (từ 01/7/2025), Hoàng Sa (thuộc TP Đà Nẵng), Trường Sa (thuộc tỉnh Khánh
+Hòa) và 71 địa danh (chiến trường, kinh đô, di sản UNESCO, di tích, danh thắng). Vào từ thanh điều hướng
+hoặc thẻ "Atlas Việt Nam" trên bảng giáo viên và bảng học sinh.
+
+- Tìm không cần dấu ("ha hoi" ra "Đồn Hạ Hồi"), chịu gõ sai nhẹ; lọc theo loại; mũi tên lên/xuống + Enter.
+- Trạng thái nằm trên URL nên gửi link là mở lại đúng chỗ.
+- Liên kết hai chiều với bài giảng: thẻ địa danh (và thẻ tỉnh) có nút "Mở bài giảng" cho mọi bài nêu địa
+  danh đó trong `atlasPlaceIds` hoặc nằm trong `lessonIds` của địa danh (học sinh chỉ thấy bài đã phát
+  hành); trang bài học có dòng "Trên Atlas Việt Nam" dẫn ngược lại. `npm run atlas:test` báo lỗi nếu một
+  `atlasPlaceIds` không trỏ tới địa danh, tỉnh hay quần đảo có thật.
+- Trên điện thoại, bảng tìm kiếm là tấm kéo từ dưới lên; camera canh giữa phần bản đồ còn thấy.
+- Ranh giới lấy từ OpenStreetMap (ODbL), nên dòng "© OpenStreetMap contributors" luôn hiện trên bản đồ.
+  Nguồn, giấy phép và cách tạo lại dữ liệu: [`src/content/atlas/SOURCES.md`](src/content/atlas/SOURCES.md)
+  (`npm run atlas:build`; harness vẽ thử: `npm run atlas:harness`, `npm run atlas:shoot`).
+
 ## Luồng 6 bước (`#/lesson/<id>/interactive`)
 
 1. **Khởi động** (5'): bối cảnh, câu hỏi trọng tâm, nút bắt đầu.
-2. **Khám phá sa bàn gốc** (10'): sa bàn diễn biến gốc, phát/dừng/tua, 4 góc camera, các giai đoạn.
+2. **Khám phá sa bàn gốc** (10'): sa bàn diễn biến gốc, phát/dừng/tua, 4 góc camera, các giai đoạn. Khi
+   khung sa bàn hẹp (điện thoại), 4 nút góc camera nằm thành một hàng dưới sa bàn thay vì che lên trên.
 3. **Câu hỏi của nhân vật** (8'): nhân vật lịch sử đặt câu hỏi; học sinh chọn một phương án cho mỗi
    biến số. Phương án gốc mang nhãn `question.originalLabel` (mặc định "Cách gốc trong lịch sử"). Bảng
    bên cạnh: giáo viên mở phiên lớp và xem tỉ lệ lựa chọn; học sinh nhập mã để gửi (không bắt buộc).
@@ -64,9 +84,11 @@ Bài mới tạo từ "Bài giảng trống" hoặc "Tạo bài từ tư liệu"
 | `src/routes/` | Một file cho mỗi route (TanStack Router). `__root.tsx` là khung trang: dải nhãn, header, chân trang, màn chuyển cảnh sau đăng nhập. `routeTree.gen.ts` do plugin Vite sinh ra, không sửa tay. |
 | `src/components/` | Màn hình: `LessonPage` (trang bài học, xem trước), `StageLoop` (6 bước), `Editor` + `VariablesEditor` (soạn bài), `Player` (sa bàn + điều khiển), `ClassPanel` (phiên lớp, khảo sát), `ui.tsx` (icon SVG, modal, `PROTOTYPE_NOTICE`, `SIMULATION_NOTICE`). |
 | `src/lib/` | Logic không có UI, có test Vitest (`domain.test.ts`): `lesson-schema` (zod), `engine` (tính toán xác định), `storage` (localStorage, luật hiển thị, nhập/xuất), `class-session` (API lớp), `auth`, `audio`, `text` (NFC), `intake`, `prefs`, `guards`, `transition`. |
-| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Cả 5 bài đều chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
+| `src/features/atlas/` | Atlas: `scene.ts` (`VietnamAtlasScene`, three.js), `search.ts` (tìm bỏ dấu, chấm điểm, mã hóa URL; không có DOM), `AtlasView.tsx` (bảng tìm, thẻ địa danh, ghi công OSM). Route `src/routes/atlas.tsx`, chunk riêng tải lười. |
+| `src/content/atlas/` | `provinces.topo.json` (34 đơn vị + 2 quần đảo), `landmarks.json` (71 địa danh), `SOURCES.md`. Id không bao giờ đổi vì bài giảng tham chiếu qua `atlasPlaceIds`. |
+| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Cả 6 bài (bài thí điểm và 5 bài) đều chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
 | `src/scene/` | `silk-map.ts` (lớp `SilkMapScene`, chỉ file này import three, nạp lười), `artwork.ts` (vẽ bản đồ, họa tiết, ảnh thu nhỏ bằng canvas), `counts.ts`, `sprites/` (PNG thay họa tiết). |
-| `public/` | Phông Noto (woff2) và logo, phục vụ nguyên trạng. |
+| `public/` | Phông Noto (woff2), logo và `atlas/terrain.png` (địa hình), phục vụ nguyên trạng. |
 | `data/sources.json` | Danh mục nguồn (chưa được code nạp, chưa có chuyên gia duyệt): SGK Lịch sử và Địa lí 9 (Bài 1, 16, 18), Việt Nam sử lược, một mục Wikipedia làm đầu mối. |
 
 Mọi thứ riêng của từng bài nằm trong JSON: biến số, hệ số, giả định, nhận xét, nhân vật, và
@@ -91,5 +113,6 @@ Không vẽ chữ tiếng Việt trong canvas; nhãn địa danh là lớp HTML.
 ```bash
 npm run check       # tsc, schema mọi bài, nhãn bắt buộc, NFC, cú pháp backend
 npm run test:unit   # Vitest (domain) + node:test (backend)
-npm run test:e2e    # Playwright, 1280×720 và 360×800
+npm run atlas:test  # node:test cho dữ liệu atlas, tìm kiếm và liên kết bài ↔ địa danh
+npm run test:e2e    # Playwright, 1280×720 và 360×800 (có tests/e2e/atlas.spec.js)
 ```

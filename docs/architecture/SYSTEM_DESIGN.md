@@ -141,7 +141,7 @@ server; only option ids.
 
 ## 7. Performance and capacity
 
-- Frontend: no build; heaviest asset is `three.min.js` (~603 KB, cached). Brand logo reduced from 821 KB to a small PNG. Low-quality scene mode for weak GPUs.
+- Frontend (v2): Vite build. A first visit loads 138 KB gzip of JS (entry + modulepreloads; `npm run budget` fails CI above 200 KB or if three.js or the atlas leak into it). three.js (136 KB gzip), the silk map, the atlas (58 KB + 12 KB landmarks) and each lesson JSON are lazy chunks. Low-quality mode for weak GPUs. Measured 2026-11-08 on a laptop Intel Iris Xe: 60 FPS (vsync cap) for the silk map playing and for atlas flights, desktop and phone viewport, both quality levels; software rendering (SwiftShader) 5.5-24.5 FPS. Not yet measured on a real phone or school PC.
 - Backend per class (60 students, 45 min): ≈ 120 answer writes + ≈ 700 teacher polls.
 - Scaling out:
   - Workers are stateless and run at the PoP nearest each user; there is no server to size.
@@ -164,14 +164,14 @@ server; only option ids.
 
 ```mermaid
 flowchart LR
-  P[push] --> C[CI: check.sh + unit + E2E]
+  P[push] --> C[CI, Node 24: check.sh + unit + atlas + build + budget + E2E]
   C -->|branch Staging| VP[Vercel Preview<br/>frontend/]
   C -->|branch Staging| CS[Worker env staging<br/>D1 sv-class-staging]
   C -->|branch main| VPr[Vercel Production]
   C -->|branch main| CP[Worker env production<br/>D1 sv-class-prod]
 ```
 
-- Secrets (repo admin): `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`. A deploy job without its secrets is skipped with a notice, not failed.
+- Secrets (repo admin): only `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`; the Vercel org/project ids are in `ci-cd.yml` and the Cloudflare account and D1 ids in `backend/wrangler.toml` (not secret). A deploy job without its token is skipped with a notice, not failed. Deploy jobs use Node 22 for `vercel` and `wrangler@3`; the test job uses Node 24.
 - Rollback: Vercel "promote previous deployment"; `wrangler rollback`. D1 migrations are additive.
 - Runbook: [docs/devops/DEPLOY.md](../devops/DEPLOY.md).
 
@@ -182,7 +182,9 @@ flowchart LR
 | Static | `scripts/check.sh` | `tsc`, lesson schema for every lesson JSON, mandatory labels, NFC, backend syntax |
 | Unit (frontend logic) | Vitest | Lesson schema, engine determinism over all 81 combos, grading-word scan, storage visibility rule and v1 migration |
 | Unit (backend) | `node:test` + MemoryStore | Every endpoint, validation, cap, expiry, auth, CORS, CSV |
-| E2E | Playwright (desktop + 360 px) | 6-stage loop, labels, class session with 3 browser contexts, CSV, offline mode, intake gate, authoring form (new lesson through all 6 stages) |
+| Unit (atlas data) | `node:test` (`tests/atlas/`) | 34 units, archipelagos, landmarks inside provinces, id space, NFC, size budget, search scoring, every lesson's `atlasPlaceIds` resolves |
+| Bundle | `scripts/bundle-budget.mjs` | Initial JS ≤ 200 KB gzip; three.js and the atlas lazy |
+| E2E | Playwright (desktop + 360 px) | 6-stage loop, labels, class session with 3 browser contexts, CSV, offline mode, intake gate, authoring form (new lesson through all 6 stages), atlas (search with/without diacritics, URL state through a reload, place ↔ lesson links, student visibility, OSM credit) |
 
 ## 10. Decisions and trade-offs (ADR summary)
 
@@ -200,7 +202,7 @@ flowchart LR
 Server-side approved lesson store with advisor sign-off workflow; F9 RAG character with citations
 and "tài liệu không ghi lại"; QR code join; teacher accounts via school SSO.
 
-## 12. Atlas Việt Nam (v2, branch `Dat/feature/v2-atlas`)
+## 12. Atlas Việt Nam (v2; built in S3, wired into the app in S4)
 
 Static data plus a framework-agnostic renderer; no backend involvement.
 
@@ -224,8 +226,12 @@ routes/atlas.tsx ── validateSearch(decodeAtlasState) ──▶ features/atla
   disposes GPU objects and calls `forceContextLoss`.
 - **Ids**: province, archipelago and landmark ids share one space (tested disjoint), so `onSelect`
   and `?place=` take any of them.
-- **Lessons ↔ places**: both directions are honoured: `landmark.lessonIds` and `lesson.atlasPlaceIds`.
-- **Budget**: atlas chunk 69.6 KB gzip + shared three.js 136 KB, loaded only on `#/atlas`;
+- **Lessons ↔ places**: both directions are honoured: `landmark.lessonIds` and `lesson.atlasPlaceIds`. The
+  place card (and a province card, for the places inside it) links to `#/lesson/<id>`; the lesson page shows
+  the lesson's places as chips to `#/atlas?place=<id>`, with names from `landmarks.json` (a 12 KB gzip chunk
+  shared with the atlas). `tests/atlas/data.test.mjs` fails when an `atlasPlaceIds` value is not a real place.
+  Entry points: header nav and `AtlasCard` on both dashboards.
+- **Budget**: atlas chunk 58 KB gzip + landmarks 12 KB + shared three.js 136 KB, loaded only on `#/atlas`;
   boundaries 37 KB gzip; terrain 1 MB. A failed WebGL context shows a Vietnamese message and the
   lists keep working.
 - **ADR**: draped border lines over a texture-baked border or flat extruded units (measured, see

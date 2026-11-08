@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import type { Section, Source, Status } from '../lib/lesson-schema';
 import { getAllLessons, getLessonProgress, getStudentRun, getVisibleForStudent, saveLesson, saveLessonProgress, type AppLesson } from '../lib/storage';
 import type { SilkMapScene } from '../scene/silk-map';
+import landmarks from '../content/atlas/landmarks.json';
 import { Player } from './Player';
 import { Icon, Modal, StatusChip } from './ui';
 
@@ -16,6 +17,9 @@ export const LESSON_STAGES = [
   { title: 'So sánh', minutes: 8 },
   { title: 'Củng cố', minutes: 7 }
 ];
+
+// ponytail: names come from landmarks.json only (12 KB gzip, lesson chunk); a province id shows as its id.
+const placeName = (id: string) => landmarks.find((l) => l.id === id)?.name ?? id;
 
 export const sectionProgress = (section: Section, index: number, count: number) => (section.timelineRange > 0 ? section.timelineRange : (index + 1) / count);
 export function chapterAt(sections: Section[], progress: number) {
@@ -108,6 +112,14 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
             <span>{lesson.date}</span><span>{lesson.class}</span><span>{lesson.teacher}</span>
             {teacher && <StatusChip status={lesson.status} />}
           </p>
+          {Boolean(lesson.atlasPlaceIds?.length) && (
+            <p className="lesson-atlas-places mt-2 flex flex-wrap items-center gap-x-1 gap-y-1 t-sm">
+              <span className="mr-1 inline-flex items-center gap-1.5 muted"><Icon name="map" /> Trên Atlas Việt Nam:</span>
+              {lesson.atlasPlaceIds!.map((id) => (
+                <Link key={id} to="/atlas" search={{ place: id }} className="chip text-ink no-underline">{placeName(id)}</Link>
+              ))}
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           {teacher && (
@@ -307,7 +319,7 @@ function Questions({ lesson, interactive }: { lesson: AppLesson; interactive: bo
               interactive ? <textarea className="field mt-3" placeholder="Em ghi suy nghĩ của mình (chỉ lưu trên màn hình này)…" aria-label={`Trả lời câu ${i + 1}`} /> : q.guide && <p className="mt-2 t-sm muted">Gợi ý: {q.guide}</p>
             )}
             {chosen && (
-              <p className={`mt-3 rounded-lg px-3 py-2 t-sm ${chosen.isCorrect ? 'bg-[#dde9d8] text-ok' : 'bg-[#f3e1c9] text-warn'}`} role="status">
+              <p className={`mt-3 rounded-lg px-3 py-2 t-sm ${chosen.isCorrect ? 'bg-ok-tint text-ok' : 'bg-warn-tint text-warn'}`} role="status">
                 <strong>{chosen.isCorrect ? 'Chính xác. ' : 'Chưa đúng, em thử nghĩ thêm nhé. '}</strong>
                 {q.isExplanationReleased ? chosen.explanation : chosen.isCorrect ? 'Thầy cô sẽ giải thích chi tiết trên lớp.' : 'Hãy xem lại sa bàn và lời dẫn từng giai đoạn.'}
               </p>

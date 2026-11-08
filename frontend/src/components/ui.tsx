@@ -1,4 +1,5 @@
 // Small shared pieces: authored SVG icons, modal, status chip, labelled field.
+import { Link } from '@tanstack/react-router';
 import { useEffect, useId, useRef, type ReactNode } from 'react';
 import type { Status } from '../lib/lesson-schema';
 
@@ -94,6 +95,20 @@ export function Field({ label, hint, children, className = '' }: { label: string
       {children}
       {hint && <span className="hint block">{hint}</span>}
     </label>
+  );
+}
+
+/** Dashboard entry to the atlas (both roles). */
+export function AtlasCard() {
+  return (
+    <Link to="/atlas" className="atlas-card card mt-6 flex items-center gap-4 p-4 text-ink no-underline hover:border-[var(--sepia)]">
+      <span className="grid h-11 w-11 flex-none place-items-center rounded-full bg-silk text-lacquer"><Icon name="map" /></span>
+      <span className="min-w-0">
+        <span className="block font-semibold">Atlas Việt Nam</span>
+        <span className="block t-sm muted">34 tỉnh, thành phố, Hoàng Sa, Trường Sa và các địa danh lịch sử; mỗi chiến trường dẫn tới bài học của nó.</span>
+      </span>
+      <Icon name="next" className="icon ml-auto flex-none muted" />
+    </Link>
   );
 }
 

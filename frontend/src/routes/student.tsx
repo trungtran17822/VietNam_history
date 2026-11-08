@@ -4,7 +4,7 @@ import { requireUser } from '../lib/guards';
 import { getStudentRun, getVisibleForStudent } from '../lib/storage';
 import { fold } from '../lib/text';
 import { Thumbnail } from '../components/Thumbnail';
-import { Icon } from '../components/ui';
+import { AtlasCard, Icon } from '../components/ui';
 
 export const Route = createFileRoute('/student')({ beforeLoad: requireUser('student'), component: StudentDashboard });
 
@@ -16,6 +16,7 @@ function StudentDashboard() {
     <main id="view-student-dashboard" className="app-view active mx-auto max-w-6xl px-4 pb-12 pt-8">
       <h1 className="t-3xl font-bold">Bài đã học</h1>
       <p className="mt-1 muted">Xem lại diễn biến trên sa bàn, đọc nguồn tư liệu và thử cách đánh của riêng em.</p>
+      <AtlasCard />
       <label className="relative mt-5 block max-w-md">
         <span className="sr-only">Tìm bài học</span>
         <Icon name="search" className="icon pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 muted" />

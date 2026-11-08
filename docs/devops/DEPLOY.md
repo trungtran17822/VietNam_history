@@ -22,11 +22,26 @@ Each deploy job **skips with a notice** (not a failure) when its secrets are mis
 - `frontend/src/lib/class-session.ts` (`DEPLOYED_API_BASE`) points every deployed copy, Vercel previews included, at the production Worker. A build can override it with the env var `VITE_API_BASE`.
 - Manual deploy from a logged-in machine (check, unit, backend migrate + deploy, smoke, frontend): `npm run deploy`. The parts on their own: `deploy:backend`, `smoke`, `deploy:frontend`.
 
+## What CI runs (v2, `.github/workflows/ci-cd.yml`)
+
+Job `test`, on every push and pull request, Node 24:
+
+1. `npm ci`
+2. `bash scripts/check.sh`: `tsc`, every lesson JSON against the zod schema, mandatory labels (including the atlas line "© OpenStreetMap contributors", ODbL), NFC, backend syntax.
+3. `npm run test:unit`: Vitest (`frontend/src/lib`) and the backend `node:test` suite.
+4. `npm run atlas:test`: atlas data (34 units, Hoàng Sa / Trường Sa, landmarks inside their provinces, search, every lesson's `atlasPlaceIds` resolves). Node ≥ 22.18 is needed because the tests import `.ts` files directly.
+5. `npm run build` (Vite → `frontend/dist`), then `npm run budget`: the JS a first visit loads must stay ≤ 200 KB gzip, with three.js and the atlas only in lazy chunks.
+6. `npx playwright install --with-deps chromium`, then `npm run test:e2e` (desktop 1280×720 and phone 360×800; the config builds, previews and starts the in-memory API itself).
+
+Jobs `deploy-frontend` and `deploy-backend` need `test` and run only for pushes to `Staging` (Vercel preview, Worker `sv-class-api-staging`) or `main` (production). They use Node 22 for the deploy tools (`vercel@latest`, `wrangler@3`). The Vercel preview URL is printed by the `vercel deploy --prebuilt` step of the run. Every deployed frontend, previews included, calls the production Worker through `DEPLOYED_API_BASE` (see below), so a class session opened on a Staging preview lands in the production D1.
+
+Release flow: feature branch → merge into `Staging` → CI deploys the preview → Đạt reviews it → merge into `main` (production). Nobody else deploys production.
+
 The sections below are the from-scratch setup, for a new account.
 
 ## 1. Vercel (frontend), once
 
-1. Create a Vercel project from this repo. `vercel.json` already sets `installCommand: npm ci`, `buildCommand: npm run build` (Vite, Node 20.19+; CI uses Node 22), `outputDirectory: frontend/dist`, and turns off Vercel's own Git deploys (CI deploys instead).
+1. Create a Vercel project from this repo. `vercel.json` already sets `installCommand: npm ci`, `buildCommand: npm run build` (Vite 8, needs Node 20.19+), `outputDirectory: frontend/dist`, and turns off Vercel's own Git deploys (CI deploys instead). CI runs `vercel build` on its own runner, so the Node version is the one in `ci-cd.yml`, not the Vercel project setting.
 2. Put `orgId` and `projectId` from `.vercel/project.json` (after `npx vercel link`; do not commit `.vercel/`) into `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` in `ci-cd.yml`.
 3. Add the repo secret `VERCEL_TOKEN` (GitHub → Settings → Secrets and variables → Actions; vercel.com → Account Settings → Tokens).
 

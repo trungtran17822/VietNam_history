@@ -21,6 +21,7 @@ need frontend/src/components/ui.tsx 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN
 need frontend/src/routes/__root.tsx 'PROTOTYPE_NOTICE'
 need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE'
 need frontend/src/scene/silk-map.ts 'Trang phục và màu sắc chỉ là minh họa, chờ chuyên gia thẩm định'
+need frontend/src/features/atlas/AtlasView.tsx 'OpenStreetMap</a> contributors' # ODbL attribution on the atlas
 
 # 4. Vietnamese text in sources is NFC (composed), so search and comparisons never miss.
 python3 - <<'EOF' || err "source files with non-NFC Vietnamese text (normalize them to NFC)"

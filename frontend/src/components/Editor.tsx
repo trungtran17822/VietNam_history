@@ -108,7 +108,7 @@ export function Editor({ initial, teacher }: { initial: AppLesson; teacher: stri
       </div>
 
       {lesson.sourceReview && (
-        <section id="source-review-notice" className={`card mt-4 flex flex-wrap items-center gap-4 p-4 ${lesson.sourceReview.claimStatus === 'pending' ? 'bg-[#f3e1c9]' : 'bg-[#dde9d8]'}`}>
+        <section id="source-review-notice" className={`card mt-4 flex flex-wrap items-center gap-4 p-4 ${lesson.sourceReview.claimStatus === 'pending' ? 'bg-warn-tint' : 'bg-ok-tint'}`}>
           <div className="min-w-0 flex-1">
             <h2 className="font-sans t-base font-semibold">{lesson.sourceReview.claimStatus === 'pending' ? 'Nguồn và thông tin đang chờ đối chiếu' : 'Đã xác nhận đối chiếu trực tiếp'}</h2>
             <p className="t-sm">

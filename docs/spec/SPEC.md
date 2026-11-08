@@ -157,7 +157,7 @@ frontend/
 | `components/Editor.tsx`, `VariablesEditor.tsx` | Teacher editor with undo/redo; tab "Biến số & hệ số" edits baseline, character, variables and options (exactly one original, 3 coefficients, assumptions, stage-6 feedback) with a live try-out |
 | `components/ClassPanel.tsx` | Stage 3 teacher panel / student join card and stage 6 survey |
 
-**Routes** (hash history): `#/` (login), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (6-stage loop, both roles, `?step=n`), `#/atlas` (placeholder "Sắp ra mắt"), `#/fonttest` (Vietnamese glyph check, no login).
+**Routes** (hash history): `#/` (login), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (6-stage loop, both roles, `?step=n`), `#/atlas?place=&kind=&q=` (Atlas Việt Nam, §15; linked from the header nav and both dashboards), `#/fonttest` (Vietnamese glyph check, no login).
 
 **Scene lifecycle rule:** each surface (editor preview, lesson page, original/custom stage) mounts one `SilkMapScene` through `SceneView`/`Player`, which call `destroy()` on unmount so renderers do not accumulate.
 
@@ -230,7 +230,9 @@ Automated, all run in CI on every push (`npm test` locally):
 
 - `bash scripts/check.sh` (also `/check`): `tsc` (strict) on `frontend/src`; every lesson JSON passes the zod schema; the mandatory labels are still in the source; every source file is NFC; local references in `index.html` exist; `node --check` on the backend sources.
 - Unit (`npm run test:unit`: Vitest for `frontend/src/lib`, `node:test` for the backend): lesson schema, v1 data migration, engine determinism over all 81 combinations × 2, exactly one combination equals the original, every number traces to coefficients, no grading words, student visibility rule; backend API (validation, merge/replace, 60-answer cap, expiry, teacher key, CSV, purge, CORS).
-- E2E (`npm run test:e2e`, Playwright, desktop 1280×720 and phone 360×800): stage 2 controls and sources, the full loop twice with identical numbers, a lesson without variables, a class session with a teacher and two students (bars, replace on resubmit, survey, CSV, delete), wrong code, backend down, content intake, the authoring form (a blank lesson gets a variable, is published and runs all 6 stages with its coefficients, undo/redo), no horizontal scroll at 360 px.
+- Atlas (`npm run atlas:test`, `node:test`): 34 units, the two archipelagos, landmarks inside their provinces, ids, NFC, size budget, search scoring, and every lesson's `atlasPlaceIds` resolving to a real place.
+- Build + `npm run budget`: the JS of a first visit (entry + modulepreloads) ≤ 200 KB gzip; three.js and the atlas only in lazy chunks.
+- E2E (`npm run test:e2e`, Playwright, desktop 1280×720 and phone 360×800): the atlas (search with and without diacritics, keyboard and click selection, URL state through a reload, place → lesson → place, a student sees only published lessons, OSM credit), stage 2 controls and sources, the full loop twice with identical numbers, a lesson without variables, a class session with a teacher and two students (bars, replace on resubmit, survey, CSV, delete), wrong code, backend down, content intake, the authoring form (a blank lesson gets a variable, is published and runs all 6 stages with its coefficients, undo/redo), no horizontal scroll at 360 px.
 - After CI: Vercel (frontend) and Cloudflare (backend) deploy from `Staging` (preview/staging) and `main` (production); each job skips with a notice if its secrets are missing ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
 - Manual: `npm run dev:frontend` (Vite, port 8080), then walk the 6 stages as teacher and as student; check `#/fonttest`.
 
@@ -335,13 +337,13 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 | School or parents refuse data collection from minors | Consent forms ready by T9; anonymous data only; paper-survey fallback |
 | 12 weeks is too tight (advisor approval slips, part-time staffing) | Gates and reserve in §11; cut F9, F10 and F11 first; never extend past T15 |
 
-## 15. Atlas Việt Nam (v2, session S3, branch `Dat/feature/v2-atlas`)
+## 15. Atlas Việt Nam (v2, built in S3, wired into the app in S4)
 
 A 3D map of Viet Nam for finding lessons by place. Route `#/atlas?place=<id>&kind=<kind,…>&q=<text>`
 (login required, both roles); the URL state makes any view shareable. Content is illustrative and
 not expert-reviewed, like the lessons; every landmark carries `illustrative: true` and its sources.
 
-**Requirements and status (2026-11-08)**
+**Requirements and status (2026-11-08, after S4)**
 
 | Requirement | Status |
 |---|---|
@@ -352,12 +354,13 @@ not expert-reviewed, like the lessons; every landmark carries `illustrative: tru
 | Diacritic-insensitive search, GeoGnos-style scoring, Levenshtein ≤ 2, kind filter, URL codec | Built; unit tests |
 | Renderer API `VietnamAtlasScene(container, { quality, onSelect })`: `setQuality`, `focusPlace(id \| null)`, `setFilter`, `setViewInsets`, `destroy` | Built |
 | HTML labels only, palette from CSS variables, `InstancedMesh` markers, low-quality mode for phones, `destroy()` on unmount | Built |
-| Place card: summary, era, province, sources with licences, "Mở bài giảng" links (landmark `lessonIds` ∪ lessons whose `atlasPlaceIds` name the place; students see only visible lessons) | Built |
+| Place card: summary, era, province, sources with licences, "Mở bài giảng" links (landmark `lessonIds` ∪ lessons whose `atlasPlaceIds` name the place; students see only visible lessons); a province card lists the lessons of the places inside it | Built; E2E |
+| Lessons link back: the lesson page lists its `atlasPlaceIds` as chips to `#/atlas?place=`; the header nav and both dashboards link to the atlas; every `atlasPlaceIds` value resolves to a landmark, unit or archipelago | Built; `npm run atlas:test`; E2E |
 | Keyboard: combobox (arrows, Enter, Escape), chips and lists are buttons, map canvas takes arrow keys | Built |
-| Phone layout: bottom sheet; the camera centres above it; OSM credit in the sheet | Built; screenshots 360×800 |
-| Three.js and atlas in a lazy route chunk; initial JS ≤ 200 KB gzip | Atlas chunk 69.6 KB gzip, shared three.js 136 KB, initial JS 115 KB (built against S1 347d2c4) |
-| ≥ 55 FPS desktop, ≥ 30 FPS phone | **Not verified on a GPU.** Headless SwiftShader only: 3.1 FPS desktop (148k triangles), 15.9 FPS phone |
-| E2E for `#/atlas` | **Not written** (S4, after merging S1) |
+| Phone layout: bottom sheet (opens when `?place=` changes); the camera centres above it; OSM credit in the sheet | Built; screenshots 360×800; E2E on phone-360 |
+| Three.js and atlas in a lazy route chunk; initial JS ≤ 200 KB gzip | Initial JS 138.4 KB gzip (entry 111.4 + preloaded 27.0; `npm run budget`, in CI). Atlas chunk 58 KB gzip + landmarks 12 KB (shared with the lesson page) + three.js 136 KB, lazy |
+| ≥ 55 FPS desktop, ≥ 30 FPS phone | Met on a laptop iGPU (Intel Iris Xe, headless Chromium with ANGLE GL): 60 FPS (vsync cap) while flying between places, desktop 1280×720 and phone viewport 360×800 at DPR 2.75, both quality levels. **Not measured on a real phone or school PC.** Software rendering (SwiftShader): 5.5 (high) / 13.8 (low) desktop, 5.5 / 22 phone |
+| E2E for `#/atlas` | `tests/e2e/atlas.spec.js`, desktop and phone-360 (4 tests) |
 
 **Rendering choice.** Three ways to draw borders were measured in the harness (`npm run atlas:shoot`):
 borders baked into the mask texture (blur and thicken when zoomed in), flat province slabs (lose the
@@ -368,5 +371,6 @@ speed). The draped lines shipped; the numbers are in `specs/002-v2-tanstack-atla
 file is an ODbL derivative of OpenStreetMap, so "© OpenStreetMap contributors" must stay visible on
 the map. No analytics, no user geolocation, nothing taken from GeoGnos.
 
-**Open for S4**: replace S1's `#/atlas` placeholder (and the "placeholder" note in §8) with S3's
-route; write the E2E; check FPS on a real phone and a school PC.
+**Open**: FPS on a real phone and a school PC; landmarks that lessons could use but the atlas lacks
+(`van-don`, `him-lam`, `doi-a1`, `buon-ma-thuot`, `phuoc-long`; see `notes/s2.md`). Details in
+`specs/002-v2-tanstack-atlas/notes/s4.md`.

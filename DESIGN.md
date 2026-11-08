@@ -17,7 +17,26 @@ colors:
   moss-ok: "#345743"
   amber-warn: "#7a4a12"
   notice-straw: "#e9dcbc"
+  notice-ink: "#4d3a20"
   simulation-notice: "#f3e1c9"
+  simulation-notice-rule: "#c99a63"
+  simulation-notice-ink: "#4d2c12"
+  warn-deep: "#5b3410"
+  paper-field: "#fffdf7"
+  ok-tint: "#dde9d8"
+  ok-wash: "#f1f5ee"
+  action-tint: "#fbf0e8"
+  action-wash: "#fff6f2"
+  danger-rule: "#d9a99c"
+  danger-tint: "#f6e4dc"
+  scheduled-tint: "#f0e3bd"
+  scheduled-ink: "#72531e"
+  draft-tint: "#e8e1d2"
+  draft-ink: "#665d53"
+  track: "#e8dcc4"
+  highlight: "#e7c9a8"
+  gold-rule: "#c9b27c"
+  scrollbar: "#b9aa86"
 typography:
   display:
     fontFamily: "Noto Serif, Times New Roman, serif"
@@ -39,15 +58,30 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
+  control:
+    fontFamily: "Noto Sans, Arial, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 600
+    lineHeight: 1.2
   label:
     fontFamily: "Noto Sans, Arial, sans-serif"
     fontSize: "0.875rem"
+    fontWeight: 600
+    lineHeight: 1.4
+  caption:
+    fontFamily: "Noto Sans, Arial, sans-serif"
+    fontSize: "0.8125rem"
     fontWeight: 600
     lineHeight: 1.4
   metric:
     fontFamily: "Noto Serif, Times New Roman, serif"
     fontSize: "1.44rem"
     fontWeight: 700
+    fontFeature: "tnum"
+  class-code:
+    fontFamily: "Noto Serif, Times New Roman, serif"
+    fontSize: "clamp(2rem, 1.4rem + 2vw, 2.75rem)"
+    fontWeight: 400
     fontFeature: "tnum"
 rounded:
   sm: "4px"
@@ -64,7 +98,7 @@ spacing:
 components:
   button-primary:
     backgroundColor: "{colors.vermilion-action}"
-    textColor: "#ffffff"
+    textColor: "{colors.card-paper}"
     rounded: "{rounded.md}"
     padding: "10px 18px"
     height: "44px"
@@ -77,7 +111,7 @@ components:
     padding: "10px 18px"
     height: "44px"
   field:
-    backgroundColor: "#fffdf7"
+    backgroundColor: "{colors.paper-field}"
     textColor: "{colors.ink}"
     rounded: "{rounded.md}"
     padding: "9px 12px"
@@ -94,16 +128,16 @@ components:
     textColor: "{colors.page-ivory}"
     rounded: "{rounded.pill}"
   status-published:
-    backgroundColor: "#dde9d8"
+    backgroundColor: "{colors.ok-tint}"
     textColor: "{colors.moss-ok}"
     rounded: "{rounded.pill}"
   status-scheduled:
-    backgroundColor: "#f0e3bd"
-    textColor: "#72531e"
+    backgroundColor: "{colors.scheduled-tint}"
+    textColor: "{colors.scheduled-ink}"
     rounded: "{rounded.pill}"
   status-draft:
-    backgroundColor: "#e8e1d2"
-    textColor: "#665d53"
+    backgroundColor: "{colors.draft-tint}"
+    textColor: "{colors.draft-ink}"
     rounded: "{rounded.pill}"
 ---
 
@@ -114,6 +148,8 @@ components:
 **Creative North Star: "The Lacquered Lesson Plan"**
 
 A teacher's lesson plan bound in a lacquered cover: a dark green lacquer band frames the work, and everything inside is flat ivory paper ruled with thin straw-coloured lines. The silk-painting map is the one rich, textured object on the page, so it reads as the thing to look at from the back of a classroom. Everything around it stays quiet, legible and orderly.
+
+Light only: the page keeps its ivory paper under a dark OS setting (`color-scheme: light` in `styles.css`, so native controls stay light too). It is projected in lit classrooms and the silk map is painted for paper; v2 has no dark theme.
 
 The primary user is a teacher driving a projector, so the system favours large hit areas (44 px minimum), high contrast and a calm hierarchy over decoration. Students use the same screens on phones at 360 px; nothing scrolls sideways. Depth comes from tonal paper layers and 1 px rules, not from shadows. The only brand commitments are the name Sử Việt and the seal logo (PRODUCT.md); the rest of the identity is the silk palette inherited from the v1 renderer.
 

@@ -159,7 +159,7 @@ frontend/
 | `components/Editor.tsx`, `VariablesEditor.tsx` | Trình soạn bài có hoàn tác/làm lại; thẻ "Biến số & hệ số" sửa số liệu gốc, nhân vật, biến số và phương án (đúng một phương án gốc, 3 hệ số, giả định, nhận xét bước 6) kèm ô thử nhanh |
 | `components/ClassPanel.tsx` | Bảng giáo viên / thẻ tham gia của học sinh ở giai đoạn 3 và khảo sát ở giai đoạn 6 |
 
-**Các route** (hash history): `#/` (đăng nhập), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (vòng 6 giai đoạn, cả hai vai, `?step=n`), `#/atlas` (chỗ trống "Sắp ra mắt"), `#/fonttest` (kiểm tra glyph tiếng Việt, không cần đăng nhập).
+**Các route** (hash history): `#/` (đăng nhập), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (vòng 6 giai đoạn, cả hai vai, `?step=n`), `#/atlas?place=&kind=&q=` (Atlas Việt Nam, mục 15; có liên kết trên thanh điều hướng và ở cả hai bảng điều khiển), `#/fonttest` (kiểm tra glyph tiếng Việt, không cần đăng nhập).
 
 **Quy tắc vòng đời cảnh:** mỗi bề mặt (xem trước ở trình soạn, trang bài học, giai đoạn gốc/tùy chỉnh) gắn một `SilkMapScene` qua `SceneView`/`Player`; hai thành phần này gọi `destroy()` khi gỡ để trình dựng không dồn lại.
 
@@ -232,7 +232,9 @@ Tự động, chạy trong CI ở mọi lần push (`npm test` trên máy):
 
 - `bash scripts/check.sh` (cũng là `/check`): `tsc` (strict) cho `frontend/src`; mọi JSON bài học qua được lược đồ zod; các nhãn bắt buộc vẫn còn trong mã; mọi tệp nguồn ở dạng NFC; tham chiếu cục bộ trong `index.html` tồn tại; `node --check` cho mã backend.
 - Unit (`npm run test:unit`: Vitest cho `frontend/src/lib`, `node:test` cho backend): lược đồ bài học, chuyển dữ liệu v1, bộ máy cho cùng kết quả ở cả 81 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
-- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, form soạn biến số (bài trống được thêm một biến số, phát hành và chạy đủ 6 giai đoạn theo hệ số của nó, hoàn tác/làm lại), không cuộn ngang ở 360 px.
+- Atlas (`npm run atlas:test`, `node:test`): 34 đơn vị, hai quần đảo, địa danh nằm trong tỉnh, id, NFC, dung lượng, chấm điểm tìm kiếm, và mọi `atlasPlaceIds` của bài giảng trỏ tới địa danh có thật.
+- Build + `npm run budget`: JS của lần vào đầu (entry + modulepreload) ≤ 200 KB gzip; three.js và atlas chỉ nằm trong chunk tải lười.
+- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): atlas (tìm có dấu và không dấu, chọn bằng bàn phím và chuột, trạng thái URL qua tải lại trang, địa danh → bài giảng → địa danh, học sinh chỉ thấy bài đã phát hành, dòng ghi công OSM), điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, form soạn biến số (bài trống được thêm một biến số, phát hành và chạy đủ 6 giai đoạn theo hệ số của nó, hoàn tác/làm lại), không cuộn ngang ở 360 px.
 - Sau CI: Vercel (frontend) và Cloudflare (backend) triển khai từ `Staging` (preview/staging) và `main` (production); mỗi job tự bỏ qua kèm thông báo nếu thiếu secret ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
 - Thủ công: `npm run dev:frontend` (Vite, cổng 8080), rồi đi qua 6 giai đoạn ở vai giáo viên và học sinh; kiểm tra `#/fonttest`.
 
@@ -336,13 +338,13 @@ Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 t
 | Trường hoặc phụ huynh từ chối thu dữ liệu của trẻ vị thành niên | Phiếu đồng ý sẵn sàng trước T9; chỉ dữ liệu ẩn danh; phương án khảo sát giấy |
 | 12 tuần quá gấp (cố vấn duyệt trễ, nhân sự bán thời gian) | Mốc kiểm soát và quỹ dự phòng ở mục 11; cắt F9, F10 và F11 trước; không bao giờ kéo dài quá T15 |
 
-## 15. Atlas Việt Nam (v2, session S3, nhánh `Dat/feature/v2-atlas`)
+## 15. Atlas Việt Nam (v2, làm ở S3, nối vào app ở S4)
 
 Bản đồ 3D Việt Nam để tìm bài giảng theo địa danh. Route `#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`
 (cần đăng nhập, cả hai vai trò); trạng thái nằm trên URL nên mọi khung nhìn đều chia sẻ được. Nội dung
 là minh họa, chưa được chuyên gia duyệt như bài giảng; mỗi địa danh có `illustrative: true` và nguồn.
 
-**Yêu cầu và trạng thái (8/11/2026)**
+**Yêu cầu và trạng thái (8/11/2026, sau S4)**
 
 | Yêu cầu | Trạng thái |
 |---|---|
@@ -353,12 +355,13 @@ là minh họa, chưa được chuyên gia duyệt như bài giảng; mỗi đ�
 | Tìm kiếm bỏ dấu, chấm điểm kiểu GeoGnos, Levenshtein ≤ 2, lọc theo loại, mã hoá URL | Đã làm; unit test |
 | API renderer `VietnamAtlasScene(container, { quality, onSelect })`: `setQuality`, `focusPlace(id \| null)`, `setFilter`, `setViewInsets`, `destroy` | Đã làm |
 | Nhãn chỉ là HTML, bảng màu từ biến CSS, marker `InstancedMesh`, chế độ thấp cho phone, `destroy()` khi rời trang | Đã làm |
-| Thẻ địa danh: mô tả, thời kỳ, tỉnh, nguồn kèm giấy phép, nút "Mở bài giảng" (`lessonIds` của địa danh ∪ bài có `atlasPlaceIds` chứa địa danh; học sinh chỉ thấy bài được phép xem) | Đã làm |
+| Thẻ địa danh: mô tả, thời kỳ, tỉnh, nguồn kèm giấy phép, nút "Mở bài giảng" (`lessonIds` của địa danh ∪ bài có `atlasPlaceIds` chứa địa danh; học sinh chỉ thấy bài được phép xem); thẻ tỉnh liệt kê bài của các địa danh trong tỉnh | Đã làm; E2E |
+| Bài giảng dẫn ngược lại: trang bài học có chip cho mỗi `atlasPlaceIds` tới `#/atlas?place=`; thanh điều hướng và hai bảng điều khiển có liên kết tới atlas; mọi `atlasPlaceIds` trỏ tới địa danh, tỉnh hoặc quần đảo có thật | Đã làm; `npm run atlas:test`; E2E |
 | Bàn phím: combobox (mũi tên, Enter, Esc), chip và danh sách là nút, canvas nhận phím mũi tên | Đã làm |
-| Phone: bottom sheet; camera canh giữa phần bản đồ phía trên sheet; dòng ghi công OSM nằm trong sheet | Đã làm; ảnh chụp 360×800 |
-| three.js và atlas nằm trong chunk route tải lười; JS ban đầu ≤ 200 KB gzip | Chunk atlas 69,6 KB gzip, three.js dùng chung 136 KB, JS ban đầu 115 KB (build cùng S1 347d2c4) |
-| ≥ 55 FPS desktop, ≥ 30 FPS phone | **Chưa kiểm trên GPU thật.** Chỉ đo bằng SwiftShader headless: 3,1 FPS desktop (148k tam giác), 15,9 FPS phone |
-| E2E cho `#/atlas` | **Chưa viết** (S4, sau khi gộp S1) |
+| Phone: bottom sheet (tự mở khi `?place=` đổi); camera canh giữa phần bản đồ phía trên sheet; dòng ghi công OSM nằm trong sheet | Đã làm; ảnh chụp 360×800; E2E trên phone-360 |
+| three.js và atlas nằm trong chunk route tải lười; JS ban đầu ≤ 200 KB gzip | JS ban đầu 138,4 KB gzip (entry 111,4 + phần tải trước 27,0; `npm run budget`, có trong CI). Chunk atlas 58 KB gzip + landmarks 12 KB (dùng chung với trang bài học) + three.js 136 KB, tải lười |
+| ≥ 55 FPS desktop, ≥ 30 FPS phone | Đạt trên GPU tích hợp của laptop (Intel Iris Xe, Chromium headless với ANGLE GL): 60 FPS (trần vsync) khi bay giữa các địa danh, desktop 1280×720 và khung phone 360×800 DPR 2,75, cả hai mức đồ hoạ. **Chưa đo trên điện thoại thật hay máy tính trường.** Dựng bằng phần mềm (SwiftShader): 5,5 (cao) / 13,8 (thấp) desktop, 5,5 / 22 phone |
+| E2E cho `#/atlas` | `tests/e2e/atlas.spec.js`, desktop và phone-360 (4 test) |
 
 **Cách vẽ đã chọn.** Đã đo ba cách vẽ ranh giới trong harness (`npm run atlas:shoot`): vẽ vào texture
 mặt nạ (nhoè, dày khi zoom gần), khối tỉnh phẳng (mất địa hình và ranh giới) và đoạn thẳng phủ lên địa
@@ -368,5 +371,6 @@ hình (sắc nét mọi mức zoom, tốc độ như nhau). Chọn cách thứ b
 là sản phẩm phái sinh ODbL của OpenStreetMap nên dòng "© OpenStreetMap contributors" phải luôn hiện trên
 bản đồ. Không analytics, không dùng vị trí người dùng, không lấy gì từ GeoGnos.
 
-**Việc của S4**: thay placeholder `#/atlas` của S1 (và ghi chú "placeholder" ở mục 8) bằng route của S3;
-viết E2E; đo FPS trên điện thoại và máy tính trường thật.
+**Còn mở**: FPS trên điện thoại thật và máy tính trường; các địa danh bài giảng có thể dùng mà atlas
+chưa có (`van-don`, `him-lam`, `doi-a1`, `buon-ma-thuot`, `phuoc-long`; xem `notes/s2.md`). Chi tiết ở
+`specs/002-v2-tanstack-atlas/notes/s4.md`.

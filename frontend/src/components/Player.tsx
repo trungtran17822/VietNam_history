@@ -102,7 +102,7 @@ export function Player({ lesson, prefix, badge, initialProgress = 0, onProgress,
   };
 
   return (
-    <div className="player-frame">
+    <div className="player-frame @container">
       <div className="relative">
         <SceneView
           lesson={lesson}
@@ -114,25 +114,31 @@ export function Player({ lesson, prefix, badge, initialProgress = 0, onProgress,
             onScene?.(s);
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-2 p-3">
-          {badge ? <span className="pointer-events-auto rounded-full bg-card/90 px-3 py-1 t-xs font-semibold">{badge}</span> : <span />}
-          <div id={`cam-controls-${prefix}`} className="pointer-events-auto flex flex-wrap gap-1.5" role="group" aria-label="Góc nhìn">
-            {CAMERA_LABELS.map(([key, label]) => (
-              <button
-                key={key}
-                type="button"
-                className={`btn-cam-pill${preset === key ? ' active' : ''}`}
-                data-preset={key}
-                aria-pressed={preset === key}
-                onClick={() => {
-                  scene.current?.setCameraPreset(key);
-                  setPreset(key);
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+        {badge && (
+          <span className="pointer-events-none absolute left-3 top-3 max-w-[calc(100%-1.5rem)] truncate rounded-full bg-card/90 px-3 py-1 t-xs font-semibold @2xl:max-w-[calc(100%-27rem)]">{badge}</span>
+        )}
+        {/* Narrow frames (phones): the pills sit in a strip under the table instead of covering it. */}
+        <div
+          id={`cam-controls-${prefix}`}
+          className="grid grid-cols-4 gap-1 border-t border-rule bg-card px-2 py-2 @2xl:absolute @2xl:flex @2xl:flex-wrap @2xl:gap-1.5 @2xl:right-3 @2xl:top-3 @2xl:justify-end @2xl:border-0 @2xl:bg-transparent @2xl:p-0"
+          role="group"
+          aria-label="Góc nhìn"
+        >
+          {CAMERA_LABELS.map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              className={`btn-cam-pill @max-2xl:whitespace-normal @max-2xl:px-1 @max-2xl:leading-tight${preset === key ? ' active' : ''}`}
+              data-preset={key}
+              aria-pressed={preset === key}
+              onClick={() => {
+                scene.current?.setCameraPreset(key);
+                setPreset(key);
+              }}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
       <div className="flex flex-col gap-2 border-t border-rule bg-card px-3 py-2.5">

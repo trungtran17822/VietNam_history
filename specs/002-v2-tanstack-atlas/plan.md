@@ -40,6 +40,8 @@ Do giới hạn dung lượng đĩa, các session chạy **lần lượt** trong
 
 **Thực tế đã chạy:** S3 chạy **song song** với S1 (Đạt cho phép, đĩa đủ cho thêm một worktree), trong worktree riêng, nhánh `Dat/feature/v2-atlas` cắt từ `Dat/feature/core` (không có code S1/S2). S3 chỉ chạm các đường dẫn atlas; S4 gộp `v2-frontend`, `v2-lessons` và `v2-atlas` (xung đột chắc chắn duy nhất: `frontend/src/routes/atlas.tsx`, lấy bản S3). Chi tiết ở `notes/s3.md`.
 
+**S4 (đã chạy, 8/11/2026)**: trên `Dat/feature/v2-release` (merge `bf4060e` của `v2-lessons` + `v2-atlas`). Nối atlas vào app (thanh điều hướng, thẻ trên hai bảng điều khiển, chip "Trên Atlas Việt Nam" ở trang bài học, bài giảng trên thẻ tỉnh), test E2E atlas, sửa bố cục nút góc camera trên phone, dọn 44 lưu ý impeccable, QA toàn app, CI Node 24 + `atlas:test` + `budget`, rồi merge vào `Staging`. Chi tiết và báo cáo QA: `notes/s4.md`.
+
 Session sau không được viết lại phần của session trước trừ khi để sửa lỗi; mọi thay đổi như vậy ghi vào notes của mình.
 Mỗi session ghi nhật ký riêng ở `specs/002-v2-tanstack-atlas/notes/<s1|s2|s3|s4>.md`.
 Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đạt) và `venv/`.
@@ -112,6 +114,7 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
 - Renderer: `InstancedMesh`, một renderer cho mỗi view, `destroy()` khi unmount, mức chất lượng thấp cho máy yếu. Mục tiêu ≥ 30 FPS trên phone giả lập, ≥ 55 FPS desktop.
 - Tìm kiếm Atlas: bỏ dấu tiếng Việt khi so khớp, chấm điểm kiểu GeoGnos (§4.1 báo cáo) + Levenshtein ≤ 2.
 - Trạng thái chọn đưa lên URL (`#/atlas?place=<id>&kind=...`) để chia sẻ link.
+- **Kiểm tự động (S4)**: `npm run budget` sau build đo JS lần vào đầu (entry + modulepreload trong `index.html`), chặn > 200 KB gzip và chặn three.js/atlas trong phần đó; `npm run atlas:test` chặn `atlasPlaceIds` không trỏ tới địa danh có thật. Số đo thật ở `notes/s4.md`.
 
 ## 6. Ngoài phạm vi v2
 

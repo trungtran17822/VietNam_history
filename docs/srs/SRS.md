@@ -3,7 +3,7 @@
 
 | | |
 |---|---|
-| Phiên bản | 1.1, 07/11/2026 (thêm form soạn biến số & hệ số, frontend v2) |
+| Phiên bản | 1.2, 08/11/2026 (thêm SRS-A-10: liên kết hai chiều bài giảng ↔ Atlas; cập nhật cách kiểm thử mục 6). 1.1, 07/11/2026: form soạn biến số & hệ số, frontend v2 |
 | Trạng thái | Sẵn sàng triển khai (spec đã qua 3 vòng review) |
 | Chuẩn tham chiếu | Cấu trúc theo ISO/IEC/IEEE 29148 (kế thừa IEEE 830) |
 | Nguồn | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (cập nhật 01/11/2026); spec `specs/001-classroom-sim-demo/`; thiết kế hệ thống `docs/architecture/SYSTEM_DESIGN.md`; báo cáo nghiên cứu `docs/research/` |
@@ -227,9 +227,10 @@ Trạng thái chi tiết ở `docs/spec/SPEC.vi.md` mục 15.
 | SRS-A-01 | Bản đồ hiện đúng 34 đơn vị cấp tỉnh theo Nghị quyết 202/2025/QH15; Hoàng Sa thuộc TP Đà Nẵng, Trường Sa thuộc tỉnh Khánh Hòa | P0 | Unit `tests/atlas/data.test.mjs` |
 | SRS-A-02 | Mỗi địa danh có tên, loại, tỉnh, toạ độ, mô tả tự viết bằng tiếng Việt, nguồn kèm giấy phép và nhãn minh họa; nằm trong tỉnh của nó | P0 | Unit |
 | SRS-A-03 | Tìm kiếm không phân biệt dấu, chịu lỗi gõ (Levenshtein ≤ 2), xếp hạng tên trùng khớp trước; lọc theo 5 loại địa danh | P0 | Unit `tests/atlas/search.test.mjs` |
-| SRS-A-04 | Chọn địa danh (trên bản đồ hoặc danh sách) thì camera bay tới đó và thẻ hiện mô tả, thời kỳ, nguồn, nút "Mở bài giảng" tới `#/lesson/<id>`; học sinh chỉ thấy bài được phép xem | P0 | Ảnh chụp harness; E2E (S4) |
-| SRS-A-05 | Trạng thái (địa danh, bộ lọc, từ khoá) nằm trên URL `#/atlas?place=&kind=&q=` và mở lại đúng khung nhìn | P1 | Unit (bộ mã hoá URL); E2E (S4) |
-| SRS-A-06 | Dùng được hoàn toàn bằng bàn phím; nhãn bản đồ là chữ HTML, không vẽ trong canvas; có chế độ đồ hoạ thấp | P1 | Kiểm tay; detector impeccable |
+| SRS-A-04 | Chọn địa danh (trên bản đồ hoặc danh sách) thì camera bay tới đó và thẻ hiện mô tả, thời kỳ, nguồn, nút "Mở bài giảng" tới `#/lesson/<id>`; học sinh chỉ thấy bài được phép xem | P0 | Ảnh chụp harness; E2E `tests/e2e/atlas.spec.js` |
+| SRS-A-05 | Trạng thái (địa danh, bộ lọc, từ khoá) nằm trên URL `#/atlas?place=&kind=&q=` và mở lại đúng khung nhìn | P1 | Unit (bộ mã hoá URL); E2E `atlas.spec.js` (tải lại trang) |
+| SRS-A-06 | Dùng được hoàn toàn bằng bàn phím; nhãn bản đồ là chữ HTML, không vẽ trong canvas; có chế độ đồ hoạ thấp | P1 | E2E (chọn bằng Enter, tiêu điểm chuyển sang thẻ); detector impeccable |
 | SRS-A-07 | Trên phone (360×800) bản đồ không bị che: bảng tìm kiếm là bottom sheet, camera canh giữa phần còn thấy | P1 | Ảnh chụp 360×800 |
-| SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện; không analytics, không lấy vị trí người dùng | P0 | Kiểm tay |
-| SRS-A-09 | three.js và dữ liệu atlas chỉ tải khi vào `#/atlas`; ranh giới ≤ 400 KB gzip, địa hình ≤ 2 MB; mục tiêu ≥ 55 FPS desktop, ≥ 30 FPS phone | P1 | Unit (dung lượng); FPS trên máy thật: chưa đo |
+| SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện; không analytics, không lấy vị trí người dùng | P0 | `scripts/check.sh`; E2E `atlas.spec.js` |
+| SRS-A-09 | three.js và dữ liệu atlas chỉ tải khi vào `#/atlas`; ranh giới ≤ 400 KB gzip, địa hình ≤ 2 MB; mục tiêu ≥ 55 FPS desktop, ≥ 30 FPS phone | P1 | Unit (dung lượng); FPS: 60 (trần vsync) trên Intel Iris Xe, desktop và khung phone; chưa đo trên điện thoại thật; `npm run budget` trong CI |
+| SRS-A-10 | Liên kết hai chiều bài giảng ↔ địa danh: trang bài học liệt kê `atlasPlaceIds` dẫn tới `#/atlas?place=`; thẻ địa danh/tỉnh dẫn tới bài; mọi `atlasPlaceIds` phải trỏ tới địa danh, tỉnh hoặc quần đảo có thật; thanh điều hướng và hai bảng điều khiển có lối vào atlas | P0 | `npm run atlas:test`; E2E `atlas.spec.js` |

@@ -99,6 +99,7 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
   useEffect(() => sceneRef.current?.setFilter({ kinds: state.kinds, query: state.q }), [kindKey, state.q]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const target = state.place ?? null;
+    if (target) setSheetOpen(true); // also when the URL changes under us (back/forward, a pasted link)
     if (!sceneRef.current || focused.current === target) return;
     focused.current = target;
     sceneRef.current.focusPlace(target);
@@ -246,7 +247,7 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
         <button ref={homeRef} type="button" className="btn-cam-pill absolute right-3 top-3 z-10 inline-flex items-center gap-1.5" onClick={goHome}>
           <Icon name="map" /> Toàn quốc
         </button>
-        <Attribution className="absolute bottom-1 right-2 z-10 hidden rounded bg-[rgb(246_238_219/0.85)] px-1.5 md:block" />
+        <Attribution className="absolute bottom-1 right-2 z-10 hidden rounded bg-card/85 px-1.5 md:block" />
       </div>
     </main>
   );
@@ -255,7 +256,7 @@ export function AtlasView({ search, onSearch }: { search: AtlasSearch; onSearch:
 // ODbL: the borders and islands are an OpenStreetMap derivative, so the credit stays visible.
 function Attribution({ className }: { className: string }) {
   return (
-    <p className={`t-xs text-[#4d3a20] ${className}`}>
+    <p className={`t-xs text-notice-ink ${className}`}>
       Bản đồ © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors, Natural Earth, SRTM
     </p>
   );
@@ -292,6 +293,28 @@ function ProvinceList({ onChoose }: { onChoose: (id: string) => void }) {
   );
 }
 
+// Both directions: a landmark's lessonIds and lessons that list one of `ids` in atlasPlaceIds.
+// Students only see lessons that are published to them.
+function lessonsFor(ids: string[], lessonIds: string[] = []) {
+  const user = currentUser();
+  return getAllLessons().filter(
+    (x) => (lessonIds.includes(x.id) || x.atlasPlaceIds?.some((p) => ids.includes(p))) && (user?.role === 'teacher' || isVisibleForStudent(x))
+  );
+}
+
+function LessonLinks({ lessons }: { lessons: ReturnType<typeof lessonsFor> }) {
+  if (!lessons.length) return null;
+  return (
+    <div className="atlas-lessons mt-4 flex flex-col gap-2">
+      {lessons.map((x) => (
+        <Link key={x.id} to="/lesson/$id" params={{ id: x.id }} className="btn btn-primary justify-start text-left">
+          <Icon name="book" /> Mở bài giảng: {x.title}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 function PlaceCard({ id, headingRef, onBack, onChoose }: { id: string; headingRef: RefObject<HTMLHeadingElement | null>; onBack: () => void; onChoose: (id: string) => void }) {
   const landmark = LANDMARKS.find((l) => l.id === id);
   const unit = PROVINCES.find((p) => p.id === id);
@@ -325,6 +348,7 @@ function PlaceCard({ id, headingRef, onBack, onChoose }: { id: string; headingRe
         {ARCHIPELAGOS.filter((a) => a.provinceId === unit.id).map((a) => (
           <p key={a.id} className="mt-2 t-sm">Bao gồm <button type="button" className="font-semibold text-action underline underline-offset-3" onClick={() => onChoose(a.id)}>{a.name}</button>.</p>
         ))}
+        <LessonLinks lessons={lessonsFor([unit.id, ...inside.map((l) => l.id)], inside.flatMap((l) => l.lessonIds ?? []))} />
         <h3 className="mt-3 t-sm font-semibold">{inside.length ? `Địa danh trên bản đồ (${inside.length})` : 'Chưa có địa danh nào trên bản đồ'}</h3>
         <ul className="mt-1">
           {inside.map((l) => (
@@ -340,11 +364,6 @@ function PlaceCard({ id, headingRef, onBack, onChoose }: { id: string; headingRe
   }
 
   const l = landmark!;
-  const user = currentUser();
-  // Both directions: the landmark's lessonIds and lessons that list this place in atlasPlaceIds.
-  const lessons = getAllLessons().filter(
-    (x) => (l.lessonIds?.includes(x.id) || x.atlasPlaceIds?.includes(l.id)) && (user?.role === 'teacher' || isVisibleForStudent(x))
-  );
   return (
     <article>
       {back}
@@ -359,15 +378,7 @@ function PlaceCard({ id, headingRef, onBack, onChoose }: { id: string; headingRe
       </p>
       <p className="mt-3">{l.summary}</p>
       {l.coordsNote && <p className="mt-2 t-xs muted">Vị trí: {l.coordsNote}</p>}
-      {lessons.length > 0 && (
-        <div className="mt-4 flex flex-col gap-2">
-          {lessons.map((x) => (
-            <Link key={x.id} to="/lesson/$id" params={{ id: x.id }} className="btn btn-primary justify-start text-left">
-              <Icon name="book" /> Mở bài giảng: {x.title}
-            </Link>
-          ))}
-        </div>
-      )}
+      <LessonLinks lessons={lessonsFor([l.id], l.lessonIds)} />
       <h3 className="mt-4 t-sm font-semibold">Nguồn</h3>
       <ul className="mt-1 space-y-1 t-xs">
         {l.sources.map((s) => (

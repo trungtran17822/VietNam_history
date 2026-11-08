@@ -65,7 +65,7 @@ function Login() {
               type="button"
               role="tab"
               aria-selected={role === r.role}
-              className={`rounded-lg border p-3 text-left transition-colors ${role === r.role ? 'border-action bg-[#fbf0e8]' : 'border-rule bg-card hover:border-[var(--sepia)]'}`}
+              className={`rounded-lg border p-3 text-left transition-colors ${role === r.role ? 'border-action bg-action-tint' : 'border-rule bg-card hover:border-[var(--sepia)]'}`}
               onClick={() => {
                 setRole(r.role);
                 setError('');

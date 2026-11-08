@@ -115,7 +115,7 @@ export function VariablesEditor({ lesson, edit }: { lesson: AppLesson; edit: Edi
               <legend className="label">Phương án ({variable.options.length})</legend>
               <div className="flex flex-col gap-3">
                 {variable.options.map((option, oi) => (
-                  <div key={oi} className={`rounded-xl border p-4 ${option.isOriginal ? 'border-ok bg-[#f1f5ee]' : 'border-rule bg-[#fffdf7]'}`}>
+                  <div key={oi} className={`rounded-xl border p-4 ${option.isOriginal ? 'border-ok bg-ok-wash' : 'border-rule bg-paper'}`}>
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <label className="flex min-h-11 items-center gap-2 font-semibold">
                         <input

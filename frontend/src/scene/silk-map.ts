@@ -500,7 +500,8 @@ export class SilkMapScene {
       const x = (point.x * 0.5 + 0.5) * width;
       const y = (-point.y * 0.5 + 0.5) * height;
       style.left = `${Math.min(Math.max(x, halfW), width - halfW)}px`;
-      style.top = `${Math.min(Math.max(y, halfH), height - halfH)}px`;
+      // ponytail: Player overlays its badge (and, on wide frames, the camera pills) in the top 44 px.
+      style.top = `${Math.min(Math.max(y, halfH + 44), height - halfH)}px`;
     }
   }
 

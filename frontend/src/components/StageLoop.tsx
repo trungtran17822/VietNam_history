@@ -336,7 +336,7 @@ function Explanation({ lesson, choices, role, startedAt, onRetry, onFinish }: { 
           <li key={p.key} className="rounded-lg bg-page px-4 py-3 leading-relaxed">{p.text}</li>
         ))}
       </ul>
-      <p id="explanation-closing-text" className="mt-5 rounded-lg bg-[#dde9d8] px-4 py-3 font-semibold text-ok">{explanation.encouragement}</p>
+      <p id="explanation-closing-text" className="mt-5 rounded-lg bg-ok-tint px-4 py-3 font-semibold text-ok">{explanation.encouragement}</p>
       {surveyVisible(lesson.id, role) && <Survey lessonId={lesson.id} startedAt={startedAt} />}
       <div className="mt-6 flex flex-wrap justify-between gap-3">
         <button id="btn-try-another-tactics" type="button" className="btn btn-secondary" onClick={onRetry}>

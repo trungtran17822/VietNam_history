@@ -5,7 +5,7 @@ import { assessReferenceUrl, assessmentMessage, blankLesson, intakeLesson, type 
 import { deleteLesson, duplicateLesson, exportJSON, getAllLessons, importJSON, saveLesson, type AppLesson } from '../lib/storage';
 import { fold, today } from '../lib/text';
 import { Thumbnail } from '../components/Thumbnail';
-import { Field, Icon, Modal, StatusChip } from '../components/ui';
+import { AtlasCard, Field, Icon, Modal, StatusChip } from '../components/ui';
 
 export const Route = createFileRoute('/teacher')({ beforeLoad: requireUser('teacher'), component: TeacherDashboard });
 
@@ -84,6 +84,7 @@ function TeacherDashboard() {
           </div>
         </section>
       )}
+      <AtlasCard />
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Lọc theo trạng thái">
