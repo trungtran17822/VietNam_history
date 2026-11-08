@@ -1084,6 +1084,7 @@ header,
 .header-overflow-popover,
 .nav-tab,
 .btn-header-tool,
+.btn-login-role,
 .tooltip {
   transition-duration: var(--dur-fast) !important;
 }
