@@ -37,6 +37,8 @@ Jobs `deploy-frontend` and `deploy-backend` need `test` and run only for pushes 
 
 Release flow: feature branch → merge into `Staging` → CI deploys the preview → Đạt reviews it → merge into `main` (production). Nobody else deploys production.
 
+Preview by hand (while the repo secrets are missing), from a checkout of `Staging` with a logged-in Vercel CLI: `npx vercel@latest pull --yes --environment=preview`, `npx vercel@latest build`, `npx vercel@latest deploy --prebuilt`. Never add `--prod`. Previews have Vercel Authentication on, so only signed-in members of the Vercel account can open them; check one from the CLI with `npx vercel@latest curl <url>/index.html`.
+
 The sections below are the from-scratch setup, for a new account.
 
 ## 1. Vercel (frontend), once
