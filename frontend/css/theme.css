@@ -423,8 +423,17 @@ html[data-quality="low"] .view-fallback-enter {
 .cinematic-transition {
   position: fixed;
   inset: 0;
+  z-index: 100 !important; /* Dưới header z-index 300 */
+  pointer-events: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
   background: radial-gradient(ellipse at center, rgba(22, 14, 9, 0.98), #070605 75%);
   transition: opacity var(--dur-base) var(--ease), visibility var(--dur-base) var(--ease);
+}
+.cinematic-transition.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 .cinematic-transition::before {
   content: "";
@@ -553,101 +562,181 @@ html[data-quality="high"] .title-shimmer {
   35%, 100% { transform: translateX(100%); }
 }
 
-/* Trống đồng xoay rất chậm: CHỈ ở high, chỉ dùng transform */
+/* Trống đồng xoay rất chậm: CHỈ ở high, đúng 120s/vòng linear, chỉ dùng transform trên hoa văn trống */
+.drum-spin-slow {
+  transform-origin: center center !important;
+  will-change: transform;
+}
 html[data-quality="high"] .drum-spin-slow {
-  animation: svDrumSpin 120s linear infinite;
+  animation: svDrumSpin 120s linear infinite !important;
 }
 @keyframes svDrumSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* Gộp hình trống đồng và cờ thành một bố cục gọn, không chồng như sticker */
+/* Medium & Low tier: Đứng yên hoàn toàn */
+html[data-quality="medium"] .drum-spin-slow,
+html[data-quality="low"] .drum-spin-slow {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Tôn trọng prefers-reduced-motion: Đứng yên */
+@media (prefers-reduced-motion: reduce) {
+  .drum-spin-slow {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   LỖI 3 FIX: BỐ CỤC TRỐNG ĐỒNG VÀ CỜ GỌN GÀNG, KHÔNG ĐÈ LÊN NHAU
+   ========================================================================== */
+
+/* Nền panel trái trang nhã, gỡ cờ/trống mờ cắt dở */
+.login-story-panel {
+  background: radial-gradient(ellipse at 35% 45%, #244C40 0%, #122822 70%, #0A1713 100%) !important;
+}
+.login-story-panel::before,
+.login-story-panel::after,
+body.role-guest .heritage-watermark,
+body:has(#view-login.active) .heritage-watermark {
+  display: none !important;
+}
+
+.login-story-copy {
+  max-width: 480px !important;
+  margin: 0 !important;
+  padding: 16px 0 12px !important;
+}
+
+.login-art-stage {
+  position: relative !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  margin-top: 12px !important;
+  padding: 6px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.login-art-stage figure {
+  position: static !important;
+  margin: 0 !important;
+}
+
+/* Khối di sản: không viền hộp thừa */
 .heritage-composition {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 380px;
-  height: 180px;
-  padding: 16px 20px;
-  border-radius: 14px;
-  background: radial-gradient(ellipse at 30% 50%, rgba(36, 76, 64, 0.45), rgba(18, 38, 32, 0.85));
-  border: 1px solid rgba(229, 205, 151, 0.35);
-  box-shadow: 0 12px 30px rgba(10, 25, 20, 0.35);
-  overflow: hidden;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
 }
 
-.heritage-composition figure {
-  margin: 0;
+.heritage-display-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
 }
 
+/* Trống đồng là hình chính: đặt giữa-dưới, kích thước lớn rõ 240px, KHÔNG bị cờ che */
 .heritage-drum {
-  flex: 0 0 115px;
-  width: 115px;
-  height: 115px;
-  display: grid;
-  place-items: center;
+  position: relative !important;
+  flex: 0 0 240px !important;
+  width: 240px !important;
+  height: 240px !important;
+  display: grid !important;
+  place-items: center !important;
 }
 .heritage-drum img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45)) !important;
 }
 
+/* Lá cờ là chi tiết phụ: nhỏ, đặt riêng ở góc phải trên cạnh trống, KHÔNG chồng lên hoa văn trống */
 .heritage-flag {
-  flex: 0 0 135px;
-  width: 135px;
-  display: grid;
-  place-items: center;
+  position: absolute !important;
+  top: -6px !important;
+  right: 14px !important;
+  width: 82px !important;
+  height: auto !important;
+  display: block !important;
+  z-index: 2 !important;
 }
 .heritage-flag img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.32));
-  transform: rotate(2deg);
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transform: rotate(5deg) !important;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35)) !important;
 }
 
+/* Nhãn "ĐÔNG SƠN · VIỆT NAM" nằm dưới cùng, không đè lên hình nào */
 .heritage-emblem-badge {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: #E8D29B;
-  background: rgba(14, 27, 21, 0.78);
-  padding: 3px 10px;
-  border-radius: 20px;
-  border: 1px solid rgba(229, 205, 151, 0.25);
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  margin-top: 14px !important;
+  white-space: nowrap !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  color: #E8D29B !important;
+  background: rgba(14, 27, 21, 0.88) !important;
+  padding: 4px 14px !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(229, 205, 151, 0.3) !important;
+}
+
+@media (max-width: 1024px) {
+  .heritage-drum {
+    flex: 0 0 210px !important;
+    width: 210px !important;
+    height: 210px !important;
+  }
+  .heritage-flag {
+    width: 72px !important;
+    right: 22px !important;
+    top: -5px !important;
+  }
 }
 
 @media (max-width: 760px) {
-  .heritage-composition {
-    height: 130px;
-    max-width: 320px;
-    gap: 12px;
-    padding: 10px 14px;
+  .login-story-copy {
+    padding-bottom: 20px !important;
   }
   .heritage-drum {
-    flex: 0 0 85px;
-    width: 85px;
-    height: 85px;
+    flex: 0 0 160px !important;
+    width: 160px !important;
+    height: 160px !important;
   }
   .heritage-flag {
-    flex: 0 0 100px;
-    width: 100px;
+    width: 58px !important;
+    right: 28px !important;
+    top: -4px !important;
   }
   .heritage-emblem-badge {
-    font-size: 0.55rem;
-    bottom: 5px;
+    margin-top: 10px !important;
+    font-size: 0.58rem !important;
   }
 }
 
@@ -1089,26 +1178,173 @@ header,
   transition-duration: var(--dur-fast) !important;
 }
 
-/* Single thin fixed disclaimer strip at bottom */
+/* ==========================================================================
+   LỖI 1 FIX: THANH NAV SÁNG MÀU KEM, TƯƠNG PHẢN WCAG AA, DROPDOWN & NOTICE STRIP
+   ========================================================================== */
+
+/* Header có nền đặc màu kem, không dùng trong suốt, không backdrop-filter */
+.app-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 300 !important;
+  background: #FBF7EC !important;
+  border-bottom: 1px solid rgba(82, 102, 82, 0.22) !important;
+  box-shadow: 0 2px 10px rgba(43, 41, 38, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Chữ "Sử Việt", phụ đề đạt chuẩn tương phản cao WCAG AAA trên nền kem */
+.brand-title {
+  color: #1F1B16 !important;
+  font-weight: 700 !important;
+}
+.brand-subtitle {
+  color: #554A3B !important;
+}
+
+/* Nav tabs trong header */
+.header-nav-tabs {
+  background: #F2EDE0 !important;
+  border: 1px solid rgba(82, 102, 82, 0.18) !important;
+}
+.nav-tab {
+  color: #4A564E !important;
+  font-weight: 600 !important;
+}
+.nav-tab:hover {
+  color: #1B382F !important;
+  background: rgba(36, 76, 64, 0.08) !important;
+}
+.nav-tab.active {
+  background: #244C40 !important;
+  color: #FFFFFF !important;
+}
+
+/* Nút phụ trong header: nền kem + viền xanh lục mảnh, không viền đỏ */
+.header-overflow-menu summary,
+.user-profile-badge {
+  background: #FAF6EB !important;
+  border: 1.5px solid rgba(46, 76, 61, 0.35) !important;
+  border-radius: 999px !important;
+  color: #24221F !important;
+  font-weight: 600 !important;
+  padding: 5px 12px !important;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease) !important;
+}
+.header-overflow-menu summary:hover,
+.user-profile-badge:hover {
+  background: #F2ECE0 !important;
+  border-color: rgba(46, 76, 61, 0.65) !important;
+}
+.header-overflow-menu summary:focus-visible,
+.user-profile-badge:focus-visible {
+  outline: 2px solid rgba(46, 76, 61, 0.7) !important;
+  outline-offset: 2px !important;
+}
+
+/* Khi dropdown mở: giữ viền xanh lục đậm, tuyệt đối KHÔNG viền đỏ cho cả nút */
+.header-overflow-menu[open] > summary,
+.header-user-menu[open] > summary {
+  border-color: #244C40 !important;
+  background: #F2ECE0 !important;
+}
+
+/* Nhãn vai trò trong user badge */
+.user-role-chip.teacher,
+.user-role-chip {
+  background: #F5E1DC !important;
+  color: #8A2C21 !important;
+  border: 1px solid rgba(138, 44, 33, 0.28) !important;
+  border-radius: 999px !important;
+  padding: 2px 8px !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+}
+.user-role-chip.student {
+  background: #DEE7ED !important;
+  color: #2B4A60 !important;
+  border: 1px solid rgba(43, 74, 96, 0.28) !important;
+}
+
+/* Dropdown Tuỳ chọn và User menu: nền kem đặc, viền mảnh, đổ bóng tĩnh, z-index 500 */
+.header-overflow-menu > .btn-header-tool {
+  background: #FBF7EC !important;
+  color: #24211D !important;
+  border: 1px solid rgba(82, 102, 82, 0.28) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(43, 41, 38, 0.16) !important;
+  z-index: 500 !important;
+  animation: svDropdownFadeSlide 140ms ease-out forwards;
+}
+.header-overflow-menu > .btn-header-tool:hover {
+  background: #F2ECE0 !important;
+  border-color: rgba(46, 76, 61, 0.6) !important;
+  color: #1E3B32 !important;
+}
+.user-menu-popover {
+  background: #FBF7EC !important;
+  border: 1px solid rgba(82, 102, 82, 0.28) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 28px rgba(43, 41, 38, 0.18) !important;
+  z-index: 500 !important;
+  animation: svDropdownFadeSlide 140ms ease-out forwards;
+}
+.user-menu-name {
+  color: #554A3B !important;
+}
+.btn-logout {
+  background: #FAF6EB !important;
+  color: #8A2C21 !important;
+  border: 1px solid rgba(138, 44, 33, 0.3) !important;
+  font-weight: 600 !important;
+}
+.btn-logout:hover {
+  background: #F5E1DC !important;
+}
+
+@keyframes svDropdownFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dải "Nội dung minh họa, chưa được chuyên gia duyệt": nằm sát dưới header, nền kem đậm hơn, chữ tối rõ */
 .global-notice-strip {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 900;
-  height: 24px;
-  background: rgba(24, 20, 16, 0.96);
-  border-top: 1px solid rgba(176, 141, 74, 0.45);
-  color: #D9C8A5;
+  position: sticky !important;
+  top: 66px !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 150 !important; /* Dưới header (300) và dưới dropdown (500) */
+  height: 25px !important;
+  background: #EFE7D3 !important;
+  border-top: none !important;
+  border-bottom: 1px solid #DFD5BD !important;
+  color: #554A3B !important;
   font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  display: flex;
+  font-size: 0.76rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(4px);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   pointer-events: none;
 }
+@media (max-width: 600px) {
+  .global-notice-strip {
+    top: 58px !important;
+  }
+}
+
 /* Hide redundant disclaimers in pages */
 .lesson-disclaimer,
 .workspace-disclaimer {
@@ -1140,29 +1376,16 @@ html[data-quality="high"] .skeleton-box::after {
   }
 }
 
-/* ==========================================================================
-   LƯỢT 4: BACKDROP-FILTER, BLUR & BLEND MODE OPTIMIZATIONS
-   ========================================================================== */
 /* Gỡ bỏ backdrop-filter trên các vùng diện tích rộng để giải phóng GPU fillrate */
-.app-header,
 .modal-overlay,
-.global-notice-strip,
 .lesson-player-controls,
 .player-controls-bottom,
 .hero-featured-inline {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
-
-/* Fallback màu nền bán trong suốt / mờ tối ưu khi không dùng backdrop-filter */
-.app-header {
-  background: rgba(20, 18, 15, 0.98) !important;
-}
 .modal-overlay {
   background: rgba(8, 7, 6, 0.82) !important;
-}
-.global-notice-strip {
-  background: rgba(24, 20, 16, 0.98) !important;
 }
 .hero-featured-inline {
   background: rgba(43, 31, 23, 0.94) !important;

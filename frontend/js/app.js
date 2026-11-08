@@ -745,8 +745,13 @@
       kickerEl.textContent = isTeacher ? 'SỬ VIỆT · KHÔNG GIAN GIẢNG DẠY' : 'SỬ VIỆT · KHÔNG GIAN HỌC TẬP';
     }
 
-    elements.cinematicTransition.classList.add('active');
-    elements.cinematicTransition.setAttribute('aria-hidden', 'false');
+    if (elements.cinematicTransition) {
+      elements.cinematicTransition.style.opacity = '';
+      elements.cinematicTransition.style.visibility = '';
+      elements.cinematicTransition.style.pointerEvents = '';
+      elements.cinematicTransition.classList.add('active');
+      elements.cinematicTransition.setAttribute('aria-hidden', 'false');
+    }
     clearTimeout(transitionTimer);
 
     const activeTier = (window.SuVietQuality && window.SuVietQuality.getCurrentTier) ? window.SuVietQuality.getCurrentTier() : 'high';
@@ -764,8 +769,13 @@
   function finishPostLoginTransition() {
     clearTimeout(transitionTimer);
     transitionTimer = null;
-    elements.cinematicTransition.classList.remove('active');
-    elements.cinematicTransition.setAttribute('aria-hidden', 'true');
+    if (elements.cinematicTransition) {
+      elements.cinematicTransition.classList.remove('active');
+      elements.cinematicTransition.setAttribute('aria-hidden', 'true');
+      elements.cinematicTransition.style.opacity = '0';
+      elements.cinematicTransition.style.visibility = 'hidden';
+      elements.cinematicTransition.style.pointerEvents = 'none';
+    }
     if (!window.Auth.isAuthenticated()) return;
 
     let requestedRoute = '';
