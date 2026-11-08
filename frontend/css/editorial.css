@@ -28,9 +28,9 @@ h1, h2, h3, h4, .serif-title { color: var(--text-primary); font-family: var(--fo
 @keyframes inkUnderline { from { transform: scaleX(.05); } to { transform: scaleX(1); } }
 .header-right { gap: 10px; }
 .header-overflow-menu, .header-user-menu { position: relative; }
-.header-overflow-menu summary, .user-profile-badge { display: flex; min-height: 38px; align-items: center; gap: 8px; padding: 5px 9px; border: 1px solid var(--rule); border-radius: 4px; background: var(--paper-card); color: var(--text-primary); cursor: pointer; list-style: none; }
+.header-overflow-menu summary, .user-profile-badge { display: inline-flex; align-items: center; cursor: pointer; list-style: none; }
 .header-overflow-menu summary::-webkit-details-marker, .header-user-menu summary::-webkit-details-marker { display: none; }
-.header-overflow-menu[open] > summary, .header-user-menu[open] > summary { border-color: var(--vermilion); }
+.header-overflow-menu[open] > summary, .header-user-menu[open] > summary { border-color: #244C40; }
 .header-overflow-menu > .btn-header-tool { position: absolute; top: calc(100% + 6px); right: 0; display: none; width: max-content; min-width: 190px; justify-content: flex-start; background: var(--paper-card); color: var(--text-primary); border-color: var(--rule); box-shadow: var(--shadow-md); }
 .header-overflow-menu[open] > .btn-header-tool { display: flex; }
 .header-overflow-menu[open] > .btn-header-tool + .btn-header-tool { top: calc(100% + 48px); }
@@ -187,13 +187,6 @@ h1, h2, h3, h4, .serif-title { color: var(--text-primary); font-family: var(--fo
   .header-nav-tabs { flex-direction: column; width: 100%; align-items: stretch; }
   .nav-tab { justify-content: flex-start; }
   .header-right { margin-left: auto; }
-  .header-overflow-menu summary { font-size: 0; }
-  .header-overflow-menu summary span { font-size: .8rem; }
-  .header-overflow-menu summary::before { content: "⋯"; font-size: 1.2rem; }
-  .header-overflow-menu > .btn-header-tool { position: static; width: 100%; }
-  .header-overflow-menu[open] { position: absolute; right: 62px; top: 10px; z-index: 30; display: flex; flex-direction: column; width: 210px; padding: 8px; border: 1px solid var(--rule); background: var(--paper-card); box-shadow: var(--shadow-md); }
-  .header-overflow-menu[open] > summary { display: none; }
-  .header-overflow-menu[open] > .btn-header-tool, .header-overflow-menu[open] > .btn-header-tool + .btn-header-tool, .header-overflow-menu[open] > .btn-header-tool + .btn-header-tool + .btn-header-tool { position: static; display: flex; }
   .lesson-player-layout, .viewer-grid { grid-template-columns: 1fr; }
   .lesson-chapters-panel { max-height: none; }
 }

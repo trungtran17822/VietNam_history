@@ -428,6 +428,25 @@
       elements.mainHeader.classList.remove('nav-open');
       elements.headerMenu.setAttribute('aria-expanded', 'false');
     });
+
+    // Sync aria-expanded on header dropdowns and handle outside clicks
+    document.querySelectorAll('.header-overflow-menu, .header-user-menu').forEach((detail) => {
+      const summary = detail.querySelector('summary');
+      if (!summary) return;
+      detail.addEventListener('toggle', () => {
+        summary.setAttribute('aria-expanded', detail.open ? 'true' : 'false');
+      });
+    });
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof Element && !target.closest('.header-overflow-menu, .header-user-menu')) {
+        document.querySelectorAll('.header-overflow-menu[open], .header-user-menu[open]').forEach((detail) => {
+          detail.removeAttribute('open');
+          const summary = detail.querySelector('summary');
+          if (summary) summary.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
     // 1. Login Role Tabs
     let selectedLoginRole = 'teacher';
     elements.tabLoginTeacher.addEventListener('click', () => {

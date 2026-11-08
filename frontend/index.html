@@ -45,7 +45,12 @@
 
     <div class="header-right">
       <details class="header-overflow-menu">
-        <summary aria-label="Cài đặt giao diện">Tuỳ chọn <span>⌄</span></summary>
+        <summary class="hdr-btn press" aria-label="Cài đặt giao diện" aria-haspopup="menu" aria-expanded="false">
+          <span class="hdr-btn__label">Tuỳ chọn</span>
+          <svg class="hdr-btn__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </summary>
       <!-- Procedural Audio Toggle (Wind & War Drums) -->
       <button id="btn-toggle-audio" class="btn-header-tool" title="Âm thanh sa bàn (Tiếng gió & Trống trận)">
         <span class="tool-icon" aria-hidden="true">
@@ -73,7 +78,7 @@
 
       <!-- User Profile & Logout -->
       <details class="header-user-menu">
-        <summary class="user-profile-badge"><span class="user-avatar" id="header-user-avatar">S</span><span id="header-user-name">Người dùng</span><span id="header-user-role-chip" class="user-role-chip teacher">Giáo viên</span></summary>
+        <summary class="user-profile-badge hdr-btn press" aria-label="Tài khoản người dùng" aria-haspopup="menu" aria-expanded="false"><span class="user-avatar" id="header-user-avatar">S</span><span id="header-user-name">Người dùng</span><span id="header-user-role-chip" class="user-role-chip teacher">Giáo viên</span></summary>
         <div class="user-menu-popover"><span class="user-menu-name" id="header-user-full-name">Người dùng</span><button id="btn-logout" class="btn-logout" title="Đăng xuất khỏi phiên làm việc">Đăng xuất</button></div>
       </details>
     </div>

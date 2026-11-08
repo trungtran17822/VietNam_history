@@ -1279,34 +1279,133 @@ header,
   color: #FFFFFF !important;
 }
 
-/* Nút phụ trong header: nền kem + viền xanh lục mảnh, không viền đỏ */
-.header-overflow-menu summary,
-.user-profile-badge {
-  background: #FAF6EB !important;
-  border: 1.5px solid rgba(46, 76, 61, 0.35) !important;
+/* ==========================================================================
+   SHARED HEADER ACTION BUTTONS (.hdr-btn)
+   Đồng bộ chiều cao (40px), bo góc (999px), viền xanh lục mảnh, căn giữa dọc
+   ========================================================================== */
+.hdr-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  box-sizing: border-box !important;
+  padding: 0 16px !important;
   border-radius: 999px !important;
-  color: #24221F !important;
+  border: 1px solid rgba(36, 76, 64, 0.35) !important;
+  background: #FAF6EB !important;
+  color: #244C40 !important;
+  font-family: var(--font-sans);
+  font-size: 0.88rem !important;
   font-weight: 600 !important;
-  padding: 5px 12px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
   cursor: pointer;
-  transition: all var(--dur-fast) var(--ease) !important;
+  list-style: none !important;
+  user-select: none;
+  transition: border-color var(--dur-fast, 150ms) var(--ease, ease),
+              background-color var(--dur-fast, 150ms) var(--ease, ease),
+              box-shadow var(--dur-fast, 150ms) var(--ease, ease),
+              transform var(--dur-fast, 150ms) var(--ease, ease) !important;
 }
-.header-overflow-menu summary:hover,
-.user-profile-badge:hover {
+
+.hdr-btn::-webkit-details-marker,
+.hdr-btn::marker {
+  display: none !important;
+}
+
+.hdr-btn:hover {
   background: #F2ECE0 !important;
-  border-color: rgba(46, 76, 61, 0.65) !important;
+  border-color: #244C40 !important;
+  color: #1A382F !important;
 }
-.header-overflow-menu summary:focus-visible,
-.user-profile-badge:focus-visible {
-  outline: 2px solid rgba(46, 76, 61, 0.7) !important;
+
+.hdr-btn:focus-visible {
+  outline: 2px solid #B08D4A !important;
   outline-offset: 2px !important;
 }
 
-/* Khi dropdown mở: giữ viền xanh lục đậm, tuyệt đối KHÔNG viền đỏ cho cả nút */
-.header-overflow-menu[open] > summary,
-.header-user-menu[open] > summary {
+.hdr-btn:active,
+.hdr-btn.is-pressed {
+  transform: scale(0.98) !important;
+}
+
+/* Open state for dropdown summaries */
+.header-overflow-menu[open] > .hdr-btn,
+.header-user-menu[open] > .hdr-btn,
+.hdr-btn[aria-expanded="true"] {
   border-color: #244C40 !important;
   background: #F2ECE0 !important;
+  color: #1A382F !important;
+}
+
+/* Text and icon vertical centering inside .hdr-btn */
+.hdr-btn__label {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1 !important;
+  margin: 0;
+  padding: 0;
+}
+
+.hdr-btn__chev {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+  color: currentColor;
+  transform-origin: 50% 50%;
+  transition: transform var(--dur-fast, 150ms) var(--ease, ease) !important;
+}
+
+.header-overflow-menu[open] > .hdr-btn .hdr-btn__chev,
+.hdr-btn[aria-expanded="true"] .hdr-btn__chev {
+  transform: rotate(180deg) !important;
+}
+
+/* User profile badge specific layout adjustments */
+.user-profile-badge.hdr-btn {
+  padding: 0 14px 0 6px !important;
+  gap: 8px !important;
+}
+
+.user-profile-badge .user-avatar {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--vermilion);
+  color: #FFFFFF;
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+#header-user-name {
+  display: inline-block;
+  max-width: 112px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  line-height: 1;
+  color: #244C40;
+}
+
+/* Low-tier and reduced motion */
+html[data-quality="low"] .hdr-btn,
+html[data-quality="low"] .hdr-btn__chev,
+@media (prefers-reduced-motion: reduce) {
+  .hdr-btn,
+  .hdr-btn__chev {
+    transition: none !important;
+  }
 }
 
 /* Nhãn vai trò trong user badge */
