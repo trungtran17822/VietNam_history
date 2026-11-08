@@ -5,14 +5,14 @@ description: CI/CD, Vercel (frontend) and Cloudflare Workers + D1 (backend) depl
 
 # DevOps: GitHub Actions + Vercel + Cloudflare
 
-`frontend/` is a static site served as-is by Vercel (no build). `backend/` is one Cloudflare Worker with a D1 database, used only for class sessions. Keep the pipeline that small. Full setup runbook: [docs/devops/DEPLOY.md](../../../docs/devops/DEPLOY.md).
+`frontend/` is a Vite + React app; Vercel serves the build in `frontend/dist` (`npm ci`, `npm run build`, Node >= 20.19). `backend/` is one Cloudflare Worker with a D1 database, used only for class sessions. Keep the pipeline that small. Full setup runbook: [docs/devops/DEPLOY.md](../../../docs/devops/DEPLOY.md).
 
 ## The pipeline
 
 | File | Role |
 | --- | --- |
-| [.github/workflows/ci-cd.yml](../../../.github/workflows/ci-cd.yml) | `test` job on every push and PR (check + unit + Playwright E2E); `deploy-frontend` and `deploy-backend` after it on `Staging` and `main` |
-| [vercel.json](../../../vercel.json) | serves `frontend/` with no install/build step; turns off Vercel's Git auto-deploy |
+| [.github/workflows/ci-cd.yml](../../../.github/workflows/ci-cd.yml) | `test` job on every push and PR, Node 24 (check, unit, atlas tests, build, bundle budget, Playwright E2E); `deploy-frontend` and `deploy-backend` after it on `Staging` and `main` |
+| [vercel.json](../../../vercel.json) | `installCommand: npm ci`, `buildCommand: npm run build`, `outputDirectory: frontend/dist`; turns off Vercel's Git auto-deploy |
 | [scripts/check.sh](../../../scripts/check.sh) | static checks (same script as `/check`) |
 | [backend/wrangler.toml](../../../backend/wrangler.toml) | Worker envs `staging` / `production`, D1 bindings, cron, logs off |
 
@@ -24,7 +24,7 @@ Deploys go through the Vercel CLI in Actions (`vercel pull` → `vercel build` �
 
 - New static checks go into `scripts/check.sh` and tests into `tests/` or `backend/test/`, so local `npm test` and CI stay identical.
 - Routing, headers, redirects go in `vercel.json`. The app uses a hash router (`#/...`), so it needs no rewrites.
-- After editing `vercel.json`, verify locally without credentials: copy `frontend/` and `vercel.json` to a scratch dir, add `.vercel/project.json` = `{"projectId":"x","orgId":"y","settings":{"framework":null}}`, run `npx vercel@latest build --yes`, and confirm `.vercel/output/static/index.html` exists and `docs/` is absent.
+- After editing `vercel.json`, verify locally with a logged-in CLI: `npx vercel@latest pull --yes --environment=preview`, `npx vercel@latest build`, and confirm `.vercel/output/static/index.html` and `assets/` exist and `docs/` is absent.
 - Match the scale of the project: a static classroom prototype. Reach for Docker, Terraform, extra environments, or monitoring stacks only when the user asks for them.
 
 ## Setup
@@ -37,7 +37,7 @@ The repo is bound to Đạt's accounts:
 
 CI needs only the repo secrets `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`. Adding them needs admin on `trungtran17822/VietNam_history`, and Đạt currently has push only. Steps: `docs/devops/CI-CD_Vercel_VietnamHistory.md`.
 
-Until the secrets exist, deploy by hand with `npm run deploy` from a machine logged in to `vercel` and `wrangler@3`. It runs check, unit tests, D1 migrations, the Worker deploy, the smoke test, then `vercel deploy --prod`.
+Until the secrets exist, deploy by hand from a machine logged in to `vercel` and `wrangler@3`: `npm run deploy` (check, unit tests, D1 migrations, the Worker deploy, the smoke test, then `vercel deploy --prod`), or frontend only with `vercel pull --yes --environment=production`, `vercel build --prod`, `vercel deploy --prebuilt --prod` (drop `--prod` everywhere for a preview). Production only after Đạt approves the Staging preview.
 
 A deploy job without its token skips with a notice. Preview URLs sit behind Vercel Authentication; production is public.
 
