@@ -9,7 +9,7 @@ Two independent deploys, both run by `.github/workflows/ci-cd.yml` after the `te
 
 Each deploy job **skips with a notice** (not a failure) when its secrets are missing, so CI stays green before setup is done. The lesson works without the backend; only the class session (F10/F11) needs it.
 
-## Live now (main deployer: Đạt, 2026-11-04)
+## Live now (main deployer: Đạt; v2 frontend in production since 2026-11-08)
 
 | Part | Where | URL |
 |---|---|---|
@@ -21,6 +21,7 @@ Each deploy job **skips with a notice** (not a failure) when its secrets are mis
 - CI needs only two repo secrets: `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`. Adding them needs repo admin rights. Step-by-step guide in Vietnamese: [CI-CD_Vercel_VietnamHistory.md](CI-CD_Vercel_VietnamHistory.md).
 - `frontend/src/lib/class-session.ts` (`DEPLOYED_API_BASE`) points every deployed copy, Vercel previews included, at the production Worker. A build can override it with the env var `VITE_API_BASE`.
 - Manual deploy from a logged-in machine (check, unit, backend migrate + deploy, smoke, frontend): `npm run deploy`. The parts on their own: `deploy:backend`, `smoke`, `deploy:frontend`.
+- 2026-11-08, v2 release (approved by Đạt after the Staging preview): frontend only, from a tree identical to `Staging` `69e0354`, with `vercel pull --yes --environment=production`, `vercel build --prod`, `vercel deploy --prebuilt --prod` → deployment `vietnam-history-49llhqt2q`, aliased to the production URL. The backend was not redeployed (no code change since the 2026-11-04 deploy); `npm run smoke` passed against it. The previous production deployment, `vietnam-history-lv8a0w5kv-youngsterdumbs-projects.vercel.app` (v1), is the rollback target: `vercel rollback <that url>`. `main` on GitHub still holds v1 until `Staging` is merged into it.
 
 ## What CI runs (v2, `.github/workflows/ci-cd.yml`)
 
