@@ -550,7 +550,7 @@
     buildOverlays() {
       const lesson = this.options.lessonConfig || {};
       const names = lesson.simulation && lesson.simulation.factionNames || {};
-      this.factionNames = { a: nfc(names.taySon || 'Quân Tây Sơn'), b: nfc(names.qing || 'Quân Thanh') };
+      this.factionNames = { a: nfc(names.a || names.taySon || 'Phe A'), b: nfc(names.b || names.qing || 'Phe B') };
       const root = document.createElement('div'); root.className = 'diorama-overlay';
       root.innerHTML = '<div class="diorama-vignette"></div>';
       // Plaque title.

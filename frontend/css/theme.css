@@ -1079,7 +1079,7 @@ html[data-quality="low"] .screen-view.active {
   }
 }
 
-/* Royal decree card (Thư triều đình vua Quang Trung) */
+/* Character card (Khung dẫn chuyện / đặt vấn đề) */
 .royal-decree-card {
   position: relative;
   background: radial-gradient(ellipse at 20% 30%, #F8F2E2, #ECE1C8);

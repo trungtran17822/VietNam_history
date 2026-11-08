@@ -727,7 +727,6 @@
       'js/scene-controls.js',
       'js/diorama-models.js',
       'js/diorama-textures.js',
-      'data/lesson.root-copy.json',
       'assets/bronze-drum.svg',
       'assets/vietnam-flag-art.svg'
     ];
@@ -914,11 +913,11 @@
     if (!elements.fontTestRows || elements.fontTestRows.dataset.rendered === 'true') return;
     elements.fontTestRows.dataset.rendered = 'true';
     const samples = [
-      'Trận Ngọc Hồi - Hạ Hồi',
+      'Lịch sử và Địa lí 9',
       'Hồ Hầu Ế Ề Ổ Ỗ Ộ',
       'ồ ố ổ ỗ ộ ầ ấ ẩ ẫ ậ ề ế ể ễ ệ ằ ắ ẳ ẵ ặ',
       'ươ ữ ừ ử ự ứ',
-      'Nguyễn Huệ, Quang Trung, Đống Đa'
+      'Liên Xô, Cách mạng tháng Mười, Hòa bình'
     ];
     const failures = [];
     const checks = [];
@@ -2512,8 +2511,15 @@
       });
     }
 
+    const charName = (lesson.question && lesson.question.character && lesson.question.character.name) || 'Người dẫn chuyện';
+    const charTitleEl = document.getElementById('emperor-card-title');
+    if (charTitleEl) charTitleEl.textContent = charName;
     const speech = lesson.question && lesson.question.character && lesson.question.character.speech;
-    if (speech) document.getElementById('emperor-speech').textContent = `"${speech}"`;
+    if (speech) {
+      document.getElementById('emperor-speech').textContent = `"${speech}"`;
+    } else {
+      document.getElementById('emperor-speech').textContent = '"Hãy chọn các phương án dưới đây để thử nghiệm hướng tiếp cận và quan sát sự thay đổi của kết quả mô phỏng."';
+    }
     window.ClassPanel.markLessonStart();
     renderVariablesQuestionForm(lesson);
     showView('view-lesson-detail');
@@ -2681,6 +2687,11 @@
     }
 
     // Camera presets
+    const is3dScene = !activeLesson.explorationMode || activeLesson.explorationMode === 'stalingrad_3d';
+    const camControlsOriginal = document.getElementById('cam-controls-original');
+    if (camControlsOriginal) {
+      camControlsOriginal.style.display = is3dScene ? 'flex' : 'none';
+    }
     document.querySelectorAll('#cam-controls-original .btn-cam-pill').forEach((btn) => {
       btn.onclick = () => {
         document.querySelectorAll('#cam-controls-original .btn-cam-pill').forEach((b) => b.classList.remove('active'));
@@ -2735,7 +2746,7 @@
               <input type="radio" name="var-${escapeHTML(v.id)}" value="${escapeHTML(opt.id)}" ${studentTacticalChoices[v.id] === opt.id ? 'checked' : ''} class="var-choice-radio">
               <span class="variable-option-body">
                 <strong>${escapeHTML(opt.name)}</strong>
-                ${opt.isOriginal ? '<span class="original-badge">Cách của nghĩa quân Tây Sơn</span>' : ''}
+                ${opt.isOriginal ? '<span class="original-badge">Phương án lịch sử</span>' : ''}
                 ${opt.desc ? `<span class="variable-option-desc">${escapeHTML(opt.desc)}</span>` : ''}
               </span>
             </label>
@@ -2807,6 +2818,12 @@
       };
     }
 
+    const is3dSceneCustom = !activeLesson.explorationMode || activeLesson.explorationMode === 'stalingrad_3d';
+    const camControlsCustom = document.getElementById('cam-controls-custom');
+    if (camControlsCustom) {
+      camControlsCustom.style.display = is3dSceneCustom ? 'flex' : 'none';
+    }
+
     document.querySelectorAll('#cam-controls-custom .btn-cam-pill').forEach((btn) => {
       btn.onclick = () => {
         document.querySelectorAll('#cam-controls-custom .btn-cam-pill').forEach((b) => b.classList.remove('active'));
@@ -2849,22 +2866,50 @@
     // Save student run into localStorage
     window.LessonStorage.saveStudentRun(activeLesson.id, result);
 
-    document.getElementById('comp-orig-duration').textContent = `${result.original.durationHours} giờ (~1.5 ngày)`;
-    document.getElementById('comp-orig-casualties').textContent = `${result.original.casualties.toLocaleString('vi-VN')} binh sĩ`;
-    document.getElementById('comp-orig-score').textContent = `${result.original.positionScore} / 100`;
+    const metrics = (activeLesson && activeLesson.comparisonMetrics) || [
+      { id: 'duration', label: 'Thời gian', origFormatted: `${result.original.durationHours} giờ (~1.5 ngày)`, unit: ' giờ' },
+      { id: 'casualties', label: 'Tổn thất ước tính', origFormatted: `${result.original.casualties.toLocaleString('vi-VN')} binh sĩ`, unit: ' binh sĩ' },
+      { id: 'score', label: 'Điểm thế trận & Tinh thần', origFormatted: `${result.original.positionScore} / 100`, unit: ' / 100' }
+    ];
+
+    const m1 = metrics[0] || { label: 'Thời gian', unit: '' };
+    const m2 = metrics[1] || { label: 'Tổn thất ước tính', unit: '' };
+    const m3 = metrics[2] || { label: 'Điểm thế trận & Tinh thần', unit: '' };
+
+    const lOrig1 = document.getElementById('lbl-comp-metric-1-orig');
+    if (lOrig1) lOrig1.textContent = `${m1.label}:`;
+    const lOrig2 = document.getElementById('lbl-comp-metric-2-orig');
+    if (lOrig2) lOrig2.textContent = `${m2.label}:`;
+    const lOrig3 = document.getElementById('lbl-comp-metric-3-orig');
+    if (lOrig3) lOrig3.textContent = `${m3.label}:`;
+
+    const lCust1 = document.getElementById('lbl-comp-metric-1-cust');
+    if (lCust1) lCust1.textContent = `${m1.label}:`;
+    const lCust2 = document.getElementById('lbl-comp-metric-2-cust');
+    if (lCust2) lCust2.textContent = `${m2.label}:`;
+    const lCust3 = document.getElementById('lbl-comp-metric-3-cust');
+    if (lCust3) lCust3.textContent = `${m3.label}:`;
+
+    const origDurText = m1.origFormatted !== undefined ? m1.origFormatted : `${result.original.durationHours}${m1.unit || ''}`;
+    const origCasText = m2.origFormatted !== undefined ? m2.origFormatted : `${result.original.casualties.toLocaleString('vi-VN')}${m2.unit || ''}`;
+    const origScoText = m3.origFormatted !== undefined ? m3.origFormatted : `${result.original.positionScore}${m3.unit || ''}`;
+
+    document.getElementById('comp-orig-duration').textContent = origDurText;
+    document.getElementById('comp-orig-casualties').textContent = origCasText;
+    document.getElementById('comp-orig-score').textContent = origScoText;
 
     // Immediately set synchronous content so automated assertions and reads succeed
-    document.getElementById('comp-cust-duration').textContent = `${result.student.durationHours} giờ`;
-    document.getElementById('comp-cust-casualties').textContent = `${result.student.casualties.toLocaleString('vi-VN')} binh sĩ`;
-    document.getElementById('comp-cust-score').textContent = `${result.student.positionScore} / 100`;
+    document.getElementById('comp-cust-duration').textContent = `${result.student.durationHours}${m1.unit || ''}`;
+    document.getElementById('comp-cust-casualties').textContent = `${result.student.casualties.toLocaleString('vi-VN')}${m2.unit || ''}`;
+    document.getElementById('comp-cust-score').textContent = `${result.student.positionScore}${m3.unit || ''}`;
     document.getElementById('comp-cust-outcome-summary').textContent = result.student.outcomeSummary;
 
     // Progressive count-up for high/medium tiers for interactive users
     const tier = document.documentElement.getAttribute('data-quality') || 'high';
     if (tier !== 'low' && !(typeof navigator !== 'undefined' && navigator.webdriver)) {
-      animateCountUp('comp-cust-duration', result.student.durationHours, ' giờ');
-      animateCountUp('comp-cust-casualties', result.student.casualties, ' binh sĩ');
-      animateCountUp('comp-cust-score', result.student.positionScore, ' / 100');
+      animateCountUp('comp-cust-duration', result.student.durationHours, m1.unit || '');
+      animateCountUp('comp-cust-casualties', result.student.casualties, m2.unit || '');
+      animateCountUp('comp-cust-score', result.student.positionScore, m3.unit || '');
     }
 
     // Setup assumptions modal body
@@ -2894,6 +2939,12 @@
 
   function renderExplanationSummary() {
     const exp = window.SimulationEngine.generateExplanation(activeLesson, studentTacticalChoices);
+
+    const charName = (activeLesson && activeLesson.question && activeLesson.question.character && activeLesson.question.character.name) || 'Người dẫn chuyện';
+    const explanationTitleEl = document.getElementById('explanation-screen-title');
+    if (explanationTitleEl) {
+      explanationTitleEl.textContent = `Lời nhận xét từ ${charName}`;
+    }
 
     document.getElementById('explanation-intro-quote').textContent = `"${exp.intro}"`;
     document.getElementById('explanation-closing-text').textContent = exp.encouragement;

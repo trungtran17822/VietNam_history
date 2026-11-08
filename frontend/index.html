@@ -399,14 +399,14 @@
 
           <!-- Group 2: Unit counts -->
           <div class="authoring-group">
-            <h4 class="authoring-group-title">Số lượng đơn vị quân đội</h4>
+            <h4 class="authoring-group-title">Số lượng đơn vị mô phỏng</h4>
             <div style="display: flex; flex-direction: column; gap: 10px;">
               <div class="form-group">
-                <label>Bộ binh Tây Sơn: <span id="label-count-tayson">48</span> lính</label>
+                <label id="lbl-unit-a">Lực lượng Phe A: <span id="label-count-tayson">48</span> đơn vị</label>
                 <input type="range" id="range-count-tayson" min="15" max="60" value="48" class="player-slider">
               </div>
               <div class="form-group">
-                <label>Quân Thanh cố thủ: <span id="label-count-qing">54</span> lính</label>
+                <label id="lbl-unit-b">Lực lượng Phe B: <span id="label-count-qing">54</span> đơn vị</label>
                 <input type="range" id="range-count-qing" min="15" max="60" value="54" class="player-slider">
               </div>
             </div>
@@ -414,14 +414,14 @@
 
           <!-- Group 3: Faction Colors -->
           <div class="authoring-group">
-            <h4 class="authoring-group-title">Màu sắc cờ áo hai phe</h4>
+            <h4 class="authoring-group-title">Màu sắc hai phe</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
               <div class="form-group">
-                <label>Áo & Cờ Tây Sơn</label>
+                <label id="lbl-color-a">Màu sắc Phe A</label>
                 <input type="color" id="color-tayson" value="#962d22" style="width: 100%; height: 38px; border-radius: 6px; border: 1px solid var(--border-subtle); background: transparent; cursor: pointer;">
               </div>
               <div class="form-group">
-                <label>Áo & Cờ Mãn Thanh</label>
+                <label id="lbl-color-b">Màu sắc Phe B</label>
                 <input type="color" id="color-qing" value="#1e3a8a" style="width: 100%; height: 38px; border-radius: 6px; border: 1px solid var(--border-subtle); background: transparent; cursor: pointer;">
               </div>
             </div>
@@ -506,8 +506,8 @@
     </div>
 
     <div style="margin-bottom: 16px;">
-      <h1 class="serif-title" id="viewer-lesson-title" style="font-size: 1.6rem; color: var(--text-gold-bright);">Trận Ngọc Hồi - Hạ Hồi</h1>
-      <p id="viewer-lesson-subtitle" style="color: var(--text-secondary); font-size: 0.95rem;">Đại thắng mùa xuân Kỷ Dậu 1789</p>
+      <h1 class="serif-title" id="viewer-lesson-title" style="font-size: 1.6rem; color: var(--text-gold-bright);">Chi tiết bài học</h1>
+      <p id="viewer-lesson-subtitle" style="color: var(--text-secondary); font-size: 0.95rem;">Mô phỏng tư liệu lịch sử tương tác</p>
     </div>
 
     <!-- 3D Replay Player + Synced Chapters -->
@@ -603,7 +603,7 @@
           Trải nghiệm Vòng lặp Học tập 6 Giai đoạn & Thử nghiệm Chiến thuật
         </h3>
         <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-          Em có thể trực tiếp bước vào vai trò người chỉ huy: trả lời câu hỏi thử thách của vua Quang Trung, chọn các biến số chiến thuật (hướng đánh, thời điểm, loại khiên, voi chiến) và chạy sa bàn 3D mô phỏng lại phương án của chính em.
+          Em có thể trực tiếp bước vào vai trò người học tương tác: trả lời câu hỏi trọng tâm, chọn các biến số để thử cách khác và quan sát kết quả mô phỏng theo phương án của chính em.
         </p>
 
         <div id="student-previous-run-box" style="margin-bottom: 20px;">
@@ -634,8 +634,8 @@
         <span class="status-chip published">Đang trong tiến trình học tập</span>
       </div>
 
-      <h1 class="lesson-main-title lesson-title-text" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--text-gold-bright);">Trận Ngọc Hồi - Hạ Hồi</h1>
-      <h2 class="lesson-sub-title lesson-subtitle-text" style="font-size: 1rem; color: var(--text-secondary); font-weight: normal; margin-bottom: 16px;">Đại thắng mùa xuân Kỷ Dậu 1789</h2>
+      <h1 class="lesson-main-title lesson-title-text" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--text-gold-bright);">Bài giảng Lịch sử</h1>
+      <h2 class="lesson-sub-title lesson-subtitle-text" style="font-size: 1rem; color: var(--text-secondary); font-weight: normal; margin-bottom: 16px;">Kế hoạch bài dạy tương tác</h2>
 
       <!-- Stepper of 6 Stages with continuous progress track -->
       <nav class="lesson-stepper" aria-label="Tiến trình 6 bước của bài học">
@@ -646,11 +646,11 @@
         </button>
         <button class="step-node" data-step="2" data-screen="screen-sim-original">
           <span class="step-num">2</span>
-          <span class="step-name">Khám phá 3D gốc</span>
+          <span class="step-name">Khám phá</span>
         </button>
         <button class="step-node" data-step="3" data-screen="screen-question">
           <span class="step-num">3</span>
-          <span class="step-name">Câu hỏi của vua</span>
+          <span class="step-name">Câu hỏi trọng tâm</span>
         </button>
         <button class="step-node" data-step="4" data-screen="screen-sim-custom">
           <span class="step-num">4</span>
@@ -673,23 +673,23 @@
     <section id="screen-intro" class="screen-view active">
       <div class="viet-border-card" style="padding: 32px; border-radius: 12px; text-align: center; max-width: 860px; margin: 0 auto;">
         <div class="bronze-drum-motif" style="width: 56px; height: 56px; margin: 0 auto 16px;"></div>
-        <h2 class="serif-title" style="font-size: 1.8rem; color: var(--text-gold-bright); margin-bottom: 12px;">Đại Thắng Mùa Xuân Kỷ Dậu 1789</h2>
+        <h2 class="serif-title lesson-title-text" style="font-size: 1.8rem; color: var(--text-gold-bright); margin-bottom: 12px;">Bài giảng Lịch sử</h2>
         <div id="intro-narration" class="intro-narration intro-summary-text" style="font-size: 1.05rem; line-height: 1.8; color: var(--text-ivory); margin-bottom: 24px; text-align: justify;">
-          Mùa xuân Kỷ Dậu 1789, Hoàng đế Quang Trung chỉ huy đại quân Tây Sơn tiến hành cuộc hành quân thần tốc hơn 500 dặm ra Bắc Hà. Bằng cách kết hợp chiến thuật đa mũi giáp công, đội hình tượng binh dũng mãnh và sáng kiến ghép ván bọc rơm ướt phá tan hỏa công đồn lũy, quân ta đã quét sạch 29 vạn quân Mãn Thanh giải phóng Thăng Long trong niềm hoan ca của dân tộc.
+          <!-- Populated by JS -->
         </div>
         <button id="btn-start-6stages" class="btn-action-primary" style="margin: 0 auto; font-size: 1.1rem; padding: 12px 28px;">
-          Bắt đầu: Xem sa bàn 3D diễn biến gốc ➔
+          Bắt đầu: Khám phá tư liệu tương tác ➔
         </button>
       </div>
     </section>
 
-    <!-- SCREEN 2: Khám phá 3D gốc -->
+    <!-- SCREEN 2: Khám phá gốc -->
     <section id="screen-sim-original" class="screen-view" style="display: none;">
       <div class="viewer-grid">
         <div class="cinematic-player-box" style="min-height: 520px;">
           <div id="viewport-original-canvas" class="player-canvas-mount"></div>
           <div class="player-hud-overlay">
-            <div class="hud-pill">Sa bàn 3D gốc mùa xuân 1789</div>
+            <div class="hud-pill" id="hud-pill-title">Khám phá tư liệu tương tác</div>
             <div class="hud-camera-controls" id="cam-controls-original">
               <button class="btn-cam-pill active" data-preset="overview">Toàn cảnh sa bàn</button>
               <button class="btn-cam-pill" data-preset="follow_troops">Theo quân</button>
@@ -733,9 +733,9 @@
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#B08D4A" stroke-width="1.8"><polygon points="12 2 15 8.5 22 9.5 17 14.5 18.5 21.5 12 18 5.5 21.5 7 14.5 2 9.5 9 8.5 12 2"/></svg>
             </div>
             <div>
-              <h3 class="serif-title emperor-name">Hoàng đế Quang Trung</h3>
+              <h3 class="serif-title emperor-name" id="emperor-card-title">Người dẫn chuyện</h3>
               <p id="emperor-speech" class="emperor-speech">
-                "Năm xưa, Trẫm cùng ba quân đã chọn lối đánh thần tốc mờ sáng mùng 5 Tết, sáng tạo khiên rơm ướt phá tan hỏa khí và dùng 100 voi chiến mở toang cánh cửa Thăng Long. Nếu là các con đứng trước bờ cõi năm ấy, các con sẽ làm khác Trẫm ở điểm nào?"
+                "Hãy chọn các phương án dưới đây để thử nghiệm hướng tiếp cận và quan sát sự thay đổi của kết quả mô phỏng."
               </p>
             </div>
           </div>
@@ -822,19 +822,19 @@
         <!-- Comparison Cards -->
         <div class="comparison-cards-grid">
           <div class="approach-column-card original">
-            <h3 class="serif-title" style="color: var(--text-gold-bright); margin-bottom: 12px;">Cách gốc của Vua Quang Trung (1789)</h3>
+            <h3 class="serif-title" style="color: var(--text-gold-bright); margin-bottom: 12px;">Phương án lịch sử gốc</h3>
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Thời gian chiến dịch:</span>
+                <span id="lbl-comp-metric-1-orig" style="font-size: 0.85rem; color: var(--text-muted);">Thời gian:</span>
                 <div id="comp-orig-duration" style="font-size: 1.25rem; font-weight: 700; color: var(--text-gold-bright);">36 giờ (~1.5 ngày)</div>
               </div>
               <div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Tổn thất ước tính:</span>
+                <span id="lbl-comp-metric-2-orig" style="font-size: 0.85rem; color: var(--text-muted);">Tổn thất ước tính:</span>
                 <div id="comp-orig-casualties" style="font-size: 1.25rem; font-weight: 700; color: #2f6b47;">1,800 binh sĩ</div>
               </div>
               <div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Điểm thế trận &amp; Tinh thần:</span>
-                <div id="comp-orig-score" style="font-size: 1.25rem; font-weight: 700; color: var(--gold-bright);">95 / 100 (Đỉnh cao)</div>
+                <span id="lbl-comp-metric-3-orig" style="font-size: 0.85rem; color: var(--text-muted);">Điểm thế trận &amp; Tinh thần:</span>
+                <div id="comp-orig-score" style="font-size: 1.25rem; font-weight: 700; color: var(--gold-bright);">95 / 100</div>
               </div>
             </div>
           </div>
@@ -843,15 +843,15 @@
             <h3 class="serif-title" style="color: var(--muted-indigo); margin-bottom: 12px;">Cách giả định của em</h3>
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Thời gian chiến dịch:</span>
+                <span id="lbl-comp-metric-1-cust" style="font-size: 0.85rem; color: var(--text-muted);">Thời gian:</span>
                 <div id="comp-cust-duration" style="font-size: 1.25rem; font-weight: 700; color: var(--text-ivory);">-- giờ</div>
               </div>
               <div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Tổn thất ước tính:</span>
+                <span id="lbl-comp-metric-2-cust" style="font-size: 0.85rem; color: var(--text-muted);">Tổn thất ước tính:</span>
                 <div id="comp-cust-casualties" style="font-size: 1.25rem; font-weight: 700; color: #9d3026;">-- binh sĩ</div>
               </div>
               <div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Điểm thế trận &amp; Tinh thần:</span>
+                <span id="lbl-comp-metric-3-cust" style="font-size: 0.85rem; color: var(--text-muted);">Điểm thế trận &amp; Tinh thần:</span>
                 <div id="comp-cust-score" style="font-size: 1.25rem; font-weight: 700; color: var(--muted-indigo);">-- / 100</div>
               </div>
               <div id="comp-cust-outcome-summary" style="font-size: 0.95rem; color: var(--muted-indigo); margin-top: 8px; line-height: 1.5;">
@@ -867,7 +867,7 @@
             <span>Xem giả định &amp; Công thức toán học</span>
           </button>
           <button id="btn-goto-explanation" class="btn-action-primary">
-            Nghe vua Quang Trung nhận xét &amp; củng cố ➔
+            Xem nhận xét &amp; củng cố ➔
           </button>
         </div>
       </div>
@@ -876,7 +876,7 @@
     <!-- SCREEN 6: Giải thích & Củng cố -->
     <section id="screen-explanation" class="screen-view" style="display: none;">
       <div class="viet-border-card" style="padding: 32px; border-radius: 12px; max-width: 880px; margin: 0 auto;">
-        <h2 class="serif-title" style="font-size: 1.6rem; color: var(--text-gold-bright); margin-bottom: 12px;">Lời Bình Luận Của Hoàng Đế Quang Trung</h2>
+        <h2 class="serif-title" id="explanation-screen-title" style="font-size: 1.6rem; color: var(--text-gold-bright); margin-bottom: 12px;">Lời Nhận Xét &amp; Củng Cố</h2>
         <div id="explanation-intro-quote" style="font-style: italic; font-size: 1.05rem; color: var(--text-ivory); margin-bottom: 20px; line-height: 1.7;">
           <!-- Intro -->
         </div>
@@ -1021,7 +1021,7 @@
         </div>
         <div id="source-intake-status" class="source-intake-status" aria-live="polite">Thêm đường dẫn nguồn để kiểm tra mức độ nhận diện.</div>
         <form id="form-content-intake" class="content-intake-form">
-          <div class="form-group"><label for="intake-lesson-title">Tên bài học</label><input id="intake-lesson-title" class="form-input" required maxlength="140" placeholder="Ví dụ: Chiến thắng Ngọc Hồi – Đống Đa"></div>
+          <div class="form-group"><label for="intake-lesson-title">Tên bài học</label><input id="intake-lesson-title" class="form-input" required maxlength="140" placeholder="Ví dụ: Chiến tranh thế giới thứ hai (1939 – 1945)"></div>
           <div class="form-group"><label for="intake-lesson-content">Nội dung cần biên tập</label><textarea id="intake-lesson-content" class="form-input" required maxlength="12000" placeholder="Dán ghi chú, đoạn tư liệu hoặc nội dung muốn phát triển thành bài học..."></textarea></div>
           <div class="content-source-fields">
             <div class="form-group"><label for="intake-source-title">Tên tài liệu / nguồn</label><input id="intake-source-title" class="form-input" required maxlength="180" placeholder="Tên sách, văn bản, hiện vật..."></div>

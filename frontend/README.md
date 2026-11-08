@@ -1,10 +1,10 @@
-# Mô Phỏng Lịch Sử 3D Tương Tác: Trận Ngọc Hồi - Hạ Hồi (Mùa Xuân 1789)
+# Mô Phỏng Lịch Sử Tương Tác: Nền Tảng Học Tập Trực Quan
 ## Phiên Bản Lớp Học & Kế Hoạch Bài Dạy (Classroom Lesson Planner)
 
-Ứng dụng web tương tác một trang (Single-Page Application) mô phỏng 3D bài học lịch sử Việt Nam dành cho học sinh và giáo viên THCS / THPT, được thiết kế theo phong cách sổ bài giảng trường học thực tế (**School Lesson Planner**), tối ưu cho máy chiếu lớp học, máy tính để bàn và điện thoại di động.
+Ứng dụng web tương tác một trang (Single-Page Application) mô phỏng bài học lịch sử dành cho học sinh và giáo viên, được thiết kế theo phong cách sổ bài giảng trường học thực tế (**School Lesson Planner**), tối ưu cho máy chiếu lớp học, máy tính để bàn và điện thoại di động.
 
-Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc Hồi - Hạ Hồi (Đại thắng Kỷ Dậu 1789)** do Hoàng đế Quang Trung chỉ huy, kết hợp vòng lặp học tập sư phạm:
-> **Lịch bài giảng** ➔ **Tiến trình 6 giai đoạn lên lớp** ➔ **Sa bàn 3D lịch sử 1789** ➔ **Nhân vật lịch sử đặt câu hỏi** ➔ **Học sinh thử phương án khác** ➔ **Mô phỏng 3D lại phương án mới** ➔ **So sánh số liệu minh bạch** ➔ **Tổng kết & củng cố**.
+Nguyên mẫu kết hợp vòng lặp học tập sư phạm:
+> **Lịch bài giảng** ➔ **Tiến trình 6 giai đoạn lên lớp** ➔ **Khám phá tư liệu tương tác** ➔ **Câu hỏi trọng tâm** ➔ **Học sinh thử phương án khác** ➔ **Mô phỏng lại phương án mới** ➔ **So sánh số liệu minh bạch** ➔ **Củng cố & Tổng kết**.
 
 ---
 
@@ -13,12 +13,11 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
 ### A. Giao diện Kế hoạch Bài dạy Chuẩn Sư Phạm (Classroom-Style Lesson UI)
 1. **Màn hình chính "Lịch bài giảng" (Schedule View)**:
    - Danh sách bài giảng phân bố theo ngày trong tuần (Thứ Hai, Thứ Tư, Thứ Sáu, Tuần sau...).
-   - Hiển thị đầy đủ thông tin: Đề bài, Môn học & Khối lớp (Lịch sử 11), Giáo viên phụ trách, Tiết học / Thời lượng (45 phút), Mục tiêu bài dạy, và Trạng thái (*Nháp / Đã lên lịch / Đã dạy*).
-   - Bài học thí điểm **"Trận Ngọc Hồi - Hạ Hồi"** là bài duy nhất có đủ biến số mô phỏng; ba bài mẫu còn lại (Rạch Gầm, Chi Lăng, kháng chiến Mông - Nguyên) chỉ có dữ liệu cơ bản. Học sinh chỉ thấy bài có trạng thái *Đã dạy* và ngày dạy không muộn hơn hôm nay.
+   - Hiển thị đầy đủ thông tin: Đề bài, Môn học & Khối lớp, Giáo viên phụ trách, Tiết học / Thời lượng (45 phút), Mục tiêu bài dạy, và Trạng thái (*Nháp / Đã lên lịch / Đã dạy*).
 2. **Trang chi tiết bài học (Lesson Detail Page)**:
    - Header hiển thị bài học, giáo viên, ngày dạy, khối lớp, mục tiêu và khung **"Đề bài / Câu hỏi trọng tâm"**.
    - Thanh tiến trình sư phạm (**Classroom Stepper**) 6 giai đoạn có ước lượng thời gian tương ứng với 6 màn hình:
-     *Khởi động (5') ➔ Khám phá 3D gốc (10') ➔ Câu hỏi của vua (8') ➔ Thử cách khác (7') ➔ So sánh (8') ➔ Giải thích & Củng cố (7')*.
+     *Khởi động (5') ➔ Khám phá tư liệu (10') ➔ Câu hỏi trọng tâm (8') ➔ Thử cách khác (7') ➔ So sánh (8') ➔ Củng cố & Tổng kết (7')*.
 3. **Chế độ xem Giáo viên & Học sinh (Teacher / Student View Toggle)**:
    - **Chế độ Giáo viên**:
      - Hiển thị bảng **Sổ tay Sư phạm (Teaching Notes)** theo từng giai đoạn: Gợi ý lời giảng, câu hỏi gợi mở thảo luận nhóm, mục tiêu sư phạm.
@@ -44,11 +43,11 @@ Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc H
 ## 🧭 Luồng 6 màn hình (6-Stage Stepper Flow)
 
 1. **Giai đoạn 1 - Khởi động (Intro Screen)**: Giới thiệu bối cảnh, mục tiêu học tập và nút "Bắt đầu bài học".
-2. **Giai đoạn 2 - Khám phá (3D gốc)**: Sa bàn 3D diễn biến gốc mùa xuân 1789, thanh trượt dòng thời gian, nút phát/dừng/tua và tra cứu sử liệu.
-3. **Giai đoạn 3 - Câu hỏi của vua (Question Screen)**: Vua Quang Trung đặt thử thách; học sinh chọn 4 biến số (Hướng tiến quân, Thời điểm, Loại khiên, Đội hình voi). Phương án gốc được đánh dấu "Cách của nghĩa quân Tây Sơn". Bảng bên cạnh: giáo viên mở phiên lớp và xem tỉ lệ lựa chọn; học sinh nhập mã để gửi lựa chọn (không bắt buộc).
-4. **Giai đoạn 4 - Thử cách khác (New Scenario Simulation)**: Chạy sa bàn 3D mô phỏng lại theo đúng chiến thuật học sinh đã lựa chọn.
+2. **Giai đoạn 2 - Khám phá tư liệu (Exploration Screen)**: Trực quan hóa diễn biến hoặc biểu đồ tư liệu, thanh trượt dòng thời gian, nút phát/dừng/tua và tra cứu sử liệu.
+3. **Giai đoạn 3 - Câu hỏi trọng tâm (Question Screen)**: Người dẫn chuyện đặt vấn đề; học sinh chọn các biến số chiến thuật/quyết định lịch sử. Phương án gốc được đánh dấu "Phương án lịch sử". Bảng bên cạnh: giáo viên mở phiên lớp và xem tỉ lệ lựa chọn...
+4. **Giai đoạn 4 - Thử cách khác (New Scenario Simulation)**: Chạy mô phỏng lại theo đúng chiến thuật/phương án học sinh đã lựa chọn.
 5. **Giai đoạn 5 - So sánh (Comparison Screen)**: Đối chiếu định lượng giữa phương án gốc và giả định của học sinh; bảng ghi chú cảnh báo giả lập và danh sách công thức/giả định toán học.
-6. **Giai đoạn 6 - Giải thích & Củng cố (Explanation Screen)**: Vua Quang Trung bình luận, phân tích bối cảnh, tôn vinh tinh thần phản biện và giao nhiệm vụ tổng kết bài dạy.
+6. **Giai đoạn 6 - Củng cố & Tổng kết (Explanation Screen)**: Người dẫn chuyện bình luận, phân tích bối cảnh, tôn vinh tinh thần phản biện và giao nhiệm vụ tổng kết bài dạy.
 
 ---
 

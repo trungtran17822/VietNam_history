@@ -82,27 +82,29 @@
 
       // Compute final bounded figures
       const originalDuration = baseline.durationHours;
-      const originalCasualties = baseline.casualties;
-      const originalScore = baseline.positionScore;
+      const originalCasualties = baseline.casualties || 0;
+      const originalScore = baseline.positionScore || 80;
 
-      const studentDuration = Math.max(12, originalDuration + timeDelta);
-      const studentCasualties = Math.max(500, originalCasualties + casualtyDelta);
+      const studentDuration = Math.max(0, originalDuration + timeDelta);
+      const studentCasualties = Math.max(0, originalCasualties + casualtyDelta);
       const studentScore = Math.max(10, Math.min(100, originalScore + scoreDelta));
 
       let outcomeSummary = '';
       let outcomeTone = 'encouraging';
 
       if (isIdenticalToOriginal) {
-        outcomeSummary = 'Tái hiện chuẩn xác 100% chiến lược thần tốc của vua Quang Trung mùa xuân 1789.';
+        outcomeSummary = baseline.ratingText
+          ? `Tái hiện phương án lịch sử: ${baseline.ratingText}.`
+          : 'Tái hiện chuẩn xác phương án lịch sử gốc.';
         outcomeTone = 'perfect';
       } else if (studentScore >= 75) {
-        outcomeSummary = 'Kế sách quyết liệt, giành thắng lợi chiến dịch nhưng trả giá thêm về thời gian và quân số.';
+        outcomeSummary = 'Phương án đạt hiệu quả cao, đạt các mục tiêu trọng tâm nhưng có sự thay đổi về chỉ số so với lịch sử.';
         outcomeTone = 'positive';
       } else if (studentScore >= 55) {
-        outcomeSummary = 'Chiến trận giằng co; đồn lũy bị triệt hạ nhưng quân Thanh có cơ hội phản kích cầm cự.';
+        outcomeSummary = 'Phương án có điểm khả thi nhưng còn hạn chế, các chỉ số có sự chênh lệch đáng kể so với phương án gốc.';
         outcomeTone = 'moderate';
       } else {
-        outcomeSummary = 'Thế trận mất đi yếu tố thần tốc bất ngờ; nguy cơ bị quân Thanh ở Thăng Long phản công gọng kìm.';
+        outcomeSummary = 'Phương án đối mặt nhiều khó khăn; các chỉ số biến động bất lợi so với phương án lịch sử gốc.';
         outcomeTone = 'challenging';
       }
 
@@ -152,11 +154,11 @@
       });
 
       return {
-        intro: explanations.intro || 'Chào các sĩ tử tương lai! Rất đáng khen cho tinh thần tìm tòi sáng tạo của các con.',
+        intro: explanations.intro || 'Rất đáng khen cho tinh thần tìm tòi, tư duy phản biện và sáng tạo của các em.',
         variablePoints,
         encouragement:
           explanations.encouragingConclusion ||
-          'Hãy tiếp tục khám phá và suy ngẫm về những bài học quý giá từ nghệ thuật quân sự của cha ông!'
+          'Hãy tiếp tục khám phá và suy ngẫm về những bài học lịch sử quý giá qua từng thời kỳ phát triển!'
       };
     }
   };

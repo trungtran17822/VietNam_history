@@ -1,6 +1,6 @@
 # Sử Việt: Mô phỏng Lịch sử 3D
 
-Ứng dụng lớp học mô phỏng lịch sử Việt Nam trên sa bàn 3D tương tác. Bài thí điểm: Trận Ngọc Hồi - Hạ Hồi (1789). Nội dung minh họa, chưa được chuyên gia duyệt.
+Ứng dụng lớp học mô phỏng lịch sử và địa lí trên nền tảng tương tác. Nội dung minh họa, chưa được chuyên gia duyệt.
 
 | Thư mục | Nội dung |
 | --- | --- |
