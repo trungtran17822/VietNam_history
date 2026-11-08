@@ -421,21 +421,25 @@ html[data-quality="low"] .view-fallback-enter {
    INTRO SCREEN ("Một hành trình lịch sử bắt đầu")
    ========================================================================== */
 .cinematic-transition {
-  background: radial-gradient(ellipse at center, rgba(30, 20, 14, 0.98), #090807 72%);
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(22, 14, 9, 0.98), #070605 75%);
   transition: opacity var(--dur-base) var(--ease), visibility var(--dur-base) var(--ease);
 }
-
-/* High tier: Nền chuyển sáng dần ấm áp */
-html[data-quality="high"] .cinematic-transition.active {
-  animation: svIntroBgGlow 2.2s var(--ease) forwards;
+.cinematic-transition::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(88, 48, 25, 0.98), #120e0a 75%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 2.2s var(--ease);
 }
-@keyframes svIntroBgGlow {
-  0% {
-    background: radial-gradient(ellipse at center, rgba(22, 14, 9, 0.98), #070605 75%);
-  }
-  100% {
-    background: radial-gradient(ellipse at center, rgba(88, 48, 25, 0.98), #120e0a 75%);
-  }
+
+/* High tier: Nền chuyển sáng dần ấm áp bằng opacity composited */
+html[data-quality="high"] .cinematic-transition.active::before {
+  opacity: 1;
 }
 
 /* Tiêu đề Intro */
@@ -1110,7 +1114,7 @@ header,
   display: none !important;
 }
 
-/* Simple Skeleton loader */
+/* Simple Skeleton loader: CHỈ chạy animation ở HIGH */
 .skeleton-box {
   position: relative;
   overflow: hidden;
@@ -1118,6 +1122,10 @@ header,
   border-radius: 6px;
 }
 .skeleton-box::after {
+  display: none;
+}
+html[data-quality="high"] .skeleton-box::after {
+  display: block;
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
@@ -1130,8 +1138,86 @@ header,
     transform: translateX(100%);
   }
 }
-html[data-quality="low"] .skeleton-box::after {
-  animation: none !important;
-  display: none !important;
+
+/* ==========================================================================
+   LƯỢT 4: BACKDROP-FILTER, BLUR & BLEND MODE OPTIMIZATIONS
+   ========================================================================== */
+/* Gỡ bỏ backdrop-filter trên các vùng diện tích rộng để giải phóng GPU fillrate */
+.app-header,
+.modal-overlay,
+.global-notice-strip,
+.lesson-player-controls,
+.player-controls-bottom,
+.hero-featured-inline {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
+
+/* Fallback màu nền bán trong suốt / mờ tối ưu khi không dùng backdrop-filter */
+.app-header {
+  background: rgba(20, 18, 15, 0.98) !important;
+}
+.modal-overlay {
+  background: rgba(8, 7, 6, 0.82) !important;
+}
+.global-notice-strip {
+  background: rgba(24, 20, 16, 0.98) !important;
+}
+.hero-featured-inline {
+  background: rgba(43, 31, 23, 0.94) !important;
+}
+.player-controls-bottom,
+.lesson-player-controls {
+  background: rgba(18, 15, 12, 0.96) !important;
+}
+
+/* Tier: LOW gỡ bỏ HOÀN TOÀN backdrop-filter, filter blur và mix-blend-mode */
+html[data-quality="low"] * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  mix-blend-mode: normal !important;
+}
+html[data-quality="low"] .intro-drum-wrap,
+html[data-quality="low"] .login-art-drum img,
+html[data-quality="low"] .login-art-flag img,
+html[data-quality="low"] .poster-seal-icon,
+html[data-quality="low"] .watermark-flag {
+  filter: none !important;
+}
+
+/* ==========================================================================
+   LƯỢT 4: RENDERING OPTIMIZATION (CONTENT-VISIBILITY & CONTAINMENT)
+   ========================================================================== */
+/* Vùng danh sách dài: defer render off-screen items */
+#teacher-lessons-grid,
+#student-posters-grid,
+#student-completed-grid,
+.lesson-chapter-list,
+.lesson-chapters-panel,
+.viewer-grid,
+.workspace-timeline {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+/* Thẻ độc lập: cô lập layout và paint để không trigger reflow toàn trang */
+.lesson-manage-card,
+.poster-card,
+.variable-card,
+.viet-border-card,
+.featured-lesson-card,
+.royal-decree-card {
+  contain: layout paint;
+}
+
+/* ==========================================================================
+   LƯỢT 4: INFINITE ANIMATIONS OFF-SCREEN & TAB HIDDEN CONTROL
+   ========================================================================== */
+.animation-paused,
+html.tab-hidden .title-shimmer,
+html.tab-hidden .drum-spin-slow,
+html.tab-hidden .skeleton-box::after {
+  animation-play-state: paused !important;
+}
+
 

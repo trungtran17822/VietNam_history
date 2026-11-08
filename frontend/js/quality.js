@@ -312,6 +312,40 @@
         });
       }
     }
+
+    // Pause infinite animations when tab is hidden to save battery / CPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        document.documentElement.classList.add('tab-hidden');
+      } else {
+        document.documentElement.classList.remove('tab-hidden');
+      }
+    });
+
+    // Pause infinite animations when elements scroll out of viewport
+    if (typeof IntersectionObserver === 'function') {
+      const infiniteObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('animation-paused');
+          } else {
+            entry.target.classList.add('animation-paused');
+          }
+        });
+      }, { threshold: 0.05 });
+
+      const observeInfinite = () => {
+        document.querySelectorAll('.drum-spin-slow, .title-shimmer, .skeleton-box').forEach((el) => {
+          infiniteObserver.observe(el);
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', observeInfinite);
+      } else {
+        observeInfinite();
+      }
+    }
   }
 
   init();
