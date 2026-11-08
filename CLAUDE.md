@@ -8,64 +8,69 @@ Vietnamese-language classroom app that simulates a history lesson (Trận Ngọc
 
 ## Repository layout
 
-- `frontend/` - the static web app, deployed to Vercel: `index.html`, `js/`, `css/`, `fonts/`, `assets/`, `vendor/` (three.js, OrbitControls), `data/`.
+- `frontend/` - the web app (Vite + React 19 + TypeScript), built to `frontend/dist/` and deployed to Vercel: `index.html` (Vite entry), `src/`, `public/` (fonts, logo, static art copied as-is), `data/` (`sources.json`), `vite.config.ts`, `tsconfig.json`.
 - `backend/` - class session API: Cloudflare Worker + D1 (`src/`, `migrations/`, `wrangler.toml`), a Node dev server, and its unit tests. See `backend/README.md`.
-- `specs/001-classroom-sim-demo/` - Spec Kit feature spec: `spec.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/api.md`, `tasks.md`, `reviews.md`. `.specify/` holds Spec Kit templates and the constitution (`.specify/memory/constitution.md`).
+- `specs/001-classroom-sim-demo/` - Spec Kit feature spec (v1): `spec.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/api.md`, `tasks.md`, `reviews.md`. `specs/002-v2-tanstack-atlas/` - the v2 plan (`plan.md`, lesson contract in §4.1) and per-session notes in `notes/`. `.specify/` holds Spec Kit templates and the constitution.
 - `docs/` - `prd/` (PRD and 12-week plan, .docx), `spec/` (`SPEC.md` / `SPEC.vi.md`: requirements, status, as-built contract), `srs/SRS.md` (Vietnamese SRS), `architecture/SYSTEM_DESIGN.md`, `design/UI_REVIEW.md`, `devops/DEPLOY.md` (Vercel + Cloudflare runbook), `research/`, `brand/` (original logo files), `sources/` (textbook PDF).
-- `tests/` - `unit/` (frontend modules in a `vm` sandbox) and `e2e/` (Playwright). Backend unit tests live in `backend/test/`.
-- `.claude/` - `settings.json`, `rules/` (content labeling, scene rendering, JS modules), `commands/` (`/serve`, `/check`), `skills/` (devops, `speckit-*`).
-- `scripts/check.sh` - static checks, run by `/check` and by CI.
-- `.github/workflows/ci-cd.yml` + `vercel.json` - CI on every push (check, unit, E2E), then from `Staging` (preview/staging) and `main` (production): frontend → Vercel, backend → Cloudflare. Branches: `<name>/feature/<topic>` → `Staging` → `main`.
+- `PRODUCT.md` (who it is for, principles) and `DESIGN.md` (design tokens and rules, "The Lacquered Lesson Plan") at the root.
+- `tests/e2e/` - Playwright (`atlas.spec.js` covers the atlas). Frontend unit tests live next to the code (`frontend/src/lib/*.test.ts`, Vitest); atlas data tests in `tests/atlas/` (`node:test`); backend unit tests in `backend/test/`.
+- `.claude/` - `settings.json`, `launch.json` (preview servers), `rules/` (content labeling, scene rendering, frontend modules), `commands/` (`/serve`, `/check`), `skills/` (devops, `speckit-*`).
+- `scripts/check.sh` - static checks, run by `/check` and by CI. `scripts/bundle-budget.mjs` - bundle budget after the build. `scripts/atlas/` - atlas data build and render harness.
+- `.github/workflows/ci-cd.yml` + `vercel.json` - CI on every push, Node 24 (check, unit, atlas tests, build, bundle budget, E2E), then from `Staging` (preview/staging) and `main` (production): frontend → Vercel, backend → Cloudflare. Branches: `<name>/feature/<topic>` → `Staging` → `main`.
 
 ## Running
 
-The frontend has no build step: plain HTML/CSS/JS with three.js and `OrbitControls.js` vendored in `frontend/vendor/`. The backend has no runtime dependencies. The root `package.json` only holds dev tooling (Playwright).
+Node >= 20.19 (Vite 8); CI tests on Node 24. On Đạt's machine the default `node` is v18, which breaks Vite and Vitest, so first run `export PATH=$HOME/.nvm/versions/node/v24.22.0/bin:$PATH`. One root `package.json` holds every dependency; run `npm ci` once.
 
 ```bash
-npm run dev:frontend   # python3 -m http.server 8080 --directory frontend → http://localhost:8080
+npm run dev:frontend   # Vite dev server → http://localhost:8080
 npm run dev:backend    # node backend/dev-server.js 8787 (in-memory store; optional)
+npm run build          # → frontend/dist (what Vercel serves); npm run preview serves it on :8080
+npm run budget         # after build: initial JS ≤ 200 KB gzip, three.js and the atlas only in lazy chunks
 ```
 
-On `localhost` the frontend calls the API at `http://localhost:8787` (`frontend/js/config.js`); deployed, it uses `DEPLOYED_API_BASE` in the same file (empty = class features off).
+On `localhost` the frontend calls the API at `http://localhost:8787`; deployed, it uses `DEPLOYED_API_BASE` in `frontend/src/lib/class-session.ts` (`VITE_API_BASE` overrides both; an empty value turns class features off).
 
 Verify changes:
 
 ```bash
-npm run check       # scripts/check.sh: node --check on frontend + backend JS, JSON validity, index.html refs, every js/*.js loaded
-npm run test:unit   # node:test: engine determinism (81 combos), grading-word scan, visibility rule, backend API
-npm run test:e2e    # Playwright, desktop 1280×720 + phone 360×800; starts both servers itself (reuses running ones locally)
-npm test            # all three
+npm run check       # scripts/check.sh: tsc (strict), zod check of every lesson JSON, mandatory labels, NFC, backend syntax
+npm run test:unit   # Vitest (engine: 81 combos, grading words, visibility, lesson contract, storage migration) + backend node:test
+npm run atlas:test  # node:test on the atlas data: 34 units, archipelagos, landmarks in their provinces, search, lesson ↔ place ids
+npm run test:e2e    # Playwright, desktop 1280×720 + phone 360×800; builds + previews the app and starts the API itself (reuses running servers locally)
+npm test            # check + unit + atlas + E2E
 npm run deploy      # manual production deploy (needs vercel + wrangler@3 logins); npm run smoke = API smoke test only
 ```
 
 First E2E run: `npm ci && npx playwright install chromium`. The E2E class-session test is slow (three browsers rendering WebGL in software).
 
-Opening `index.html` via `file://` mostly works but a local server is recommended. `#/fonttest` is a built-in route for checking Vietnamese glyph rendering.
+`#/fonttest` is a built-in route for checking Vietnamese glyph rendering. `#/atlas?place=<id>&kind=<kinds>&q=<text>` is the 3D atlas of Viet Nam (34 province-level units from 2025-07-01, Hoàng Sa and Trường Sa, 71 landmarks), linked both ways with lessons.
 
-Demo login (hard-coded in `js/auth.js`): username `admin`, password `123`, for both the teacher and student roles.
+Atlas data is generated, not hand-edited (except `landmarks.json` summaries): `npm run atlas:build` rebuilds `provinces.topo.json`, `public/atlas/terrain.png` and landmark coordinates from OpenStreetMap, Natural Earth, Wikidata and AWS Terrain Tiles (raw downloads go to the git-ignored `scripts/atlas/.raw/`); `npm run atlas:harness` / `atlas:shoot` run the standalone render harness. Sources and licences: `frontend/src/content/atlas/SOURCES.md`. The borders are an ODbL derivative of OpenStreetMap, so the atlas must keep showing "© OpenStreetMap contributors" (`scripts/check.sh` checks it).
+
+Demo login (hard-coded in `src/lib/auth.ts`): username `admin`, password `123`, for both the teacher and student roles.
 
 ## Architecture
 
-Paths in this section are relative to `frontend/`. Scripts are loaded as classic `<script>` tags in `index.html` (order matters) and communicate through `window` globals, not ES modules: vendored `three.min.js` → `text.js` → vendored `OrbitControls.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `config.js` → `class-session.js` → `class-panel.js` → `app.js`.
+Paths in this section are relative to `frontend/src/`.
 
-- `js/app.js` (~2500 lines) is the controller: DOM caching (`elements`), a hash router (`handleRoute`, routes like `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` for the 6-stage loop, both roles), the teacher dashboard and lesson editor (with undo/redo), the student dashboard and viewer, and the 6-stage classroom loop (`launch6StagesLoop` / `goTo6StageScreen`). All views live in the one large `index.html` and are toggled by `showView`.
-- `js/lesson-data.js` defines `SEED_LESSONS`, the full lesson schema: sections, questions, key notes, private teacher notes, simulation variables and coefficients, props, camera keyframes, and status.
-- `js/storage.js` (`window.LessonStorage`) persists lessons in `localStorage` (seeded from `SEED_LESSONS` when empty) and supports JSON import/export. It enforces the visibility rule that students only see lessons with `status === 'Đã dạy'` and `date <= today`.
-- `js/engine.js` (`window.SimulationEngine.calculate`) is a deterministic, rule-based calculator. It adds the coefficient deltas declared in the lesson's `question.variables` to the `baseline` (duration, casualties, position score), so the same choices always give the same result. Keep it transparent and data-driven: tweak coefficients in lesson data, not in engine code.
-- `js/scene-map.js` is the active renderer. It defines the Three.js silk-map scene (class `SilkMapScene`) and exposes it as `window.BattleScene3D`. It reads its palette from CSS variables in `css/theme.css`, uses canvas-drawn sprites with `InstancedMesh`, offers four camera presets, and lets PNGs in `assets/sprites/` override the procedural sprites (see `assets/sprites/README.md`). Terrain labels are HTML overlays, never text in canvas or geometry. `app.js` creates one instance per surface (editor preview, lesson workspace, student viewer, and the original/custom stages of the 6-stage loop) and drives it through `updateTimeline`, `setCameraPreset`, `updatePropsVisibility`/`applyPropConfig`, `updateFactionColors`, `updateUnitCounts`, `setQuality`, and `destroy`. Call `destroy()` when a view is torn down so renderers don't pile up.
-- `js/text.js` patches `textContent` and `innerHTML` setters to NFC-normalize Vietnamese strings. Keep it loaded first so that composed and decomposed diacritics never mix.
-- `js/audio.js` is procedural Web Audio battle sound (`window.BattleAudio`). `js/auth.js` is a client-side demo login using `sessionStorage`.
-- `js/config.js` (`window.APP_CONFIG`), `js/class-session.js` (`window.ClassSession`, the API client; teacher key and student id kept in `localStorage`) and `js/class-panel.js` (`window.ClassPanel`, the stage 3 teacher panel / student join card and the stage 6 survey). Every API failure maps to a Vietnamese message and never blocks the lesson.
+- `main.tsx` - waits for `initStorage()`, then mounts TanStack Router (hash history, so `#/teacher`, `#/student`, `#/lesson/<id>[/edit|/preview|/interactive]`, `#/fonttest`, `#/atlas` work as in v1; old `#lesson/<id>` links are rewritten) and a TanStack Query client (used only for class-session polling).
+- `routes/` - file-based routes (`routeTree.gen.ts` is generated by the Vite plugin; never edit it). Route files are thin: `beforeLoad: requireUser(role)` (`lib/guards.ts`, keeps a requested lesson link through login), a loader that reads the lesson, and a screen from `components/`. `__root.tsx` holds the prototype strip, the header (nav, options menu: sound, quality, projector mode; user menu), the footer and the post-login curtain.
+- `components/` - `LessonPage` (lesson page and the teacher's student preview; chips under the title link the lesson's `atlasPlaceIds` to `#/atlas?place=`), `StageLoop` (the 6-stage loop), `ClassPanel` (stage 3 teacher panel / student join card, stage 6 survey), `Editor` (tabs: content, questions, `VariablesEditor` "Biến số & hệ số" with a live quick-try panel, 3D scene, notes; undo/redo; zod validation before every save), `Player` (`SceneView` + camera pills + timeline), `Thumbnail`, `ui.tsx` (SVG icons, modal, status chip, `AtlasCard` on both dashboards, the two mandatory notice strings). On narrow frames (container < 42rem) `Player` puts the camera pills in a strip under the table instead of over it.
+- `lib/` - UI-free domain modules with Vitest tests: `lesson-schema.ts` (zod contract, `validateLesson`, `playabilityIssues`), `engine.ts` (deterministic calculator: baseline + coefficient deltas; tweak coefficients in lesson data, not here), `storage.ts` (localStorage key `history_sim_lessons_db_v2`, seeding from bundled lessons, v1 migration, revision updates that keep the teacher's plan fields, JSON import/export, the student visibility rule `status === 'Đã dạy' && date <= today`), `class-session.ts` (API client; every failure is a Vietnamese message), `intake.ts` (blank lesson, draft-from-source with link recognition), `auth.ts`, `audio.ts`, `text.ts` (NFC at storage/import boundaries), `prefs.ts`, `transition.ts`, `guards.ts`.
+- `content/lessons/<id>.json` - one file per lesson (schema v2, plan §4.1). Loaded lazily with `import.meta.glob`; only `revision` is read eagerly. Bump `revision` when you change a bundled lesson so browsers with stored data pick it up (plan fields stay).
+- `scene/` - `silk-map.ts` (`SilkMapScene`, three.js, its own lazy chunk) builds the table from `simulation.scene`: terrain preset, features (river, road, village, forest, hill, marsh, airfield, camp, fort, stakes), HTML labels, route arrows drawn on the table as the timeline advances, formations, special units, faction colours. API: `updateTimeline`, `seek`/`play`/`pause`/`setSpeed`, `setCameraPreset`, `applyPropConfig`, `updateFactionColors`, `updateUnitCounts` (v1 `taySon*`/`qing*` keys are aliases of `aInfantry`, `aSpecial`, `bInfantry`, `bArtillery`; `counts.ts`), `setQuality`, `destroy`. `artwork.ts` paints the map and sprites on canvas (no three.js; also used for thumbnails); optional PNGs in `scene/sprites/` override sprites.
+- `features/atlas/` - the atlas (route `routes/atlas.tsx`, its own lazy chunk with three.js): `scene.ts` (`VietnamAtlasScene`: relief from `public/atlas/terrain.png`, province borders as line segments draped on it, `InstancedMesh` markers, HTML labels; `focusPlace`, `setFilter`, `setQuality`, `setViewInsets`, `destroy`), `search.ts` (pure: diacritic folding, GeoGnos-style scoring + Levenshtein ≤ 2, URL state codec), `AtlasView.tsx` (search combobox, kind chips, place cards with "Mở bài giảng" links; bottom sheet on phones; OSM credit). Data in `content/atlas/` (`provinces.topo.json`, `landmarks.json`, `SOURCES.md`). Province, archipelago and landmark ids share one id space and are never renamed (lessons point at them).
+- `styles.css` - Tailwind v4 (`@theme` tokens from DESIGN.md), local Noto fonts, the scene pigment variables the renderer reads, and the component classes (several keep v1 names that the E2E suite and docs use).
 - `backend/src/handlers.js` exports `handle(request, ctx)`, which runs unchanged on Workers (`src/index.js`, `D1Store`) and Node (`dev-server.js`, `MemoryStore`). Contract: `specs/001-classroom-sim-demo/contracts/api.md`.
-- CSS: `theme.css` (design tokens and the scene palette), `fonts.css` (local Noto Sans/Serif woff2 in `fonts/`), `style.css` (main), `editorial.css`, `redesign.css` (Trung's redesign), `classroom.css` (stepper, stage 3, class panel, survey, accessibility floor; loaded last).
 
 ## Gotchas
 
-- `js/scene3d.js` is a legacy low-poly renderer and is not referenced from `index.html`. Edit `scene-map.js` for scene changes.
-- `data/lesson.root-copy.json` (formerly the root `lesson.json`) and `data/sources.json` are not loaded by any script. The running app takes its lesson data from `js/lesson-data.js` and `localStorage`. `sources.json` has 4 entries (the Lịch sử và Địa lí 9 textbook, the 2013 Constitution, the Ngọc Lũ drum, a flag-usage guideline) and none supports the Ngọc Hồi lesson; that lesson cites its sources inline in each section's `source {book, chapter, quote, note}`.
-- `LessonStorage.init()` only seeds when the key is absent, so edits to `SEED_LESSONS` don't show up in a browser that already has data. Clear `history_sim_lessons_db_v2` in the browser or bump `STORAGE_KEY_LESSONS` in `storage.js` to see seed changes.
-- `frontend/README.md` describes the 6-stage classroom flow in detail; its "Kiến trúc" section covers the teacher editor, auth, and storage layers.
-- Only the Ngọc Hồi lesson is complete (4 chapters, 4 variables); the other three seed lessons have no simulation variables, so the question, simulation and comparison stages have nothing to run for them. All numbers (baseline 36 h / 1,800 casualties / score 95 and every delta) are illustrative placeholders.
+- `data/sources.json` is not loaded by the app. It catalogues the sources (the Lịch sử và Địa lí 9 textbook, now also for Bài 16 and Bài 18; *Việt Nam sử lược* on Wikisource, tier B; a Wikipedia pointer, tier C; plus three unrelated entries). None supports the Ngọc Hồi lesson. Lessons cite sources inline in each section's `source {book, chapter, quote, note, url}`; a quote nobody has read stays `""` with the note "Cần bổ sung trích dẫn nguyên văn" (a Vitest check enforces it).
+- Bundled lesson changes reach a browser that already has data only through a higher `revision` (or by clearing `history_sim_lessons_db_v2`). A bundled lesson the teacher deleted stays deleted (`history_sim_seed_ids`).
+- All six bundled lessons (the pilot plus five) run all 6 stages (≥ 4 sourced chapters, 3–4 variables × 3 options, outcomes, full scene): Ngọc Hồi (pilot), Rạch Gầm, Chi Lăng, Mông – Nguyên (sourced from *Việt Nam sử lược*), Điện Biên Phủ and Chiến dịch Hồ Chí Minh (SGK *Lịch sử và Địa lí 9 – Chân trời sáng tạo*, Bài 16 and 18). Every baseline and delta is an illustrative placeholder, stated in each option's `assumptions`. The Ngọc Hồi quotes predate v2 and were not checked against a source. Every lesson has `atlasPlaceIds`; `npm run atlas:test` fails if one does not resolve to an atlas place. Notes: `specs/002-v2-tanstack-atlas/notes/s2.md`.
+- Many element ids and classes in the React views keep their v1 names (`#btn-play-original`, `.variable-option`, `[data-class-code]`…) because `tests/e2e` and the docs use them. Rename both together.
+- `frontend/README.md` describes the 6-stage classroom flow and the authoring form in detail.
 - `docs/` and `specs/` are reference material, not code. `docs/spec/SPEC.md` is the checked record of what is built versus required; update it, `SPEC.vi.md` and (for requirement changes) `docs/srs/SRS.md` when behavior changes.
 - Đạt is the main deployer. The repo is bound to his accounts:
   - Vercel project `vietnam-history`; the ids are in `ci-cd.yml`.
@@ -80,5 +85,5 @@ Paths in this section are relative to `frontend/`. Scripts are loaded as classic
   - Compare ETags weakly: Cloudflare adds `W/` when it compresses.
   - After a backend change, run `node backend/scripts/smoke.mjs <worker-url> <site-origin>` against the deployed Worker.
 - Class sessions store no names or IPs (Worker logs are off). Keep it that way: no identity fields in `backend/` or in the CSV.
-- The post-login animation (`#cinematic-transition`) delays the dashboard by 2 s; E2E `login()` clicks "Bỏ qua" and waits for the route.
+- The post-login curtain (`#cinematic-transition`) covers the dashboard for 2 s (250 ms with reduced motion); E2E `login()` clicks "Bỏ qua" and waits for the route.
 - `README.md` at the root is a short index; details are in `frontend/README.md` and `backend/README.md`.

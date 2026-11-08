@@ -106,73 +106,73 @@ P0 = required in the demo. P1 = should have if time allows. Acceptance criteria 
 | Privacy | Students are minors: collect anonymous data only, no personal information; consent forms from school and parents before the trial |
 | Reuse | Engine, asset set and character system are separate from per-lesson content |
 
-## 7. Current status against the requirements (verified 2026-11-03)
+## 7. Current status against the requirements (verified 2026-11-03; frontend rebuilt as v2 on 2026-11-07, same behaviour)
 
 Status key: **Built** = works in the prototype; **Partial**; **Not built**. "Built" never means "approved": all lesson content is illustrative and unreviewed.
 
 | ID | Status | Evidence and caveats |
 |---|---|---|
-| F1 | Built (illustrative) | Silk-map 2.5D scene, 4 camera presets, 4 timeline chapters ([scene-map.js](../../frontend/js/scene-map.js), [lesson-data.js](../../frontend/js/lesson-data.js)). Not expert-confirmed, so the acceptance criterion is **not met** |
-| F2 | Built | Play/pause toggle, rewind, timeline slider and camera presets in the viewer and in the 6-stage screens ([index.html](../../frontend/index.html) ~L477-483, 639-645; [app.js](../../frontend/js/app.js) L1550) |
-| F3 | Built (unverified sources) | Each chapter has narration, caption, time label and a "Xem nguồn" button ([app.js](../../frontend/js/app.js) L1656). Sources are inline `{book, chapter, quote, note}` strings (e.g. *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); nothing in the repo checks them against a catalogue (see §12 item 1) |
+| F1 | Built (illustrative) | Silk-map 2.5D scene, 4 camera presets, 4 timeline chapters ([silk-map.ts](../../frontend/src/scene/silk-map.ts), [ngoc-hoi-ha-hoi-1789.json](../../frontend/src/content/lessons/ngoc-hoi-ha-hoi-1789.json)). Not expert-confirmed, so the acceptance criterion is **not met** |
+| F2 | Built | Play/pause toggle, rewind, timeline slider and camera presets in the lesson page and in the 6-stage screens ([Player.tsx](../../frontend/src/components/Player.tsx)) |
+| F3 | Built (unverified sources) | Each chapter has narration, caption, time label and a "Xem nguồn" button ([LessonPage.tsx](../../frontend/src/components/LessonPage.tsx)). Sources are inline `{book, chapter, quote, note}` strings (e.g. *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); nothing in the repo checks them against a catalogue (see §12 item 1) |
 | F4 | Built | `question.character` speech plus question `q-3` flagged `isEmperorQuestion` |
 | F5 | Built | 4 variables × 3 options = 81 combinations (§9.2). Options exceed the PRD's minimum of 2; their historical grounding is unreviewed |
-| F6 | Built, verified | Ran all 81 combinations twice through `SimulationEngine.calculate`: identical output every time. The engine has no randomness. Visual jitter of units in the scene uses `Math.random` ([scene-map.js](../../frontend/js/scene-map.js) L429-511); it does not change any number |
-| F7 | Built | Notice "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." hard-coded on the comparison screen ([index.html](../../frontend/index.html) L732); assumptions rendered from `appliedAssumptions` ([app.js](../../frontend/js/app.js) L2322) |
-| F8 | Built | `generateExplanation` picks the scripted `variableFeedbacks[variable][option]` text plus an intro and an encouraging conclusion ([engine.js](../../frontend/js/engine.js), [app.js](../../frontend/js/app.js) L2341). Scripted, no LLM |
+| F6 | Built, verified | All 81 combinations run twice through `calculate` give identical output (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). The engine has no randomness. Visual jitter of units in the scene uses `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); it does not change any number |
+| F7 | Built | Notice "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." shown first on the comparison screen (`SIMULATION_NOTICE` in [ui.tsx](../../frontend/src/components/ui.tsx), used by [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx); `scripts/check.sh` fails if it disappears); assumptions rendered from `appliedAssumptions` |
+| F8 | Built | `generateExplanation` picks the scripted `variableFeedbacks[variable][option]` text plus an intro and an encouraging conclusion ([engine.ts](../../frontend/src/lib/engine.ts), [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx)). Scripted, no LLM |
 | F9 | **Not built** | No LLM, no server, by design of the prototype |
-| F10 | Built (minimal) | Class session on stage 3: the teacher opens a 6-character code, students join on their own devices, the teacher sees answer count and per-option bars (polling every 4 s). Backend: Cloudflare Worker + D1 in `backend/`; frontend: [class-session.js](../../frontend/js/class-session.js), [class-panel.js](../../frontend/js/class-panel.js). Spec: `specs/001-classroom-sim-demo/` |
+| F10 | Built (minimal) | Class session on stage 3: the teacher opens a 6-character code, students join on their own devices, the teacher sees answer count and per-option bars (polling every 4 s). Backend: Cloudflare Worker + D1 in `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Spec: `specs/001-classroom-sim-demo/` |
 | F11 | Built (minimal) | Per device in a class session: choices, time used and an optional 3-question survey (1-5) on stage 6. The teacher downloads a CSV with anonymous ids (A01…) and no identity columns, and can delete the session. Sessions expire after 12 h; data is purged after 180 days. Paper forms stay the fallback |
 
-Only **1 of the 4 seeded lessons is complete**: Ngọc Hồi has 4 chapters and 4 variables. Rạch Gầm (3 chapters), Chi Lăng (1) and the Mongol-Nguyên lesson (0) have no simulation variables, so the question/simulation/comparison stages have nothing to run for them.
+**All 5 bundled lessons run the 6 stages** (v2 session S2): Ngọc Hồi (4 chapters, 4 variables), Rạch Gầm – Xoài Mút 1785 (5, 3), Chi Lăng – Xương Giang 1427 (6, 4), Kháng chiến chống Mông – Nguyên 1285 – 1288 (6, 3), Điện Biên Phủ 1954 (5, 4) and Chiến dịch Hồ Chí Minh 1975 (5, 3). The two new lessons quote the SGK *Lịch sử và Địa lí 9 – Chân trời sáng tạo* (Bài 16, Bài 18) with page numbers; the three older ones were rewritten from *Việt Nam sử lược* (Wikisource). One chapter (Rạch Gầm, troop layout) has no verbatim quote yet and says so. A Vitest check holds every lesson to the contract (schema, ≥ 4 sourced chapters, outcomes, every combination in range, no grading words); an E2E plays Điện Biên Phủ through all stages on desktop and phone. A teacher can still add variables to any lesson in the editor tab "Biến số & hệ số" (§8).
 
 ## 8. Architecture (as built)
 
-Two folders. `frontend/`: single-page web app, no build step, plain HTML/CSS/JS plus vendored three.js, deployed as static files to Vercel ([vercel.json](../../vercel.json)). `backend/`: a small Cloudflare Worker + D1 (SQLite) API used only by the class session (F10/F11); the lesson runs fully without it. Full design: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md).
+Two folders. `frontend/`: single-page app built with Vite (React 19, TypeScript strict, TanStack Router with hash history, TanStack Query for the class API only, Tailwind v4, zod, three.js from npm) into `frontend/dist`, deployed as static files to Vercel ([vercel.json](../../vercel.json)). `backend/`: a small Cloudflare Worker + D1 (SQLite) API used only by the class session (F10/F11); the lesson runs fully without it. Full design: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); design system: [DESIGN.md](../../DESIGN.md).
 
 ```
 frontend/
-  index.html          all views in one page, toggled by showView
-  js/                 classic <script> tags, shared through window globals
-  css/                theme.css (tokens, scene palette) → fonts.css → style.css → editorial.css (loaded last)
-  vendor/             three.min.js (~603 KB), OrbitControls.js
-  fonts/ assets/      local Noto woff2 (108 KB); sprites override dir (12 KB)
-  data/               lesson.root-copy.json, sources.json  (NOT loaded by any script)
+  index.html          Vite entry
+  src/routes/         one file per route (TanStack Router); routeTree.gen.ts is generated
+  src/components/     screens: lesson page, 6-stage loop, editor + variables form, player, class panel
+  src/lib/            UI-free domain modules with Vitest tests
+  src/content/lessons one JSON per lesson, loaded lazily
+  src/scene/          silk-map.ts (the only three.js import, lazy chunk), artwork.ts, sprites/
+  src/styles.css      Tailwind theme tokens and component classes
+  public/             local Noto woff2, logo
+  data/sources.json   source catalogue (not loaded by code)
 ```
 
-**Script load order matters** ([index.html](../../frontend/index.html) L913-922): `three.min.js` → `text.js` → `OrbitControls.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `config.js` → `class-session.js` → `class-panel.js` → `app.js`.
+| Module | Responsibility |
+|---|---|
+| `lib/lesson-schema.ts` | zod schema of a lesson; used by the build check, by every save in the editor and by JSON import |
+| `lib/storage.ts` | Lessons in `localStorage` (seeded from the bundled JSON, one-time v1 migration, `revision` updates), JSON import/export, student visibility rule, one saved student run per lesson |
+| `lib/engine.ts` | `calculate`, explanation |
+| `lib/text.ts` | NFC normalisation at the input and import boundaries |
+| `lib/auth.ts` | **Client-side demo login only** (`sessionStorage`); `admin` / `123` for both teacher and student. It is not security |
+| `lib/audio.ts` | Procedural Web Audio battle sound |
+| `lib/class-session.ts` | Class session API client: open/join/submit/summary/CSV/delete, teacher key and student id in `localStorage`; API origin per environment (`localhost` → `:8787`; deployed → `DEPLOYED_API_BASE` or `VITE_API_BASE`, empty turns class features off) |
+| `scene/silk-map.ts` | `SilkMapScene`: three.js silk-map renderer driven by `simulation.scene`; `InstancedMesh` sprites; 4 camera presets; HTML overlays for terrain labels (never text in canvas/geometry); PNGs in `src/scene/sprites/` override procedural sprites |
+| `components/StageLoop.tsx` | 6-stage loop |
+| `components/Editor.tsx`, `VariablesEditor.tsx` | Teacher editor with undo/redo; tab "Biến số & hệ số" edits baseline, character, variables and options (exactly one original, 3 coefficients, assumptions, stage-6 feedback) with a live try-out |
+| `components/ClassPanel.tsx` | Stage 3 teacher panel / student join card and stage 6 survey |
 
-| Module | Global | Responsibility |
-|---|---|---|
-| `text.js` | - | Patches `textContent`/`innerHTML` setters to NFC-normalise Vietnamese. Must load first |
-| `auth.js` | `window.Auth` | **Client-side demo login only** (`sessionStorage`); `admin` / `123` for both teacher and student. It is not security |
-| `audio.js` | `window.BattleAudio` | Procedural Web Audio battle sound |
-| `lesson-data.js` | `SEED_LESSONS` | Full lesson schema and the 4 seed lessons |
-| `storage.js` | `window.LessonStorage` | Lessons in `localStorage` (seeded when empty), JSON import/export, student visibility rule, one saved student run per lesson |
-| `engine.js` | `window.SimulationEngine` | `calculate`, `generateExplanation` |
-| `scene-map.js` | `window.BattleScene3D` (class `SilkMapScene`) | Three.js silk-map renderer; `InstancedMesh` sprites; 4 camera presets; HTML overlays for terrain labels (never text in canvas/geometry); PNGs in `assets/sprites/` override procedural sprites |
-| `config.js` | `window.APP_CONFIG` | API origin per environment (`localhost` → `:8787`; deployed → `DEPLOYED_API_BASE`, empty turns class features off) |
-| `class-session.js` | `window.ClassSession` | Class session API client: open/join/submit/summary/CSV/delete, teacher key and student id in `localStorage` |
-| `class-panel.js` | `window.ClassPanel` | Stage 3 teacher panel / student join card and stage 6 survey |
-| `app.js` (~2500 lines) | - | Controller: DOM cache, hash router, teacher dashboard + editor (undo/redo), student dashboard + viewer, 6-stage loop |
-| `scene3d.js` | - | Legacy low-poly renderer, **not loaded**; edit `scene-map.js` |
+**Routes** (hash history): `#/` (login), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (6-stage loop, both roles, `?step=n`), `#/atlas?place=&kind=&q=` (Atlas Việt Nam, §15; linked from the header nav and both dashboards), `#/fonttest` (Vietnamese glyph check, no login).
 
-**Routes** (hash router): `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (6-stage loop, both roles), `#/fonttest` (Vietnamese glyph check).
-
-**Scene lifecycle rule:** each surface (editor preview, lesson workspace, student viewer, original/custom stage) owns one `SilkMapScene`, driven through `updateTimeline`, `setCameraPreset`, `updatePropsVisibility`/`applyPropConfig`, `updateFactionColors`, `updateUnitCounts`, `setQuality`. **Call `destroy()` when a view is torn down** so renderers do not accumulate.
+**Scene lifecycle rule:** each surface (editor preview, lesson page, original/custom stage) mounts one `SilkMapScene` through `SceneView`/`Player`, which call `destroy()` on unmount so renderers do not accumulate.
 
 **Persistence**
 
 | Key | Content |
 |---|---|
-| `history_sim_lessons_db_v2` | All lessons. `LessonStorage.init()` seeds only when the key is **absent**, so edits to `SEED_LESSONS` do not show in a browser that already has data. Clear the key or bump `STORAGE_KEY_LESSONS` |
+| `history_sim_lessons_db_v2` | All lessons. Seeded from the bundled JSON; a bundled lesson with a higher `revision` replaces the stored content but keeps the teacher's plan fields (date, class, status) |
 | `history_sim_student_runs` | `{ [lessonId]: {choices, results…, timestamp} }`, last run only |
 
-**Student visibility rule** ([storage.js](../../frontend/js/storage.js) L134-160): students see a lesson only if `status === 'Đã dạy'` **and** `date <= today`. Statuses: `'Nháp' | 'Đã lên lịch' | 'Đã dạy'`.
+**Student visibility rule** ([storage.ts](../../frontend/src/lib/storage.ts)): students see a lesson only if `status === 'Đã dạy'` **and** `date <= today`. Statuses: `'Nháp' | 'Đã lên lịch' | 'Đã dạy'` (the UI shows `Đã dạy` as "Đã phát hành").
 
 ## 9. Data and simulation contract
 
-### 9.1 Lesson object (one entry of `SEED_LESSONS` / the stored JSON)
+### 9.1 Lesson object (one file in `frontend/src/content/lessons/`, validated by [lesson-schema.ts](../../frontend/src/lib/lesson-schema.ts))
 
 | Field group | Fields |
 |---|---|
@@ -181,21 +181,23 @@ frontend/
 | Chapters | `sections[]`: `id`, `title`, `narration`, `caption`, `timelineRange` (0-1), `timeLabel`, `source {book, chapter, quote, note}` |
 | Questions | `questions[]`: `id`, `text`, `type` (`multiple_choice` or `open_discussion`), `sectionId`, `isEmperorQuestion`, `isExplanationReleased`, `options[] {id, text, isCorrect, explanation}` or `guide` |
 | Teacher-only | `privateNotes` (hidden in student mode) |
-| Baseline | `baseline {durationHours, casualties, positionScore, ratingText}` |
-| Scene | `simulation {propsConfig, unitCounts, factionColors, cameraPresets (overview, follow_troops, close_up, top_down), keyframes[{time, preset}]}` |
-| The Emperor's question | `question {character {name, dynasty, avatarSvg, greeting, speech}, variables[]}` |
+| Baseline | `baseline {durationHours, casualties, positionScore, ratingText, minDurationHours?, minCasualties?}` |
+| Versioning | `schemaVersion`, `revision` (bump it when a bundled lesson changes so stored copies update) |
+| Factions | `factions {a {name, color}, b {name, color}}` |
+| Scene | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; feature types river, hill, fort, village, forest, road, marsh, airfield, camp, stakes; routes are drawn on the table as the timeline reaches them; camera presets are fixed in the renderer (overview, follow_troops, close_up, top_down) |
+| The character's question | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
 | Variables | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
 | Explanation | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
 
 Rule from the PRD: **tune the model by editing coefficients in lesson data, never in engine code.** The coefficients are the assumption list shown to students.
 
-### 9.2 Engine ([engine.js](../../frontend/js/engine.js))
+### 9.2 Engine ([engine.ts](../../frontend/src/lib/engine.ts))
 
 For each variable, take the chosen option (falling back to the first option, then to a zero-delta default), and sum the deltas:
 
 ```
-student.durationHours = max(12,  baseline.durationHours + Σ timeDelta)
-student.casualties    = max(500, baseline.casualties    + Σ casualtyDelta)
+student.durationHours = max(baseline.minDurationHours ?? 12,  baseline.durationHours + Σ timeDelta)
+student.casualties    = max(baseline.minCasualties ?? 500,   baseline.casualties    + Σ casualtyDelta)
 student.positionScore = clamp(baseline.positionScore + Σ positionScoreDelta, 10, 100)
 isIdenticalToOriginal = every chosen option has isOriginal === true
 ```
@@ -217,8 +219,7 @@ Outcome tone from `student.positionScore`: identical to original → `perfect`; 
 
 ### 9.3 Labelling rules (must be preserved)
 
-- Permanent footer on lesson views: "⚠️ Nội dung minh họa, chưa được chuyên gia duyệt" ([index.html](../../frontend/index.html) L558).
-- A global strip under the header always shows "Nội dung minh họa, chưa được chuyên gia duyệt" ([index.html](../../frontend/index.html) L64).
+- Footer on every page and a strip at the top of every page: "Nội dung minh họa, chưa được chuyên gia duyệt" (`PROTOTYPE_NOTICE` in [ui.tsx](../../frontend/src/components/ui.tsx), rendered by [__root.tsx](../../frontend/src/routes/__root.tsx)).
 - The comparison screen always shows the simulation notice (§7, F7).
 - Never present a simulated number as history. Do not invent specific historical figures in lesson content; label illustrative numbers as such.
 - Terrain labels are HTML overlays; never put Vietnamese text in canvas or geometry (glyph and NFC problems).
@@ -227,17 +228,19 @@ Outcome tone from `student.positionScore`: identical to original → `perfect`; 
 
 Automated, all run in CI on every push (`npm test` locally):
 
-- `bash scripts/check.sh` (also `/check`): `node --check` on `frontend/js/*.js` and the backend sources; every `data/*.json` parses; every local `src`/`href` in `index.html` exists; every `js/*.js` (except the legacy `scene3d.js`) is loaded.
-- Unit (`npm run test:unit`, `node:test`): engine determinism over all 81 combinations × 2, exactly one combination equals the original, every number traces to coefficients, no grading words, student visibility rule; backend API (validation, merge/replace, 60-answer cap, expiry, teacher key, CSV, purge, CORS).
-- E2E (`npm run test:e2e`, Playwright, desktop 1280×720 and phone 360×800): stage 2 controls and sources, the full loop twice with identical numbers, a lesson without variables, a class session with a teacher and two students (bars, replace on resubmit, survey, CSV, delete), wrong code, backend down, content intake, no horizontal scroll at 360 px.
+- `bash scripts/check.sh` (also `/check`): `tsc` (strict) on `frontend/src`; every lesson JSON passes the zod schema; the mandatory labels are still in the source; every source file is NFC; local references in `index.html` exist; `node --check` on the backend sources.
+- Unit (`npm run test:unit`: Vitest for `frontend/src/lib`, `node:test` for the backend): lesson schema, v1 data migration, engine determinism over all 81 combinations × 2, exactly one combination equals the original, every number traces to coefficients, no grading words, student visibility rule; backend API (validation, merge/replace, 60-answer cap, expiry, teacher key, CSV, purge, CORS).
+- Atlas (`npm run atlas:test`, `node:test`): 34 units, the two archipelagos, landmarks inside their provinces, ids, NFC, size budget, search scoring, and every lesson's `atlasPlaceIds` resolving to a real place.
+- Build + `npm run budget`: the JS of a first visit (entry + modulepreloads) ≤ 200 KB gzip; three.js and the atlas only in lazy chunks.
+- E2E (`npm run test:e2e`, Playwright, desktop 1280×720 and phone 360×800): the atlas (search with and without diacritics, keyboard and click selection, URL state through a reload, place → lesson → place, a student sees only published lessons, OSM credit), stage 2 controls and sources, the full loop twice with identical numbers, a lesson without variables, a class session with a teacher and two students (bars, replace on resubmit, survey, CSV, delete), wrong code, backend down, content intake, the authoring form (a blank lesson gets a variable, is published and runs all 6 stages with its coefficients, undo/redo), no horizontal scroll at 360 px.
 - After CI: Vercel (frontend) and Cloudflare (backend) deploy from `Staging` (preview/staging) and `main` (production); each job skips with a notice if its secrets are missing ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
-- Manual: load via `cd frontend && python3 -m http.server 8080`, then walk the 6 stages as teacher and as student; check `#/fonttest`.
+- Manual: `npm run dev:frontend` (Vite, port 8080), then walk the 6 stages as teacher and as student; check `#/fonttest`.
 
 **Acceptance checklist for the demo (to be run by T9, before the class trial)**
 
 1. All 6 stages complete without console errors, in teacher and student mode, on a real low-end school machine and a phone.
 2. Comparison screen shows the simulation notice and the assumption list for every one of the 81 combinations.
-3. Same choices give the same numbers across reloads (automated: `tests/unit/engine.test.js`, `tests/e2e/lesson-flow.spec.js`).
+3. Same choices give the same numbers across reloads (automated: `frontend/src/lib/domain.test.ts`, `tests/e2e/lesson-flow.spec.js`).
 4. Student mode never shows `privateNotes`, and never shows a lesson that is not `Đã dạy` with `date <= today`.
 5. Every displayed event has a source the advisor has approved; no content reaches students unapproved.
 6. F11 export (or paper-form fallback) contains no personal data.
@@ -290,19 +293,19 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 
 ## 12. Discrepancies and gaps (decide or fix before relying on the docs)
 
-1. **`frontend/data/sources.json` is for a different lesson.** Its 4 entries cover Soviet NEP / the 1922 USSR map (textbook *Lịch sử và Địa lí 9*, Bài 1), the 2013 Constitution, the Ngọc Lũ drum and a flag-usage guideline. None supports Ngọc Hồi - Hạ Hồi. The Ngọc Hồi lesson cites its sources inline instead, and nothing links the two. So the PRD's "approved data set" (plan step 3) **does not exist yet**.
+1. **`frontend/data/sources.json` is partly connected.** It now lists the textbook pages behind Điện Biên Phủ and the 1975 campaign (Bài 16, 18), *Việt Nam sử lược* (tier B) for Rạch Gầm, Chi Lăng and Mông – Nguyên, and a Wikipedia pointer (tier C). Nothing supports Ngọc Hồi - Hạ Hồi, whose inline quotes were never checked. No historian has reviewed any of it, so the PRD's "approved data set" (plan step 3) **does not exist yet**.
 2. **Grade level.** The seed lesson says `grade: 'Khối 11'` (THPT). The only textbook in the repo is *Lịch sử và Địa lí 9* (THCS). The PRD leaves THCS-vs-THPT open. Settle it in step 1; it decides which textbook is the reference and the vocabulary level.
 3. **README overclaimed F10. Fixed.** `frontend/README.md` described a class-survey chart ("38/40") that no code implemented. F10 is now built as a minimal class session (§7).
 4. **Accounts.** The PRD puts "tài khoản người dùng" out of scope. The prototype has a demo login and a teacher dashboard/editor with import/export beyond what the PRD asks for. Keep the login labelled demo-only; it protects nothing. Decide whether the editor is in scope for the demo or a bonus that costs maintenance.
 5. **F11. Fixed (minimal).** The class session collects choices, time used and a 3-question survey per device and exports an anonymous CSV for the step 9 report. Consent forms and the pre/post test remain on paper.
-6. **PRD said single-file + `lesson.json`.** The running app takes lessons from `js/lesson-data.js` and `localStorage`; `data/lesson.root-copy.json` is not loaded. Fine for the prototype; the real content pipeline (step 3 → 4) must define one source of truth.
+6. **PRD said single-file + `lesson.json`.** Since v2 every lesson is one JSON file in `frontend/src/content/lessons/`, validated by a zod schema; the browser copy in `localStorage` holds teacher edits. The real content pipeline (step 3 → 4) still has to decide whether approved content lives in these files or on a server.
 7. **Session length.** PRD: 15-20 min. Prototype lesson plan: 45 min (6 stages 5/10/8/7/8/7). They fit together only if the PRD's 15-20 min is the simulation core inside a 45-minute period; confirm with the teacher partner.
-8. **Hard-coded vs. data-driven notice.** The comparison-screen notice is hard-coded in `index.html`; the per-lesson `simulationDisclaimer` field is read only in the workspace tab ([app.js](../../frontend/js/app.js) L1432). Changing the field does not change the 6-stage comparison text.
+8. **Hard-coded vs. data-driven notice.** Resolved in v2: the mandatory notice is the constant `SIMULATION_NOTICE` and always comes first on the comparison screen; the per-lesson `simulationDisclaimer` is shown under it (without repeating the notice) and on the lesson page.
 9. **Unreviewed numbers.** Baseline (36 h, 1,800 casualties, 95) and all deltas are placeholders. The seed text also states figures such as "100 voi chiến" and "29 vạn quân" that are not tied to an approved source. They must go through step 3 before any student sees them.
 10. **Scene randomness.** The scene's unit placement is randomised on every load; two projections of the same lesson look slightly different. Acceptable for the demo; matters only if screenshots must be reproducible.
 
 11. **Timeline conflict. Fixed.** The PRD document (`docs/prd/…`) was updated on 2026-11-01 to the same 12-week plan (maximum 15), including its Gantt chart, step weeks, milestones and risks. It does not yet contain the "12 weeks is too tight" risk row or the two new open questions from §13 (team size, advisor).
-12. **Wording mismatch. Fixed.** The UI says "Nội dung minh họa, chưa được chuyên gia duyệt" (header strip and footer); `frontend/README.md`, the root `CLAUDE.md` and `.claude/rules/content-labeling.md` now say the same. The unloaded `data/lesson.root-copy.json` still has a "Dữ liệu minh họa" note; it affects nothing at runtime.
+12. **Wording mismatch. Fixed.** The UI says "Nội dung minh họa, chưa được chuyên gia duyệt" (header strip and footer); `frontend/README.md`, the root `CLAUDE.md` and `.claude/rules/content-labeling.md` now say the same. The unloaded `data/lesson.root-copy.json` that carried an old "Dữ liệu minh họa" note was removed with the v1 code.
 
 ## 13. Open questions
 
@@ -333,3 +336,41 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 | Trial lands on a school break or exam period | Fix T1 from the school calendar; confirm the trial date with the school by T5; the 15-week maximum leaves no room to move step 9 past Tết if T1 is late (§11) |
 | School or parents refuse data collection from minors | Consent forms ready by T9; anonymous data only; paper-survey fallback |
 | 12 weeks is too tight (advisor approval slips, part-time staffing) | Gates and reserve in §11; cut F9, F10 and F11 first; never extend past T15 |
+
+## 15. Atlas Việt Nam (v2, built in S3, wired into the app in S4)
+
+A 3D map of Viet Nam for finding lessons by place. Route `#/atlas?place=<id>&kind=<kind,…>&q=<text>`
+(login required, both roles); the URL state makes any view shareable. Content is illustrative and
+not expert-reviewed, like the lessons; every landmark carries `illustrative: true` and its sources.
+
+**Requirements and status (2026-11-08, after S4)**
+
+| Requirement | Status |
+|---|---|
+| 34 province-level units in force since 1/7/2025 (25 tỉnh + 9 thành phố as of 20/9/2026), Hoàng Sa in Đà Nẵng, Trường Sa in Khánh Hòa | Built; unit tests |
+| Boundary data ≤ 400 KB gzip; terrain ≤ 2 MB | 37 KB gzip; `terrain.png` 1 MB |
+| Landmarks: UNESCO sites, special national relics, scenic sites, battlefields and capitals, with the 13 lesson-critical ids | 71 landmarks (9 World Heritage sites incl. Yên Tử 2025); unit tests |
+| Every landmark inside its province (coastal points within 10 km), ids unique kebab-case and disjoint from province ids, all strings NFC | Unit tests |
+| Diacritic-insensitive search, GeoGnos-style scoring, Levenshtein ≤ 2, kind filter, URL codec | Built; unit tests |
+| Renderer API `VietnamAtlasScene(container, { quality, onSelect })`: `setQuality`, `focusPlace(id \| null)`, `setFilter`, `setViewInsets`, `destroy` | Built |
+| HTML labels only, palette from CSS variables, `InstancedMesh` markers, low-quality mode for phones, `destroy()` on unmount | Built |
+| Place card: summary, era, province, sources with licences, "Mở bài giảng" links (landmark `lessonIds` ∪ lessons whose `atlasPlaceIds` name the place; students see only visible lessons); a province card lists the lessons of the places inside it | Built; E2E |
+| Lessons link back: the lesson page lists its `atlasPlaceIds` as chips to `#/atlas?place=`; the header nav and both dashboards link to the atlas; every `atlasPlaceIds` value resolves to a landmark, unit or archipelago | Built; `npm run atlas:test`; E2E |
+| Keyboard: combobox (arrows, Enter, Escape), chips and lists are buttons, map canvas takes arrow keys | Built |
+| Phone layout: bottom sheet (opens when `?place=` changes); the camera centres above it; OSM credit in the sheet | Built; screenshots 360×800; E2E on phone-360 |
+| Three.js and atlas in a lazy route chunk; initial JS ≤ 200 KB gzip | Initial JS 138.4 KB gzip (entry 111.4 + preloaded 27.0; `npm run budget`, in CI). Atlas chunk 58 KB gzip + landmarks 12 KB (shared with the lesson page) + three.js 136 KB, lazy |
+| ≥ 55 FPS desktop, ≥ 30 FPS phone | Met on a laptop iGPU (Intel Iris Xe, headless Chromium with ANGLE GL): 60 FPS (vsync cap) while flying between places, desktop 1280×720 and phone viewport 360×800 at DPR 2.75, both quality levels. **Not measured on a real phone or school PC.** Software rendering (SwiftShader): 5.5 (high) / 13.8 (low) desktop, 5.5 / 22 phone |
+| E2E for `#/atlas` | `tests/e2e/atlas.spec.js`, desktop and phone-360 (4 tests) |
+
+**Rendering choice.** Three ways to draw borders were measured in the harness (`npm run atlas:shoot`):
+borders baked into the mask texture (blur and thicken when zoomed in), flat province slabs (lose the
+relief and the borders) and border line segments draped over the relief (crisp at every zoom, same
+speed). The draped lines shipped; the numbers are in `specs/002-v2-tanstack-atlas/notes/s3.md`.
+
+**Data and licences**: see [SOURCES.md](../../frontend/src/content/atlas/SOURCES.md). The boundary
+file is an ODbL derivative of OpenStreetMap, so "© OpenStreetMap contributors" must stay visible on
+the map. No analytics, no user geolocation, nothing taken from GeoGnos.
+
+**Open**: FPS on a real phone and a school PC; landmarks that lessons could use but the atlas lacks
+(`van-don`, `him-lam`, `doi-a1`, `buon-ma-thuot`, `phuoc-long`; see `notes/s2.md`). Details in
+`specs/002-v2-tanstack-atlas/notes/s4.md`.

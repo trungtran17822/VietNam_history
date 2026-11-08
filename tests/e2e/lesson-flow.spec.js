@@ -105,7 +105,10 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
 
 test('lesson without variables explains it and blocks stages 4-6', async ({ page }) => {
   await login(page, 'teacher');
-  await openLoop(page, 'rach-gam-xoai-mut-1785');
+  // Every bundled lesson now has variables; a blank lesson is the one without.
+  await page.click('#btn-create-lesson');
+  await expect(page.locator('#view-teacher-editor')).toHaveClass(/active/);
+  await openLoop(page, page.url().match(/#\/lesson\/([^/]+)\/edit/)[1]);
   await goToStage(page, 3);
   await expect(page.locator('#question-empty-notice')).toBeVisible();
   await expect(page.locator('#question-empty-notice')).toContainText('chưa có phần thử cách khác');
