@@ -1,0 +1,376 @@
+# Đặc tả: Mô phỏng bài học Lịch sử 3D tương tác (demo Ngọc Hồi - Hạ Hồi)
+
+| | |
+|---|---|
+| Trạng thái | Bản nháp 2, ngày 01/11/2026. Lộ trình rút từ 17 tuần xuống **12 tuần (tối đa 15 tuần)**. Bản tiếng Anh: [SPEC.md](SPEC.md) |
+| Nguồn | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (lộ trình đã được cập nhật ngày 01/11/2026 cho khớp mục 11 của đặc tả này) và mã nguồn prototype trong `frontend/` tại commit `cba3e58` |
+| Tên sản phẩm | Chưa quyết định (câu hỏi mở trong PRD) |
+| Ngôn ngữ giao diện | Tiếng Việt. Mọi nội dung học sinh và giáo viên nhìn thấy đều bằng tiếng Việt; đặc tả này trích nguyên văn các chuỗi giao diện |
+
+Cách đọc: mục 1-6 nói **sản phẩm phải làm gì**. Mục 7 nói **hiện đã có gì** so với từng yêu cầu, đã kiểm tra trong code. Mục 8-10 là hợp đồng kỹ thuật theo đúng code đang chạy. Mục 11 là lịch trình (12 tuần, tối đa 15). Mục 12 liệt kê **những chỗ PRD, README và code mâu thuẫn nhau**; nên đọc trước khi lập kế hoạch.
+
+Quy ước: mã yêu cầu (F1-F11), tên trường dữ liệu, tên hàm và đường dẫn tệp giữ nguyên như trong bản tiếng Anh và trong code.
+
+---
+
+## 1. Vấn đề và mục đích
+
+Học sinh thấy môn Lịch sử khô khan vì chỉ có chữ và bài giảng, và rất khó hình dung một trận đánh. Người quản lý sản phẩm (PM) cũng cho rằng việc dạy Sử yếu kém làm giảm lòng yêu nước của giới trẻ. **Cả hai đều là giả thuyết của PM, chưa phải kết quả nghiên cứu**; chỉ giả thuyết thứ nhất được kiểm chứng qua buổi dạy thử (PRD Phần 2, §2).
+
+Sản phẩm biến một bài Lịch sử trong sách giáo khoa thành mô phỏng 3D dựa trên sách giáo khoa và các nguồn được nhà nước công nhận. Cuối bài, một nhân vật lịch sử (bản thử nghiệm: Hoàng đế Quang Trung) hỏi học sinh sẽ làm khác đi như thế nào, mô phỏng phương án của học sinh, so sánh số liệu với cách làm của tiền nhân và giải thích sự khác biệt. Mục tiêu là mở rộng tư duy của học sinh, **không phải chấm đúng sai**.
+
+Việc có hay không sản phẩm tương tự ở nước ngoài nhưng chưa có ở Việt Nam là nhận định của PM và chưa được kiểm chứng.
+
+## 2. Mục tiêu và ngoài phạm vi (demo)
+
+**Mục tiêu** (mỗi mục là một giả thuyết mà demo phải tạo ra bằng chứng):
+
+| # | Mục tiêu | Đo bằng (ngưỡng đặt ở bước 1 của kế hoạch, trước khi xây dựng) |
+|---|---|---|
+| G1 | Học sinh hứng thú hơn so với giờ học thường | Khảo sát ngắn so với lớp học thường |
+| G2 | Học sinh hình dung và nhớ trận đánh tốt hơn | Bài kiểm tra ngắn trước và sau |
+| G3 | Vòng lặp "nhân vật hỏi, học sinh thử cách khác, so sánh số liệu" mở rộng tư duy | Số học sinh chọn và giải thích một phương án khác bản gốc; phỏng vấn |
+| G4 | Nội dung trung thành với nguồn | Chuyên gia duyệt; tỉ lệ sai/bịa trên bộ câu hỏi kiểm thử nhân vật |
+| G5 | Giáo viên muốn dùng lại | Phỏng vấn giáo viên |
+
+**Ngoài phạm vi** (rõ ràng không làm trong demo):
+
+- Bán sản phẩm, hoặc phủ toàn bộ sách giáo khoa.
+- Ý tưởng tự do của học sinh được AI chuyển thành mô phỏng (giai đoạn sau, khi bản cơ bản ổn định).
+- VR, ứng dụng điện thoại gốc, tài khoản người dùng thật, thanh toán.
+- Bất kỳ tuyên bố nào cho rằng số liệu mô phỏng là sự thật lịch sử.
+
+## 3. Người dùng
+
+| Người dùng | Nhu cầu | Ghi chú |
+|---|---|---|
+| Học sinh | Hiểu bài, thấy vui, nêu quan điểm riêng mà không sợ sai | Cấp học (THCS hay THPT) chưa quyết định |
+| Giáo viên Lịch sử | Chiếu lên lớp, vừa một tiết, bám sát sách giáo khoa | Quyết định có dùng hay không |
+| Chuyên gia / cố vấn Lịch sử | Bảo đảm nội dung và giả định không dạy sai lịch sử | Người duyệt; không phải người dùng cuối |
+| Nhà trường | Đáng tin cậy, dễ triển khai trên thiết bị sẵn có | Khách hàng tiềm năng, chưa xác định |
+
+**Câu chuyện người dùng (P0)**
+
+- Là giáo viên, tôi muốn phát, tạm dừng, tua lại và đổi góc nhìn trên trận đánh gốc để có thể dừng ở bất kỳ thời điểm nào và giảng giải.
+- Là học sinh, tôi muốn mở nguồn đằng sau từng ghi chú thuyết minh để biết thông tin đến từ đâu.
+- Là học sinh, tôi muốn chọn một chiến thuật khác từ một danh sách ngắn để xem điều gì sẽ xảy ra mà không phải gõ gì.
+- Là học sinh, tôi muốn màn hình so sánh nói rõ đây là mô phỏng và hiển thị các giả định để không nhầm với lịch sử.
+- Là học sinh, tôi muốn Hoàng đế phản hồi một cách khích lệ, không bao giờ bảo tôi sai, để tôi muốn thử tiếp.
+
+## 4. Phạm vi demo
+
+**Trong phạm vi:** một bài học (Ngọc Hồi - Hạ Hồi); mô phỏng 3D diễn biến gốc từ bộ dữ liệu đã được duyệt; Hoàng đế đặt 1-2 câu hỏi cuối bài; 3-5 biến số học sinh có thể thay đổi, chọn từ một danh sách cố định; màn hình so sánh (gốc và mới) kèm thông báo "đây là mô phỏng" và danh sách giả định; chạy trên trình duyệt web, máy tính và điện thoại.
+
+**Ngoài phạm vi:** các bài học khác; nhập văn bản tự do; VR; ứng dụng gốc; tài khoản; thanh toán.
+
+## 5. Luồng bài học
+
+PRD mô tả một buổi 15-20 phút; prototype đặt nó trong giáo án 45 phút (mục 12, điểm 7).
+
+Luồng theo PRD:
+
+1. Giáo viên mở bài và chiếu mô phỏng 3D gốc kèm thuyết minh và ghi chú có nguồn.
+2. Giáo viên có thể tạm dừng, tua lại, đổi góc nhìn.
+3. Hoàng đế xuất hiện và hỏi về nội dung vừa học.
+4. Hoàng đế hỏi: "nếu các con là chúng ta, các con sẽ làm khác đi điều gì?" Một học sinh (hoặc cả lớp) chọn một phương án cho mỗi biến số.
+5. Hệ thống mô phỏng phương án của học sinh trong 3D.
+6. Màn hình so sánh hiển thị số liệu gốc và số liệu mới, thông báo đây là mô phỏng, và các giả định.
+7. Hoàng đế giải thích sự khác biệt và điều kiện thực tế thời đó, mời hỏi thêm, và **không bao giờ chê bai hay nói học sinh sai**.
+
+Các giai đoạn của prototype (đúng như đã xây, `frontend/README.md`): Khởi động 5' → Khám phá 3D gốc 10' → Câu hỏi của vua 8' → Thử cách khác 7' → So sánh 8' → Giải thích & Củng cố 7' = 45'.
+
+## 6. Yêu cầu
+
+P0 = bắt buộc có trong demo. P1 = nên có nếu còn thời gian. Tiêu chí chấp nhận lấy từ PRD, siết lại ở chỗ PRD chưa rõ.
+
+| ID | Yêu cầu | Ưu tiên | Tiêu chí chấp nhận |
+|---|---|---|---|
+| F1 | Mô phỏng 3D diễn biến gốc của trận Ngọc Hồi - Hạ Hồi | P0 | Diễn biến, mốc thời gian và lực lượng khớp với bộ dữ liệu đã duyệt; cố vấn Lịch sử ký duyệt |
+| F2 | Phát lại: phát, tạm dừng, tua/tìm vị trí, đổi góc nhìn | P0 | Giáo viên dừng được ở bất kỳ thời điểm nào |
+| F3 | Thuyết minh và ghi chú kèm nguồn | P0 | Mọi sự kiện chính đều có ghi chú; bấm vào hiện nguồn |
+| F4 | Hoàng đế đặt 1-2 câu hỏi cuối bài | P0 | 1-2 câu hỏi gắn với bài học |
+| F5 | Học sinh chọn phương án thay thế từ danh sách biến số | P0 | 3-5 biến số, mỗi biến có ≥2 phương án có cơ sở lịch sử |
+| F6 | Bộ máy mô phỏng chạy phương án của học sinh | P0 | Cùng đầu vào luôn cho cùng số liệu; xem được mọi giả định |
+| F7 | Màn hình so sánh gốc và mới | P0 | Hiện số liệu, thông báo "đây là mô phỏng" và danh sách giả định; thông báo không thể bị bỏ sót trên màn hình này |
+| F8 | Hoàng đế giải thích sự khác biệt, theo hướng khích lệ | P0 | Nêu bối cảnh và điều kiện thực tế; không đưa ra phán quyết đúng/sai tuyệt đối |
+| F9 | Hỏi đáp tự do với nhân vật, chỉ trả lời từ dữ liệu đã duyệt | P1 | Nói "tài liệu không ghi lại" khi dữ liệu không có; đạt ngưỡng của bộ kiểm thử. **Cắt khỏi demo nếu chưa đạt vào hết T7.** |
+| F10 | Chế độ giáo viên: chiếu lên lớp, xem phân bố lựa chọn của cả lớp | P1 | Giáo viên thấy phân bố lựa chọn của học sinh trong buổi học |
+| F11 | Dữ liệu thử nghiệm ẩn danh: lựa chọn, thời gian dùng, kết quả khảo sát | P1 | Xuất được cho báo cáo bước 9; không có dữ liệu cá nhân. Dự phòng: phiếu giấy |
+
+**Yêu cầu phi chức năng**
+
+| Lĩnh vực | Yêu cầu |
+|---|---|
+| Tính đúng của nội dung | Mọi sự kiện hiển thị đều có nguồn. Nội dung chưa được chuyên gia duyệt không được đến tay học sinh; cho đến khi đó giao diện gắn nhãn "Nội dung minh họa, chưa được chuyên gia duyệt" và **phải giữ nhãn này** |
+| Khả năng giải thích | Mọi số liệu so sánh truy được về giả định và tham số của bộ máy |
+| Hiệu năng | Chạy trên trình duyệt ở máy yếu của trường và điện thoại. **Chưa đặt** ngưỡng cụ thể; đặt sau khi thử trên thiết bị thật (mốc kế hoạch T5) |
+| Ngôn ngữ | Giao diện và nhân vật bằng tiếng Việt; văn bản được chuẩn hóa NFC |
+| Quyền riêng tư | Học sinh là trẻ vị thành niên: chỉ thu thập dữ liệu ẩn danh, không thông tin cá nhân; cần phiếu đồng ý của nhà trường và phụ huynh trước buổi thử |
+| Tái sử dụng | Bộ máy, bộ tài nguyên và hệ thống nhân vật tách khỏi nội dung từng bài |
+
+## 7. Hiện trạng so với yêu cầu (đã kiểm tra ngày 03/11/2026; frontend dựng lại thành v2 ngày 07/11/2026, hành vi giữ nguyên)
+
+Chú giải: **Đã có** = chạy được trong prototype; **Một phần**; **Chưa có**. "Đã có" không bao giờ có nghĩa là "đã duyệt": toàn bộ nội dung bài học là minh họa và chưa được duyệt.
+
+| ID | Trạng thái | Bằng chứng và lưu ý |
+|---|---|---|
+| F1 | Đã có (minh họa) | Cảnh bản đồ lụa 2.5D, 4 góc nhìn, 4 chương trên dòng thời gian ([silk-map.ts](../../frontend/src/scene/silk-map.ts), [ngoc-hoi-ha-hoi-1789.json](../../frontend/src/content/lessons/ngoc-hoi-ha-hoi-1789.json)). Chưa được chuyên gia xác nhận nên tiêu chí chấp nhận **chưa đạt** |
+| F2 | Đã có | Nút phát/tạm dừng, tua lại, thanh dòng thời gian và các góc nhìn trên trang bài học và trong các màn hình 6 giai đoạn ([Player.tsx](../../frontend/src/components/Player.tsx)) |
+| F3 | Đã có (nguồn chưa kiểm chứng) | Mỗi chương có thuyết minh, chú thích, nhãn thời gian và nút "Xem nguồn" ([LessonPage.tsx](../../frontend/src/components/LessonPage.tsx)). Nguồn là các chuỗi `{book, chapter, quote, note}` nằm ngay trong dữ liệu (ví dụ *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); không có gì trong repo đối chiếu chúng với danh mục nguồn (xem mục 12 điểm 1) |
+| F4 | Đã có | Lời thoại `question.character` cùng câu hỏi `q-3` có cờ `isEmperorQuestion` |
+| F5 | Đã có | 4 biến số × 3 phương án = 81 tổ hợp (mục 9.2). Số phương án vượt mức tối thiểu 2 của PRD; cơ sở lịch sử của chúng chưa được duyệt |
+| F6 | Đã có, đã kiểm chứng | Cả 81 tổ hợp chạy hai lần qua `calculate` cho kết quả giống hệt nhau (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). Bộ máy không có yếu tố ngẫu nhiên. Việc đơn vị trong cảnh xê dịch ngẫu nhiên dùng `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); không làm thay đổi con số nào |
+| F7 | Đã có | Thông báo "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." luôn đứng đầu màn hình so sánh (`SIMULATION_NOTICE` trong [ui.tsx](../../frontend/src/components/ui.tsx), dùng ở [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx); `scripts/check.sh` báo lỗi nếu nó biến mất); giả định hiển thị từ `appliedAssumptions` |
+| F8 | Đã có | `generateExplanation` chọn đoạn `variableFeedbacks[variable][option]` có sẵn, kèm lời mở đầu và lời kết khích lệ ([engine.ts](../../frontend/src/lib/engine.ts), [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx)). Kịch bản có sẵn, không dùng LLM |
+| F9 | **Chưa có** | Không có LLM, không có máy chủ, do cách thiết kế của prototype |
+| F10 | Đã có (tối thiểu) | Phiên lớp học ở giai đoạn 3: giáo viên mở mã 6 ký tự, học sinh tham gia trên máy của mình, giáo viên thấy số bài đã gửi và thanh tỉ lệ cho từng phương án (cập nhật mỗi 4 giây). Backend: Cloudflare Worker + D1 trong `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Đặc tả: `specs/001-classroom-sim-demo/` |
+| F11 | Đã có (tối thiểu) | Theo từng máy trong phiên lớp: lựa chọn, thời gian dùng và khảo sát 3 câu (1-5, không bắt buộc) ở giai đoạn 6. Giáo viên tải CSV với mã ẩn danh (A01…), không có cột định danh, và có thể xoá phiên. Phiên hết hạn sau 12 giờ; dữ liệu tự xoá sau 180 ngày. Phiếu giấy vẫn là phương án dự phòng |
+
+**Cả 5 bài mẫu chạy đủ 6 giai đoạn** (phiên v2 S2): Ngọc Hồi (4 chương, 4 biến số), Rạch Gầm – Xoài Mút 1785 (5, 3), Chi Lăng – Xương Giang 1427 (6, 4), Kháng chiến chống Mông – Nguyên 1285 – 1288 (6, 3), Điện Biên Phủ 1954 (5, 4) và Chiến dịch Hồ Chí Minh 1975 (5, 3). Hai bài mới trích SGK *Lịch sử và Địa lí 9 – Chân trời sáng tạo* (Bài 16, Bài 18) kèm số trang; ba bài cũ được viết lại theo *Việt Nam sử lược* (Wikisource). Một chương (Rạch Gầm, cách bố trí quân) chưa có trích dẫn nguyên văn và ghi rõ điều đó. Một bài kiểm tra Vitest giữ mọi bài theo hợp đồng (lược đồ, ≥ 4 chương có nguồn, kết cục, mọi tổ hợp nằm trong khoảng hợp lý, không có từ chấm điểm); một bài E2E chơi Điện Biên Phủ qua đủ các giai đoạn trên máy tính và điện thoại. Giáo viên vẫn có thể thêm biến số cho bất kỳ bài nào ở thẻ "Biến số & hệ số" (mục 8).
+
+## 8. Kiến trúc (đúng như đã xây)
+
+Hai thư mục. `frontend/`: ứng dụng một trang build bằng Vite (React 19, TypeScript strict, TanStack Router với hash history, TanStack Query chỉ cho API lớp, Tailwind v4, zod, three.js từ npm) ra `frontend/dist`, triển khai tệp tĩnh lên Vercel ([vercel.json](../../vercel.json)). `backend/`: API nhỏ trên Cloudflare Worker + D1 (SQLite), chỉ dùng cho phiên lớp học (F10/F11); bài học chạy đầy đủ khi không có nó. Thiết kế đầy đủ: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); hệ thiết kế: [DESIGN.md](../../DESIGN.md).
+
+```
+frontend/
+  index.html          điểm vào của Vite
+  src/routes/         mỗi route một tệp (TanStack Router); routeTree.gen.ts là tệp sinh ra
+  src/components/     màn hình: trang bài học, vòng 6 bước, soạn bài + form biến số, sa bàn, phiên lớp
+  src/lib/            module nghiệp vụ không có UI, có test Vitest
+  src/content/lessons mỗi bài một JSON, nạp lười
+  src/scene/          silk-map.ts (nơi duy nhất import three.js, chunk nạp lười), artwork.ts, sprites/
+  src/styles.css      token giao diện Tailwind và lớp thành phần
+  public/             phông Noto woff2, logo
+  data/sources.json   danh mục nguồn (code chưa nạp)
+```
+
+| Module | Trách nhiệm |
+|---|---|
+| `lib/lesson-schema.ts` | Lược đồ zod của bài học; dùng trong kiểm tra build, mỗi lần lưu ở trình soạn bài và khi nhập JSON |
+| `lib/storage.ts` | Bài học trong `localStorage` (nạp từ JSON đóng gói, chuyển dữ liệu v1 một lần, cập nhật theo `revision`), nhập/xuất JSON, quy tắc hiển thị cho học sinh, lưu một lần chạy của học sinh cho mỗi bài |
+| `lib/engine.ts` | `calculate`, lời giải thích |
+| `lib/text.ts` | Chuẩn hóa NFC ở chỗ nhập liệu và nhập tệp |
+| `lib/auth.ts` | **Chỉ là đăng nhập demo phía trình duyệt** (`sessionStorage`); `admin` / `123` cho cả giáo viên và học sinh. Không phải bảo mật |
+| `lib/audio.ts` | Âm thanh trận đánh sinh bằng Web Audio |
+| `lib/class-session.ts` | Client API phiên lớp: mở/tham gia/gửi/tổng hợp/CSV/xoá, khoá giáo viên và mã học sinh trong `localStorage`; địa chỉ API theo môi trường (`localhost` → `:8787`; đã triển khai → `DEPLOYED_API_BASE` hoặc `VITE_API_BASE`, để trống thì tắt tính năng lớp học) |
+| `scene/silk-map.ts` | `SilkMapScene`: trình dựng bản đồ lụa Three.js theo `simulation.scene`; sprite `InstancedMesh`; 4 góc nhìn; nhãn địa hình là lớp phủ HTML (không bao giờ là chữ trong canvas/hình học); PNG trong `src/scene/sprites/` ghi đè sprite sinh tự động |
+| `components/StageLoop.tsx` | Vòng 6 giai đoạn |
+| `components/Editor.tsx`, `VariablesEditor.tsx` | Trình soạn bài có hoàn tác/làm lại; thẻ "Biến số & hệ số" sửa số liệu gốc, nhân vật, biến số và phương án (đúng một phương án gốc, 3 hệ số, giả định, nhận xét bước 6) kèm ô thử nhanh |
+| `components/ClassPanel.tsx` | Bảng giáo viên / thẻ tham gia của học sinh ở giai đoạn 3 và khảo sát ở giai đoạn 6 |
+
+**Các route** (hash history): `#/` (đăng nhập), `#/teacher`, `#/student`, `#/lesson/<id>`, `#/lesson/<id>/edit`, `#/lesson/<id>/preview`, `#/lesson/<id>/interactive` (vòng 6 giai đoạn, cả hai vai, `?step=n`), `#/atlas?place=&kind=&q=` (Atlas Việt Nam, mục 15; có liên kết trên thanh điều hướng và ở cả hai bảng điều khiển), `#/fonttest` (kiểm tra glyph tiếng Việt, không cần đăng nhập).
+
+**Quy tắc vòng đời cảnh:** mỗi bề mặt (xem trước ở trình soạn, trang bài học, giai đoạn gốc/tùy chỉnh) gắn một `SilkMapScene` qua `SceneView`/`Player`; hai thành phần này gọi `destroy()` khi gỡ để trình dựng không dồn lại.
+
+**Lưu trữ**
+
+| Khóa | Nội dung |
+|---|---|
+| `history_sim_lessons_db_v2` | Mọi bài học. Nạp từ JSON đóng gói; bài mẫu có `revision` cao hơn sẽ thay nội dung đã lưu nhưng giữ các trường kế hoạch của giáo viên (ngày, lớp, trạng thái) |
+| `history_sim_student_runs` | `{ [lessonId]: {choices, results…, timestamp} }`, chỉ lần chạy gần nhất |
+
+**Quy tắc hiển thị cho học sinh** ([storage.ts](../../frontend/src/lib/storage.ts)): học sinh chỉ thấy bài học khi `status === 'Đã dạy'` **và** `date <= today`. Các trạng thái: `'Nháp' | 'Đã lên lịch' | 'Đã dạy'` (giao diện hiện `Đã dạy` là "Đã phát hành").
+
+## 9. Hợp đồng dữ liệu và mô phỏng
+
+### 9.1 Đối tượng bài học (một tệp trong `frontend/src/content/lessons/`, kiểm tra bằng [lesson-schema.ts](../../frontend/src/lib/lesson-schema.ts))
+
+| Nhóm trường | Trường |
+|---|---|
+| Định danh và kế hoạch | `id`, `title`, `subtitle`, `commander`, `opponent`, `year`, `teacher`, `class`, `date`, `subject`, `grade`, `period`, `objectives`, `focusQuestion`, `status`, `isPilot` |
+| Nhãn | `disclaimer` ("Nội dung minh họa, chưa được chuyên gia duyệt"), `simulationDisclaimer`, `introSummary` |
+| Chương | `sections[]`: `id`, `title`, `narration`, `caption`, `timelineRange` (0-1), `timeLabel`, `source {book, chapter, quote, note}` |
+| Câu hỏi | `questions[]`: `id`, `text`, `type` (`multiple_choice` hoặc `open_discussion`), `sectionId`, `isEmperorQuestion`, `isExplanationReleased`, `options[] {id, text, isCorrect, explanation}` hoặc `guide` |
+| Chỉ giáo viên | `privateNotes` (ẩn ở chế độ học sinh) |
+| Số liệu gốc | `baseline {durationHours, casualties, positionScore, ratingText, minDurationHours?, minCasualties?}` |
+| Phiên bản | `schemaVersion`, `revision` (tăng khi sửa một bài mẫu để bản đã lưu trong trình duyệt được cập nhật) |
+| Hai phe | `factions {a {name, color}, b {name, color}}` |
+| Cảnh | `simulation {propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; loại địa vật river, hill, fort, village, forest, road, marsh, airfield, camp, stakes (bãi cọc); đường tiến quân được vẽ lên mặt bàn khi dòng thời gian chạy tới; các góc camera cố định trong trình dựng (overview, follow_troops, close_up, top_down) |
+| Câu hỏi của nhân vật | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
+| Biến số | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
+| Giải thích | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
+
+Quy tắc từ PRD: **chỉnh mô hình bằng cách sửa hệ số trong dữ liệu bài học, không bao giờ sửa trong code của bộ máy.** Các hệ số chính là danh sách giả định hiển thị cho học sinh.
+
+### 9.2 Bộ máy ([engine.ts](../../frontend/src/lib/engine.ts))
+
+Với mỗi biến số, lấy phương án đã chọn (nếu thiếu thì lấy phương án đầu tiên, rồi đến mặc định có độ lệch bằng 0), và cộng các độ lệch:
+
+```
+student.durationHours = max(baseline.minDurationHours ?? 12,  baseline.durationHours + Σ timeDelta)
+student.casualties    = max(baseline.minCasualties ?? 500,   baseline.casualties    + Σ casualtyDelta)
+student.positionScore = clamp(baseline.positionScore + Σ positionScoreDelta, 10, 100)
+isIdenticalToOriginal = mọi phương án đã chọn đều có isOriginal === true
+```
+
+Sắc thái kết quả theo `student.positionScore`: giống bản gốc → `perfect`; ≥75 → `positive`; ≥55 → `moderate`; còn lại → `challenging`. Bộ máy trả về `original`, `student`, `choiceDetails[]` và `appliedAssumptions[]` (biến số, lựa chọn, ba độ lệch, văn bản giải thích).
+
+**Dữ liệu mẫu Ngọc Hồi** (mọi con số đều minh họa, không có nguồn): nền 36 giờ, 1.800 thương vong, điểm thế trận 95.
+
+| Biến số | Phương án gốc | Phương án thay thế (Δthời gian giờ / Δthương vong / Δđiểm) |
+|---|---|---|
+| 1. Hướng tiến công | `flanking_multidirectional` | `frontal_allout` +8/+950/-18; `siege_starvation` +72/-400/-35 |
+| 2. Thời điểm mở màn | `dawn_tet5` | `midday_light` +12/+600/-14; `after_fullmoon` +120/+1100/-40 |
+| 3. Che chắn | `wet_straw_shields` | `standard_wood_shields` -4/+850/-15; `dispersed_rush` -6/+1400/-28 |
+| 4. Voi chiến | `elephants_vanguard` | `elephants_reserve` +6/+550/-12; `cavalry_instead` -2/+1200/-24 |
+
+**Đo trên cả 81 tổ hợp:** xác định (hai lần chạy giống hệt); đúng 1 tổ hợp bằng bản gốc; thời gian 28-234 giờ; thương vong 1.400-6.450; điểm 10-95. Số lượng theo sắc thái: `perfect` 1, `positive` 4, `moderate` 13, **`challenging` 63**.
+
+> Lo ngại về thiết kế, không phải lỗi: 63 trong 80 phương án khác bản gốc (79%) kết thúc ở sắc thái `challenging`. Kết hợp với các đoạn giải thích, học sinh đổi hầu như bất cứ điều gì cũng bị báo là kế hoạch kém. Điều này không phù hợp với quy tắc của PRD là nhân vật không được khiến học sinh cảm thấy bị chấm điểm. Hãy cùng cố vấn Lịch sử quyết định có nên cân lại hệ số để các phương án hợp lý không gần như đều là "challenging". Làm trong dữ liệu, không làm trong bộ máy.
+
+### 9.3 Quy tắc ghi nhãn (phải giữ nguyên)
+
+- Dải trên cùng và chân trang của mọi trang: "Nội dung minh họa, chưa được chuyên gia duyệt" (`PROTOTYPE_NOTICE` trong [ui.tsx](../../frontend/src/components/ui.tsx), hiển thị bởi [__root.tsx](../../frontend/src/routes/__root.tsx)).
+- Màn hình so sánh luôn hiện thông báo mô phỏng (mục 7, F7).
+- Không bao giờ trình bày số liệu mô phỏng như lịch sử. Không bịa số liệu lịch sử cụ thể trong nội dung bài học; ghi rõ con số nào là minh họa.
+- Nhãn địa hình là lớp phủ HTML; không bao giờ đặt chữ tiếng Việt trong canvas hoặc hình học (lỗi glyph và NFC).
+
+## 10. Kiểm tra
+
+Tự động, chạy trong CI ở mọi lần push (`npm test` trên máy):
+
+- `bash scripts/check.sh` (cũng là `/check`): `tsc` (strict) cho `frontend/src`; mọi JSON bài học qua được lược đồ zod; các nhãn bắt buộc vẫn còn trong mã; mọi tệp nguồn ở dạng NFC; tham chiếu cục bộ trong `index.html` tồn tại; `node --check` cho mã backend.
+- Unit (`npm run test:unit`: Vitest cho `frontend/src/lib`, `node:test` cho backend): lược đồ bài học, chuyển dữ liệu v1, bộ máy cho cùng kết quả ở cả 81 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
+- Atlas (`npm run atlas:test`, `node:test`): 34 đơn vị, hai quần đảo, địa danh nằm trong tỉnh, id, NFC, dung lượng, chấm điểm tìm kiếm, và mọi `atlasPlaceIds` của bài giảng trỏ tới địa danh có thật.
+- Build + `npm run budget`: JS của lần vào đầu (entry + modulepreload) ≤ 200 KB gzip; three.js và atlas chỉ nằm trong chunk tải lười.
+- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): atlas (tìm có dấu và không dấu, chọn bằng bàn phím và chuột, trạng thái URL qua tải lại trang, địa danh → bài giảng → địa danh, học sinh chỉ thấy bài đã phát hành, dòng ghi công OSM), điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, form soạn biến số (bài trống được thêm một biến số, phát hành và chạy đủ 6 giai đoạn theo hệ số của nó, hoàn tác/làm lại), không cuộn ngang ở 360 px.
+- Sau CI: Vercel (frontend) và Cloudflare (backend) triển khai từ `Staging` (preview/staging) và `main` (production); mỗi job tự bỏ qua kèm thông báo nếu thiếu secret ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
+- Thủ công: `npm run dev:frontend` (Vite, cổng 8080), rồi đi qua 6 giai đoạn ở vai giáo viên và học sinh; kiểm tra `#/fonttest`.
+
+**Danh sách chấp nhận cho demo (chạy xong trước T9, trước buổi dạy thử)**
+
+1. Cả 6 giai đoạn hoàn tất không có lỗi console, ở chế độ giáo viên và học sinh, trên một máy yếu thật của trường và một điện thoại.
+2. Màn hình so sánh hiện thông báo mô phỏng và danh sách giả định với từng tổ hợp trong 81 tổ hợp.
+3. Cùng lựa chọn cho cùng số liệu qua các lần tải lại (đã tự động: `frontend/src/lib/domain.test.ts`, `tests/e2e/lesson-flow.spec.js`).
+4. Chế độ học sinh không bao giờ hiện `privateNotes`, và không bao giờ hiện bài học không thỏa cả hai điều kiện `Đã dạy` và `date <= today`.
+5. Mọi sự kiện hiển thị đều có nguồn mà cố vấn đã duyệt; không có nội dung nào đến học sinh khi chưa được duyệt.
+6. Dữ liệu xuất của F11 (hoặc phiếu giấy dự phòng) không có dữ liệu cá nhân.
+7. Bộ kiểm thử nhân vật (nếu giữ F9): tỉ lệ sai/bịa dưới ngưỡng của nhóm.
+
+## 11. Lịch trình
+
+Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 tuần.** Thay thế kế hoạch 17 tuần trước đó của Bản nháp 1 và của tài liệu PRD; PRD nay đã mang cùng kế hoạch 12 tuần (xem mục 12 điểm 11). Tuần 1 (T1) **chưa gắn với ngày cụ thể**. Tuần đánh số từ 1, tính cả hai đầu.
+
+**Cấu trúc:** T1-T12 là kế hoạch cam kết. T13-T15 là **quỹ dự phòng**, chỉ dùng khi lỡ một mốc kiểm soát bên dưới; không phải việc đã lên lịch. Nếu hết T15 mà việc chưa xong thì **cắt phạm vi, không kéo dài lịch.**
+
+| Bước | Tuần | Đầu ra / mốc kiểm soát | Phụ trách |
+|---|---|---|---|
+| 0. Prototype v1.0 | **Xong**, 24-28/10/2026 | Prototype chạy được, nội dung minh họa (F1-F8 đã có, mục 7) | Nhóm |
+| 1. Chốt phạm vi | T1 | Bản phạm vi một trang; ngưỡng thành công; **chốt ngày T1 theo lịch của trường**; THCS hay THPT; nhân sự, ngân sách, thiết bị | PM |
+| 2. Đối tác chuyên môn | T1-3 | ≥1 giáo viên và ≥1 cố vấn đồng ý; xác định lớp thử; **cam kết trường/ngày thử hạn T5** | PM, Nội dung |
+| 3. Bộ dữ liệu đã duyệt | T2-4 | Dữ liệu có nguồn, có nhãn; **cố vấn duyệt vào cuối T4** | Nội dung, Cố vấn |
+| 4. Kịch bản bài học | T3-4 | Kịch bản 15-20 phút; 3-5 biến số; câu hỏi của Hoàng đế và giải thích cho từng phương án (F4, F8) | PM, Nội dung |
+| 5. Bộ máy | T4-7 | Thay hệ số tạm bằng hệ số có nguồn trong dữ liệu bài học; cân lại độ lệch "challenging" (mục 9.2); lần chạy gốc khớp nguồn; gửi giả định cho cố vấn ở **T6** | AI/Backend |
+| 6. Cảnh 3D | T4-7 | Lần chạy gốc theo dữ liệu đã duyệt; mượt trên máy yếu; thử trên thiết bị thật của trường từ **T5** | 3D/Frontend |
+| 7. Nhân vật AI | T5-7 | Phần P0 theo kịch bản đã có sẵn, không cần LLM. F9 (LLM + RAG) mức P1 **cắt vào cuối T7 nếu chưa đạt ngưỡng** | AI/Backend |
+| 8. Tích hợp và chuẩn bị | T8-9 | **T9: chạy trọn vẹn, không có điểm chặn.** Giáo viên tập dượt; phiếu đồng ý; khảo sát và bài kiểm tra trước/sau sẵn sàng; xuất F11 hoặc phương án phiếu giấy sẵn sàng | Cả nhóm |
+| 9. Dạy thử trên lớp | T10-11 | 1-2 lớp; thu dữ liệu để so với lớp học thường | PM, Nội dung |
+| 10. Đánh giá | T12 | Báo cáo có số liệu; quyết định: mở rộng sang bài tiếp theo hay làm lại | PM |
+| Dự phòng | T13-15 | Chỉ để hấp thụ trễ tiến độ. Không lên lịch việc nào ở đây | PM |
+
+**Vì sao 12 tuần khả thi.** Prototype đã chạy toàn bộ vòng lặp (F1-F8). Vì vậy bước 5 và 6 là công việc nội dung và tinh chỉnh trên code có sẵn, không phải xây từ đầu, và bộ máy vốn đã xác định (mục 9.2).
+
+**Cái giá của 12 tuần** (so với kế hoạch 17 tuần):
+
+- Cố vấn duyệt dữ liệu vào cuối **T4**, không phải T6, nên đây là đường găng. Mọi việc ở bước 5-8 dùng dữ liệu đã duyệt.
+- Tuần đệm không còn nằm trong kế hoạch; nó chuyển sang quỹ dự phòng.
+- Bước 5, 6 và 7 cùng kết thúc ở T7 và bước 8 không thể bắt đầu trước đó. Bước 8 dài 2 tuần, không phải 3.
+- Dạy thử kéo dài 2 tuần (T10-11) và báo cáo 1 tuần (T12).
+- Dự kiến sẽ cắt F9 trừ khi nó đạt rõ ràng ở T7. F10 và F11 nên làm ở mức tối thiểu (chấp nhận phiếu giấy cho F11).
+- Cần **4-5 người làm toàn thời gian**. Nếu làm bán thời gian, hãy dự kiến dùng quỹ dự phòng và lập kế hoạch theo mức tối đa 15 tuần.
+
+**Mốc kiểm soát kích hoạt quỹ dự phòng:**
+
+| Mốc | Nếu lỡ |
+|---|---|
+| T4: cố vấn duyệt bộ dữ liệu | Mỗi tuần trễ đẩy bước 5-9 lùi một tuần; buổi thử chuyển vào quỹ dự phòng |
+| T5: trường và ngày thử đã cam kết | Không thể chốt buổi thử; báo cáo lên cấp trên, tìm trường thứ hai |
+| T9: chạy trọn vẹn không điểm chặn | Dùng tuần dự phòng trước khi buổi thử bắt đầu, không dùng trong lúc thử |
+| T7: F9 dưới ngưỡng | Cắt F9 (không kéo dài) |
+
+Điểm chịu áp lực đã biết: **T4** vừa có cố vấn ký duyệt, vừa kết thúc kịch bản, vừa bắt đầu bước 5-6, nên là tuần dễ trễ nhất.
+
+**Lịch.** Buổi thử (T10-11) không được rơi vào kỳ thi hoặc kỳ nghỉ Tết Đinh Mùi (mùng 1 Tết = Thứ Bảy 06/02/2027; ngày nghỉ của trường chưa được xác nhận). Ví dụ: nếu T1 là Thứ Hai 16/11/2026 thì T10-11 là 18-31/01/2027, T12 là 01-07/02/2027, và quỹ dự phòng (T13-15) rơi vào kỳ nghỉ Tết nên không dùng được. T1 càng muộn thì buổi thử càng bị đẩy vào Tết. Hãy chốt ngày T1 ở bước 1 và xác nhận ngày thử với trường trước T5.
+
+## 12. Mâu thuẫn và khoảng trống (cần quyết định hoặc sửa trước khi dựa vào tài liệu)
+
+1. **`frontend/data/sources.json` mới liên kết một phần.** Nay danh mục có các trang SGK dùng cho Điện Biên Phủ và chiến dịch 1975 (Bài 16, 18), *Việt Nam sử lược* (hạng B) cho Rạch Gầm, Chi Lăng, Mông – Nguyên, và một mục Wikipedia (hạng C) chỉ làm đầu mối. Chưa có nguồn nào cho Ngọc Hồi - Hạ Hồi; các trích dẫn trong bài này chưa từng được đối chiếu. Chưa có chuyên gia nào duyệt, nên "bộ dữ liệu đã duyệt" của PRD (bước 3) **vẫn chưa tồn tại**.
+2. **Cấp học.** Bài mẫu ghi `grade: 'Khối 11'` (THPT). Sách giáo khoa duy nhất trong repo là *Lịch sử và Địa lí 9* (THCS). PRD để ngỏ THCS hay THPT. Cần chốt ở bước 1; điều này quyết định sách tham chiếu và mức từ vựng.
+3. **README từng nói quá về F10. Đã sửa.** `frontend/README.md` từng mô tả biểu đồ khảo sát của lớp ("38/40") mà không có code nào cài đặt; F10 nay đã có ở mức phiên lớp học tối thiểu (mục 7).
+4. **Tài khoản.** PRD đưa "tài khoản người dùng" ra ngoài phạm vi. Prototype có đăng nhập demo, bảng điều khiển giáo viên/trình soạn thảo với nhập/xuất nhiều hơn PRD yêu cầu. Giữ nhãn đăng nhập chỉ là demo; nó không bảo vệ gì. Cần quyết định trình soạn thảo thuộc phạm vi demo hay là phần thưởng phát sinh chi phí bảo trì.
+5. **F11. Đã sửa (tối thiểu).** Phiên lớp thu lựa chọn, thời gian dùng và khảo sát 3 câu theo từng máy, xuất CSV ẩn danh cho báo cáo bước 9. Phiếu đồng ý và bài kiểm tra trước/sau vẫn làm trên giấy.
+6. **PRD nói một tệp + `lesson.json`.** Từ v2 mỗi bài là một tệp JSON trong `frontend/src/content/lessons/`, kiểm tra bằng lược đồ zod; bản trong `localStorage` giữ phần giáo viên sửa. Quy trình nội dung thật (bước 3 → 4) vẫn phải quyết định nội dung đã duyệt nằm trong các tệp này hay trên máy chủ.
+7. **Thời lượng.** PRD: 15-20 phút. Giáo án của prototype: 45 phút (6 giai đoạn 5/10/8/7/8/7). Hai điều này khớp nhau chỉ khi 15-20 phút của PRD là phần mô phỏng cốt lõi nằm trong tiết 45 phút; cần xác nhận với giáo viên đối tác.
+8. **Viết cứng và theo dữ liệu.** Đã xử lý ở v2: thông báo bắt buộc là hằng `SIMULATION_NOTICE` và luôn đứng đầu màn hình so sánh; `simulationDisclaimer` của từng bài hiện ngay dưới (không lặp lại thông báo) và trên trang bài học.
+9. **Con số chưa duyệt.** Số liệu nền (36 giờ, 1.800 thương vong, 95) và mọi độ lệch đều là tạm. Văn bản mẫu cũng nêu các con số như "100 voi chiến" và "29 vạn quân" chưa gắn với nguồn đã duyệt. Chúng phải qua bước 3 trước khi học sinh nhìn thấy.
+10. **Ngẫu nhiên trong cảnh.** Vị trí các đơn vị trong cảnh được ngẫu nhiên hóa mỗi lần tải; hai lần chiếu cùng một bài trông hơi khác nhau. Chấp nhận được cho demo; chỉ quan trọng nếu cần ảnh chụp tái lập được.
+11. **Mâu thuẫn lộ trình. Đã sửa.** Tài liệu PRD (`docs/prd/…`) đã được cập nhật ngày 01/11/2026 theo cùng kế hoạch 12 tuần (tối đa 15), gồm biểu đồ Gantt, số tuần từng bước, các mốc và rủi ro. PRD chưa có dòng rủi ro "12 tuần quá gấp" và hai câu hỏi mở mới ở mục 13 (quy mô nhóm, cố vấn).
+12. **Lệch cách diễn đạt. Đã sửa.** Giao diện ghi "Nội dung minh họa, chưa được chuyên gia duyệt" (dải đầu trang và chân trang); `frontend/README.md`, `CLAUDE.md` ở thư mục gốc và `.claude/rules/content-labeling.md` nay ghi giống vậy. Tệp `data/lesson.root-copy.json` (không được nạp, còn ghi chú "Dữ liệu minh họa" cũ) đã bị xoá cùng code v1.
+
+## 13. Câu hỏi mở
+
+| Câu hỏi | Người phụ trách | Chặn việc gì |
+|---|---|---|
+| Ngày T1; lịch, kỳ nghỉ và kỳ thi của trường thử | PM | Bước 1 (chặn) |
+| Nhóm có 4-5 người làm toàn thời gian không? Kế hoạch 12 tuần giả định là có | PM | Bước 1 (chặn) |
+| Ai là cố vấn Lịch sử? Hạn duyệt là cuối T4 | PM | Bước 3 (chặn) |
+| THCS hay THPT? Dùng sách giáo khoa bản nào làm chuẩn, và ai ký duyệt? | PM, Cố vấn | Bước 1, 3 (chặn) |
+| Cả lớp có giáo viên hay tự học ở nhà? | PM | Bước 1 (chặn) |
+| Quy mô nhóm, ngân sách, thiết bị thử | PM | Bước 1 |
+| Tài nguyên 3D và hình ảnh lấy từ đâu, giấy phép gì? | PM | Bước 6 |
+| Trình soạn thảo của giáo viên có thuộc phạm vi demo không? | PM, Dev | Chi phí bảo trì |
+| Có cân lại hệ số để các phương án thay thế không còn 79% là "challenging"? | Cố vấn, Nội dung | Bước 5 |
+| Tên sản phẩm; ai là người mua (trường, giáo viên, phụ huynh)? | PM | Không chặn demo |
+| Danh sách lựa chọn cố định (khuyến nghị) hay nhập tự do cho demo? | PM | Đã nghiêng về danh sách cố định; cần xác nhận |
+
+## 14. Rủi ro
+
+| Rủi ro | Giảm thiểu |
+|---|---|
+| Không tìm được cố vấn Lịch sử hoặc giáo viên | Liên hệ từ tuần 1; dùng prototype v1.0 để thuyết phục |
+| Nhân vật AI nói sai hoặc bịa | RAG chỉ trên bộ dữ liệu đã duyệt, "tài liệu không ghi lại" khi không biết, bộ câu hỏi bẫy; cắt F9 ở T7 nếu không đạt |
+| Số liệu mô phỏng bị hiểu là sự thật | Thông báo trên mọi màn hình so sánh, giả định hiển thị rõ, mô hình đơn giản và giải thích được |
+| 3D tốn quá nhiều thời gian hoặc tiền | Ưu tiên rõ ràng hơn đẹp; tái sử dụng tài nguyên |
+| Thiết bị của trường yếu | Web, 3D nhẹ, chế độ chất lượng thấp, thử trên máy thật từ T5 |
+| Học sinh cảm thấy bị chấm điểm | Giọng nhân vật khích lệ; giáo viên đọc kịch bản; xem lại độ lệch 79% "challenging" |
+| Buổi thử rơi vào kỳ nghỉ hoặc kỳ thi | Chốt T1 theo lịch trường; xác nhận ngày thử với trường trước T5; mức tối đa 15 tuần không còn chỗ dời bước 9 qua Tết nếu T1 muộn (mục 11) |
+| Trường hoặc phụ huynh từ chối thu dữ liệu của trẻ vị thành niên | Phiếu đồng ý sẵn sàng trước T9; chỉ dữ liệu ẩn danh; phương án khảo sát giấy |
+| 12 tuần quá gấp (cố vấn duyệt trễ, nhân sự bán thời gian) | Mốc kiểm soát và quỹ dự phòng ở mục 11; cắt F9, F10 và F11 trước; không bao giờ kéo dài quá T15 |
+
+## 15. Atlas Việt Nam (v2, làm ở S3, nối vào app ở S4)
+
+Bản đồ 3D Việt Nam để tìm bài giảng theo địa danh. Route `#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`
+(cần đăng nhập, cả hai vai trò); trạng thái nằm trên URL nên mọi khung nhìn đều chia sẻ được. Nội dung
+là minh họa, chưa được chuyên gia duyệt như bài giảng; mỗi địa danh có `illustrative: true` và nguồn.
+
+**Yêu cầu và trạng thái (8/11/2026, sau S4)**
+
+| Yêu cầu | Trạng thái |
+|---|---|
+| 34 đơn vị cấp tỉnh từ 1/7/2025 (25 tỉnh + 9 thành phố tính đến 20/9/2026), Hoàng Sa thuộc Đà Nẵng, Trường Sa thuộc Khánh Hòa | Đã làm; unit test |
+| Dữ liệu ranh giới ≤ 400 KB gzip; địa hình ≤ 2 MB | 37 KB gzip; `terrain.png` 1 MB |
+| Địa danh: di sản UNESCO, di tích quốc gia đặc biệt, danh thắng, chiến trường và kinh đô, có đủ 13 id bài giảng cần | 71 địa danh (9 di sản thế giới, có Yên Tử 2025); unit test |
+| Mỗi địa danh nằm trong tỉnh của nó (điểm sát bờ trong 10 km), id kebab-case duy nhất, không trùng id tỉnh, chuỗi NFC | Unit test |
+| Tìm kiếm bỏ dấu, chấm điểm kiểu GeoGnos, Levenshtein ≤ 2, lọc theo loại, mã hoá URL | Đã làm; unit test |
+| API renderer `VietnamAtlasScene(container, { quality, onSelect })`: `setQuality`, `focusPlace(id \| null)`, `setFilter`, `setViewInsets`, `destroy` | Đã làm |
+| Nhãn chỉ là HTML, bảng màu từ biến CSS, marker `InstancedMesh`, chế độ thấp cho phone, `destroy()` khi rời trang | Đã làm |
+| Thẻ địa danh: mô tả, thời kỳ, tỉnh, nguồn kèm giấy phép, nút "Mở bài giảng" (`lessonIds` của địa danh ∪ bài có `atlasPlaceIds` chứa địa danh; học sinh chỉ thấy bài được phép xem); thẻ tỉnh liệt kê bài của các địa danh trong tỉnh | Đã làm; E2E |
+| Bài giảng dẫn ngược lại: trang bài học có chip cho mỗi `atlasPlaceIds` tới `#/atlas?place=`; thanh điều hướng và hai bảng điều khiển có liên kết tới atlas; mọi `atlasPlaceIds` trỏ tới địa danh, tỉnh hoặc quần đảo có thật | Đã làm; `npm run atlas:test`; E2E |
+| Bàn phím: combobox (mũi tên, Enter, Esc), chip và danh sách là nút, canvas nhận phím mũi tên | Đã làm |
+| Phone: bottom sheet (tự mở khi `?place=` đổi); camera canh giữa phần bản đồ phía trên sheet; dòng ghi công OSM nằm trong sheet | Đã làm; ảnh chụp 360×800; E2E trên phone-360 |
+| three.js và atlas nằm trong chunk route tải lười; JS ban đầu ≤ 200 KB gzip | JS ban đầu 138,4 KB gzip (entry 111,4 + phần tải trước 27,0; `npm run budget`, có trong CI). Chunk atlas 58 KB gzip + landmarks 12 KB (dùng chung với trang bài học) + three.js 136 KB, tải lười |
+| ≥ 55 FPS desktop, ≥ 30 FPS phone | Đạt trên GPU tích hợp của laptop (Intel Iris Xe, Chromium headless với ANGLE GL): 60 FPS (trần vsync) khi bay giữa các địa danh, desktop 1280×720 và khung phone 360×800 DPR 2,75, cả hai mức đồ hoạ. **Chưa đo trên điện thoại thật hay máy tính trường.** Dựng bằng phần mềm (SwiftShader): 5,5 (cao) / 13,8 (thấp) desktop, 5,5 / 22 phone |
+| E2E cho `#/atlas` | `tests/e2e/atlas.spec.js`, desktop và phone-360 (4 test) |
+
+**Cách vẽ đã chọn.** Đã đo ba cách vẽ ranh giới trong harness (`npm run atlas:shoot`): vẽ vào texture
+mặt nạ (nhoè, dày khi zoom gần), khối tỉnh phẳng (mất địa hình và ranh giới) và đoạn thẳng phủ lên địa
+hình (sắc nét mọi mức zoom, tốc độ như nhau). Chọn cách thứ ba; số đo ở `specs/002-v2-tanstack-atlas/notes/s3.md`.
+
+**Dữ liệu và giấy phép**: xem [SOURCES.md](../../frontend/src/content/atlas/SOURCES.md). Tệp ranh giới
+là sản phẩm phái sinh ODbL của OpenStreetMap nên dòng "© OpenStreetMap contributors" phải luôn hiện trên
+bản đồ. Không analytics, không dùng vị trí người dùng, không lấy gì từ GeoGnos.
+
+**Còn mở**: FPS trên điện thoại thật và máy tính trường; các địa danh bài giảng có thể dùng mà atlas
+chưa có (`van-don`, `him-lam`, `doi-a1`, `buon-ma-thuot`, `phuoc-long`; xem `notes/s2.md`). Chi tiết ở
+`specs/002-v2-tanstack-atlas/notes/s4.md`.

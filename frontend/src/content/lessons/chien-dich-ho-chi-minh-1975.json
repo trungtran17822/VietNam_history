@@ -1,0 +1,763 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "chien-dich-ho-chi-minh-1975",
+  "era": "1975",
+  "atlasPlaceIds": [
+    "dinh-doc-lap"
+  ],
+  "factions": {
+    "a": {
+      "name": "Quân Giải phóng",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân đội Sài Gòn",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Tổng tiến công và nổi dậy Xuân 1975 - Chiến dịch Hồ Chí Minh",
+  "subtitle": "Từ Buôn Ma Thuột đến Dinh Độc Lập: hoàn thành giải phóng miền Nam, thống nhất đất nước",
+  "commander": "Bộ Chính trị và Bộ Chỉ huy chiến dịch; quân Giải phóng",
+  "opponent": "Quân đội và Chính quyền Sài Gòn",
+  "year": "4 – 3 đến 30 – 4 – 1975",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 9A1",
+  "date": "2026-11-20",
+  "subject": "Lịch sử và Địa lí",
+  "grade": "Khối 9",
+  "period": "Tiết 3 · 09:15 - 10:00 (45 phút)",
+  "objectives": "Trình bày được nét chính về cuộc Tổng tiến công và nổi dậy Xuân 1975 và Chiến dịch Hồ Chí Minh; giải thích vai trò của việc chọn điểm mở màn, nắm thời cơ và cách tiến vào Sài Gòn với phương châm “thắng lợi trọn vẹn với tổn thất ít nhất” (SGK Lịch sử và Địa lí 9 – Chân trời sáng tạo, Bài 18 mục 3).",
+  "focusQuestion": "Những quyết định nào giúp cuộc Tổng tiến công và nổi dậy Xuân 1975 kết thúc chỉ trong gần hai tháng, với Chiến dịch Hồ Chí Minh toàn thắng ngày 30 – 4 – 1975?",
+  "status": "Đã lên lịch",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Thời gian, tổn thất và điểm thế trận đều là số minh họa từ giả định của bài học, không phải số liệu lịch sử.",
+  "introSummary": "Sau chiến thắng Phước Long, Bộ Chính trị đề ra chủ trương giải phóng miền Nam trong hai năm 1975 – 1976, và nếu thời cơ đến thì giải phóng ngay trong năm 1975. Ngày 4 – 3 – 1975, cuộc tiến công mở màn ở Tây Nguyên. Thời cơ đến nhanh: Huế, Đà Nẵng và các tỉnh miền Trung lần lượt được giải phóng. Ngày 26 – 4, Chiến dịch Hồ Chí Minh bắt đầu; trưa 30 – 4 – 1975, lá cờ Cách mạng tung bay trên nóc Dinh Độc Lập.",
+  "sections": [
+    {
+      "id": "hcm-1",
+      "title": "Thời cơ sau chiến thắng Phước Long",
+      "narration": "Sau Hiệp định Pa-ri (27 – 1 – 1973), quân Mỹ rút khỏi miền Nam nhưng quân đội Sài Gòn vẫn lấn chiếm vùng giải phóng. Cuối năm 1974, đầu năm 1975, quân Giải phóng thắng lớn ở Phước Long, một tỉnh nằm sát Sài Gòn. So sánh thế và lực đã có lợi cho cách mạng.",
+      "caption": "Phước Long: phép thử cho thấy thế và lực đã thay đổi.",
+      "timelineRange": 0.1,
+      "timeLabel": "Cuối 1974 – đầu 1975",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 18 “Việt Nam từ năm 1965 đến năm 1975”, mục 3 “Hoàn thành giải phóng miền Nam, thống nhất đất nước (1973 – 1975)”, tr. 99",
+        "quote": "Sau chiến thắng Phước Long, so sánh thế và lực có lợi cho cách mạng, Bộ Chính trị đề ra chủ trương giải phóng miền Nam trong hai năm 1975 – 1976, nhấn mạnh: nếu thời cơ đến sẽ giải phóng miền Nam ngay vào đầu hoặc cuối năm 1975."
+      }
+    },
+    {
+      "id": "hcm-2",
+      "title": "Mở màn ở Tây Nguyên",
+      "narration": "Ngày 4 – 3 – 1975, quân Giải phóng đánh nghi binh ở Pleiku, Kon Tum, rồi tiến công Buôn Ma Thuột. Quân đội Sài Gòn phải rút khỏi địa bàn chiến lược này; ngày 24 – 3, Tây Nguyên hoàn toàn giải phóng.",
+      "caption": "Đánh nghi binh ở phía bắc, đòn chính ở Buôn Ma Thuột.",
+      "timelineRange": 0.3,
+      "timeLabel": "4 – 3 đến 24 – 3 – 1975",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 18 “Việt Nam từ năm 1965 đến năm 1975”, mục 3 “Hoàn thành giải phóng miền Nam, thống nhất đất nước (1973 – 1975)”, tr. 99",
+        "quote": "Thực hiện kế hoạch giải phóng miền Nam, ngày 4 – 3 – 1975, quân Giải phóng đánh nghi binh ở Pleiku, Kon Tum, sau đó tiến công Buôn Ma Thuột. Quân đội Sài Gòn buộc phải rút khỏi địa bàn chiến lược quan trọng này. Ngày 24 – 3, Tây Nguyên hoàn toàn giải phóng."
+      }
+    },
+    {
+      "id": "hcm-3",
+      "title": "Thời cơ đến nhanh: giải phóng “thần tốc”",
+      "narration": "Nhận thấy thời cơ chiến lược đến nhanh, Bộ Chính trị quyết định giải phóng hoàn toàn miền Nam. Huế, Đà Nẵng, các tỉnh miền Trung và Nam Trung Bộ, các đảo Song Tử Tây, Nam Yết, Sinh Tồn, Sơn Ca... lần lượt được giải phóng.",
+      "caption": "Kế hoạch hai năm được rút lại: nắm lấy thời cơ ngay trong năm 1975.",
+      "timelineRange": 0.45,
+      "timeLabel": "Cuối tháng 3 – đầu tháng 4 – 1975",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 18 “Việt Nam từ năm 1965 đến năm 1975”, mục 3 “Hoàn thành giải phóng miền Nam, thống nhất đất nước (1973 – 1975)”, tr. 100",
+        "quote": "Nhận thấy thời cơ chiến lược đến nhanh, Bộ Chính trị quyết định giải phóng hoàn toàn miền Nam. Lần lượt, Huế, Đà Nẵng, các tỉnh miền Trung và Nam Trung Bộ, các đảo Song Tử Tây, Nam Yết, Sinh Tồn, Sơn Ca,... được giải phóng “thần tốc”."
+      }
+    },
+    {
+      "id": "hcm-4",
+      "title": "Quyết định mở Chiến dịch Hồ Chí Minh",
+      "narration": "Ngày 14 – 4, Bộ Chính trị quyết định chiến dịch giải phóng Sài Gòn – Gia Định mang tên Chiến dịch Hồ Chí Minh. Phương châm của Bộ Chỉ huy chiến dịch: trong trận quyết chiến chiến lược cuối cùng, giành thắng lợi trọn vẹn với tổn thất ít nhất. Bức điện của tướng Võ Nguyên Giáp gửi các đơn vị nhấn mạnh: “Thần tốc, thần tốc hơn nữa”.",
+      "caption": "Thắng lợi trọn vẹn, tổn thất ít nhất: một phương châm cho trận cuối cùng.",
+      "timelineRange": 0.55,
+      "timeLabel": "14 – 4 – 1975",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 18 “Việt Nam từ năm 1965 đến năm 1975”, mục 3 “Hoàn thành giải phóng miền Nam, thống nhất đất nước (1973 – 1975)”, tr. 100",
+        "quote": "Ngày 14 – 4, Bộ Chính trị quyết định chiến dịch giải phóng Sài Gòn – Gia Định mang tên Chiến dịch Hồ Chí Minh. Bộ Chỉ huy chiến dịch đề ra phương châm: trong trận quyết chiến chiến lược cuối cùng, giành thắng lợi trọn vẹn với tổn thất ít nhất.",
+        "note": "Câu “Thần tốc, thần tốc hơn nữa” trong chú thích tư liệu 18.17, tr. 100."
+      }
+    },
+    {
+      "id": "hcm-5",
+      "title": "Năm cánh quân tiến vào Sài Gòn",
+      "narration": "17 giờ ngày 26 – 4, Chiến dịch Hồ Chí Minh bắt đầu. Năm cánh quân Giải phóng tiến vào Sài Gòn, chiếm các cơ quan đầu não của Chính quyền Sài Gòn. 10 giờ 45 phút ngày 30 – 4, xe tăng quân Giải phóng tiến vào Dinh Độc Lập; 11 giờ 30 phút, lá cờ Cách mạng tung bay trên nóc Dinh. Tổng thống Dương Văn Minh tuyên bố đầu hàng. Chiến dịch Hồ Chí Minh toàn thắng.",
+      "caption": "11 giờ 30 phút ngày 30 – 4 – 1975: cờ Cách mạng trên nóc Dinh Độc Lập.",
+      "timelineRange": 1,
+      "timeLabel": "26 – 4 đến 30 – 4 – 1975",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 18 “Việt Nam từ năm 1965 đến năm 1975”, mục 3 “Hoàn thành giải phóng miền Nam, thống nhất đất nước (1973 – 1975)”, tr. 100",
+        "quote": "17 giờ ngày 26 – 4, Chiến dịch Hồ Chí Minh bắt đầu. Năm cánh quân Giải phóng tiến vào Sài Gòn, chiếm các cơ quan đầu não của Chính quyền Sài Gòn. 10 giờ 45 phút ngày 30 – 4, xe tăng quân Giải phóng tiến vào Dinh Độc Lập. 11 giờ 30 phút ngày 30 – 4 – 1975, lá cờ Cách mạng tung bay trên nóc Dinh Độc Lập."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Sau chiến thắng Phước Long, Bộ Chính trị chủ trương giải phóng miền Nam trong hai năm 1975 – 1976, nếu thời cơ đến thì giải phóng ngay trong năm 1975 (SGK tr. 99).",
+    "Tây Nguyên (4 – 3 đến 24 – 3): nghi binh ở Pleiku, Kon Tum, đòn chính ở Buôn Ma Thuột (SGK tr. 99).",
+    "Thời cơ đến nhanh: Huế, Đà Nẵng, các tỉnh miền Trung, Nam Trung Bộ và các đảo Song Tử Tây, Nam Yết, Sinh Tồn, Sơn Ca được giải phóng “thần tốc” (SGK tr. 100).",
+    "Chiến dịch Hồ Chí Minh (26 – 4 đến 30 – 4 – 1975): năm cánh quân, phương châm “thắng lợi trọn vẹn với tổn thất ít nhất” (SGK tr. 100).",
+    "Ý nghĩa: kết thúc thắng lợi cuộc kháng chiến chống Mỹ, cứu nước, thu non sông về một mối, mở ra kỉ nguyên đất nước độc lập, thống nhất (SGK tr. 102)."
+  ],
+  "privateNotes": "Sổ tay giáo viên:\n- Bám khung SGK Bài 18 mục 3 (tr. 98 – 100) và lược đồ 18.16; sa bàn chỉ vẽ Sài Gòn ở chặng cuối, các giai đoạn trước dùng lời kể và lược đồ SGK.\n- Nhân vật dẫn chuyện (hướng dẫn viên Mai) là nhân vật hư cấu.\n- Số liệu bước 5 là minh họa: 1 368 giờ là khoảng từ 4 – 3 đến 30 – 4 – 1975 theo SGK; 1 000 “tổn thất ước tính” là mốc chuẩn hóa để so sánh, KHÔNG phải số liệu lịch sử.\n- Câu hỏi mở dùng tư liệu 18.18 (báo Guardian, tr. 100) như SGK gợi ý ở tr. 98. Hoạt động Vận dụng tr. 102 (đoạn văn 200 chữ về giá trị của hòa bình) có thể giao về nhà.",
+  "questions": [
+    {
+      "id": "hcm-q1",
+      "text": "Vì sao quân Giải phóng đánh nghi binh ở Pleiku, Kon Tum trước khi tiến công Buôn Ma Thuột?",
+      "type": "multiple_choice",
+      "sectionId": "hcm-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "hcm-q1-a",
+          "text": "Để kéo sự chú ý và lực lượng của đối phương về hướng khác, tạo bất ngờ ở Buôn Ma Thuột",
+          "isCorrect": true,
+          "explanation": "“Nghi binh” là đánh để đối phương tin rằng đó là hướng chính. SGK tr. 99: sau trận nghi binh mới là đòn tiến công Buôn Ma Thuột."
+        },
+        {
+          "id": "hcm-q1-b",
+          "text": "Vì Pleiku, Kon Tum là mục tiêu cuối cùng của cả cuộc Tổng tiến công",
+          "isCorrect": false,
+          "explanation": "Mục tiêu cuối cùng là Sài Gòn (Chiến dịch Hồ Chí Minh)."
+        },
+        {
+          "id": "hcm-q1-c",
+          "text": "Vì quân Giải phóng chỉ đủ sức đánh các thị xã nhỏ",
+          "isCorrect": false,
+          "explanation": "Chỉ 20 ngày sau, ngày 24 – 3, toàn bộ Tây Nguyên đã được giải phóng (SGK tr. 99)."
+        }
+      ]
+    },
+    {
+      "id": "hcm-q2",
+      "text": "Phương châm của Bộ Chỉ huy Chiến dịch Hồ Chí Minh theo SGK là gì?",
+      "type": "multiple_choice",
+      "sectionId": "hcm-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "hcm-q2-a",
+          "text": "Trong trận quyết chiến chiến lược cuối cùng, giành thắng lợi trọn vẹn với tổn thất ít nhất",
+          "isCorrect": true,
+          "explanation": "Đúng nguyên văn SGK tr. 100."
+        },
+        {
+          "id": "hcm-q2-b",
+          "text": "Kéo dài vây hãm để đối phương tự tan rã",
+          "isCorrect": false,
+          "explanation": "Bức điện “Thần tốc, thần tốc hơn nữa” cho thấy yêu cầu ngược lại: nhanh chóng kết thúc."
+        },
+        {
+          "id": "hcm-q2-c",
+          "text": "Giành thắng lợi bằng mọi giá, không tính đến tổn thất",
+          "isCorrect": false,
+          "explanation": "SGK nhấn mạnh “tổn thất ít nhất”, cho cả hai phía và cho thành phố."
+        }
+      ]
+    },
+    {
+      "id": "hcm-q3",
+      "text": "Sự kiện nào đánh dấu Chiến dịch Hồ Chí Minh toàn thắng?",
+      "type": "multiple_choice",
+      "sectionId": "hcm-5",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "hcm-q3-a",
+          "text": "Trưa 30 – 4 – 1975, cờ Cách mạng tung bay trên nóc Dinh Độc Lập, Tổng thống Dương Văn Minh tuyên bố đầu hàng",
+          "isCorrect": true,
+          "explanation": "SGK tr. 100."
+        },
+        {
+          "id": "hcm-q3-b",
+          "text": "Ngày 24 – 3 – 1975, Tây Nguyên hoàn toàn giải phóng",
+          "isCorrect": false,
+          "explanation": "Đó là thắng lợi mở màn của cuộc Tổng tiến công, trước Chiến dịch Hồ Chí Minh một tháng."
+        },
+        {
+          "id": "hcm-q3-c",
+          "text": "Ngày 29 – 3 – 1973, những lính Mỹ cuối cùng rút khỏi miền Nam",
+          "isCorrect": false,
+          "explanation": "Đó là sau Hiệp định Pa-ri; chiến tranh còn kéo dài thêm hai năm."
+        }
+      ]
+    },
+    {
+      "id": "hcm-q4",
+      "text": "Báo Guardian ngày 1 – 5 – 1975 đặt tít “Sài Gòn đầu hàng với tiếng thở phào nhẹ nhõm”. Em có đồng ý với nhận định đó không? Vì sao?",
+      "type": "open_discussion",
+      "sectionId": "hcm-5",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Câu hỏi lấy từ SGK tr. 98, dùng tư liệu 18.18 (tr. 100). Gợi ý: phương châm “thắng lợi trọn vẹn với tổn thất ít nhất”; người dân vẫy chào đoàn quân; nhiều người còn lo sợ nhưng ngày đầu “vẫn ổn”. Mời học sinh nói về giá trị của hòa bình (hoạt động Vận dụng tr. 102)."
+    }
+  ],
+  "baseline": {
+    "durationHours": 1368,
+    "casualties": 1000,
+    "positionScore": 94,
+    "ratingText": "Toàn thắng trưa 30 – 4 – 1975"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": true,
+      "tents": true,
+      "elephants": true,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "aInfantry": 50,
+      "aSpecial": 6,
+      "bInfantry": 36,
+      "bArtillery": 0
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 0.3,
+        "preset": "follow_troops"
+      },
+      {
+        "time": 0.6,
+        "preset": "top_down"
+      },
+      {
+        "time": 0.85,
+        "preset": "close_up"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "urban",
+      "labels": [
+        {
+          "text": "Dinh Độc Lập",
+          "at": [
+            -4,
+            -18
+          ]
+        },
+        {
+          "text": "Trung tâm Sài Gòn",
+          "at": [
+            10,
+            20
+          ]
+        },
+        {
+          "text": "Sông Sài Gòn",
+          "at": [
+            92,
+            -30
+          ]
+        },
+        {
+          "text": "Năm cánh quân tiến vào",
+          "at": [
+            -78,
+            72
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "river",
+          "points": [
+            [
+              58,
+              -93
+            ],
+            [
+              72,
+              -50
+            ],
+            [
+              94,
+              -10
+            ],
+            [
+              84,
+              34
+            ],
+            [
+              104,
+              93
+            ]
+          ],
+          "size": 9
+        },
+        {
+          "type": "fort",
+          "at": [
+            -4,
+            -8
+          ],
+          "size": 12,
+          "faction": "b"
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              -118,
+              -78
+            ],
+            [
+              -70,
+              -46
+            ],
+            [
+              -30,
+              -20
+            ],
+            [
+              -6,
+              -8
+            ]
+          ],
+          "size": 2.6
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              -24,
+              -92
+            ],
+            [
+              -16,
+              -50
+            ],
+            [
+              -6,
+              -10
+            ]
+          ],
+          "size": 2.6
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              118,
+              -66
+            ],
+            [
+              70,
+              -30
+            ],
+            [
+              24,
+              -14
+            ],
+            [
+              -2,
+              -8
+            ]
+          ],
+          "size": 2.6
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              116,
+              48
+            ],
+            [
+              60,
+              30
+            ],
+            [
+              20,
+              6
+            ],
+            [
+              -2,
+              -6
+            ]
+          ],
+          "size": 2.6
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              -118,
+              56
+            ],
+            [
+              -64,
+              30
+            ],
+            [
+              -26,
+              6
+            ],
+            [
+              -6,
+              -6
+            ]
+          ],
+          "size": 2.6
+        },
+        {
+          "type": "camp",
+          "at": [
+            -80,
+            -66
+          ],
+          "size": 20,
+          "faction": "a"
+        },
+        {
+          "type": "camp",
+          "at": [
+            86,
+            70
+          ],
+          "size": 20,
+          "faction": "a"
+        },
+        {
+          "type": "village",
+          "at": [
+            -92,
+            26
+          ],
+          "size": 14
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              -112,
+              74
+            ],
+            [
+              -60,
+              88
+            ]
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "faction": "a",
+          "points": [
+            [
+              -118,
+              -78
+            ],
+            [
+              -70,
+              -46
+            ],
+            [
+              -30,
+              -20
+            ],
+            [
+              -8,
+              -10
+            ]
+          ],
+          "from": 0.55,
+          "to": 0.9
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              -24,
+              -92
+            ],
+            [
+              -16,
+              -50
+            ],
+            [
+              -6,
+              -14
+            ]
+          ],
+          "from": 0.58,
+          "to": 0.92
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              118,
+              -66
+            ],
+            [
+              70,
+              -30
+            ],
+            [
+              24,
+              -14
+            ],
+            [
+              0,
+              -10
+            ]
+          ],
+          "from": 0.56,
+          "to": 0.9
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              116,
+              48
+            ],
+            [
+              60,
+              30
+            ],
+            [
+              20,
+              6
+            ],
+            [
+              0,
+              -4
+            ]
+          ],
+          "from": 0.6,
+          "to": 0.94
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              -118,
+              56
+            ],
+            [
+              -64,
+              30
+            ],
+            [
+              -26,
+              6
+            ],
+            [
+              -8,
+              -4
+            ]
+          ],
+          "from": 0.6,
+          "to": 0.94
+        }
+      ],
+      "formations": {
+        "a": {
+          "from": [
+            -10,
+            60
+          ],
+          "to": [
+            0,
+            4
+          ]
+        },
+        "b": {
+          "from": [
+            -4,
+            -20
+          ],
+          "to": [
+            -4,
+            -26
+          ]
+        }
+      },
+      "aSpecialKind": "tank"
+    },
+    "outcomes": {
+      "perfect": "Các lựa chọn của em trùng với cách đã diễn ra: Chiến dịch Hồ Chí Minh toàn thắng trưa 30 – 4 – 1975 như SGK mô tả.",
+      "positive": "Theo giả định của bài, miền Nam vẫn được giải phóng nhưng mất thêm thời gian và tổn thất nhiều hơn.",
+      "moderate": "Thế trận kéo dài: đối phương có thêm thời gian lập phòng tuyến mới, thành phố chịu thêm giao tranh.",
+      "challenging": "Thời cơ trôi qua: chiến tranh kéo dài sang năm sau, tổn thất cho cả hai phía và người dân tăng lên."
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Hướng dẫn viên Mai",
+      "dynasty": "Nhân vật hư cấu dẫn chuyện tại Dinh Độc Lập",
+      "greeting": "Chào các em!",
+      "speech": "Cô là người dẫn chuyện của bài học này. Mùa xuân 1975, ba quyết định nối tiếp nhau đã đưa đoàn quân tới cổng Dinh Độc Lập: chọn điểm mở màn ở Tây Nguyên, nắm lấy thời cơ ngay trong năm 1975, và tiến vào Sài Gòn bằng năm cánh quân với phương châm tổn thất ít nhất. Nếu là các em, các em sẽ quyết định khác ở điểm nào?"
+    },
+    "originalLabel": "Cách đã diễn ra năm 1975",
+    "variables": [
+      {
+        "id": "opening",
+        "title": "1. Điểm mở màn ở Tây Nguyên",
+        "description": "Đánh vào đâu trước?",
+        "options": [
+          {
+            "id": "feint_bmt",
+            "isOriginal": true,
+            "name": "Nghi binh ở Pleiku, Kon Tum, rồi tiến công Buôn Ma Thuột (cách đã diễn ra)",
+            "shortName": "Nghi binh phía bắc, đánh Buôn Ma Thuột",
+            "desc": "Đánh lạc hướng ở phía bắc Tây Nguyên, đòn chính bất ngờ ở phía nam.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 99: ngày 24 – 3, Tây Nguyên hoàn toàn giải phóng."
+          },
+          {
+            "id": "pleiku_direct",
+            "isOriginal": false,
+            "name": "Đánh thẳng vào Pleiku, nơi đối phương đang chờ sẵn",
+            "shortName": "Đánh thẳng Pleiku",
+            "desc": "Tấn công vào hướng mà đối phương dự đoán.",
+            "timeDelta": 72,
+            "casualtyDelta": 900,
+            "positionScoreDelta": -16,
+            "assumptions": "Giả định của bài: mất yếu tố bất ngờ, đối phương tập trung phòng thủ ở đúng nơi bị đánh nên trận mở màn kéo dài và tổn thất tăng."
+          },
+          {
+            "id": "skip_highlands",
+            "isOriginal": false,
+            "name": "Bỏ qua Tây Nguyên, mở màn ngay ở vùng ven Sài Gòn",
+            "shortName": "Mở màn ngay ở Sài Gòn",
+            "desc": "Đánh thẳng vào trung tâm khi lực lượng của đối phương ở miền Trung và Tây Nguyên còn nguyên.",
+            "timeDelta": 120,
+            "casualtyDelta": 1200,
+            "positionScoreDelta": -22,
+            "assumptions": "Giả định của bài: đối phương còn nguyên lực lượng ở miền Trung, Tây Nguyên để kéo về ứng cứu; trận đánh lớn diễn ra quanh một thành phố đông dân."
+          }
+        ]
+      },
+      {
+        "id": "timing",
+        "title": "2. Khi thời cơ chiến lược đến nhanh",
+        "description": "Giữ kế hoạch hai năm hay rút ngắn?",
+        "options": [
+          {
+            "id": "seize_1975",
+            "isOriginal": true,
+            "name": "Quyết định giải phóng hoàn toàn miền Nam ngay trong năm 1975 (cách đã diễn ra)",
+            "shortName": "Nắm thời cơ ngay năm 1975",
+            "desc": "Thay đổi kế hoạch khi tình hình thay đổi, tiến “thần tốc”.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 99 – 100: kế hoạch đã tính trước “nếu thời cơ đến”, và Bộ Chính trị quyết định ngay khi thời cơ đến nhanh."
+          },
+          {
+            "id": "two_years",
+            "isOriginal": false,
+            "name": "Giữ đúng kế hoạch hai năm 1975 – 1976",
+            "shortName": "Giữ kế hoạch hai năm",
+            "desc": "Đi từng bước như đã định, không đẩy nhanh.",
+            "timeDelta": 720,
+            "casualtyDelta": 800,
+            "positionScoreDelta": -14,
+            "assumptions": "Giả định của bài: đối phương có thêm thời gian lập phòng tuyến mới quanh Sài Gòn; chiến tranh kéo dài thêm nhiều tháng."
+          },
+          {
+            "id": "consolidate",
+            "isOriginal": false,
+            "name": "Dừng lại củng cố vùng mới giải phóng rồi mới tiến tiếp",
+            "shortName": "Dừng lại củng cố",
+            "desc": "Ưu tiên giữ vững những nơi vừa giải phóng trước khi đi tiếp.",
+            "timeDelta": 1440,
+            "casualtyDelta": 1000,
+            "positionScoreDelta": -20,
+            "assumptions": "Giả định của bài: vùng mới giải phóng vững hơn nhưng thời cơ trôi qua; đối phương kịp tổ chức lại lực lượng."
+          }
+        ]
+      },
+      {
+        "id": "saigon",
+        "title": "3. Cách tiến vào Sài Gòn",
+        "description": "Tiến vào thành phố thế nào cho “tổn thất ít nhất”?",
+        "options": [
+          {
+            "id": "five_columns",
+            "isOriginal": true,
+            "name": "Năm cánh quân đồng loạt tiến vào, chiếm các cơ quan đầu não (cách đã diễn ra)",
+            "shortName": "Năm cánh quân, đánh vào đầu não",
+            "desc": "Tiến từ nhiều hướng cùng lúc, nhắm thẳng vào các cơ quan đầu não của Chính quyền Sài Gòn.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 100: chiến dịch bắt đầu 17 giờ ngày 26 – 4 và toàn thắng trưa 30 – 4."
+          },
+          {
+            "id": "one_column",
+            "isOriginal": false,
+            "name": "Dồn lực lượng vào một hướng duy nhất",
+            "shortName": "Tiến theo một hướng",
+            "desc": "Tập trung sức mạnh vào một mũi tiến công lớn.",
+            "timeDelta": 48,
+            "casualtyDelta": 700,
+            "positionScoreDelta": -12,
+            "assumptions": "Giả định của bài: đối phương dồn được lực lượng chặn một hướng; các khu vực khác chưa bị khống chế nên giao tranh kéo dài."
+          },
+          {
+            "id": "ring_siege",
+            "isOriginal": false,
+            "name": "Vây chặt vòng ngoài, đánh chiếm dần từng khu vực",
+            "shortName": "Vây ngoài, đánh dần từng khu",
+            "desc": "Siết từng vòng, đánh chậm mà chắc vào từng khu phố.",
+            "timeDelta": 240,
+            "casualtyDelta": 1100,
+            "positionScoreDelta": -18,
+            "assumptions": "Giả định của bài: giao tranh lan ra nhiều khu dân cư và kéo dài nhiều ngày, đi ngược phương châm “tổn thất ít nhất”."
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Cảm ơn các em đã cân nhắc những quyết định của mùa xuân 1975. Mỗi phương án đều có lí do của nó; hãy cùng so sánh cái được và cái mất.",
+    "variableFeedbacks": {
+      "opening": {
+        "feint_bmt": "Em đã thấy sức mạnh của yếu tố bất ngờ: đối phương chuẩn bị ở một nơi, đòn chính lại ở nơi khác.",
+        "pleiku_direct": "Đánh vào nơi đối phương đã chờ sẵn cho thấy quyết tâm, nhưng bất ngờ là thứ rất khó lấy lại.",
+        "skip_highlands": "Nhắm ngay vào đích cuối là ý tưởng mạnh dạn; còn lực lượng của đối phương ở Tây Nguyên và miền Trung thì sao?"
+      },
+      "timing": {
+        "seize_1975": "Em đã chọn nắm lấy thời cơ: kế hoạch tốt là kế hoạch biết thay đổi khi tình hình thay đổi.",
+        "two_years": "Giữ đúng kế hoạch là đức tính đáng quý, nhưng thời cơ trong chiến tranh không chờ ai.",
+        "consolidate": "Củng cố vùng mới giải phóng là việc cần làm; câu hỏi là làm ngay lúc ấy thì đối phương sẽ làm gì trong thời gian đó."
+      },
+      "saigon": {
+        "five_columns": "Em đã thấy vì sao nhiều hướng cùng lúc giúp chiến dịch kết thúc nhanh và giữ được thành phố.",
+        "one_column": "Một mũi tiến công mạnh rất dễ chỉ huy; nhưng một hướng thì cũng dễ bị chặn.",
+        "ring_siege": "Đánh chắc từng khu thì an toàn cho từng bước, nhưng giao tranh kéo dài trong thành phố là điều phương châm của chiến dịch muốn tránh."
+      }
+    },
+    "encouragingConclusion": "Chiến thắng 30 – 4 – 1975 khép lại cuộc kháng chiến và mở ra thời kì đất nước thống nhất. Hiểu vì sao các quyết định được đưa ra cũng là hiểu thêm giá trị của hòa bình hôm nay."
+  }
+}

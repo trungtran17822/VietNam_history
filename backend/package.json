@@ -1,0 +1,13 @@
+{
+  "name": "su-viet-class-api",
+  "private": true,
+  "type": "module",
+  "description": "Class session API for Sử Việt (Cloudflare Worker + D1). No runtime dependencies.",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "test": "node --test test/",
+    "deploy:staging": "npx wrangler@3 deploy --env staging",
+    "deploy:production": "npx wrangler@3 deploy --env production"
+  },
+  "engines": { "node": ">=18" }
+}

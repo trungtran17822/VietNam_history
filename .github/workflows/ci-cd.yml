@@ -1,0 +1,127 @@
+# CI on every push: static checks (tsc, lesson schema, labels), unit + atlas tests, build + bundle
+# budget, Playwright E2E. Node 24 (the app needs >= 20.19; the atlas tests run .ts files directly).
+# After CI passes on Staging or main, deploy:
+#   frontend/ -> Vercel      (Staging: Preview, main: Production; Vercel builds frontend/dist)
+#   backend/  -> Cloudflare  (Staging: env.staging, main: env.production; Worker + D1 migrations)
+# Targets: Vercel project vietnam-history (account youngsterdumb) and the Cloudflare account in
+# backend/wrangler.toml (suviet.workers.dev). Their ids are not secret and live in this file /
+# wrangler.toml; only the two tokens are repo secrets. A deploy job without its token skips with a
+# notice (docs/devops/DEPLOY.md):
+#   VERCEL_TOKEN, CLOUDFLARE_API_TOKEN
+name: CI/CD
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Static checks
+        run: bash scripts/check.sh
+      - name: Unit tests (engine, storage, lesson contract, backend API)
+        run: npm run test:unit
+      - name: Atlas data tests (34 units, landmarks, search, lesson ↔ place links)
+        run: npm run atlas:test
+      - name: Build
+        run: npm run build
+      - name: Bundle budget (initial JS ≤ 200 KB gzip, three.js and the atlas lazy)
+        run: npm run budget
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end tests (desktop + 360 px phone)
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  deploy-frontend:
+    needs: test
+    if: github.event_name != 'pull_request' && (github.ref_name == 'main' || github.ref_name == 'Staging')
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: team_6P2BlZoToZdS3VjdEqi6VnTy
+      VERCEL_PROJECT_ID: prj_yOHOIp7diLJsl0u98CfC6DDWnlnK
+      TARGET: ${{ github.ref_name == 'main' && 'production' || 'preview' }}
+      PROD_FLAG: ${{ github.ref_name == 'main' && '--prod' || '' }}
+    steps:
+      - name: Check Vercel token
+        id: secrets
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::notice::Skipping Vercel deploy: repo secret VERCEL_TOKEN is not set (docs/devops/DEPLOY.md)"
+            echo "ready=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.secrets.outputs.ready == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.secrets.outputs.ready == 'true'
+        with:
+          node-version: 22  # deploy tools (vercel, wrangler@3) only; the app is tested on 24
+      - if: steps.secrets.outputs.ready == 'true'
+        run: npm install --global vercel@latest
+      - if: steps.secrets.outputs.ready == 'true'
+        run: vercel pull --yes --environment="$TARGET" --token="$VERCEL_TOKEN"
+      - if: steps.secrets.outputs.ready == 'true'
+        run: vercel build $PROD_FLAG --token="$VERCEL_TOKEN"
+      - if: steps.secrets.outputs.ready == 'true'
+        run: vercel deploy --prebuilt $PROD_FLAG --token="$VERCEL_TOKEN"
+
+  deploy-backend:
+    needs: test
+    if: github.event_name != 'pull_request' && (github.ref_name == 'main' || github.ref_name == 'Staging')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ENV: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+      DB_NAME: ${{ github.ref_name == 'main' && 'sv-class-prod' || 'sv-class-staging' }}
+      API_URL: ${{ github.ref_name == 'main' && 'https://sv-class-api.suviet.workers.dev' || 'https://sv-class-api-staging.suviet.workers.dev' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Cloudflare token and D1 id
+        id: secrets
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::notice::Skipping Cloudflare deploy: repo secret CLOUDFLARE_API_TOKEN is not set (docs/devops/DEPLOY.md)"
+            echo "ready=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if grep -A4 "env.$CF_ENV.d1_databases" wrangler.toml | grep -q '00000000-0000-0000-0000-000000000000'; then
+            echo "::notice::Skipping Cloudflare deploy: database_id for $CF_ENV is still the placeholder in backend/wrangler.toml"
+            echo "ready=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        if: steps.secrets.outputs.ready == 'true'
+        with:
+          node-version: 22  # deploy tools (vercel, wrangler@3) only; the app is tested on 24
+      - name: Apply D1 migrations
+        if: steps.secrets.outputs.ready == 'true'
+        run: npx --yes wrangler@3 d1 migrations apply "$DB_NAME" --remote --env "$CF_ENV"
+      - name: Deploy Worker
+        if: steps.secrets.outputs.ready == 'true'
+        run: npx --yes wrangler@3 deploy --env "$CF_ENV"
+      - name: Smoke test the deployed API
+        if: steps.secrets.outputs.ready == 'true'
+        run: node scripts/smoke.mjs "$API_URL" https://vietnam-history-eight.vercel.app
