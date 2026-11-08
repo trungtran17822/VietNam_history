@@ -331,6 +331,11 @@
    * Uses View Transitions API if supported; falls back to CSS exit/enter classes.
    */
   function executeWithTransition(updateDomCallback) {
+    const isReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReduced) {
+      updateDomCallback();
+      return;
+    }
     if (typeof document.startViewTransition === 'function') {
       try {
         return document.startViewTransition(updateDomCallback);
@@ -829,6 +834,10 @@
       }
       showView('view-login');
       return;
+    }
+    if ((!currentUser || activeRole === 'guest') && window.Auth.isAuthenticated()) {
+      currentUser = window.Auth.getCurrentUser();
+      if (currentUser) setAuthenticatedRole(currentUser.role);
     }
 
     const canonical = hash.match(/^#\/?lesson\/([^/]+)(?:\/([^/]+))?/);
@@ -1928,8 +1937,7 @@
       if (button.dataset.neighbor) navigateToLesson(button.dataset.neighbor);
     }));
     root.querySelector('[data-primary-play]').addEventListener('click', () => {
-      lessonSceneInstance.play();
-      document.getElementById('lesson-player-box').classList.add('is-playing');
+      launch6StagesLoop(lesson, 1);
     });
     const resumeButton = root.querySelector('[data-resume]');
     if (resumeButton) resumeButton.addEventListener('click', () => lessonSceneInstance.seek(Number(saved.progress) || 0));
@@ -2000,16 +2008,13 @@
         openLessonWorkspace(lesson, false);
       }
       if (event.target.closest('[data-focus-player]')) document.getElementById('lesson-player-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (event.target.closest('[data-start-interactive]')) launch6StagesLoop(lesson);
+      if (event.target.closest('[data-start-interactive]')) launch6StagesLoop(lesson, 1);
       const saveButton = event.target.closest('[data-save-status]');
       if (saveButton) saveWorkspaceLesson(lesson, saveButton.dataset.saveStatus);
     });
     root.querySelectorAll('[data-stage-index]').forEach((button) => button.addEventListener('click', () => {
       const index = Number(button.dataset.stageIndex);
-      root.querySelectorAll('[data-stage-index]').forEach((node) => node.classList.toggle('active', node === button));
-      const notice = root.querySelector('[data-comparison-notice]');
-      notice.hidden = index !== 4;
-      if (index === 1 && Array.isArray(lesson.sections) && lesson.sections.length) lessonSceneInstance.seek(Number(lesson.sections[0].timelineRange) || 0);
+      launch6StagesLoop(lesson, index + 1);
     }));
     if (saved.progress > 0) updateLessonStage(saved.progress);
   }
@@ -2082,7 +2087,9 @@
     const newest = visibleLessons.slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))[0];
     if (newest) {
       featured.innerHTML = `<div class="featured-copy"><span class="featured-eyebrow">✦ BÀI HỌC MỚI NHẤT</span><h2>${escapeHTML(newest.title)}</h2><p>${escapeHTML(newest.objectives || newest.subtitle || 'Ôn tập nội dung và khám phá lại mô phỏng 3D.')}</p><div class="featured-meta"><span>${escapeHTML(newest.date || '')}</span><span>${escapeHTML(newest.class || '')}</span><span>${escapeHTML(newest.teacher || 'Giáo viên bộ môn')}</span></div></div><button class="featured-open" type="button" data-lesson-id="${escapeHTML(newest.id)}">Xem lại bài <span>↗</span></button>`;
-      featured.querySelector('[data-lesson-id]').addEventListener('click', () => navigateToLesson(newest.id));
+      featured.querySelector('[data-lesson-id]').addEventListener('click', () => {
+        window.location.hash = `#/lesson/${encodeURIComponent(newest.id)}/interactive`;
+      });
     } else {
       featured.innerHTML = '<div class="featured-empty"><span class="featured-eyebrow">KHÔNG GIAN HỌC TẬP</span><h2>Chưa có bài học nào</h2><p>Khi thầy cô phát hành bài giảng, nội dung sẽ xuất hiện tại đây.</p></div>';
     }
@@ -2121,9 +2128,11 @@
 
       card.addEventListener('click', (event) => {
         if (event.target.closest('button')) return;
-        navigateToLesson(lesson.id);
+        window.location.hash = `#/lesson/${encodeURIComponent(lesson.id)}/interactive`;
       });
-      card.querySelector('.btn-open-lesson-viewer').addEventListener('click', () => navigateToLesson(lesson.id));
+      card.querySelector('.btn-open-lesson-viewer').addEventListener('click', () => {
+        window.location.hash = `#/lesson/${encodeURIComponent(lesson.id)}/interactive`;
+      });
 
       elements.studentPostersGrid.appendChild(card);
     });
@@ -2461,12 +2470,19 @@
   /* ==========================================================================
      6-STAGE CLASSROOM STEPPER INTERACTIVE LOOP
      ========================================================================== */
-  function launch6StagesLoop(lesson) {
+  function launch6StagesLoop(lesson, initialStep = 1) {
     if (lessonSceneInstance) lessonSceneInstance.destroy();
     lessonSceneInstance = null;
     activeLesson = lesson;
     window.location.hash = `#/lesson/${encodeURIComponent(lesson.id)}/interactive`;
-    current6StageIndex = 1;
+    current6StageIndex = initialStep;
+
+    const titleEl = document.querySelector('#view-lesson-detail .lesson-title-text');
+    if (titleEl) titleEl.textContent = lesson.title || 'Bài học';
+    const subTitleEl = document.querySelector('#view-lesson-detail .lesson-subtitle-text');
+    if (subTitleEl) subTitleEl.textContent = lesson.subtitle || lesson.objectives || '';
+    const introSummaryEl = document.getElementById('intro-narration') || document.getElementById('intro-summary-text');
+    if (introSummaryEl) introSummaryEl.textContent = lesson.introSummary || lesson.objectives || lesson.subtitle || (lesson.sections && lesson.sections[0] ? lesson.sections[0].narration : '');
 
     // Reset default tactical choices
     studentTacticalChoices = {};
@@ -2482,7 +2498,7 @@
     window.ClassPanel.markLessonStart();
     renderVariablesQuestionForm(lesson);
     showView('view-lesson-detail');
-    goTo6StageScreen(1);
+    goTo6StageScreen(initialStep);
   }
 
   function lessonHasVariables(lesson) {

@@ -53,6 +53,7 @@
   --focus-ring: #A8412F;
   --faction-a: #A8412F;
   --faction-b: #3E5C76;
+  --header-h: 66px;
 
   --palette-vermilion: var(--vermilion);
   --palette-vermilion-light: #BD7665;
@@ -637,9 +638,10 @@ body:has(#view-login.active) .heritage-watermark {
   align-items: center !important;
   justify-content: center !important;
   width: 100% !important;
-  max-width: 360px !important;
+  max-width: 440px !important;
   height: auto !important;
   padding: 0 !important;
+  margin: 0 auto !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -652,91 +654,125 @@ body:has(#view-login.active) .heritage-watermark {
   align-items: center !important;
   justify-content: center !important;
   width: 100% !important;
+  min-height: 240px !important;
 }
 
-/* Trống đồng là hình chính: đặt giữa-dưới, kích thước lớn rõ 240px, KHÔNG bị cờ che */
+/* Trống đồng là hình chính: đường kính khoảng 230px, đặt giữa panel, dưới đoạn mô tả */
 .heritage-drum {
   position: relative !important;
-  flex: 0 0 240px !important;
-  width: 240px !important;
-  height: 240px !important;
+  flex: 0 0 230px !important;
+  width: 230px !important;
+  height: 230px !important;
   display: grid !important;
   place-items: center !important;
+  margin: 0 auto !important;
+  border-radius: 50% !important;
 }
 .heritage-drum img {
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45)) !important;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45)) !important;
 }
 
-/* Lá cờ là chi tiết phụ: nhỏ, đặt riêng ở góc phải trên cạnh trống, KHÔNG chồng lên hoa văn trống */
-.heritage-flag {
+/* Lá cờ lớn, rộng bằng đường kính trống (210px), nghiêng 5 độ, viền kem, bóng đổ tĩnh */
+.heritage-flag-wrap {
   position: absolute !important;
-  top: -6px !important;
-  right: 14px !important;
-  width: 82px !important;
-  height: auto !important;
-  display: block !important;
-  z-index: 2 !important;
+  top: -16px !important;
+  left: calc(50% + 230px / 2 - 32px) !important;
+  width: 210px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
 }
-.heritage-flag img {
+.heritage-flag {
+  position: relative !important;
   width: 100% !important;
   height: auto !important;
-  object-fit: contain !important;
+  margin: 0 !important;
+  display: block !important;
+}
+.heritage-flag img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  border: 2px solid #FBF7EC !important;
+  border-radius: 4px !important;
   transform: rotate(5deg) !important;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35)) !important;
+  transform-origin: center center !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45) !important;
+}
+/* Chữ nhỏ "VIỆT NAM" ngay dưới góc trái của lá cờ, không đè lên hình */
+.heritage-flag-label {
+  display: block !important;
+  margin-top: 8px !important;
+  margin-left: 2px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+  color: #E8D29B !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Nhãn "ĐÔNG SƠN · VIỆT NAM" nằm dưới cùng, không đè lên hình nào */
-.heritage-emblem-badge {
-  position: relative !important;
-  bottom: auto !important;
-  left: auto !important;
-  transform: none !important;
+/* Dòng "ĐÔNG SƠN • 2.000 NĂM DI SẢN" đặt dưới trống, căn giữa với trống */
+.heritage-drum-label {
+  display: block !important;
   margin-top: 14px !important;
-  white-space: nowrap !important;
   font-family: var(--font-sans) !important;
-  font-size: 0.65rem !important;
+  font-size: 0.72rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.18em !important;
+  letter-spacing: 0.2em !important;
   color: #E8D29B !important;
-  background: rgba(14, 27, 21, 0.88) !important;
-  padding: 4px 14px !important;
-  border-radius: 20px !important;
-  border: 1px solid rgba(229, 205, 151, 0.3) !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
 }
 
 @media (max-width: 1024px) {
   .heritage-drum {
-    flex: 0 0 210px !important;
-    width: 210px !important;
-    height: 210px !important;
+    flex: 0 0 195px !important;
+    width: 195px !important;
+    height: 195px !important;
   }
-  .heritage-flag {
-    width: 72px !important;
-    right: 22px !important;
-    top: -5px !important;
+  .heritage-flag-wrap {
+    width: 180px !important;
+    left: calc(50% + 195px / 2 - 26px) !important;
+    top: -12px !important;
+  }
+  .heritage-flag-label {
+    font-size: 0.64rem !important;
+  }
+  .heritage-drum-label {
+    font-size: 0.68rem !important;
+    margin-top: 12px !important;
   }
 }
 
 @media (max-width: 760px) {
   .login-story-copy {
-    padding-bottom: 20px !important;
+    padding-bottom: 12px !important;
   }
   .heritage-drum {
-    flex: 0 0 160px !important;
-    width: 160px !important;
-    height: 160px !important;
+    flex: 0 0 150px !important;
+    width: 150px !important;
+    height: 150px !important;
   }
-  .heritage-flag {
-    width: 58px !important;
-    right: 28px !important;
-    top: -4px !important;
+  .heritage-flag-wrap {
+    width: 135px !important;
+    left: calc(50% + 150px / 2 - 20px) !important;
+    top: -8px !important;
   }
-  .heritage-emblem-badge {
-    margin-top: 10px !important;
+  .heritage-flag-label {
     font-size: 0.58rem !important;
+    margin-top: 4px !important;
+  }
+  .heritage-drum-label {
+    font-size: 0.62rem !important;
+    margin-top: 10px !important;
   }
 }
 
@@ -1002,7 +1038,22 @@ html[data-quality="low"] .stepper-progress-fill {
   color: #FFFFFF;
 }
 
+.lesson-stepper .step-node {
+  background: #FFFDF7 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  border-radius: 999px !important;
+}
+.lesson-stepper .step-node.active {
+  background: var(--sv-jade, #244C40) !important;
+}
+
 /* Horizontal slide on stage change */
+.screen-view.active {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 html[data-quality="high"] .screen-view.active,
 html[data-quality="medium"] .screen-view.active {
   animation: svStageSlideIn var(--dur-base) var(--ease) forwards;
@@ -1019,6 +1070,13 @@ html[data-quality="medium"] .screen-view.active {
 }
 html[data-quality="low"] .screen-view.active {
   animation: svFadeIn 120ms linear forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .screen-view.active {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
 /* Royal decree card (Thư triều đình vua Quang Trung) */
@@ -1315,10 +1373,21 @@ header,
   }
 }
 
+@media (max-width: 600px) {
+  :root {
+    --header-h: 58px;
+  }
+}
+body:has(#view-login.active),
+body:has(#view-intro.active),
+body.role-guest {
+  --header-h: 0px !important;
+}
+
 /* Dải "Nội dung minh họa, chưa được chuyên gia duyệt": nằm sát dưới header, nền kem đậm hơn, chữ tối rõ */
 .global-notice-strip {
   position: sticky !important;
-  top: 66px !important;
+  top: var(--header-h, 0px) !important;
   bottom: auto !important;
   left: 0 !important;
   right: 0 !important;
@@ -1339,10 +1408,9 @@ header,
   -webkit-backdrop-filter: none !important;
   pointer-events: none;
 }
-@media (max-width: 600px) {
-  .global-notice-strip {
-    top: 58px !important;
-  }
+
+#view-login {
+  padding-top: max(32px, calc(var(--header-h, 0px) + 25px + 20px)) !important;
 }
 
 /* Hide redundant disclaimers in pages */
