@@ -216,3 +216,20 @@ máy yếu thật của trường và một điện thoại; CSV không có trư
 THCS hay THPT; người mua; ngày bắt đầu T1 và lịch trường; ai là cố vấn sử học và nguồn chuẩn; bản
 quyền asset; tên sản phẩm (hiện dùng "Sử Việt" theo giao diện của Trung); có cân bằng lại hệ số để
 79% phương án khác không rơi vào mức "challenging" hay không.
+
+## 6. Atlas Việt Nam (v2)
+
+Bản đồ 3D để tìm bài giảng theo địa danh (`#/atlas`). Mã `SRS-A-*` riêng để không trùng mã của bài giảng.
+Trạng thái chi tiết ở `docs/spec/SPEC.vi.md` mục 15.
+
+| Mã | Yêu cầu | Ưu tiên | Kiểm thử |
+|---|---|---|---|
+| SRS-A-01 | Bản đồ hiện đúng 34 đơn vị cấp tỉnh theo Nghị quyết 202/2025/QH15; Hoàng Sa thuộc TP Đà Nẵng, Trường Sa thuộc tỉnh Khánh Hòa | P0 | Unit `tests/atlas/data.test.mjs` |
+| SRS-A-02 | Mỗi địa danh có tên, loại, tỉnh, toạ độ, mô tả tự viết bằng tiếng Việt, nguồn kèm giấy phép và nhãn minh họa; nằm trong tỉnh của nó | P0 | Unit |
+| SRS-A-03 | Tìm kiếm không phân biệt dấu, chịu lỗi gõ (Levenshtein ≤ 2), xếp hạng tên trùng khớp trước; lọc theo 5 loại địa danh | P0 | Unit `tests/atlas/search.test.mjs` |
+| SRS-A-04 | Chọn địa danh (trên bản đồ hoặc danh sách) thì camera bay tới đó và thẻ hiện mô tả, thời kỳ, nguồn, nút "Mở bài giảng" tới `#/lesson/<id>`; học sinh chỉ thấy bài được phép xem | P0 | Ảnh chụp harness; E2E (S4) |
+| SRS-A-05 | Trạng thái (địa danh, bộ lọc, từ khoá) nằm trên URL `#/atlas?place=&kind=&q=` và mở lại đúng khung nhìn | P1 | Unit (bộ mã hoá URL); E2E (S4) |
+| SRS-A-06 | Dùng được hoàn toàn bằng bàn phím; nhãn bản đồ là chữ HTML, không vẽ trong canvas; có chế độ đồ hoạ thấp | P1 | Kiểm tay; detector impeccable |
+| SRS-A-07 | Trên phone (360×800) bản đồ không bị che: bảng tìm kiếm là bottom sheet, camera canh giữa phần còn thấy | P1 | Ảnh chụp 360×800 |
+| SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện; không analytics, không lấy vị trí người dùng | P0 | Kiểm tay |
+| SRS-A-09 | three.js và dữ liệu atlas chỉ tải khi vào `#/atlas`; ranh giới ≤ 400 KB gzip, địa hình ≤ 2 MB; mục tiêu ≥ 55 FPS desktop, ≥ 30 FPS phone | P1 | Unit (dung lượng); FPS trên máy thật: chưa đo |

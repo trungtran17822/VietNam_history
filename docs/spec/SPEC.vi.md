@@ -335,3 +335,38 @@ Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 t
 | Buổi thử rơi vào kỳ nghỉ hoặc kỳ thi | Chốt T1 theo lịch trường; xác nhận ngày thử với trường trước T5; mức tối đa 15 tuần không còn chỗ dời bước 9 qua Tết nếu T1 muộn (mục 11) |
 | Trường hoặc phụ huynh từ chối thu dữ liệu của trẻ vị thành niên | Phiếu đồng ý sẵn sàng trước T9; chỉ dữ liệu ẩn danh; phương án khảo sát giấy |
 | 12 tuần quá gấp (cố vấn duyệt trễ, nhân sự bán thời gian) | Mốc kiểm soát và quỹ dự phòng ở mục 11; cắt F9, F10 và F11 trước; không bao giờ kéo dài quá T15 |
+
+## 15. Atlas Việt Nam (v2, session S3, nhánh `Dat/feature/v2-atlas`)
+
+Bản đồ 3D Việt Nam để tìm bài giảng theo địa danh. Route `#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`
+(cần đăng nhập, cả hai vai trò); trạng thái nằm trên URL nên mọi khung nhìn đều chia sẻ được. Nội dung
+là minh họa, chưa được chuyên gia duyệt như bài giảng; mỗi địa danh có `illustrative: true` và nguồn.
+
+**Yêu cầu và trạng thái (8/11/2026)**
+
+| Yêu cầu | Trạng thái |
+|---|---|
+| 34 đơn vị cấp tỉnh từ 1/7/2025 (25 tỉnh + 9 thành phố tính đến 20/9/2026), Hoàng Sa thuộc Đà Nẵng, Trường Sa thuộc Khánh Hòa | Đã làm; unit test |
+| Dữ liệu ranh giới ≤ 400 KB gzip; địa hình ≤ 2 MB | 37 KB gzip; `terrain.png` 1 MB |
+| Địa danh: di sản UNESCO, di tích quốc gia đặc biệt, danh thắng, chiến trường và kinh đô, có đủ 13 id bài giảng cần | 71 địa danh (9 di sản thế giới, có Yên Tử 2025); unit test |
+| Mỗi địa danh nằm trong tỉnh của nó (điểm sát bờ trong 10 km), id kebab-case duy nhất, không trùng id tỉnh, chuỗi NFC | Unit test |
+| Tìm kiếm bỏ dấu, chấm điểm kiểu GeoGnos, Levenshtein ≤ 2, lọc theo loại, mã hoá URL | Đã làm; unit test |
+| API renderer `VietnamAtlasScene(container, { quality, onSelect })`: `setQuality`, `focusPlace(id \| null)`, `setFilter`, `setViewInsets`, `destroy` | Đã làm |
+| Nhãn chỉ là HTML, bảng màu từ biến CSS, marker `InstancedMesh`, chế độ thấp cho phone, `destroy()` khi rời trang | Đã làm |
+| Thẻ địa danh: mô tả, thời kỳ, tỉnh, nguồn kèm giấy phép, nút "Mở bài giảng" (`lessonIds` của địa danh ∪ bài có `atlasPlaceIds` chứa địa danh; học sinh chỉ thấy bài được phép xem) | Đã làm |
+| Bàn phím: combobox (mũi tên, Enter, Esc), chip và danh sách là nút, canvas nhận phím mũi tên | Đã làm |
+| Phone: bottom sheet; camera canh giữa phần bản đồ phía trên sheet; dòng ghi công OSM nằm trong sheet | Đã làm; ảnh chụp 360×800 |
+| three.js và atlas nằm trong chunk route tải lười; JS ban đầu ≤ 200 KB gzip | Chunk atlas 69,6 KB gzip, three.js dùng chung 136 KB, JS ban đầu 115 KB (build cùng S1 347d2c4) |
+| ≥ 55 FPS desktop, ≥ 30 FPS phone | **Chưa kiểm trên GPU thật.** Chỉ đo bằng SwiftShader headless: 3,1 FPS desktop (148k tam giác), 15,9 FPS phone |
+| E2E cho `#/atlas` | **Chưa viết** (S4, sau khi gộp S1) |
+
+**Cách vẽ đã chọn.** Đã đo ba cách vẽ ranh giới trong harness (`npm run atlas:shoot`): vẽ vào texture
+mặt nạ (nhoè, dày khi zoom gần), khối tỉnh phẳng (mất địa hình và ranh giới) và đoạn thẳng phủ lên địa
+hình (sắc nét mọi mức zoom, tốc độ như nhau). Chọn cách thứ ba; số đo ở `specs/002-v2-tanstack-atlas/notes/s3.md`.
+
+**Dữ liệu và giấy phép**: xem [SOURCES.md](../../frontend/src/content/atlas/SOURCES.md). Tệp ranh giới
+là sản phẩm phái sinh ODbL của OpenStreetMap nên dòng "© OpenStreetMap contributors" phải luôn hiện trên
+bản đồ. Không analytics, không dùng vị trí người dùng, không lấy gì từ GeoGnos.
+
+**Việc của S4**: thay placeholder `#/atlas` của S1 (và ghi chú "placeholder" ở mục 8) bằng route của S3;
+viết E2E; đo FPS trên điện thoại và máy tính trường thật.
