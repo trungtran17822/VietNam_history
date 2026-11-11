@@ -5,7 +5,7 @@
 - [x] **B3-3**: Khám phá tạm bằng dòng thời gian khi chưa có renderer chuyên biệt
 - [x] **B3-4**: Script bám nguồn `scripts/check-lesson-grounding.mjs` + Test âm
 - [x] **B3-5**: Đổi bài thí điểm sang bài mới trong tests và backend
-- [ ] **B3-6**: Trình soạn thảo thích ứng theo `explorationMode`
+- [x] **B3-6**: Trình soạn thảo thích ứng theo `explorationMode`
 - [ ] **B3-7**: Cập nhật migration seed và unit test
 - [ ] **B3-8**: Dọn sạch tên bài cũ trong toàn dự án
 - [ ] **B3-9**: Đạt CỔNG 2 và báo cáo kết quả thật

@@ -1226,23 +1226,64 @@
   }
 
   function updateSourceReviewNotice(lesson) {
-    const review = lesson && lesson.sourceReview;
-    if (!review) {
-      elements.inputSourceReviewNotice.hidden = true;
+    if (!lesson) return;
+    const review = lesson.sourceReview;
+    const flags = lesson.reviewFlags || [];
+
+    // Populate Tab D review flags list
+    const tabDList = document.getElementById('editor-review-flags-list');
+    const tabDPanel = document.getElementById('editor-review-flags-panel');
+    if (tabDList) {
+      if (flags.length > 0) {
+        tabDList.innerHTML = flags.map((f) => `<li>${escapeHTML(f)}</li>`).join('');
+        if (tabDPanel) tabDPanel.hidden = false;
+      } else {
+        tabDList.innerHTML = '<li>Không có cảnh báo chuyên gia đặc biệt.</li>';
+        if (tabDPanel) tabDPanel.hidden = true;
+      }
+    }
+
+    if (!review && flags.length === 0) {
+      if (elements.inputSourceReviewNotice) elements.inputSourceReviewNotice.hidden = true;
       return;
     }
-    const checked = review.claimStatus === 'teacher-reviewed';
-    const recognized = review.sourceRecognition === 'catalog-match';
-    elements.inputSourceReviewNotice.hidden = false;
-    elements.inputSourceReviewNotice.classList.toggle('review-complete', checked);
-    elements.sourceReviewHeading.textContent = checked ? 'Đã xác nhận đối chiếu trực tiếp' : 'Nguồn và thông tin đang chờ đối chiếu';
-    elements.sourceReviewInfo.textContent = checked
-      ? `Bạn đã xác nhận đối chiếu nội dung với nguồn “${lesson.sections?.[0]?.source?.book || 'đã cung cấp'}”. Hệ thống chỉ nhận diện nguồn, không tự xác thực sự kiện.`
-      : `${recognized ? 'URL khớp một mục trong danh mục tham khảo chính thống. ' : 'URL chưa khớp mục tham khảo chính thống. '}Hãy mở nguồn, đối chiếu thông tin cụ thể, rồi xác nhận trước khi phát hành. Dịch vụ AI và kho tri thức chính phủ chưa được kết nối.`;
-    const sourceUrl = review.sourceUrl || lesson.sections?.[0]?.source?.url || '';
-    elements.sourceReviewLink.href = sourceUrl;
-    elements.sourceReviewLink.hidden = !sourceUrl;
-    elements.btnMarkSourceReviewed.hidden = checked;
+
+    const checked = review ? review.claimStatus === 'teacher-reviewed' : false;
+    const recognized = review ? review.sourceRecognition === 'catalog-match' : true;
+    if (elements.inputSourceReviewNotice) {
+      elements.inputSourceReviewNotice.hidden = false;
+      elements.inputSourceReviewNotice.classList.toggle('review-complete', checked);
+    }
+    if (elements.sourceReviewHeading) {
+      elements.sourceReviewHeading.textContent = checked ? 'Đã xác nhận đối chiếu trực tiếp' : 'Nguồn và cờ rà soát đang chờ đối chiếu';
+    }
+    if (elements.sourceReviewInfo) {
+      elements.sourceReviewInfo.textContent = checked
+        ? `Bạn đã xác nhận đối chiếu nội dung với nguồn “${lesson.sourceCitation || lesson.sections?.[0]?.source?.book || 'SGK Chân trời sáng tạo'}”. Hệ thống chỉ nhận diện nguồn, không tự xác thực sự kiện.`
+        : `Nguồn tham chiếu: ${lesson.sourceCitation || 'SGK Lịch sử và Địa lí 9'}. Hãy đọc kĩ các cờ rà soát dưới đây trước khi phát hành cho học sinh.`;
+    }
+
+    // Populate flags in banner
+    const flagsBox = document.getElementById('source-review-flags-box');
+    const flagsList = document.getElementById('source-review-flags-list');
+    if (flagsBox && flagsList) {
+      if (flags.length > 0) {
+        flagsBox.hidden = false;
+        flagsList.innerHTML = flags.map((f) => `<li>${escapeHTML(f)}</li>`).join('');
+      } else {
+        flagsBox.hidden = true;
+        flagsList.innerHTML = '';
+      }
+    }
+
+    const sourceUrl = review ? (review.sourceUrl || lesson.sections?.[0]?.source?.url || '') : '';
+    if (elements.sourceReviewLink) {
+      elements.sourceReviewLink.href = sourceUrl || '#';
+      elements.sourceReviewLink.hidden = !sourceUrl;
+    }
+    if (elements.btnMarkSourceReviewed) {
+      elements.btnMarkSourceReviewed.hidden = checked;
+    }
   }
 
   function markActiveLessonSourceReviewed() {
@@ -1661,7 +1702,7 @@
     renderEditorQuestionsList();
   }
 
-  // Live 3D Preview in Tab c
+  // Live Preview in Tab c
   function setupEditor3DLivePreview() {
     if (editorSceneInstance) {
       editorSceneInstance.destroy();
@@ -1669,28 +1710,82 @@
     }
 
     elements.editorPreviewMount.innerHTML = '';
-    editorSceneInstance = new window.BattleScene3D(elements.editorPreviewMount, {
-      quality: currentQuality,
-      lessonConfig: activeLesson
-    });
-    const themeColors = getComputedStyle(document.documentElement);
-    const sideAColor = themeColors.getPropertyValue('--faction-a').trim();
-    const sideBColor = themeColors.getPropertyValue('--faction-b').trim();
-    if (sideAColor) elements.colorTaySon.value = sideAColor;
-    if (sideBColor) elements.colorQing.value = sideBColor;
-    editorSceneInstance.updateFactionColors({ taySon: sideAColor, qing: sideBColor });
 
-    // Camera preset buttons in editor HUD
-    document.querySelectorAll('#panel-tab-sim3d .btn-cam-pill').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#panel-tab-sim3d .btn-cam-pill').forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        const preset = btn.getAttribute('data-preset');
-        if (editorSceneInstance) editorSceneInstance.setCameraPreset(preset);
+    const is3d = activeLesson && activeLesson.explorationMode === 'stalingrad_3d';
+    const authoringGroups = document.querySelectorAll('#panel-tab-sim3d .authoring-group:not(.exploration-mode-notice-group)');
+    const hudCamControls = document.querySelector('#panel-tab-sim3d .hud-camera-controls');
+    const hudPill = document.querySelector('#panel-tab-sim3d .hud-pill');
+
+    // Remove existing notice group if any
+    const existingNotice = document.querySelector('#panel-tab-sim3d .exploration-mode-notice-group');
+    if (existingNotice) existingNotice.remove();
+
+    if (is3d) {
+      authoringGroups.forEach((g) => {
+        g.style.display = 'block';
       });
-    });
+      if (hudCamControls) hudCamControls.style.display = 'flex';
+      if (hudPill) hudPill.textContent = 'Bản xem trước trực tiếp 3D (Trận Xta-lin-grát)';
 
-    // Populate variable assumptions list in Tab c
+      editorSceneInstance = new window.BattleScene3D(elements.editorPreviewMount, {
+        quality: currentQuality,
+        lessonConfig: activeLesson
+      });
+
+      const themeColors = getComputedStyle(document.documentElement);
+      const sideAColor = themeColors.getPropertyValue('--faction-a').trim();
+      const sideBColor = themeColors.getPropertyValue('--faction-b').trim();
+      if (sideAColor && elements.colorTaySon) elements.colorTaySon.value = sideAColor;
+      if (sideBColor && elements.colorQing) elements.colorQing.value = sideBColor;
+      if (editorSceneInstance.updateFactionColors) {
+        editorSceneInstance.updateFactionColors({ taySon: sideAColor, qing: sideBColor });
+      }
+
+      document.querySelectorAll('#panel-tab-sim3d .btn-cam-pill').forEach((btn) => {
+        btn.onclick = () => {
+          document.querySelectorAll('#panel-tab-sim3d .btn-cam-pill').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const preset = btn.getAttribute('data-preset');
+          if (editorSceneInstance && editorSceneInstance.setCameraPreset) {
+            editorSceneInstance.setCameraPreset(preset);
+          }
+        };
+      });
+    } else {
+      // Hide tactical sand table controls (props, unit counts, faction colors)
+      if (authoringGroups.length >= 3) {
+        authoringGroups[0].style.display = 'none'; // props
+        authoringGroups[1].style.display = 'none'; // unit counts
+        authoringGroups[2].style.display = 'none'; // faction colors
+      }
+      if (hudCamControls) hudCamControls.style.display = 'none';
+      if (hudPill) hudPill.textContent = 'Bản xem trước: Trục thời gian tư liệu';
+
+      const panel = document.querySelector('#panel-tab-sim3d .sim-authoring-panel');
+      if (panel) {
+        const modeLabels = {
+          ussr_charts: 'Biểu đồ tăng trưởng kinh tế & Trục thời gian tư liệu (Nước Nga & Liên Xô)',
+          depression_charts: 'Biểu đồ chỉ số đại suy thoái & Trục thời gian tư liệu (Châu Âu & Mỹ)',
+          asia_map: 'Lược đồ tương tác & Trục thời gian tư liệu (Châu Á 1918–1945)'
+        };
+        const modeDesc = (activeLesson && modeLabels[activeLesson.explorationMode]) || 'Trục thời gian tư liệu tương tác';
+
+        const noticeDiv = document.createElement('div');
+        noticeDiv.className = 'authoring-group exploration-mode-notice-group';
+        noticeDiv.style.cssText = 'background: rgba(20,35,30,0.65); border: 1px solid rgba(176,141,74,0.35); border-radius: 8px; padding: 14px; margin-bottom: 12px;';
+        noticeDiv.innerHTML = `
+          <h4 class="authoring-group-title" style="color: #b08d4a; margin-bottom: 6px; font-size: 0.9rem;">Chế độ khám phá bài giảng</h4>
+          <div style="font-size: 0.85rem; line-height: 1.5; color: #e2e8f0;">
+            Chế độ áp dụng: <strong style="color: #fff;">${escapeHTML(modeDesc)}</strong>.<br>
+            <span style="color: #8ba096; font-size: 0.8rem;">Các tuỳ chọn sa bàn chiến thuật 3D (công sự, quân số, góc nhìn sa bàn) được ẩn tự động vì bài học không sử dụng sa bàn trận đánh.</span>
+          </div>
+        `;
+        panel.insertBefore(noticeDiv, panel.firstChild);
+      }
+
+      editorSceneInstance = createTimelineExplorationPlayer(elements.editorPreviewMount, activeLesson, {});
+    }
+
     renderEditorVariablesCoefficients();
   }
 
