@@ -1928,21 +1928,38 @@
     root.querySelector('#lesson-camera-controls [data-preset="top_down"]').textContent = 'Từ trên';
     updateCurrentChapter(lesson, saved.chapter || 0);
     const mount = document.getElementById('lesson-canvas-mount');
-    lessonSceneInstance = new window.BattleScene3D(mount, {
-      quality: currentQuality,
-      lessonConfig: lesson,
-      onProgressUpdate: (progress) => {
-        if (progress >= 1) document.getElementById('lesson-player-box')?.classList.remove('is-playing');
-        const slider = document.getElementById('lesson-timeline');
-        const readout = document.getElementById('lesson-time-readout');
-        if (slider) slider.value = Math.round(progress * 100);
-        if (readout) readout.textContent = formatTimelineReadout(progress);
-        const chapter = getChapterForProgress(lesson, progress);
-        updateCurrentChapter(lesson, chapter);
-        try { localStorage.setItem(getLessonProgressKey(lesson.id), JSON.stringify({ progress, chapter })); } catch (error) { /* Storage may be unavailable. */ }
-        updateLessonStage(progress);
-      }
-    });
+    const isTimelineFallback = lesson.explorationMode && lesson.explorationMode !== 'stalingrad_3d';
+    if (isTimelineFallback) {
+      lessonSceneInstance = createTimelineExplorationPlayer(mount, lesson, {
+        onProgressUpdate: (progress) => {
+          if (progress >= 1) document.getElementById('lesson-player-box')?.classList.remove('is-playing');
+          const slider = document.getElementById('lesson-timeline');
+          const readout = document.getElementById('lesson-time-readout');
+          if (slider) slider.value = Math.round(progress * 100);
+          if (readout) readout.textContent = formatTimelineReadout(progress);
+          const chapter = getChapterForProgress(lesson, progress);
+          updateCurrentChapter(lesson, chapter);
+          try { localStorage.setItem(getLessonProgressKey(lesson.id), JSON.stringify({ progress, chapter })); } catch (error) { /* Storage may be unavailable. */ }
+          updateLessonStage(progress);
+        }
+      });
+    } else {
+      lessonSceneInstance = new window.BattleScene3D(mount, {
+        quality: currentQuality,
+        lessonConfig: lesson,
+        onProgressUpdate: (progress) => {
+          if (progress >= 1) document.getElementById('lesson-player-box')?.classList.remove('is-playing');
+          const slider = document.getElementById('lesson-timeline');
+          const readout = document.getElementById('lesson-time-readout');
+          if (slider) slider.value = Math.round(progress * 100);
+          if (readout) readout.textContent = formatTimelineReadout(progress);
+          const chapter = getChapterForProgress(lesson, progress);
+          updateCurrentChapter(lesson, chapter);
+          try { localStorage.setItem(getLessonProgressKey(lesson.id), JSON.stringify({ progress, chapter })); } catch (error) { /* Storage may be unavailable. */ }
+          updateLessonStage(progress);
+        }
+      });
+    }
     lessonSceneInstance.seek(Number(saved.progress) || 0);
     lessonSceneInstance.pause();
 
@@ -2209,15 +2226,26 @@
     }
 
     elements.studentViewportMount.innerHTML = '';
-    studentViewerSceneInstance = new window.BattleScene3D(elements.studentViewportMount, {
-      quality: currentQuality,
-      lessonConfig: lesson,
-      onProgressUpdate: (progress) => {
-        elements.studentTimelineSlider.value = Math.round(progress * 100);
-        elements.studentTimeReadout.textContent = formatTimelineReadout(progress);
-        highlightActiveChapterByProgress(progress);
-      }
-    });
+    const isTimelineFallback = lesson.explorationMode && lesson.explorationMode !== 'stalingrad_3d';
+    if (isTimelineFallback) {
+      studentViewerSceneInstance = createTimelineExplorationPlayer(elements.studentViewportMount, lesson, {
+        onProgressUpdate: (progress) => {
+          elements.studentTimelineSlider.value = Math.round(progress * 100);
+          elements.studentTimeReadout.textContent = formatTimelineReadout(progress);
+          highlightActiveChapterByProgress(progress);
+        }
+      });
+    } else {
+      studentViewerSceneInstance = new window.BattleScene3D(elements.studentViewportMount, {
+        quality: currentQuality,
+        lessonConfig: lesson,
+        onProgressUpdate: (progress) => {
+          elements.studentTimelineSlider.value = Math.round(progress * 100);
+          elements.studentTimeReadout.textContent = formatTimelineReadout(progress);
+          highlightActiveChapterByProgress(progress);
+        }
+      });
+    }
 
     // Controls bindings
     elements.btnStudentPlay.onclick = () => {
@@ -2635,6 +2663,165 @@
     if (anchor && anchor.scrollIntoView) anchor.scrollIntoView({ block: 'start' });
   }
 
+  function createTimelineExplorationPlayer(mount, lesson, options = {}) {
+    const onProgressUpdate = options.onProgressUpdate || (() => {});
+    const isCustom = !!options.isCustomScenario;
+    const studentChoices = options.studentChoices || {};
+
+    const rawTimeline = (lesson && lesson.timeline && lesson.timeline.length > 0)
+      ? lesson.timeline
+      : (lesson && lesson.sections ? lesson.sections.map((s, i) => ({
+          year: s.timeLabel || `Mục ${i + 1}`,
+          title: s.title,
+          content: s.narration || ''
+        })) : [{ year: '', title: lesson.title || '', content: lesson.introSummary || '' }]);
+
+    let currentIndex = 0;
+    let isPlaying = false;
+    let playTimer = null;
+
+    let customChoiceHtml = '';
+    if (isCustom && lesson && lesson.question && lesson.question.variables) {
+      const chosenNames = [];
+      lesson.question.variables.forEach((v) => {
+        const cId = studentChoices[v.id];
+        const opt = (v.options && v.options.find((o) => o.id === cId)) || (v.options && v.options[0]);
+        if (opt) chosenNames.push(`<strong>${escapeHTML(v.title)}:</strong> ${escapeHTML(opt.name)}`);
+      });
+      if (chosenNames.length > 0) {
+        customChoiceHtml = `
+          <div class="timeline-exp-choice-box" style="margin-top:12px; padding:10px 14px; background:rgba(176,141,74,0.12); border-left:3px solid #b08d4a; border-radius:6px; font-size:0.85rem; color:#fdfbf7;">
+            <div style="font-weight:600; color:#b08d4a; margin-bottom:4px;">🎯 Phương án thử nghiệm của em:</div>
+            ${chosenNames.join('<br>')}
+          </div>
+        `;
+      }
+    }
+
+    mount.innerHTML = `
+      <div class="timeline-exploration-container" style="display:flex; flex-direction:column; height:100%; width:100%; background:radial-gradient(ellipse at center, #1c2b26 0%, #0d1714 100%); color:#e8efe9; padding:20px; box-sizing:border-box; overflow-y:auto; justify-content:space-between;">
+        <div class="timeline-exp-header" style="border-bottom:1px solid rgba(176,141,74,0.3); padding-bottom:10px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#b08d4a; font-weight:700;">
+              ${isCustom ? 'Mô phỏng phương án học sinh · Trục thời gian' : 'Trục thời gian tư liệu lịch sử'}
+            </div>
+            <div style="font-size:0.72rem; color:#8ba096; background:rgba(0,0,0,0.4); padding:3px 8px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+              Bám sát SGK Chân trời sáng tạo
+            </div>
+          </div>
+          <div style="font-size:1.05rem; font-weight:600; color:#fdfbf7; margin-top:4px;">
+            ${escapeHTML(lesson.title || '')}
+          </div>
+        </div>
+
+        <div class="timeline-exp-card" style="background:rgba(20,35,30,0.85); border:1px solid rgba(176,141,74,0.35); border-radius:12px; padding:18px; box-shadow:0 8px 24px rgba(0,0,0,0.4); margin:auto 0; transition:all 0.25s ease;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+            <span id="tle-year-badge" style="background:#b08d4a; color:#14231e; font-weight:700; font-size:0.9rem; padding:3px 10px; border-radius:14px;">
+              ${escapeHTML(rawTimeline[0].year || '')}
+            </span>
+            <span id="tle-step-counter" style="font-size:0.8rem; color:#8ba096;">
+              Mốc 1 / ${rawTimeline.length}
+            </span>
+          </div>
+          <h3 id="tle-event-title" style="font-size:1.15rem; font-weight:700; color:#fff; margin:0 0 10px 0; line-height:1.4;">
+            ${escapeHTML(rawTimeline[0].title || '')}
+          </h3>
+          <p id="tle-event-content" style="font-size:0.92rem; line-height:1.6; color:#d6e2db; margin:0 0 12px 0;">
+            ${escapeHTML(rawTimeline[0].content || '')}
+          </p>
+          ${customChoiceHtml}
+          <div id="tle-event-citation" style="font-size:0.78rem; color:#8ba096; font-style:italic; border-top:1px dashed rgba(255,255,255,0.1); padding-top:8px; margin-top:8px;">
+            Nguồn tham chiếu: ${escapeHTML(lesson.sourceCitation || 'SGK Lịch sử và Địa lí 9')}
+          </div>
+        </div>
+
+        <div class="timeline-exp-dots-wrapper" style="margin-top:14px; padding:8px 0 2px 0;">
+          <div class="timeline-exp-dots" style="display:flex; justify-content:space-between; align-items:center; position:relative; gap:6px;">
+            <div style="position:absolute; top:50%; left:8px; right:8px; height:2px; background:rgba(176,141,74,0.3); z-index:0; transform:translateY(-50%);"></div>
+            ${rawTimeline.map((item, idx) => `
+              <button type="button" class="tle-dot-btn" data-idx="${idx}" title="${escapeHTML(item.year + ': ' + item.title)}" style="position:relative; z-index:1; width:30px; height:30px; border-radius:50%; border:2px solid ${idx === 0 ? '#b08d4a' : 'rgba(176,141,74,0.4)'}; background:${idx === 0 ? '#b08d4a' : '#14231e'}; color:${idx === 0 ? '#14231e' : '#b08d4a'}; font-weight:700; font-size:0.75rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s ease;">
+                ${idx + 1}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    function updateView(idx) {
+      currentIndex = Math.max(0, Math.min(rawTimeline.length - 1, idx));
+      const item = rawTimeline[currentIndex];
+      const yearEl = mount.querySelector('#tle-year-badge');
+      const counterEl = mount.querySelector('#tle-step-counter');
+      const titleEl = mount.querySelector('#tle-event-title');
+      const contentEl = mount.querySelector('#tle-event-content');
+
+      if (yearEl) yearEl.textContent = item.year || '';
+      if (counterEl) counterEl.textContent = `Mốc ${currentIndex + 1} / ${rawTimeline.length}`;
+      if (titleEl) titleEl.textContent = item.title || '';
+      if (contentEl) contentEl.textContent = item.content || '';
+
+      mount.querySelectorAll('.tle-dot-btn').forEach((btn, i) => {
+        if (i === currentIndex) {
+          btn.style.background = '#b08d4a';
+          btn.style.borderColor = '#b08d4a';
+          btn.style.color = '#14231e';
+          btn.style.transform = 'scale(1.15)';
+        } else {
+          btn.style.background = '#14231e';
+          btn.style.borderColor = 'rgba(176,141,74,0.4)';
+          btn.style.color = '#b08d4a';
+          btn.style.transform = 'scale(1)';
+        }
+      });
+
+      const progress = rawTimeline.length > 1 ? currentIndex / (rawTimeline.length - 1) : 0;
+      onProgressUpdate(progress);
+    }
+
+    mount.querySelectorAll('.tle-dot-btn').forEach((btn) => {
+      btn.onclick = () => {
+        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+        updateView(idx);
+      };
+    });
+
+    const player = {
+      isPlaying: false,
+      play() {
+        this.isPlaying = true;
+        if (playTimer) clearInterval(playTimer);
+        playTimer = setInterval(() => {
+          if (currentIndex >= rawTimeline.length - 1) {
+            currentIndex = 0;
+          } else {
+            currentIndex += 1;
+          }
+          updateView(currentIndex);
+        }, 2500);
+      },
+      pause() {
+        this.isPlaying = false;
+        if (playTimer) {
+          clearInterval(playTimer);
+          playTimer = null;
+        }
+      },
+      seek(progress) {
+        const idx = Math.round(progress * (rawTimeline.length - 1));
+        updateView(idx);
+      },
+      setCameraPreset() {},
+      setQuality() {},
+      destroy() {
+        this.pause();
+        mount.innerHTML = '';
+      }
+    };
+
+    return player;
+  }
+
   function mountOriginalStageScene() {
     const mount = document.getElementById('viewport-original-canvas');
     if (!mount) return;
@@ -2645,16 +2832,28 @@
     }
     mount.innerHTML = '';
 
-    originalStageSceneInstance = new window.BattleScene3D(mount, {
-      quality: currentQuality,
-      lessonConfig: activeLesson,
-      onProgressUpdate: (progress) => {
-        const slider = document.getElementById('timeline-slider-original');
-        const readout = document.getElementById('time-readout-original');
-        if (slider) slider.value = Math.round(progress * 100);
-        if (readout) readout.textContent = formatTimelineReadout(progress);
-      }
-    });
+    const isTimelineFallback = activeLesson.explorationMode && activeLesson.explorationMode !== 'stalingrad_3d';
+    if (isTimelineFallback) {
+      originalStageSceneInstance = createTimelineExplorationPlayer(mount, activeLesson, {
+        onProgressUpdate: (progress) => {
+          const slider = document.getElementById('timeline-slider-original');
+          const readout = document.getElementById('time-readout-original');
+          if (slider) slider.value = Math.round(progress * 100);
+          if (readout) readout.textContent = formatTimelineReadout(progress);
+        }
+      });
+    } else {
+      originalStageSceneInstance = new window.BattleScene3D(mount, {
+        quality: currentQuality,
+        lessonConfig: activeLesson,
+        onProgressUpdate: (progress) => {
+          const slider = document.getElementById('timeline-slider-original');
+          const readout = document.getElementById('time-readout-original');
+          if (slider) slider.value = Math.round(progress * 100);
+          if (readout) readout.textContent = formatTimelineReadout(progress);
+        }
+      });
+    }
 
     // Hook controls
     const playBtn = document.getElementById('btn-play-original');
@@ -2776,18 +2975,32 @@
     }
     mount.innerHTML = '';
 
-    customStageSceneInstance = new window.BattleScene3D(mount, {
-      quality: currentQuality,
-      isCustomScenario: true,
-      studentChoices: studentTacticalChoices,
-      lessonConfig: activeLesson,
-      onProgressUpdate: (progress) => {
-        const slider = document.getElementById('timeline-slider-custom');
-        const readout = document.getElementById('time-readout-custom');
-        if (slider) slider.value = Math.round(progress * 100);
-        if (readout) readout.textContent = formatTimelineReadout(progress);
-      }
-    });
+    const isTimelineFallback = activeLesson.explorationMode && activeLesson.explorationMode !== 'stalingrad_3d';
+    if (isTimelineFallback) {
+      customStageSceneInstance = createTimelineExplorationPlayer(mount, activeLesson, {
+        isCustomScenario: true,
+        studentChoices: studentTacticalChoices,
+        onProgressUpdate: (progress) => {
+          const slider = document.getElementById('timeline-slider-custom');
+          const readout = document.getElementById('time-readout-custom');
+          if (slider) slider.value = Math.round(progress * 100);
+          if (readout) readout.textContent = formatTimelineReadout(progress);
+        }
+      });
+    } else {
+      customStageSceneInstance = new window.BattleScene3D(mount, {
+        quality: currentQuality,
+        isCustomScenario: true,
+        studentChoices: studentTacticalChoices,
+        lessonConfig: activeLesson,
+        onProgressUpdate: (progress) => {
+          const slider = document.getElementById('timeline-slider-custom');
+          const readout = document.getElementById('time-readout-custom');
+          if (slider) slider.value = Math.round(progress * 100);
+          if (readout) readout.textContent = formatTimelineReadout(progress);
+        }
+      });
+    }
 
     const playBtn = document.getElementById('btn-play-custom');
     if (playBtn) {
