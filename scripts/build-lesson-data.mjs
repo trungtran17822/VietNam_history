@@ -1,0 +1,1236 @@
+/**
+ * scripts/build-lesson-data.mjs
+ * Generates frontend/js/lesson-data.js from source history_data/ curriculum
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.join(__dirname, '..');
+const OUT_FILE = path.join(ROOT, 'frontend', 'js', 'lesson-data.js');
+
+const SEED_LESSONS = [
+  // =========================================================================
+  // BÀI 1: NƯỚC NGA VÀ LIÊN XÔ (1918–1945)
+  // =========================================================================
+  {
+    id: 'bai-1-lien-xo',
+    title: 'Bài 1. Nước Nga và Liên Xô từ năm 1918 đến năm 1945',
+    subtitle: 'Nước Nga Xô viết và Liên Xô trong công cuộc xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc',
+    year: '1918–1945',
+    teacher: 'Thầy Nguyễn Văn Hưng',
+    class: 'Lớp 9A1',
+    date: '2026-11-11',
+    subject: 'Lịch sử',
+    grade: 'Khối 9',
+    period: 'Tiết 1 · 45 phút',
+    status: 'Nháp',
+    isPilot: true,
+    disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
+    simulationDisclaimer: 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
+    objectives: 'Nêu được những nét chính về nước Nga trước khi Liên Xô được thành lập (1918–1922); trình bày được thành tựu và chỉ ra hạn chế của công cuộc xây dựng chủ nghĩa xã hội ở Liên Xô (1922–1945).',
+    focusQuestion: 'Vì sao nước Nga chuyển từ chính sách cộng sản thời chiến sang NEP? Việc chuyển đổi đã mang lại kết quả gì?',
+    introSummary: 'Từ năm 1918 đến năm 1945, nước Nga Xô viết và Liên bang Xô viết đã trải qua những giai đoạn phát triển trọng yếu: vượt qua nội chiến và sự can thiệp của đế quốc, thực hiện Chính sách kinh tế mới (NEP), thành lập Liên Xô năm 1922, hoàn thành hai kế hoạch 5 năm công nghiệp hoá và bước vào cuộc chiến tranh vệ quốc năm 1941.',
+    explorationMode: 'ussr_charts',
+    sourceCitation: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 1, trang 8–11 (NXB Giáo dục Việt Nam)',
+    timeline: [
+      { year: '1918', event: 'Nội chiến bắt đầu; thực hiện chính sách cộng sản thời chiến (triển khai từ năm 1919)' },
+      { year: '1920', event: 'Nội chiến chấm dứt (theo dòng thời gian của bài)' },
+      { year: '1921', event: 'Thực hiện Chính sách kinh tế mới (NEP)' },
+      { year: '1922', event: 'Thành lập Liên bang Cộng hoà xã hội chủ nghĩa Xô viết (Liên Xô)' },
+      { year: '1928', event: 'Bắt đầu công nghiệp hoá (kế hoạch 5 năm lần thứ nhất, 1928–1932)' },
+      { year: '1933–1937', event: 'Kế hoạch 5 năm lần thứ hai' },
+      { year: '1941', event: 'Bắt đầu cuộc chiến tranh vệ quốc (phát xít Đức xâm lược)' },
+      { year: '1945', event: 'Chiến tranh vệ quốc kết thúc thắng lợi' }
+    ],
+    sections: [
+      {
+        id: 'sec-1',
+        title: 'Giai đoạn 1. Nước Nga Xô viết trước khi Liên Xô thành lập (1918–1922)',
+        narration: 'Chiến tranh thế giới thứ nhất tàn phá nặng nề kinh tế Nga. Nông nghiệp và công nghiệp sa sút, thương mại bế tắc. Nội chiến nổ ra do lực lượng Bạch vệ chống phá cùng sự can thiệp của các nước đế quốc. Nhà nước thực hiện chính sách cộng sản thời chiến (1919): nắm toàn bộ công nghiệp, trưng thu lương thực thừa và bắt buộc lao động đối với toàn dân nhằm bảo đảm lương thực cho Hồng quân. Sau nội chiến (đến năm 1921), đất nước bước vào hoà bình nhưng còn rất khó khăn. Tháng 3-1921, Đảng Bôn-sê-vích Nga quyết định thực hiện Chính sách kinh tế mới (NEP) do V. I. Lênin khởi xướng: bãi bỏ trưng thu lương thực thừa thay bằng thu thuế; nhà nước giữ các ngành then chốt nhưng cho tư nhân thuê hoặc xây dựng nhà máy, nông trang quy mô nhỏ và khuyến khích đầu tư nước ngoài; tư nhân được tự do buôn bán. Nhờ đó, sản xuất hồi phục dần, chính trị và xã hội ổn định. Cuối năm 1922, Liên Xô thành lập gồm các nước cộng hoà đầu tiên: Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Ngoại Cáp-ca-dơ.',
+        caption: 'Nước Nga vượt qua nội chiến, phục hồi kinh tế với NEP và thành lập Liên bang Xô viết cuối năm 1922.',
+        timelineRange: 0.1,
+        timeLabel: '1918–1922',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 1, trang 8–11 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 1',
+          quote: 'Tháng 3-1921, Đảng Bôn-sê-vích Nga quyết định thực hiện Chính sách kinh tế mới (NEP), do V. I. Lênin khởi xướng... Cuối năm 1922, Liên Xô thành lập, gồm các nước cộng hoà đầu tiên: Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Cộng hoà Ngoại Cáp-ca-dơ.',
+          note: 'Tư liệu giáo khoa chính thống về giai đoạn phục hồi kinh tế và thành lập Nhà nước Liên bang Xô viết.'
+        }
+      },
+      {
+        id: 'sec-2',
+        title: 'Giai đoạn 2. Liên Xô từ năm 1922 đến năm 1945',
+        narration: 'Tháng 12-1925, Đại hội XIV Đảng Bôn-sê-vích xác định đường lối công nghiệp hoá xã hội chủ nghĩa, trọng tâm là công nghiệp nặng, chuyển từ kinh tế nông nghiệp cá thể nhỏ sang kinh tế tập thể lớn. Qua hai kế hoạch 5 năm (1928–1932 và 1933–1937), Liên Xô đạt nhiều thành tựu vượt bậc: năm 1937, sản lượng công nghiệp nặng vươn lên đứng đầu châu Âu và đứng thứ hai thế giới (sau Mỹ); nhà máy thuỷ điện Đni-ép xây dựng từ năm 1927 trở thành đập thuỷ điện lớn nhất châu Âu. Về nông nghiệp, tập thể hoá thành công với nông trang tập thể và nông trường quốc doanh. Về văn hoá – xã hội, Liên Xô xoá nạn mù chữ, phổ cập tiểu học cả nước và trung học cơ sở ở thành phố; xoá bỏ giai cấp bóc lột, củng cố khối liên minh công – nông. Tuy nhiên, tập thể hoá nông nghiệp diễn ra quá nhanh khi nông dân chưa sẵn sàng, và đầu tư cho công nghiệp nhẹ còn quá thấp. Năm 1941, khi phát xít Đức xâm lược, Liên Xô tạm dừng kế hoạch 5 năm lần thứ ba để tiến hành cuộc chiến tranh vệ quốc.',
+        caption: 'Công nghiệp hoá và tập thể hoá đưa Liên Xô thành cường quốc công nghiệp trước khi bước vào Chiến tranh vệ quốc (1941).',
+        timelineRange: 0.8,
+        timeLabel: '1922–1945',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 1, trang 8–11 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: 'Qua hai kế hoạch 5 năm (1928–1932 và 1933–1937), Liên Xô đạt nhiều thành tựu và trở thành cường quốc công nghiệp đứng đầu châu Âu, đứng thứ hai thế giới (sau Mỹ)... Hạn chế: tập thể hoá nông nghiệp quá nhanh khi nông dân chưa sẵn sàng; đầu tư cho công nghiệp nhẹ quá thấp.',
+          note: 'Số liệu sản xuất điện năm 1913 là 2,0 tỉ kWh và năm 1940 là 48,3 tỉ kWh; thép từ 4,2 triệu tấn (1913) lên 18,3 triệu tấn (1940).'
+        }
+      }
+    ],
+    questions: [
+      {
+        id: 'b1-q1',
+        text: 'Chính sách cộng sản thời chiến được thực hiện chủ yếu nhằm mục đích gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b1-q1-a', text: 'Khuyến khích tư nhân buôn bán tự do', isCorrect: false, explanation: 'Chính sách cộng sản thời chiến cấm tư nhân buôn bán tự do; tự do buôn bán chỉ có sau khi thực hiện NEP.' },
+          { id: 'b1-q1-b', text: 'Bảo đảm lương thực và vật tư cho Hồng quân trong nội chiến', isCorrect: true, explanation: 'Nội chiến và can thiệp nước ngoài buộc nhà nước kiểm soát công nghiệp và trưng thu lương thực thừa để nuôi quân.' },
+          { id: 'b1-q1-c', text: 'Thu hút đầu tư nước ngoài', isCorrect: false, explanation: 'Thu hút đầu tư nước ngoài là biện pháp trong Chính sách kinh tế mới (NEP), không phải chính sách cộng sản thời chiến.' },
+          { id: 'b1-q1-d', text: 'Xoá bỏ nạn mù chữ', isCorrect: false, explanation: 'Xoá nạn mù chữ là thành tựu giáo dục trong giai đoạn xây dựng chủ nghĩa xã hội những năm 1922–1945.' }
+        ]
+      },
+      {
+        id: 'b1-q2',
+        text: 'Chính sách kinh tế mới (NEP) do ai khởi xướng và quyết định vào thời điểm nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b1-q2-a', text: 'G. Xta-lin, năm 1925', isCorrect: false, explanation: 'Năm 1925 là thời điểm Đại hội XIV Đảng Bôn-sê-vích đề ra đường lối công nghiệp hoá, không phải thời điểm NEP.' },
+          { id: 'b1-q2-b', text: 'G. Xta-lin, năm 1922', isCorrect: false, explanation: 'Năm 1922 là thời điểm thành lập Liên Xô; NEP do Lênin khởi xướng năm 1921.' },
+          { id: 'b1-q2-c', text: 'V. I. Lênin, tháng 3-1921', isCorrect: true, explanation: 'Tháng 3-1921, Đảng Bôn-sê-vích Nga quyết định thực hiện Chính sách kinh tế mới (NEP) do V. I. Lênin khởi xướng.' },
+          { id: 'b1-q2-d', text: 'V. I. Lênin, năm 1928', isCorrect: false, explanation: 'Năm 1928 là thời điểm bắt đầu kế hoạch 5 năm lần thứ nhất, không phải thời điểm bắt đầu NEP.' }
+        ]
+      },
+      {
+        id: 'b1-q3',
+        text: 'Nội dung nào sau đây thuộc Chính sách kinh tế mới (NEP)?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b1-q3-a', text: 'Nhà nước quản lý toàn bộ thương nghiệp', isCorrect: false, explanation: 'Trong NEP, thương nghiệp cho phép tư nhân được tự do buôn bán, trao đổi hàng hoá.' },
+          { id: 'b1-q3-b', text: 'Lao động bắt buộc đối với toàn dân', isCorrect: false, explanation: 'Lao động bắt buộc là biện pháp của chính sách cộng sản thời chiến, không thuộc NEP.' },
+          { id: 'b1-q3-c', text: 'Bỏ hoàn toàn khuyến khích đầu tư nước ngoài', isCorrect: false, explanation: 'Trong NEP, nhà nước khuyến khích đầu tư nước ngoài vào một số ngành.' },
+          { id: 'b1-q3-d', text: 'Thu thuế thay cho trưng thu lương thực thừa', isCorrect: true, explanation: 'Trong nông nghiệp, NEP bãi bỏ chế độ trưng thu lương thực thừa và thay bằng thu thuế lương thực.' }
+        ]
+      },
+      {
+        id: 'b1-q4',
+        text: 'Liên Xô được thành lập vào thời điểm nào và gồm những nước cộng hoà đầu tiên nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b1-q4-a', text: 'Cuối năm 1922; Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Ngoại Cáp-ca-dơ', isCorrect: true, explanation: 'Cuối năm 1922, Liên Xô thành lập gồm 4 nước cộng hoà đầu tiên: Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Ngoại Cáp-ca-dơ.' },
+          { id: 'b1-q4-b', text: 'Năm 1920; Nga, Đức, Ba Lan', isCorrect: false, explanation: 'Đức và Ba Lan là các quốc gia độc lập ngoài Liên Xô, không tham gia thành lập Liên Xô.' },
+          { id: 'b1-q4-c', text: 'Năm 1928; Nga và U-crai-na', isCorrect: false, explanation: 'Năm 1928 là thời điểm bắt đầu kế hoạch 5 năm lần thứ nhất, Liên Xô đã thành lập từ cuối năm 1922.' },
+          { id: 'b1-q4-d', text: 'Năm 1941; Nga, Bê-lô-rút-xi-a và Ba Lan', isCorrect: false, explanation: 'Năm 1941 là thời điểm chiến tranh vệ quốc bùng nổ, không phải thời điểm thành lập Liên Xô.' }
+        ]
+      },
+      {
+        id: 'b1-q5',
+        text: 'Đến năm 1937, vị thế công nghiệp của Liên Xô là gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-2',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b1-q5-a', text: 'Đứng đầu thế giới', isCorrect: false, explanation: 'Liên Xô đứng đầu châu Âu và đứng thứ hai thế giới sau Mỹ, chưa vượt qua sản lượng của Mỹ.' },
+          { id: 'b1-q5-b', text: 'Đứng đầu châu Âu và thứ hai thế giới', isCorrect: true, explanation: 'Đến năm 1937, sản lượng công nghiệp nặng của Liên Xô vươn lên đứng đầu châu Âu và đứng thứ hai thế giới (sau Mỹ).' },
+          { id: 'b1-q5-c', text: 'Đứng thứ ba châu Âu', isCorrect: false, explanation: 'Liên Xô đã vượt qua Anh, Pháp, Đức để đứng đầu châu Âu vào năm 1937.' },
+          { id: 'b1-q5-d', text: 'Vẫn chủ yếu là nước nông nghiệp', isCorrect: false, explanation: 'Liên Xô đã hoàn thành công nghiệp hoá và trở thành cường quốc công nghiệp lớn.' }
+        ]
+      },
+      {
+        id: 'b1-q6',
+        text: 'Hãy sắp xếp các sự kiện lịch sử sau theo đúng trình tự thời gian diễn ra từ năm 1918 đến năm 1941:',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b1-q6-a', text: 'Nội chiến bắt đầu (1918) → Thực hiện NEP (1921) → Thành lập Liên Xô (1922) → Kế hoạch 5 năm lần thứ nhất (1928) → Bắt đầu Chiến tranh vệ quốc (1941)', isCorrect: true, explanation: 'Trình tự diễn tiến lịch sử chuẩn xác theo SGK: Nội chiến bắt đầu (1918) → NEP (1921) → Thành lập Liên Xô (1922) → Kế hoạch 5 năm lần thứ nhất (1928) → Chiến tranh vệ quốc (1941).' },
+          { id: 'b1-q6-b', text: 'Thực hiện NEP (1921) → Nội chiến bắt đầu (1918) → Thành lập Liên Xô (1922) → Kế hoạch 5 năm lần thứ nhất (1928) → Bắt đầu Chiến tranh vệ quốc (1941)', isCorrect: false, explanation: 'Sai thứ tự: Nội chiến (1918) diễn ra trước khi thực hiện NEP (1921).' },
+          { id: 'b1-q6-c', text: 'Nội chiến bắt đầu (1918) → Thành lập Liên Xô (1922) → Thực hiện NEP (1921) → Kế hoạch 5 năm lần thứ nhất (1928) → Bắt đầu Chiến tranh vệ quốc (1941)', isCorrect: false, explanation: 'Sai thứ tự: NEP được quyết định vào tháng 3-1921 trước khi Liên Xô thành lập vào cuối năm 1922.' },
+          { id: 'b1-q6-d', text: 'Thành lập Liên Xô (1922) → Nội chiến bắt đầu (1918) → Thực hiện NEP (1921) → Bắt đầu Chiến tranh vệ quốc (1941) → Kế hoạch 5 năm lần thứ nhất (1928)', isCorrect: false, explanation: 'Sai thứ tự toàn bộ các mốc thời gian lịch sử.' }
+        ]
+      },
+      {
+        id: 'b1-q7',
+        text: 'Theo em, sự kiện nào quan trọng nhất trong giai đoạn 1918–1922? Vì sao?',
+        type: 'open_discussion',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Học sinh có thể chọn NEP (bước ngoặt khôi phục kinh tế, ổn định lòng dân) hoặc Thành lập Liên Xô (tạo sức mạnh đoàn kết liên bang để xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc).'
+      },
+      {
+        id: 'b1-q8',
+        text: 'Vì sao nước Nga chuyển từ chính sách cộng sản thời chiến sang NEP? Việc chuyển đổi đã mang lại kết quả gì?',
+        type: 'open_discussion',
+        sectionId: 'sec-1',
+        isEmperorQuestion: true,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Sau nội chiến, đất nước khủng hoảng trầm trọng; chính sách cộng sản thời chiến không còn phù hợp trong hoà bình. Chuyển sang NEP giúp khơi dậy động lực sản xuất của nông dân, lưu thông hàng hoá và phục hồi kinh tế nhanh chóng.'
+      },
+      {
+        id: 'b1-q9',
+        text: 'Em hãy nêu ít nhất hai thành tựu và hai hạn chế của công cuộc xây dựng chủ nghĩa xã hội ở Liên Xô trước năm 1941. Số liệu điện và thép chứng minh điều gì?',
+        type: 'open_discussion',
+        sectionId: 'sec-2',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Thành tựu công nghiệp hoá (sản lượng điện tăng từ 2,0 lên 48,3 tỉ kWh, thép tăng từ 4,2 lên 18,3 triệu tấn), xoá mù chữ. Hạn chế: tập thể hoá quá vội vã cưỡng bức và xem nhẹ công nghiệp nhẹ.'
+      }
+    ],
+    question: {
+      character: {
+        name: 'Người dẫn chuyện',
+        greeting: 'Chào các em học sinh!',
+        speech: 'Trong công cuộc công nghiệp hoá xã hội chủ nghĩa, Liên Xô đã đạt được nhiều thành tựu vượt bậc nhưng cũng bộc lộ hạn chế khi tập thể hoá nông nghiệp quá nhanh. Nếu được thay đổi phương án triển khai, em sẽ lựa chọn thế nào?'
+      },
+      variables: [
+        {
+          id: 'var-collectivization-speed',
+          title: 'Tốc độ tập thể hoá nông nghiệp và cân đối đầu tư',
+          description: 'Lựa chọn phương thức tập thể hoá nông nghiệp gắn với ưu tiên đầu tư công nghiệp nặng hay cân đối công nghiệp nhẹ:',
+          options: [
+            {
+              id: 'opt-collectivization-fast',
+              name: 'Tập thể hoá nhanh, ưu tiên tuyệt đối công nghiệp nặng',
+              isOriginal: true,
+              desc: 'Tập thể hoá ồ ạt đưa nông dân vào nông trang tập thể, dồn mọi nguồn lực xây dựng công nghiệp nặng vượt bậc.',
+              assumptions: 'Dựa trên thực tế lịch sử: tạo ra sức mạnh công nghiệp nặng thần tốc trước năm 1941 nhưng gây áp lực lớn lên đời sống nông dân.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: 0
+            },
+            {
+              id: 'opt-collectivization-gradual',
+              name: 'Tập thể hoá dần từng bước kết hợp tự nguyện, cân đối thêm công nghiệp nhẹ',
+              isOriginal: false,
+              desc: 'Tuyên truyền tự nguyện, tiến hành từng bước vững chắc, chia sẻ thêm vốn đầu tư cho hàng tiêu dùng và công nghiệp nhẹ.',
+              assumptions: 'Giả định mô phỏng: giữ vững ổn định nông thôn và đời sống dân cư cao hơn, song tốc độ tích luỹ cho công nghiệp nặng tăng chậm hơn.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: -10
+            }
+          ]
+        }
+      ]
+    },
+    comparisonMetrics: [
+      { id: 'heavy_ind', label: 'Điểm công nghiệp nặng', origFormatted: '90 / 100', unit: ' / 100' },
+      { id: 'rural_stab', label: 'Điểm ổn định nông thôn', origFormatted: '50 / 100', unit: ' / 100' },
+      { id: 'defense', label: 'Điểm năng lực phòng thủ', origFormatted: '85 / 100', unit: ' / 100' }
+    ],
+    baseline: {
+      durationHours: 90,
+      casualties: 50,
+      positionScore: 85,
+      ratingText: 'Phương án lịch sử công nghiệp hoá thần tốc'
+    },
+    keyNotes: [
+      'Nội chiến 1918–1920 buộc Nhà nước Xô viết thực hiện chính sách cộng sản thời chiến để bảo vệ chính quyền cách mạng.',
+      'Tháng 3-1921, V. I. Lênin khởi xướng Chính sách kinh tế mới (NEP), phục hồi sản xuất và củng cố liên minh công – nông.',
+      'Cuối năm 1922, Liên bang Cộng hoà xã hội chủ nghĩa Xô viết (Liên Xô) chính thức được thành lập.',
+      'Đến năm 1937, Liên Xô trở thành cường quốc công nghiệp đứng đầu châu Âu và đứng thứ hai thế giới (sau Mỹ).',
+      'Sản lượng điện tăng từ 2,0 tỉ kWh (1913) lên 48,3 tỉ kWh (1940); sản lượng thép tăng từ 4,2 lên 18,3 triệu tấn.',
+      'Hạn chế lịch sử: Tập thể hoá nông nghiệp diễn ra quá nhanh khi nông dân chưa sẵn sàng, và đầu tư cho công nghiệp nhẹ còn quá thấp.'
+    ],
+    privateNotes: 'Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập: Hướng dẫn học sinh hoàn thành bảng tóm tắt nội dung chính cho hai mốc 1918–1922 và 1922–1945 theo SGK.\n- Vận dụng: Cân nhắc hướng dẫn học sinh tìm hiểu quan hệ lịch sử với tinh thần khách quan khoa học.\n- Lưu ý sư phạm: Làm nổi bật tính tất yếu của việc chuyển từ chính sách cộng sản thời chiến sang NEP.\n- Mô phỏng minh hoạ: Nhấn mạnh các chỉ số mô phỏng là giả định minh hoạ phục vụ rèn luyện tư duy phản biện, không thay thế sự thật lịch sử.',
+    reviewFlags: [
+      'Bộ sách: xác nhận từ bìa (Chân trời sáng tạo hay bộ khác) để ghi nguồn đúng.',
+      'Năm nội chiến chấm dứt: dòng thời gian ghi 1920, đoạn văn nói "sau nội chiến (1921) bước vào thời kì hoà bình". Giáo viên chọn cách diễn đạt thống nhất.',
+      'Số liệu bảng điện và thép: kiểm tra lại với bản gốc trước khi phát hành.',
+      'Cách phiên âm tên riêng (Bôn-sê-vích, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ, Đni-ép) giữ như sách.'
+    ]
+  },
+
+  // =========================================================================
+  // BÀI 2: CHÂU ÂU VÀ NƯỚC MỸ (1918–1945)
+  // =========================================================================
+  {
+    id: 'bai-2-chau-au-my',
+    title: 'Bài 2. Châu Âu và nước Mỹ từ năm 1918 đến năm 1945',
+    subtitle: 'Phong trào cách mạng, đại suy thoái kinh tế 1929–1933, chủ nghĩa phát xít và nước Mỹ giữa hai cuộc đại chiến',
+    year: '1918–1945',
+    teacher: 'Thầy Nguyễn Văn Hưng',
+    class: 'Lớp 9A1',
+    date: '2026-11-11',
+    subject: 'Lịch sử',
+    grade: 'Khối 9',
+    period: 'Tiết 2 · 45 phút',
+    status: 'Nháp',
+    isPilot: false,
+    disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
+    simulationDisclaimer: 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
+    objectives: 'Trình bày được những nét chính về phong trào cách mạng và sự thành lập Quốc tế Cộng sản, cuộc đại suy thoái kinh tế 1929–1933 và sự hình thành chủ nghĩa phát xít ở châu Âu; nhận biết được tình hình chính trị và sự phát triển kinh tế của nước Mỹ giữa hai cuộc chiến tranh thế giới.',
+    focusQuestion: 'Vì sao Anh, Pháp chọn cải cách kinh tế – xã hội còn Đức, I-ta-li-a đẩy mạnh phát xít hoá và tái vũ trang? Việc này tác động thế nào đến nền hoà bình thế giới?',
+    introSummary: 'Giai đoạn 1918–1945 tại châu Âu và nước Mỹ chứng kiến những biến động sâu sắc: cao trào cách mạng bùng nổ sau Chiến tranh thế giới thứ nhất và Quốc tế Cộng sản ra đời; cuộc đại suy thoái 1929–1933 tàn phá kinh tế toàn cầu dẫn tới hai lối thoát đối lập: cải cách dân chủ ở Mỹ (Thoả thuận mới), Anh, Pháp hoặc phát xít hoá gây chiến ở Đức, I-ta-li-a.',
+    explorationMode: 'depression_charts',
+    sourceCitation: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)',
+    timeline: [
+      { year: '1918 (11)', event: 'Quần chúng ở Đức nổi dậy, Hoàng đế Đức thoái vị, chế độ quân chủ sụp đổ' },
+      { year: '1918 (12)', event: 'Đảng Cộng sản Đức thành lập' },
+      { year: '1919 (3)', event: 'Thành lập Quốc tế Cộng sản tại Mát-xcơ-va; Mút-xô-li-ni lập "Các nhóm chiến đấu" ở I-ta-li-a' },
+      { year: '1920', event: 'Đảng Cộng sản Pháp và Anh ra đời; Hít-le thành lập Đảng Quốc xã Đức' },
+      { year: '1921', event: 'Đảng Cộng sản I-ta-li-a và Đảng Cộng sản Mỹ ra đời; Đảng Quốc gia phát xít I-ta-li-a thành lập' },
+      { year: '1922', event: 'Mút-xô-li-ni làm Thủ tướng I-ta-li-a, chế độ phát xít được thiết lập' },
+      { year: '1923', event: 'Lạm phát nặng ở Đức (đồng tiền mất giá)' },
+      { year: '1929', event: 'Thị trường chứng khoán Niu Oóc sụp đổ; đại suy thoái bắt đầu' },
+      { year: '1932', event: 'Hơn 6 triệu người thất nghiệp ở Đức; Ru-dơ-ven đắc cử Tổng thống Mỹ, chuẩn bị "Thoả thuận mới"' },
+      { year: '1933', event: 'Hít-le làm Thủ tướng Đức; đại suy thoái kết thúc ở nhiều nước' },
+      { year: '1934', event: 'Khủng hoảng chính trị ở Pháp' },
+      { year: '1936', event: 'Liên minh phát xít Đức – I-ta-li-a (Trục Béc-lin – Rô-ma)' }
+    ],
+    sections: [
+      {
+        id: 'sec-1',
+        title: 'Mục 1. Phong trào cách mạng (1918–1923) và sự thành lập Quốc tế Cộng sản (1919)',
+        narration: 'Sau chiến tranh thế giới thứ nhất, chịu ảnh hưởng của Cách mạng tháng Mười Nga và hậu quả chiến tranh, các nước châu Âu như Anh, Pháp, Đức đều gặp khó khăn lớn: kinh tế tàn phá, thất nghiệp cao, lạm phát tăng vọt, mâu thuẫn xã hội căng thẳng. Phong trào cách mạng nổ ra mạnh nhất ở Đức và Hung-ga-ri. Tháng 11-1918, nhân dân Đức buộc Hoàng đế thoái vị. Tháng 12-1918, Đảng Cộng sản Đức thành lập. Chính quyền Xô viết xuất hiện ở Đức và Hung-ga-ri. Tháng 3-1919, Lênin cùng các nhà cách mạng quốc tế thành lập Quốc tế Cộng sản (Quốc tế thứ ba) tại Mát-xcơ-va để thống nhất đường lối cách mạng vô sản, lãnh đạo các đảng cộng sản đấu tranh chống chủ nghĩa đế quốc và chủ nghĩa phát xít.',
+        caption: 'Cao trào cách mạng 1918–1923 bùng nổ ở châu Âu và Quốc tế Cộng sản thành lập tại Mát-xcơ-va.',
+        timelineRange: 0.15,
+        timeLabel: '1918–1923',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 1',
+          quote: 'Lê-nin cùng một số nhà cách mạng quốc tế tổ chức đại hội thành lập Quốc tế Cộng sản tại Mát-xcơ-va (tháng 3-1919). Tổ chức này lãnh đạo các đảng cộng sản nhiều nước đấu tranh chống chủ nghĩa đế quốc và chủ nghĩa phát xít...',
+          note: 'Sự ra đời của Quốc tế Cộng sản thúc đẩy thành lập các Đảng Cộng sản Pháp, Anh (1920), I-ta-li-a (1921).'
+        }
+      },
+      {
+        id: 'sec-2',
+        title: 'Mục 2. Cuộc đại suy thoái kinh tế (1929–1933)',
+        narration: 'Sau thời kì thịnh vượng ngắn ngủi những năm 1920, kinh tế tư bản rơi vào khủng hoảng trầm trọng, bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc (tháng 10-1929) rồi lan nhanh sang châu Âu và toàn thế giới đến năm 1933–1934. Hàng chục triệu người thất nghiệp, hàng loạt nhà máy và nông trại phá sản. Năm 1932, chỉ số sản xuất công nghiệp của Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65%, Pháp còn 78%, Anh còn 85%. Khủng hoảng làm lung lay nền tảng chính trị – xã hội của nhiều quốc gia.',
+        caption: 'Cuộc đại suy thoái kinh tế 1929–1933 làm sụt giảm nghiêm trọng chỉ số sản xuất công nghiệp toàn cầu.',
+        timelineRange: 0.45,
+        timeLabel: '1929–1933',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: 'Chỉ số sản xuất công nghiệp khoảng năm 1932 (so với năm 1929 = 100%): Hoa Kỳ: 55; Đức: 58; Thế giới: 65; Pháp: 78; Vương quốc Anh: 85.',
+          note: 'Mỹ và Đức chịu mức sụt giảm sản xuất công nghiệp sâu nhất trong cuộc đại suy thoái.'
+        }
+      },
+      {
+        id: 'sec-3',
+        title: 'Mục 3. Sự hình thành chủ nghĩa phát xít ở châu Âu',
+        narration: 'Để thoát khỏi đại suy thoái, các nước tư bản phân hoá theo hai hướng: Anh và Pháp chọn cải cách kinh tế – xã hội; trong khi Đức và I-ta-li-a đẩy mạnh phát xít hoá bộ máy nhà nước và tái vũ trang để gây chiến chia lại thế giới. Tại I-ta-li-a, Mút-xô-li-ni lập Đảng Quốc gia phát xít và trở thành Thủ tướng năm 1922. Tại Đức, năm 1933 Hít-le lên làm Thủ tướng, giải tán các đảng đối lập, lập trại tập trung và công khai mục tiêu "chinh phục không gian sinh tồn" cùng chính sách bài Do Thái tàn bạo. Năm 1936, liên minh phát xít Đức – I-ta-li-a hình thành, đẩy nhân loại vào nguy cơ chiến tranh thế giới.',
+        caption: 'Chủ nghĩa phát xít hình thành ở I-ta-li-a và Đức, tái vũ trang đe doạ hoà bình thế giới.',
+        timelineRange: 0.7,
+        timeLabel: '1922–1936',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 3',
+          quote: 'Năm 1933 Hít-le, lãnh đạo Đảng Công nhân quốc gia xã hội chủ nghĩa Đức (Đảng Quốc xã), trở thành Thủ tướng... Năm 1936, liên minh phát xít Đức – I-ta-li-a ra đời.',
+          note: 'Bản chất của chủ nghĩa phát xít là độc tài khủng bố, phân biệt chủng tộc và gây chiến tranh xâm lược.'
+        }
+      },
+      {
+        id: 'sec-4',
+        title: 'Mục 4. Nước Mỹ giữa hai cuộc chiến tranh thế giới (1918–1939)',
+        narration: 'Sau chiến tranh thế giới thứ nhất, Mỹ phồn vinh và trở thành nước tư bản giàu mạnh nhất, dù vẫn tồn tại bất công xã hội và nạn phân biệt chủng tộc đối với người da đen (năm 1921 Đảng Cộng sản Mỹ thành lập). Năm 1929, đại suy thoái nổ ra khiến hàng triệu người mất việc. Năm 1932, Ru-dơ-ven đắc cử Tổng thống và ban hành chính sách "Thoả thuận mới" (New Deal): nhà nước trực tiếp can thiệp sâu vào ngân hàng, thị trường chứng khoán; đầu tư công vào các công trình lớn tạo việc làm (tiêu biểu như đập thuỷ lợi Bon-nơ-viu ở bang Ô-rê-gơn tạo việc làm cho khoảng 30.000 lao động) và chú trọng an sinh xã hội. "Thoả thuận mới" giúp nước Mỹ vượt qua khủng hoảng và duy trì nền dân chủ tư sản.',
+        caption: 'Tổng thống Ru-dơ-ven thực hiện chính sách "Thoả thuận mới" phục hồi kinh tế và ổn định nước Mỹ.',
+        timelineRange: 0.95,
+        timeLabel: '1918–1939',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 4',
+          quote: 'Năm 1932, Ru-dơ-ven đắc cử Tổng thống và thực hiện các cải cách kinh tế – xã hội gọi chung là "Thoả thuận mới" (New Deal)... Nhà nước trực tiếp quản lí, can thiệp sâu vào ngân hàng, thị trường chứng khoán. Đầu tư công vào các công trình lớn để tạo việc làm...',
+          note: 'Chính sách can thiệp kinh tế của nhà nước là giải pháp trung tâm của New Deal.'
+        }
+      }
+    ],
+    questions: [
+      {
+        id: 'b2-q1',
+        text: 'Quốc tế Cộng sản được thành lập vào thời gian và địa điểm nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q1-a', text: 'Năm 1929 tại Niu Oóc', isCorrect: false, explanation: 'Năm 1929 là thời điểm sụp đổ thị trường chứng khoán Niu Oóc, không phải nơi lập Quốc tế Cộng sản.' },
+          { id: 'b2-q1-b', text: 'Năm 1936 tại Béc-lin', isCorrect: false, explanation: 'Năm 1936 là thời điểm hình thành liên minh phát xít Đức – I-ta-li-a.' },
+          { id: 'b2-q1-c', text: 'Tháng 3-1919 tại Mát-xcơ-va', isCorrect: true, explanation: 'Tháng 3-1919, Lê-nin cùng các nhà cách mạng quốc tế tổ chức đại hội thành lập Quốc tế Cộng sản tại Mát-xcơ-va.' },
+          { id: 'b2-q1-d', text: 'Năm 1943 tại Rô-ma', isCorrect: false, explanation: 'Năm 1943 là thời điểm Quốc tế Cộng sản tuyên bố giải tán.' }
+        ]
+      },
+      {
+        id: 'b2-q2',
+        text: 'Sau chiến tranh thế giới thứ nhất, phong trào cách mạng ở châu Âu mạnh nhất ở những nước nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q2-a', text: 'Anh và Pháp', isCorrect: false, explanation: 'Phong trào cách mạng nổ ra ở nhiều nước nhưng bùng nổ mạnh mẽ nhất ở Đức và Hung-ga-ri.' },
+          { id: 'b2-q2-b', text: 'I-ta-li-a và Mỹ', isCorrect: false, explanation: 'I-ta-li-a và Mỹ có phong trào công nhân nhưng không lập chính quyền Xô viết như ở Đức và Hung-ga-ri.' },
+          { id: 'b2-q2-c', text: 'Mỹ và Anh', isCorrect: false, explanation: 'Mỹ và Anh không phải là trọng tâm cao trào cách mạng lật đổ chế độ quân chủ sau chiến tranh.' },
+          { id: 'b2-q2-d', text: 'Đức và Hung-ga-ri', isCorrect: true, explanation: 'Phong trào cách mạng nổ ra ở nhiều nước, mạnh nhất ở Đức và Hung-ga-ri, làm sụp đổ chế độ quân chủ và lập chính quyền Xô viết ngắn ngày.' }
+        ]
+      },
+      {
+        id: 'b2-q3',
+        text: 'Sự kiện nào đánh dấu khởi đầu cuộc đại suy thoái kinh tế 1929–1933?',
+        type: 'multiple_choice',
+        sectionId: 'sec-2',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q3-a', text: 'Thị trường chứng khoán Niu Oóc sụp đổ', isCorrect: true, explanation: 'Cuộc đại suy thoái kinh tế bắt đầu từ vụ sụp đổ của thị trường chứng khoán Niu Oóc (tháng 10-1929) rồi lan rộng khắp thế giới.' },
+          { id: 'b2-q3-b', text: 'Hoàng đế Đức thoái vị', isCorrect: false, explanation: 'Hoàng đế Đức thoái vị vào tháng 11-1918 trong phong trào cách mạng sau chiến tranh thế giới thứ nhất.' },
+          { id: 'b2-q3-c', text: 'Quốc tế Cộng sản giải tán', isCorrect: false, explanation: 'Quốc tế Cộng sản tuyên bố giải tán vào năm 1943.' },
+          { id: 'b2-q3-d', text: 'Mút-xô-li-ni lên nắm quyền', isCorrect: false, explanation: 'Mút-xô-li-ni làm Thủ tướng I-ta-li-a từ năm 1922, trước khi nổ ra đại suy thoái.' }
+        ]
+      },
+      {
+        id: 'b2-q4',
+        text: 'Năm 1922, sự kiện nào diễn ra ở I-ta-li-a?',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q4-a', text: 'Đảng Cộng sản I-ta-li-a bị giải tán', isCorrect: false, explanation: 'Đảng Cộng sản I-ta-li-a thành lập năm 1921 và bị đàn áp sau khi chế độ phát xít củng cố quyền lực.' },
+          { id: 'b2-q4-b', text: 'Mút-xô-li-ni trở thành Thủ tướng, chế độ phát xít được thiết lập', isCorrect: true, explanation: 'Năm 1922, Mút-xô-li-ni trở thành Thủ tướng I-ta-li-a và chế độ phát xít bắt đầu được thiết lập.' },
+          { id: 'b2-q4-c', text: 'Hít-le làm Thủ tướng', isCorrect: false, explanation: 'Hít-le trở thành Thủ tướng Đức vào năm 1933, không phải ở I-ta-li-a năm 1922.' },
+          { id: 'b2-q4-d', text: 'Liên minh Đức – I-ta-li-a ra đời', isCorrect: false, explanation: 'Liên minh phát xít Đức – I-ta-li-a chính thức ra đời vào năm 1936.' }
+        ]
+      },
+      {
+        id: 'b2-q5',
+        text: 'Hít-le trở thành Thủ tướng Đức vào năm nào và là lãnh đạo đảng nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q5-a', text: '1921, Đảng Cộng sản', isCorrect: false, explanation: 'Hít-le là trùm phát xít, kẻ thù không đội trời chung của những người cộng sản.' },
+          { id: 'b2-q5-b', text: '1936, Đảng Phát xít I-ta-li-a', isCorrect: false, explanation: 'Đảng Phát xít I-ta-li-a do Mút-xô-li-ni lãnh đạo; năm 1936 là mốc liên minh Trục.' },
+          { id: 'b2-q5-c', text: '1933, Đảng Quốc xã', isCorrect: true, explanation: 'Năm 1933, Hít-le, lãnh đạo Đảng Công nhân quốc gia xã hội chủ nghĩa Đức (Đảng Quốc xã), trở thành Thủ tướng Đức.' },
+          { id: 'b2-q5-d', text: '1929, Đảng Cộng hoà', isCorrect: false, explanation: 'Hít-le lãnh đạo Đảng Quốc xã và nắm quyền vào năm 1933.' }
+        ]
+      },
+      {
+        id: 'b2-q6',
+        text: 'Nội dung nào sau đây thuộc "Thoả thuận mới" (New Deal) của Tổng thống Ru-dơ-ven?',
+        type: 'multiple_choice',
+        sectionId: 'sec-4',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q6-a', text: 'Bỏ hoàn toàn can thiệp của nhà nước vào ngân hàng', isCorrect: false, explanation: 'Ngược lại, Thoả thuận mới quy định nhà nước trực tiếp quản lí, can thiệp sâu vào ngân hàng và tài chính.' },
+          { id: 'b2-q6-b', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản do Lênin thành lập tại Mát-xcơ-va năm 1919, không liên quan đến chính phủ Mỹ.' },
+          { id: 'b2-q6-c', text: 'Tăng cường tái vũ trang để gây chiến', isCorrect: false, explanation: 'Tái vũ trang gây chiến là chủ trương của các nước phát xít Đức, I-ta-li-a.' },
+          { id: 'b2-q6-d', text: 'Đầu tư công vào công trình lớn để tạo việc làm', isCorrect: true, explanation: 'Thoả thuận mới chú trọng đầu tư công vào các công trình lớn (như đập thuỷ lợi Bon-nơ-viu) để tạo việc làm cho người thất nghiệp.' }
+        ]
+      },
+      {
+        id: 'b2-q7',
+        text: 'Hãy sắp xếp các sự kiện lịch sử tiêu biểu ở châu Âu và nước Mỹ theo đúng trình tự thời gian từ năm 1919 đến năm 1936:',
+        type: 'multiple_choice',
+        sectionId: 'sec-2',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b2-q7-a', text: 'Mút-xô-li-ni làm Thủ tướng (1922) → Quốc tế Cộng sản thành lập (1919) → Hít-le làm Thủ tướng (1933) → Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Liên minh phát xít Đức – I-ta-li-a (1936)', isCorrect: false, explanation: 'Sai thứ tự: Quốc tế Cộng sản thành lập (1919) trước khi Mút-xô-li-ni làm Thủ tướng (1922).' },
+          { id: 'b2-q7-b', text: 'Quốc tế Cộng sản thành lập (1919) → Mút-xô-li-ni làm Thủ tướng (1922) → Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Hít-le làm Thủ tướng (1933) → Liên minh phát xít Đức – I-ta-li-a (1936)', isCorrect: true, explanation: 'Trình tự niên đại chính xác theo SGK: 1919 (Quốc tế Cộng sản) → 1922 (Mút-xô-li-ni) → 1929 (sụp đổ chứng khoán Niu Oóc) → 1933 (Hít-le nắm quyền) → 1936 (Liên minh phát xít).' },
+          { id: 'b2-q7-c', text: 'Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Quốc tế Cộng sản thành lập (1919) → Mút-xô-li-ni làm Thủ tướng (1922) → Hít-le làm Thủ tướng (1933) → Liên minh phát xít Đức – I-ta-li-a (1936)', isCorrect: false, explanation: 'Sai thứ tự: Năm 1929 diễn ra sau các sự kiện năm 1919 và 1922.' },
+          { id: 'b2-q7-d', text: 'Quốc tế Cộng sản thành lập (1919) → Hít-le làm Thủ tướng (1933) → Mút-xô-li-ni làm Thủ tướng (1922) → Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Liên minh phát xít Đức – I-ta-li-a (1936)', isCorrect: false, explanation: 'Sai thứ tự: Hít-le làm Thủ tướng năm 1933, sau Mút-xô-li-ni (1922) và suy thoái (1929).' }
+        ]
+      },
+      {
+        id: 'b2-q8',
+        text: 'Nêu nguyên nhân dẫn đến phong trào cách mạng ở châu Âu sau chiến tranh thế giới thứ nhất và hệ quả của phong trào.',
+        type: 'open_discussion',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Hậu quả nặng nề của chiến tranh, ảnh hưởng của Cách mạng tháng Mười Nga; làm sụp đổ nền quân chủ ở Đức, Áo - Hung và thúc đẩy sự ra đời của Quốc tế Cộng sản.'
+      },
+      {
+        id: 'b2-q9',
+        text: 'Vì sao Anh, Pháp chọn cải cách kinh tế – xã hội còn Đức, I-ta-li-a đẩy mạnh phát xít hoá và tái vũ trang? Việc này tác động thế nào đến nền hoà bình thế giới?',
+        type: 'open_discussion',
+        sectionId: 'sec-3',
+        isEmperorQuestion: true,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Anh, Pháp có thuộc địa rộng lớn, truyền thống dân chủ; Đức, I-ta-li-a bất mãn với trật tự Véc-xai, thiếu thuộc địa và thị trường nên chọn con đường phát xít hoá để gây chiến chia lại thế giới, đe doạ trực tiếp hoà bình nhân loại.'
+      },
+      {
+        id: 'b2-q10',
+        text: '"Thoả thuận mới" đã giúp gì cho nước Mỹ và vì sao nó chưa giải quyết triệt để đại suy thoái?',
+        type: 'open_discussion',
+        sectionId: 'sec-4',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Thoả thuận mới cứu vãn hệ thống tài chính, giải quyết việc làm cho hàng triệu người qua đầu tư công và an sinh; tuy nhiên chưa xoá bỏ được mâu thuẫn nội tại của kinh tế tư bản chủ nghĩa.'
+      }
+    ],
+    question: {
+      character: {
+        name: 'Người dẫn chuyện',
+        greeting: 'Chào các em học sinh!',
+        speech: 'Đối mặt với đại suy thoái kinh tế 1929–1933, các nước tư bản đã đứng trước những ngã rẽ sống còn về chính sách. Nếu là nhà hoạch định chính sách kinh tế đương thời, em sẽ lựa chọn mức độ can thiệp của nhà nước ra sao?'
+      },
+      variables: [
+        {
+          id: 'var-state-intervention',
+          title: 'Mức độ can thiệp của Nhà nước vào nền kinh tế',
+          description: 'Lựa chọn phương án can thiệp điều tiết của chính phủ để giải quyết khủng hoảng và thất nghiệp:',
+          options: [
+            {
+              id: 'opt-intervention-deep',
+              name: 'Nhà nước can thiệp sâu, đầu tư công quy mô lớn (Thoả thuận mới - New Deal)',
+              isOriginal: true,
+              desc: 'Chính phủ quản lí hệ thống ngân hàng, thị trường tài chính, đầu tư công vào các công trình lớn tạo việc làm và bảo đảm phúc lợi.',
+              assumptions: 'Dựa trên cải cách thực tế của Tổng thống Ru-dơ-ven: từng bước phục hồi sản xuất, cứu vãn việc làm và giữ vững ổn định chính trị.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: 0
+            },
+            {
+              id: 'opt-intervention-minimal',
+              name: 'Can thiệp tối thiểu, để thị trường tự do điều tiết',
+              isOriginal: false,
+              desc: 'Nhà nước không can thiệp vào tài chính, cắt giảm ngân sách đầu tư công, để thị trường và các doanh nghiệp tự thanh lọc.',
+              assumptions: 'Giả định mô phỏng: ngân sách chính phủ không phải chi trả nhiều, song thất nghiệp kéo dài nghiêm trọng và mâu thuẫn xã hội leo thang.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: -35
+            }
+          ]
+        }
+      ]
+    },
+    comparisonMetrics: [
+      { id: 'employment', label: 'Điểm giải quyết việc làm', origFormatted: '75 / 100', unit: ' / 100' },
+      { id: 'banking', label: 'Điểm phục hồi tài chính', origFormatted: '80 / 100', unit: ' / 100' },
+      { id: 'stability', label: 'Điểm ổn định chính trị', origFormatted: '85 / 100', unit: ' / 100' }
+    ],
+    baseline: {
+      durationHours: 75,
+      casualties: 80,
+      positionScore: 85,
+      ratingText: 'Phương án cải cách Thoả thuận mới (New Deal)'
+    },
+    keyNotes: [
+      'Phong trào cách mạng 1918–1923 bùng nổ ở châu Âu, tiêu biểu tại Đức và Hung-ga-ri.',
+      'Tháng 3-1919, Quốc tế Cộng sản (Quốc tế thứ ba) được thành lập tại Mát-xcơ-va dưới sự lãnh đạo của V. I. Lênin.',
+      'Đại suy thoái 1929–1933 bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc và lan rộng ra toàn cầu.',
+      'Chỉ số sản xuất công nghiệp năm 1932: Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65% so với năm 1929.',
+      'Chế độ phát xít được thiết lập ở I-ta-li-a (1922) và Đức (1933); liên minh phát xít Đức – I-ta-li-a hình thành năm 1936.',
+      'Tại Mỹ, Tổng thống Ru-dơ-ven thực hiện "Thoả thuận mới" (New Deal) từ năm 1932, can thiệp sâu vào kinh tế để phục hồi đất nước.'
+    ],
+    privateNotes: 'Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập 1: Vẽ trục thời gian các giai đoạn phát triển kinh tế của châu Âu và Mỹ 1918–1939.\n- Luyện tập 2: Giải thích vì sao từ năm 1936 hoà bình châu Âu bị đe doạ nghiêm trọng.\n- Vận dụng: Nêu một chính sách của Thoả thuận mới mà em thấy vẫn còn giá trị đến ngày nay (can thiệp tài chính, an sinh).\n- Lưu ý khi biên soạn: Các nội dung về phát xít, trại tập trung cần diễn đạt khách quan, đúng sự thật, không gây sốc hình ảnh.\n- Mô phỏng minh hoạ: Nhấn mạnh người học chỉ nhập vai nhà hoạch định chính sách dân chủ, tuyệt đối không đặt vai vào phe phát xít.',
+    reviewFlags: [
+      'Bộ sách: xác nhận từ bìa.',
+      'Giá trị các đường trong biểu đồ chỉ số sản xuất (bảng ở Mục 2): đối chiếu từng đường với biểu đồ gốc.',
+      'Các mốc trên dòng thời gian hình thành chủ nghĩa phát xít (1920, 1935, 1939): chữ nhỏ trên ảnh chụp, cần đọc lại từ bản gốc, nhất là mốc 1935 (đạo luật bài Do Thái) và 1939.',
+      'Năm khởi đầu và kết thúc đại suy thoái: sách ghi 1929–1933, có nơi kéo dài đến 1933–1934.',
+      'Cách phiên âm tên riêng (Hung-ga-ri, Mút-xô-li-ni, Hít-le, Ru-dơ-ven, Bon-nơ-viu...) giữ như sách.'
+    ]
+  },
+
+  // =========================================================================
+  // BÀI 3: CHÂU Á (1918–1945)
+  // =========================================================================
+  {
+    id: 'bai-3-chau-a',
+    title: 'Bài 3. Châu Á từ năm 1918 đến năm 1945',
+    subtitle: 'Nhật Bản quân phiệt hoá và cao trào đấu tranh giành độc lập ở Trung Quốc, Ấn Độ, Đông Nam Á',
+    year: '1918–1945',
+    teacher: 'Thầy Nguyễn Văn Hưng',
+    class: 'Lớp 9A1',
+    date: '2026-11-11',
+    subject: 'Lịch sử',
+    grade: 'Khối 9',
+    period: 'Tiết 3 · 45 phút',
+    status: 'Nháp',
+    isPilot: false,
+    disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
+    simulationDisclaimer: 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
+    objectives: 'Nêu được những nét chính về tình hình châu Á từ năm 1918 đến năm 1945, bao gồm quá trình quân phiệt hoá bành trướng của Nhật Bản và các phong trào giải phóng dân tộc tiêu biểu ở Trung Quốc, Ấn Độ, Đông Nam Á.',
+    focusQuestion: 'Vì sao quân đội Nhật Bản có mặt ở Trung Quốc? Hãy nêu nguyên nhân từ tình hình kinh tế và chính trị của Nhật.',
+    introSummary: 'Châu Á giai đoạn 1918–1945 chuyển biến dữ dội: Nhật Bản khủng hoảng kinh tế dẫn tới giới quân phiệt kiểm soát chính phủ và phát động chiến tranh xâm lược; đồng thời ngọn lửa đấu tranh giải phóng dân tộc bùng cháy mạnh mẽ ở Trung Quốc (phong trào Ngũ tứ, Mặt trận chống Nhật), Ấn Độ (phong trào bất bạo động của Gan-đi) và Đông Nam Á.',
+    explorationMode: 'asia_map',
+    sourceCitation: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)',
+    timeline: [
+      { year: '1919 (4-5)', event: 'Phong trào Ngũ tứ ở Trung Quốc' },
+      { year: '1920', event: 'Đảng Cộng sản In-đô-nê-xi-a thành lập' },
+      { year: '1921', event: 'Đảng Cộng sản Trung Quốc ra đời' },
+      { year: '1922', event: 'Đảng Cộng sản Nhật Bản thành lập, hoạt động công khai' },
+      { year: '1925', event: 'Đảng Cộng sản Ấn Độ thành lập' },
+      { year: '1926–1927', event: 'Khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (In-đô-nê-xi-a)' },
+      { year: '1927', event: 'Kinh tế Nhật có dấu hiệu khủng hoảng; liên minh Quốc – Cộng ở Trung Quốc tan vỡ, nội chiến bùng phát' },
+      { year: '1930', event: 'Kinh tế Nhật khủng hoảng kéo dài; ngày 12-3 Gan-đi bắt đầu cuộc biểu tình "Muối" ở Ấn Độ; Đảng Cộng sản thành lập ở Việt Nam và Mã Lai' },
+      { year: '1930–1931', event: 'Xô viết Nghệ – Tĩnh (Việt Nam)' },
+      { year: '1931 (18-9)', event: 'Quân Nhật chiếm Phụng Thiên, bắt đầu xâm chiếm vùng Đông Bắc Trung Quốc' },
+      { year: '1932', event: 'Ngày 9-3, Nhật lập "Mãn Châu quốc"; ở Thái Lan nổ ra cách mạng chuyển sang quân chủ lập hiến' },
+      { year: '1937 (tháng 7)', event: 'Nhật mở rộng xâm lược toàn Trung Quốc; Quốc – Cộng đình chiến, lập Mặt trận dân tộc thống nhất chống Nhật' },
+      { year: '1940', event: 'Nhật công bố Thuyết Đại Đông Á; nhân dân Đông Nam Á đấu tranh chống Nhật xâm lược, đô hộ' }
+    ],
+    sections: [
+      {
+        id: 'sec-1',
+        title: 'Mục 1. Nhật Bản giữa hai cuộc chiến tranh thế giới',
+        narration: 'Sau chiến tranh thế giới thứ nhất, kinh tế Nhật Bản phát triển ổn định ngắn ngủi rồi bộc lộ dấu hiệu khủng hoảng từ năm 1927 trong ngành tài chính – ngân hàng, kéo dài trầm trọng đến năm 1930. Giới quân phiệt Nhật giành quyền kiểm soát chính phủ và chọn Hoàng đế làm biểu tượng quyền lực để huy động dân chúng. Để giải quyết bế tắc kinh tế, Nhật Bản đẩy mạnh xâm lược bành trướng: ngày 18-9-1931 chiếm Phụng Thiên, thôn tính vùng Đông Bắc Trung Quốc; ngày 9-3-1932 dựng nên chính quyền bù nhìn "Mãn Châu quốc"; từ tháng 7-1937 mở rộng chiến tranh ra toàn lãnh thổ Trung Quốc; và năm 1940 công bố Thuyết Đại Đông Á làm bình phong xâm lược các nước Đông Nam Á.',
+        caption: 'Quân đội Nhật Bản tiến vào Phụng Thiên (1931) và mở rộng xâm lược bành trướng khắp châu Á.',
+        timelineRange: 0.25,
+        timeLabel: '1918–1940',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 1',
+          quote: 'Quân đội giành quyền kiểm soát chính phủ và chủ trương giải quyết khó khăn kinh tế bằng xâm lược, bành trướng sang các nước láng giềng... năm 1931 chiếm vùng Đông Bắc Trung Quốc; ngày 9-3-1932 lập Mãn Châu quốc; từ tháng 7-1937 mở rộng chiến tranh ra toàn Trung Quốc...',
+          note: 'Điểm giống phát xít châu Âu: chủ nghĩa dân tộc cực đoan và tham vọng bành trướng, xâm lược.'
+        }
+      },
+      {
+        id: 'sec-2',
+        title: 'Mục 2.1. Phong trào giải phóng dân tộc ở Trung Quốc',
+        narration: 'Ngày 4-5-1919, phong trào Ngũ tứ bùng nổ mạnh mẽ trong giới học sinh, sinh viên, công nhân phản đối quyết định bất công của Hội nghị Véc-xai trao đặc quyền ở Sơn Đông cho Nhật Bản; phong trào thúc đẩy truyền bá sâu rộng chủ nghĩa Mác – Lê-nin. Năm 1921, Đảng Cộng sản Trung Quốc ra đời, phối hợp cùng Quốc dân đảng chống các thế lực quân phiệt. Năm 1927, liên minh Quốc – Cộng tan vỡ dẫn đến nội chiến. Đến tháng 7-1937, trước hiểm hoạ xâm lược toàn diện của phát xít Nhật, hai bên quyết định đình chiến và thành lập Mặt trận dân tộc thống nhất chống Nhật để bảo vệ đất nước.',
+        caption: 'Phong trào Ngũ tứ 1919 và Mặt trận dân tộc thống nhất chống phát xít Nhật thành lập năm 1937.',
+        timelineRange: 0.5,
+        timeLabel: '1919–1937',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: 'Phong trào Ngũ tứ (4-5-1919) của sinh viên, học sinh, trí thức, công nhân, thị dân... Năm 1921, Đảng Cộng sản Trung Quốc ra đời... Năm 1937, trước sự xâm lược của Nhật, hai bên đình chiến và lập Mặt trận dân tộc thống nhất chống Nhật.',
+          note: 'Sự chuyển hướng chiến lược từ nội chiến sang đại đoàn kết dân tộc kháng chiến chống ngoại xâm.'
+        }
+      },
+      {
+        id: 'sec-3',
+        title: 'Mục 2.2. Phong trào giải phóng dân tộc ở Ấn Độ',
+        narration: 'Tại Ấn Độ, Đảng Quốc đại dưới sự dẫn dắt của lãnh tụ Gan-đi đã vận động nhân dân đấu tranh giành độc lập bằng con đường hoà bình, bất bạo động, tẩy chay hàng hoá của Anh và phát triển kinh tế dân tộc. Năm 1925, Đảng Cộng sản Ấn Độ thành lập thúc đẩy phong trào chống thực dân Anh. Ngày 12-3-1930, Gan-đi dẫn đầu cuộc đi bộ biểu tình bất bạo động gần 400 km ra bờ biển phía Tây để tự làm muối, phản đối chính quyền thuộc địa độc quyền và đánh thuế muối nặng nề. Cuộc đi bộ "Muối" đã thức tỉnh tinh thần phản kháng và thôi thúc đông đảo quần chúng bất tuân lệnh chính quyền thực dân Anh.',
+        caption: 'Lãnh tụ Gan-đi dẫn đầu cuộc đi bộ "Muối" gần 400 km (12-3-1930) đấu tranh bất bạo động.',
+        timelineRange: 0.75,
+        timeLabel: '1925–1930',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: 'Ngày 12-3-1930, Gan-đi bắt đầu cuộc đi bộ gần 400 km đến bờ biển phía Tây để phản đối luật Anh cấm người Ấn tự thu hoạch muối và đánh thuế muối quá cao. Cách đấu tranh bất bạo động này thôi thúc nhiều người Ấn Độ bất tuân lệnh chính quyền thuộc địa.',
+          note: 'Hình thức đấu tranh bất bạo động độc đáo tạo nên sức mạnh quần chúng rộng lớn chống thực dân Anh.'
+        }
+      },
+      {
+        id: 'sec-4',
+        title: 'Mục 2.3. Phong trào giải phóng dân tộc ở Đông Nam Á',
+        narration: 'Sau Chiến tranh thế giới thứ nhất, phong trào độc lập dân tộc ở Đông Nam Á dâng cao với sự tham gia của đông đảo công nhân, nông dân, trí thức và tư sản dân tộc. Các đảng cộng sản liên tiếp ra đời: In-đô-nê-xi-a (1920), Việt Nam (1930), Mã Lai (1930). Nhiều phong trào đấu tranh kiên cường bùng nổ, tiêu biểu là cuộc khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (1926–1927) và phong trào Xô viết Nghệ – Tĩnh (1930–1931) tại Việt Nam. Tại Thái Lan, năm 1932 nổ ra cuộc cách mạng chuyển từ chế độ quân chủ chuyên chế sang quân chủ lập hiến. Từ năm 1940, nhân dân toàn khu vực Đông Nam Á kiên quyết đứng lên chống lại ách chiếm đóng và đô hộ của phát xít Nhật.',
+        caption: 'Sự ra đời của các Đảng Cộng sản và phong trào giải phóng dân tộc chống thực dân, phát xít ở Đông Nam Á.',
+        timelineRange: 0.95,
+        timeLabel: '1920–1945',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: 'Các đảng cộng sản lần lượt thành lập: In-đô-nê-xi-a (1920), Việt Nam (1930), Mã Lai (1930)... Tiêu biểu: khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (1926–1927), Xô viết Nghệ – Tĩnh (1930–1931)... Từ năm 1940, nhân dân Đông Nam Á chống lại sự xâm lược và đô hộ của phát xít Nhật.',
+          note: 'Đông Nam Á là địa bàn gắn kết chặt chẽ với lịch sử Việt Nam qua mốc thành lập Đảng và Xô viết Nghệ - Tĩnh.'
+        }
+      }
+    ],
+    questions: [
+      {
+        id: 'b3-q1',
+        text: 'Năm 1931, Nhật Bản chiếm vùng nào của Trung Quốc?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q1-a', text: 'Vùng Đông Bắc (Mãn Châu)', isCorrect: true, explanation: 'Ngày 18-9-1931, quân đội Nhật chiếm Phụng Thiên, mở đầu quá trình xâm chiếm toàn bộ vùng Đông Bắc Trung Quốc.' },
+          { id: 'b3-q1-b', text: 'Vùng Tây Tạng', isCorrect: false, explanation: 'Tây Tạng ở phía tây nam, không phải vùng Nhật Bản chiếm đóng năm 1931.' },
+          { id: 'b3-q1-c', text: 'Vùng Hoa Nam', isCorrect: false, explanation: 'Hoa Nam bị Nhật tiến đánh trong giai đoạn mở rộng chiến tranh sau năm 1937.' },
+          { id: 'b3-q1-d', text: 'Đài Loan', isCorrect: false, explanation: 'Đài Loan bị Nhật chiếm từ trước chiến tranh thế giới thứ nhất (năm 1895).' }
+        ]
+      },
+      {
+        id: 'b3-q2',
+        text: 'Từ tháng 7-1937, Nhật Bản có hành động quân sự lớn nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q2-a', text: 'Rút quân khỏi Trung Quốc', isCorrect: false, explanation: 'Quân Nhật không rút quân mà tăng cường mở rộng quy mô chiến tranh.' },
+          { id: 'b3-q2-b', text: 'Ký hoà ước với Quốc dân đảng', isCorrect: false, explanation: 'Quốc dân đảng và Đảng Cộng sản đình chiến để cùng chống Nhật, không ký hoà ước với Nhật.' },
+          { id: 'b3-q2-c', text: 'Mở rộng chiến tranh xâm lược ra toàn lãnh thổ Trung Quốc', isCorrect: true, explanation: 'Từ tháng 7-1937, quân phiệt Nhật Bản đẩy mạnh xâm lược ra toàn bộ lãnh thổ Trung Quốc.' },
+          { id: 'b3-q2-d', text: 'Chỉ giữ Mãn Châu quốc', isCorrect: false, explanation: 'Nhật Bản đã vượt khỏi biên giới Mãn Châu quốc để tấn công vào nội địa Trung Quốc.' }
+        ]
+      },
+      {
+        id: 'b3-q3',
+        text: 'Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á nhằm mục đích gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q3-a', text: 'Chấm dứt chiến tranh với Trung Quốc', isCorrect: false, explanation: 'Thuyết Đại Đông Á không nhằm chấm dứt chiến tranh mà mở rộng phạm vi bành trướng.' },
+          { id: 'b3-q3-b', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản do Lênin thành lập ở Mát-xcơ-va năm 1919.' },
+          { id: 'b3-q3-c', text: 'Ủng hộ phong trào giải phóng dân tộc', isCorrect: false, explanation: 'Khẩu hiệu "Đại Đông Á" là vỏ bọc mị dân nhằm đô hộ các nước châu Á.' },
+          { id: 'b3-q3-d', text: 'Tạo cơ sở cho hoạt động xâm lược các nước Đông Nam Á', isCorrect: true, explanation: 'Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á để làm cơ sở tư tưởng biện minh cho việc xâm lược các nước Đông Nam Á.' }
+        ]
+      },
+      {
+        id: 'b3-q4',
+        text: 'Điểm giống nhau cơ bản giữa giới quân phiệt Nhật và phát xít châu Âu là gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q4-a', text: 'Theo đuổi chủ nghĩa dân tộc cực đoan và tham vọng bành trướng, xâm lược', isCorrect: true, explanation: 'Điểm tương đồng căn bản là đều mang bản chất chủ nghĩa dân tộc cực đoan và dã tâm phát động chiến tranh bành trướng, xâm chiếm đất đai.' },
+          { id: 'b3-q4-b', text: 'Cùng có một nhà độc tài duy nhất', isCorrect: false, explanation: 'Nhật Bản không có nhà độc tài cá nhân như Hít-le hay Mút-xô-li-ni mà dùng biểu tượng Hoàng đế.' },
+          { id: 'b3-q4-c', text: 'Cùng thiết lập chế độ cộng hoà', isCorrect: false, explanation: 'Cả hai đều xoá bỏ thể chế cộng hoà dân chủ, thiết lập nền độc tài chuyên chế.' },
+          { id: 'b3-q4-d', text: 'Cùng đề cao chủ nghĩa Mác – Lê-nin', isCorrect: false, explanation: 'Cả hai đều điên cuồng chống phá chủ nghĩa cộng sản và phong trào công nhân.' }
+        ]
+      },
+      {
+        id: 'b3-q5',
+        text: 'Phong trào Ngũ tứ ở Trung Quốc bùng nổ vào ngày tháng năm nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-2',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q5-a', text: '5-4-1921', isCorrect: false, explanation: 'Năm 1921 là năm Đảng Cộng sản Trung Quốc ra đời.' },
+          { id: 'b3-q5-b', text: '4-5-1919', isCorrect: true, explanation: 'Ngày 4-5-1919, phong trào Ngũ tứ của sinh viên, học sinh và nhân dân Trung Quốc bùng nổ phản đối Hội nghị Véc-xai.' },
+          { id: 'b3-q5-c', text: '4-5-1927', isCorrect: false, explanation: 'Năm 1927 là thời điểm liên minh Quốc – Cộng tan vỡ.' },
+          { id: 'b3-q5-d', text: '9-3-1932', isCorrect: false, explanation: 'Ngày 9-3-1932 là ngày Nhật lập chính quyền Mãn Châu quốc.' }
+        ]
+      },
+      {
+        id: 'b3-q6',
+        text: 'Hành động nổi bật của Gan-đi năm 1930 để phản đối luật muối của chính quyền thực dân Anh là gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q6-a', text: 'Phát động khởi nghĩa vũ trang', isCorrect: false, explanation: 'Gan-đi kiên trì đường lối đấu tranh hoà bình, bất bạo động, không chủ trương khởi nghĩa vũ trang.' },
+          { id: 'b3-q6-b', text: 'Đàm phán ngoại giao tại Luân Đôn', isCorrect: false, explanation: 'Hành động nổi bật năm 1930 là trực tiếp biểu tình đi bộ ra biển cùng nhân dân.' },
+          { id: 'b3-q6-c', text: 'Dẫn đầu cuộc đi bộ gần 400 km ra biển để tự làm muối, đấu tranh bất bạo động', isCorrect: true, explanation: 'Ngày 12-3-1930, Gan-đi bắt đầu cuộc đi bộ gần 400 km đến bờ biển phía Tây để tự thu hoạch muối, phản đối thuế muối bất công.' },
+          { id: 'b3-q6-d', text: 'Rời Ấn Độ ra nước ngoài', isCorrect: false, explanation: 'Gan-đi ở lại Ấn Độ trực tiếp lãnh đạo phong trào bất tuân dân sự.' }
+        ]
+      },
+      {
+        id: 'b3-q7',
+        text: 'Đảng Cộng sản Việt Nam và Đảng Cộng sản Mã Lai cùng được thành lập vào năm nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-4',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q7-a', text: '1920', isCorrect: false, explanation: 'Năm 1920 là năm thành lập Đảng Cộng sản In-đô-nê-xi-a.' },
+          { id: 'b3-q7-b', text: '1925', isCorrect: false, explanation: 'Năm 1925 là năm thành lập Đảng Cộng sản Ấn Độ.' },
+          { id: 'b3-q7-c', text: '1937', isCorrect: false, explanation: 'Năm 1937 là năm Mặt trận thống nhất chống Nhật thành lập ở Trung Quốc.' },
+          { id: 'b3-q7-d', text: '1930', isCorrect: true, explanation: 'Năm 1930 ghi dấu sự ra đời của cả Đảng Cộng sản Việt Nam và Đảng Cộng sản Mã Lai.' }
+        ]
+      },
+      {
+        id: 'b3-q8',
+        text: 'Cuộc cách mạng năm 1932 ở Thái Lan dẫn đến kết quả chính trị gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-4',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q8-a', text: 'Thay quân chủ chuyên chế bằng quân chủ lập hiến', isCorrect: true, explanation: 'Năm 1932, cuộc cách mạng ở Thái Lan đã chuyển đổi thể chế đất nước từ quân chủ chuyên chế sang quân chủ lập hiến.' },
+          { id: 'b3-q8-b', text: 'Xoá bỏ hoàn toàn chế độ quân chủ', isCorrect: false, explanation: 'Thái Lan vẫn duy trì thiết chế Hoàng gia theo khuôn khổ hiến pháp.' },
+          { id: 'b3-q8-c', text: 'Thành lập nước cộng hoà xã hội chủ nghĩa', isCorrect: false, explanation: 'Thái Lan thiết lập chế độ quân chủ lập hiến tư sản, không phải nhà nước xã hội chủ nghĩa.' },
+          { id: 'b3-q8-d', text: 'Thái Lan trở thành thuộc địa của Nhật', isCorrect: false, explanation: 'Thái Lan giữ được vị thế độc lập tương đối thông qua cải cách chính trị.' }
+        ]
+      },
+      {
+        id: 'b3-q9',
+        text: 'Theo yêu cầu Luyện tập, hãy xác định trình tự thời gian đúng của các sự kiện gắn liền với lịch sử Nhật Bản giữa hai cuộc chiến tranh thế giới:',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b3-q9-a', text: '1927: kinh tế khủng hoảng → 1922: Đảng Cộng sản Nhật thành lập → 1931: chiếm Đông Bắc Trung Quốc → 1940: Thuyết Đại Đông Á → 1937: mở rộng xâm lược toàn Trung Quốc', isCorrect: false, explanation: 'Sai thứ tự: 1922 diễn ra trước 1927; 1937 diễn ra trước 1940.' },
+          { id: 'b3-q9-b', text: '1922: Đảng Cộng sản Nhật thành lập → 1931: chiếm Đông Bắc Trung Quốc → 1927: kinh tế khủng hoảng → 1937: mở rộng xâm lược toàn Trung Quốc → 1940: Thuyết Đại Đông Á', isCorrect: false, explanation: 'Sai thứ tự: Khủng hoảng kinh tế bắt đầu từ năm 1927 trước khi chiếm Đông Bắc Trung Quốc năm 1931.' },
+          { id: 'b3-q9-c', text: '1922: Đảng Cộng sản Nhật thành lập → 1927: kinh tế khủng hoảng → 1931: chiếm Đông Bắc Trung Quốc → 1937: mở rộng xâm lược toàn Trung Quốc → 1940: Thuyết Đại Đông Á', isCorrect: true, explanation: 'Trình tự trục thời gian chính xác theo yêu cầu Luyện tập SGK: 1922 (Đảng Cộng sản) → 1927 (khủng hoảng tài chính) → 1931 (chiếm Phụng Thiên) → 1937 (xâm lược toàn Trung Quốc) → 1940 (Thuyết Đại Đông Á).' },
+          { id: 'b3-q9-d', text: '1931: chiếm Đông Bắc Trung Quốc → 1922: Đảng Cộng sản Nhật thành lập → 1927: kinh tế khủng hoảng → 1937: mở rộng xâm lược toàn Trung Quốc → 1940: Thuyết Đại Đông Á', isCorrect: false, explanation: 'Sai thứ tự: Năm 1931 không thể đứng trước các sự kiện năm 1922 và 1927.' }
+        ]
+      },
+      {
+        id: 'b3-q10',
+        text: 'Vì sao quân đội Nhật Bản có mặt ở Trung Quốc? Hãy nêu nguyên nhân từ tình hình kinh tế và chính trị của Nhật.',
+        type: 'open_discussion',
+        sectionId: 'sec-1',
+        isEmperorQuestion: true,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Khủng hoảng kinh tế tài chính năm 1927–1930 làm cạn kiệt tài nguyên; giới quân phiệt nắm chính phủ và chủ trương bành trướng xâm lược láng giềng để giải quyết khó khăn trong nước.'
+      },
+      {
+        id: 'b3-q11',
+        text: 'Vì sao có thể gọi hành động của Gan-đi trong cuộc đi bộ "Muối" là "bất bạo động"?',
+        type: 'open_discussion',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Cuộc đi bộ không dùng vũ khí hay bạo lực, biểu tình tuần hành hoà bình ra biển tự lấy muối, thức tỉnh lương tri nhân loại và vận động quần chúng bất tuân lệnh cai trị bất công.'
+      },
+      {
+        id: 'b3-q12',
+        text: 'Trong các nhà lãnh đạo phong trào giải phóng dân tộc ở châu Á giai đoạn 1918–1945, em ấn tượng với ai nhất? Giải thích lí do.',
+        type: 'open_discussion',
+        sectionId: 'sec-4',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Học sinh có thể nêu lãnh tụ Gan-đi (tinh thần bất bạo động, giản dị, kiên định) hoặc các lãnh tụ cộng sản kiên trung dẫn dắt nhân dân Đông Nam Á giành độc lập.'
+      }
+    ],
+    question: {
+      character: {
+        name: 'Người dẫn chuyện',
+        greeting: 'Chào các em học sinh!',
+        speech: 'Sau Chiến tranh thế giới thứ nhất, các phong trào giải phóng dân tộc ở châu Á đã đứng trước những câu hỏi lớn về việc lựa chọn con đường và phương thức đấu tranh. Nếu là người tham gia phong trào giải phóng dân tộc, em sẽ lựa chọn hướng đi nào?'
+      },
+      variables: [
+        {
+          id: 'var-asia-struggle-form',
+          title: 'Phương thức tập hợp lực lượng đấu tranh giành độc lập',
+          description: 'Lựa chọn hình thức tổ chức và phương thức đấu tranh của phong trào dân tộc:',
+          options: [
+            {
+              id: 'opt-struggle-united-broad',
+              name: 'Vận động quần chúng đấu tranh bất bạo động, đoàn kết toàn dân tộc',
+              isOriginal: true,
+              desc: 'Tập hợp rộng rãi mọi tầng lớp nhân dân, sử dụng các biện pháp biểu tình hoà bình, tẩy chay kinh tế thực dân và xây dựng mặt trận đoàn kết.',
+              assumptions: 'Dựa trên con đường của phong trào Gan-đi và Mặt trận thống nhất: thu hút hàng triệu quần chúng tham gia, tạo sức ép chính trị to lớn lên chính quyền thuộc địa.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: 0
+            },
+            {
+              id: 'opt-struggle-premature-violence',
+              name: 'Đơn phương bạo động cục bộ khi chưa chuẩn bị đủ lực lượng',
+              isOriginal: false,
+              desc: 'Tiến hành khởi nghĩa vũ trang đột ngột ở một vài địa phương mà không có sự liên minh rộng rãi của toàn dân.',
+              assumptions: 'Giả định mô phỏng: thể hiện tinh thần dũng cảm song nguy cơ tổn thất lực lượng cao và phong trào dễ bị chính quyền thực dân đàn áp.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: -25
+            }
+          ]
+        }
+      ]
+    },
+    comparisonMetrics: [
+      { id: 'mobilization', label: 'Điểm huy động quần chúng', origFormatted: '85 / 100', unit: ' / 100' },
+      { id: 'safety', label: 'Điểm hạn chế thương vong', origFormatted: '75 / 100', unit: ' / 100' },
+      { id: 'pressure', label: 'Điểm sức ép chính trị', origFormatted: '80 / 100', unit: ' / 100' }
+    ],
+    baseline: {
+      durationHours: 85,
+      casualties: 75,
+      positionScore: 80,
+      ratingText: 'Phương án đại đoàn kết dân tộc và vận động quần chúng'
+    },
+    keyNotes: [
+      'Nhật Bản quân phiệt hoá chính phủ, chiếm Phụng Thiên (1931), lập Mãn Châu quốc (1932) và xâm lược Trung Quốc (1937).',
+      'Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á nhằm phục vụ mưu đồ bành trướng xâm chiếm Đông Nam Á.',
+      'Phong trào Ngũ tứ (4-5-1919) ở Trung Quốc mở đường truyền bá chủ nghĩa Mác – Lê-nin; Đảng Cộng sản Trung Quốc thành lập năm 1921.',
+      'Năm 1937, Đảng Cộng sản và Quốc dân đảng Trung Quốc đình chiến, thành lập Mặt trận dân tộc thống nhất chống Nhật.',
+      'Tại Ấn Độ, lãnh tụ Gan-đi dẫn đầu phong trào đấu tranh bất bạo động với cuộc đi bộ "Muối" gần 400 km ngày 12-3-1930.',
+      'Ở Đông Nam Á, các Đảng Cộng sản lần lượt ra đời (In-đô-nê-xi-a 1920, Việt Nam 1930, Mã Lai 1930) lãnh đạo cao trào chống thực dân, phát xít.'
+    ],
+    privateNotes: 'Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập: Hướng dẫn học sinh vẽ và hoàn thành trục thời gian 5 mốc lịch sử Nhật Bản (1922, 1927, 1931, 1937, 1940).\n- Vận dụng: Khuyến khích học sinh trình bày cảm nghĩ về lãnh tụ Gan-đi hoặc phong trào Xô viết Nghệ – Tĩnh (1930–1931).\n- Liên hệ lịch sử Việt Nam: Nhấn mạnh mốc thành lập Đảng Cộng sản Việt Nam năm 1930 trong bối cảnh chung của phong trào độc lập châu Á.\n- Lưu ý mô phỏng: Chỉ cho học sinh tìm hiểu các phương thức đấu tranh tự vệ chính nghĩa của nhân dân thuộc địa, không đặt người học vào phe xâm lược.',
+    reviewFlags: [
+      'Bộ sách: xác nhận từ bìa.',
+      'Lược đồ 3.2: ranh giới ba vùng (lãnh thổ Nhật 1931; chiếm đóng 1931–1933; chiếm đóng 1937–1938) cần vẽ lại đúng theo bản gốc, không đoán.',
+      'Cách diễn đạt "Mãn Châu quốc", "Thuyết Đại Đông Á", "bất tuân lệnh" giữ đúng như sách.',
+      'Số liệu "gần 400 km" và ngày 12-3-1930 (cuộc đi bộ của Gan-đi) lấy từ chú thích hình 3.4.',
+      'Cách phiên âm tên riêng (Gan-đi, Gia-va, Xu-ma-tra, Véc-xai, Hi-rô-hi-tô) giữ như sách.'
+    ]
+  },
+
+  // =========================================================================
+  // BÀI 4: CHIẾN TRANH THẾ GIỚI THỨ HAI (1939–1945)
+  // =========================================================================
+  {
+    id: 'bai-4-chien-tranh-the-gioi-2',
+    title: 'Bài 4. Chiến tranh thế giới thứ hai (1939–1945)',
+    subtitle: 'Nguyên nhân, diễn biến chính, bước ngoặt Xta-lin-grát và ý nghĩa lịch sử đánh bại chủ nghĩa phát xít',
+    year: '1939–1945',
+    teacher: 'Thầy Nguyễn Văn Hưng',
+    class: 'Lớp 9A1',
+    date: '2026-11-11',
+    subject: 'Lịch sử',
+    grade: 'Khối 9',
+    period: 'Tiết 4 · 45 phút',
+    status: 'Nháp',
+    isPilot: false,
+    disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
+    simulationDisclaimer: 'ĐÂY LÀ SƠ ĐỒ MINH HOẠ CHIẾN THUẬT, KHÔNG THEO ĐÚNG TỈ LỆ ĐỊA LÝ THỰC TẾ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
+    objectives: 'Trình bày được nguyên nhân và diễn biến chủ yếu của Chiến tranh thế giới thứ hai; phân tích được hậu quả của cuộc chiến đối với lịch sử nhân loại; nêu được nguyên nhân thắng lợi, ý nghĩa lịch sử, vai trò của Liên Xô và các nước Đồng minh trong chiến thắng chủ nghĩa phát xít.',
+    focusQuestion: 'Vì sao trận phản công Xta-lin-grát được coi là bước ngoặt quyết định của Chiến tranh thế giới thứ hai?',
+    introSummary: 'Chiến tranh thế giới thứ hai (1939–1945) là thảm hoạ đẫm máu nhất trong lịch sử nhân loại, bắt nguồn từ tham vọng phân chia lại thế giới của khối phát xít Đức – I-ta-li-a – Nhật Bản và chính sách dung dưỡng thoả hiệp của các nước phương Tây. Cuộc chiến đã xoay chuyển cục diện sau chiến thắng vĩ đại tại Xta-lin-grát và kết thúc với sự đầu hàng không điều kiện của các thế lực phát xít năm 1945.',
+    explorationMode: 'stalingrad_3d',
+    sourceCitation: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)',
+    timeline: [
+      { year: '1938', event: 'Đức sáp nhập Áo; 30-9: Hội nghị Muy-ních, Anh – Pháp thoả hiệp cho Đức thôn tính một phần Tiệp Khắc' },
+      { year: '1939 (3)', event: 'Đức chiếm hoàn toàn Tiệp Khắc' },
+      { year: '1939 (23-8)', event: 'Liên Xô kí Hiệp ước không xâm phạm nhau với Đức' },
+      { year: '1939 (1-9)', event: 'Đức tấn công Ba Lan; 3-9: Anh, Pháp tuyên chiến, chiến tranh thế giới thứ hai bùng nổ' },
+      { year: '1940 (5)', event: 'Đức tổng tấn công ở phía tây, chiếm Hà Lan, Bỉ, Lúc-xăm-bua, Pháp, Đan Mạch, Na Uy; sau đó oanh tạc Anh' },
+      { year: '1941 (22-6)', event: 'Đức tấn công Liên Xô' },
+      { year: '1941 (7-12)', event: 'Nhật tấn công Trân Châu Cảng (Hawaii), Mỹ tham chiến' },
+      { year: '1942 (1-1)', event: '26 quốc gia kí Tuyên ngôn Liên hợp quốc tại Oa-sinh-tơn, Khối Đồng minh ra đời' },
+      { year: '1942 (6)', event: 'Nhật thất bại trước hải quân Mỹ ở đảo Mít-uây' },
+      { year: '1942 (11) – 1943 (2)', event: 'Liên Xô phản công, thắng lợi ở Xta-lin-grát, tạo bước ngoặt cuộc chiến' },
+      { year: '1943 (giữa năm)', event: 'Đức và I-ta-li-a thua ở Bắc Phi; Mút-xô-li-ni bị lật đổ' },
+      { year: '1944 (6-6)', event: 'Liên quân Anh – Mỹ đổ bộ Noóc-măng-đi, mở mặt trận thứ hai ở Tây Âu' },
+      { year: '1945 (30-4)', event: 'Hồng quân Liên Xô tiến vào Béc-lin' },
+      { year: '1945 (9-5)', event: 'Đức kí hiệp định đầu hàng không điều kiện, chiến tranh kết thúc ở châu Âu' },
+      { year: '1945 (6 và 9-8)', event: 'Mỹ thả bom nguyên tử xuống Hi-rô-si-ma và Na-ga-xa-ki' },
+      { year: '1945 (8-8)', event: 'Hồng quân Liên Xô tấn công quân Nhật ở Đông Bắc Trung Quốc' },
+      { year: '1945 (15-8)', event: 'Nhật chấp nhận đầu hàng không điều kiện, chiến tranh thế giới thứ hai kết thúc' }
+    ],
+    sections: [
+      {
+        id: 'sec-1',
+        title: 'Mục 1. Nguyên nhân bùng nổ',
+        narration: 'Sau chiến tranh thế giới thứ nhất, mâu thuẫn sâu sắc về thị trường và thuộc địa giữa các nước đế quốc càng bị khoét sâu bởi cuộc đại suy thoái 1929–1933. Các nước phát xít Đức, I-ta-li-a, Nhật Bản ráo riết chuẩn bị chiến tranh chia lại thế giới. Trước nguy cơ chiến tranh, Anh và Pháp thực hiện chính sách thoả hiệp nhân nhượng; còn Mỹ giữ chính sách biệt lập đối với châu Âu. Sự nhân nhượng tại Hội nghị Muy-ních (30-9-1938) đã tạo điều kiện cho Hít-le sáp nhập Áo, chiếm Tiệp Khắc và mưu đồ tiêu diệt Liên Xô. Để tự bảo vệ trước nguy cơ chiến tranh, ngày 23-8-1939 Liên Xô kí Hiệp ước không xâm phạm nhau với Đức. Ngày 1-9-1939 Đức tấn công Ba Lan; ngày 3-9, Anh và Pháp tuyên chiến với Đức, Chiến tranh thế giới thứ hai chính thức bùng nổ.',
+        caption: 'Chính sách thoả hiệp nhân nhượng của phương Tây tạo cơ hội cho Hít-le phát động chiến tranh thế giới.',
+        timelineRange: 0.1,
+        timeLabel: '1938–1939',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 1',
+          quote: 'Khi đối phó với Đức, Anh và Pháp theo đường lối thoả hiệp, còn Mỹ giữ chính sách biệt lập... Ngày 1-9-1939 Đức tấn công Ba Lan; ngày 3-9, Anh và Pháp tuyên chiến với Đức, chiến tranh bùng nổ.',
+          note: 'Chính sách thoả hiệp và biệt lập đã làm suy yếu mặt trận an ninh tập thể chống phát xít.'
+        }
+      },
+      {
+        id: 'sec-2',
+        title: 'Mục 2.1. Giai đoạn 1: Chiến tranh bùng nổ và lan rộng ra toàn thế giới (1939–1941)',
+        narration: 'Tháng 5-1940, quân Đức tổng tấn công ở phía tây, đánh chiếm Hà Lan, Bỉ, Lúc-xăm-bua, Pháp, Đan Mạch, Na Uy, rồi oanh tạc Luân Đôn nhưng không khuất phục được nước Anh. Ngày 22-6-1941, phát xít Đức bội ước bất ngờ tấn công Liên Xô; quân dân Liên Xô kiên cường phòng ngự tại Lê-nin-grát và ngoại vi Mát-xcơ-va. Tại châu Á – Thái Bình Dương, ngày 7-12-1941 Nhật Bản bất ngờ tập kích hạm đội Mỹ ở Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và chính thức tham chiến. Chiến tranh bùng phát dữ dội trên khắp châu Âu, Bắc Phi và châu Á – Thái Bình Dương.',
+        caption: 'Phát xít Đức tấn công Liên Xô (22-6-1941) và Nhật Bản tập kích Trân Châu Cảng (7-12-1941).',
+        timelineRange: 0.35,
+        timeLabel: '1939–1941',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: '22-6-1941: Đức tấn công Liên Xô; trận chiến khốc liệt nhất diễn ra ở Lê-nin-grát và ngoại ô Mát-xcơ-va... 7-12-1941 tấn công Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và tham chiến.',
+          note: 'Chiến tranh lan rộng quy mô toàn cầu lôi cuốn các cường quốc vào cuộc quyết chiến.'
+        }
+      },
+      {
+        id: 'sec-3',
+        title: 'Mục 2.2. Giai đoạn 2: Quân Đồng minh phản công, chiến tranh kết thúc (1942–1945)',
+        narration: 'Ngày 1-1-1942, 26 quốc gia đứng đầu là Liên Xô, Mỹ, Anh kí Tuyên ngôn Liên hợp quốc chống phát xít, Khối Đồng minh chính thức ra đời. Từ tháng 11-1942 đến tháng 2-1943, Hồng quân Liên Xô phản công thắng lợi rực rỡ tại Xta-lin-grát: từ hai phòng tuyến ngày 19-11 và 30-11-1942, các cánh quân Liên Xô khép chặt vòng vây bao vây Tập đoàn quân số 6 của Đức và bẻ gãy mũi giải vây, tạo bước ngoặt căn bản của cuộc chiến. Ngày 6-6-1944, liên quân Anh – Mỹ với khoảng 160.000 quân đổ bộ Noóc-măng-đi mở mặt trận thứ hai ở Tây Âu. Ngày 30-4-1945, Hồng quân cắm cờ chiến thắng tại Béc-lin; ngày 9-5-1945 phát xít Đức kí văn kiện đầu hàng không điều kiện. Sau khi Mỹ ném bom nguyên tử xuống Hi-rô-si-ma và Na-ga-xa-ki và Liên Xô đè bẹp đạo quân Nhật ở Đông Bắc Trung Quốc, ngày 15-8-1945 Nhật Bản chấp nhận đầu hàng không điều kiện, chiến tranh thế giới thứ hai kết thúc.',
+        caption: 'Trận phản công Xta-lin-grát tạo bước ngoặt xoay chuyển cục diện đưa Khối Đồng minh tới thắng lợi hoàn toàn.',
+        timelineRange: 0.65,
+        timeLabel: '1942–1945',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 2',
+          quote: 'Trận Xta-lin-grát (11-1942 đến 2-1943): Liên Xô phản công thắng lợi, bao vây Tập đoàn quân số 6 của Đức; đây là bước ngoặt của chiến tranh. Lược đồ 4.4 thể hiện: mặt trận ngày 19-11-1942, mặt trận ngày 30-11-1942, các đạo quân Liên Xô phản công, đạo quân Đức giải vây, Tập đoàn quân số 6 của Đức bị bao vây.',
+          note: 'Lược đồ 4.4 là tư liệu trực quan duy nhất về cuộc phản công tạo bước ngoặt chiến tranh tại Xta-lin-grát.'
+        }
+      },
+      {
+        id: 'sec-4',
+        title: 'Mục 3. Hậu quả của Chiến tranh thế giới thứ hai',
+        narration: 'Chiến tranh thế giới thứ hai để lại hậu quả vô cùng thảm khốc cho nhân loại: khoảng gần 60 triệu người chết, 90 triệu người tàn tật, thiệt hại vật chất ước tính gấp 10 lần chiến tranh thế giới thứ nhất. Hơn một nửa số người thiệt mạng là thường dân vô tội do vũ khí huỷ diệt và chiến sự tàn phá. Chủ nghĩa phát xít Đức đã gây nên tội ác diệt chủng Holocaust dã man, cướp đi sinh mạng của hơn 6 triệu người Do Thái trong các trại tập trung tàn bạo, để lại vết thương sâu sắc trong lương tri loài người.',
+        caption: 'Hậu quả tàn khốc của chiến tranh và tội ác diệt chủng Holocaust nhắc nhở trách nhiệm bảo vệ hoà bình.',
+        timelineRange: 0.85,
+        timeLabel: '1939–1945',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 3',
+          quote: 'Khoảng gần 60 triệu người chết, 90 triệu người tàn tật; thiệt hại vật chất gấp khoảng 10 lần chiến tranh thế giới thứ nhất... Hơn 6 triệu người Do Thái bị sát hại, hơn một nửa bị giết trong các trại tập trung của Đức Quốc xã. Thuật ngữ "Holocaust" chỉ nạn diệt chủng này.',
+          note: 'Hậu quả to lớn đòi hỏi nhân loại phải chung tay ngăn chặn mọi mầm mống phát xít và chiến tranh.'
+        }
+      },
+      {
+        id: 'sec-5',
+        title: 'Mục 4. Nguyên nhân thắng lợi, ý nghĩa lịch sử, vai trò của Liên Xô và Đồng minh',
+        narration: 'Thắng lợi vĩ đại trước chủ nghĩa phát xít là kết tinh của tinh thần chiến đấu quả cảm vì chính nghĩa của nhân dân toàn thế giới, sự hi sinh to lớn của Hồng quân Liên Xô và liên quân Đồng minh cùng phong trào kháng chiến kiên cường ở các nước bị chiếm đóng. Trong đó, Liên Xô là lực lượng trụ cột giữ vai trò quyết định đánh bại cỗ máy chiến tranh phát xít, chịu tổn thất nặng nề nhất với khoảng 27 triệu người thiệt mạng. Chiến thắng đã cứu loài người khỏi thảm hoạ phát xít, bảo vệ nền hoà bình, an ninh quốc tế và mở đường cho phong trào giải phóng dân tộc bùng nổ, tạo thời cơ lịch sử để nhân dân Việt Nam tiến hành Cách mạng tháng Tám năm 1945 thắng lợi.',
+        caption: 'Liên Xô và Khối Đồng minh giữ vai trò trụ cột đánh bại chủ nghĩa phát xít, mở ra thời cơ độc lập cho các dân tộc.',
+        timelineRange: 0.98,
+        timeLabel: '1945',
+        source: {
+          book: 'Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)',
+          chapter: 'Mục 4',
+          quote: 'Liên Xô và các nước Đồng minh là lực lượng trụ cột, giữ vai trò quyết định; chiến công của Hồng quân làm suy yếu quân sự, kinh tế Đức, tạo điều kiện cho Đồng minh phản công. Liên Xô chịu nhiều mất mát nhất, khoảng 27 triệu người Xô viết thiệt mạng.',
+          note: 'Chiến thắng phát xít tạo điều kiện quốc tế thuận lợi cho Cách mạng tháng Tám năm 1945 ở Việt Nam.'
+        }
+      }
+    ],
+    questions: [
+      {
+        id: 'b4-q1',
+        text: 'Chính sách nào của Anh, Pháp trước chiến tranh góp phần tạo điều kiện cho Đức bành trướng?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q1-a', text: 'Tấn công phủ đầu', isCorrect: false, explanation: 'Anh và Pháp không tấn công phủ đầu mà lựa chọn nhượng bộ thoả hiệp.' },
+          { id: 'b4-q1-b', text: 'Thoả hiệp, nhân nhượng', isCorrect: true, explanation: 'Chính sách thoả hiệp, nhân nhượng tại Hội nghị Muy-ních đã tạo điều kiện cho Hít-le sáp nhập Áo và chiếm Tiệp Khắc.' },
+          { id: 'b4-q1-c', text: 'Liên minh quân sự với Liên Xô', isCorrect: false, explanation: 'Anh, Pháp khước từ đề nghị lập liên minh an ninh tập thể của Liên Xô.' },
+          { id: 'b4-q1-d', text: 'Biệt lập hoàn toàn', isCorrect: false, explanation: 'Chính sách biệt lập là của Mỹ, không phải của Anh và Pháp.' }
+        ]
+      },
+      {
+        id: 'b4-q2',
+        text: 'Chính sách đối ngoại chủ đạo của Mỹ đối với châu Âu trước năm 1941 là gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q2-a', text: 'Liên minh chặt chẽ với Anh – Pháp', isCorrect: false, explanation: 'Mỹ không tham gia liên minh quân sự với Anh - Pháp trước năm 1941.' },
+          { id: 'b4-q2-b', text: 'Tấn công Đức', isCorrect: false, explanation: 'Mỹ chỉ tham chiến sau khi bị Nhật Bản bất ngờ tấn công ngày 7-12-1941.' },
+          { id: 'b4-q2-c', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản do những người cộng sản thành lập ở Liên Xô năm 1919.' },
+          { id: 'b4-q2-d', text: 'Chính sách biệt lập', isCorrect: true, explanation: 'Trước năm 1941, nước Mỹ thực hiện chính sách biệt lập, không can thiệp vào các biến động ở châu Âu.' }
+        ]
+      },
+      {
+        id: 'b4-q3',
+        text: 'Ngày 23-8-1939, sự kiện ngoại giao nổi bật nào đã diễn ra?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q3-a', text: 'Liên Xô kí Hiệp ước không xâm phạm nhau với Đức', isCorrect: true, explanation: 'Ngày 23-8-1939, Liên Xô kí Hiệp ước không xâm phạm nhau với Đức để bảo vệ an ninh đất nước trước nguy cơ bị xâm lược.' },
+          { id: 'b4-q3-b', text: 'Đức tấn công Ba Lan', isCorrect: false, explanation: 'Đức tấn công Ba Lan vào ngày 1-9-1939.' },
+          { id: 'b4-q3-c', text: 'Hội nghị Muy-ních', isCorrect: false, explanation: 'Hội nghị Muy-ních diễn ra ngày 30-9-1938.' },
+          { id: 'b4-q3-d', text: 'Nhật tấn công Trân Châu Cảng', isCorrect: false, explanation: 'Nhật tấn công Trân Châu Cảng vào ngày 7-12-1941.' }
+        ]
+      },
+      {
+        id: 'b4-q4',
+        text: 'Chiến tranh thế giới thứ hai bùng nổ khi nào và bằng sự kiện gì?',
+        type: 'multiple_choice',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q4-a', text: '22-6-1941, Đức tấn công Liên Xô', isCorrect: false, explanation: '22-6-1941 là thời điểm chiến tranh vệ quốc của Liên Xô bùng nổ, chiến tranh thế giới đã nổ ra từ năm 1939.' },
+          { id: 'b4-q4-b', text: '1-9-1939, Đức tấn công Ba Lan; 3-9 Anh, Pháp tuyên chiến', isCorrect: true, explanation: 'Ngày 1-9-1939 Đức tấn công Ba Lan; ngày 3-9 Anh và Pháp tuyên chiến với Đức, Chiến tranh thế giới thứ hai chính thức bùng nổ.' },
+          { id: 'b4-q4-c', text: '7-12-1941, Nhật tấn công Trân Châu Cảng', isCorrect: false, explanation: '7-12-1941 là thời điểm Mỹ tham chiến, cuộc chiến thế giới đã diễn ra được hai năm.' },
+          { id: 'b4-q4-d', text: '30-9-1938, Hội nghị Muy-ních', isCorrect: false, explanation: 'Hội nghị Muy-ních là bước nhượng bộ ngoại giao của Anh - Pháp, chưa phải thời điểm bùng nổ chiến tranh.' }
+        ]
+      },
+      {
+        id: 'b4-q5',
+        text: 'Sự kiện nào buộc nước Mỹ phải từ bỏ chính sách biệt lập và chính thức tham chiến?',
+        type: 'multiple_choice',
+        sectionId: 'sec-2',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q5-a', text: 'Đức tấn công Liên Xô', isCorrect: false, explanation: 'Đức tấn công Liên Xô (22-6-1941) chưa khiến Mỹ trực tiếp tham chiến.' },
+          { id: 'b4-q5-b', text: 'Đổ bộ Noóc-măng-đi', isCorrect: false, explanation: 'Cuộc đổ bộ Noóc-măng-đi diễn ra năm 1944 khi Mỹ đã tham chiến từ lâu.' },
+          { id: 'b4-q5-c', text: 'Nhật tấn công Trân Châu Cảng (7-12-1941)', isCorrect: true, explanation: 'Ngày 7-12-1941, Nhật Bản bất ngờ tập kích căn cứ hải quân Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và tham chiến.' },
+          { id: 'b4-q5-d', text: 'Hội nghị Muy-ních', isCorrect: false, explanation: 'Hội nghị Muy-ních năm 1938 không tác động đến việc Mỹ tham chiến.' }
+        ]
+      },
+      {
+        id: 'b4-q6',
+        text: 'Chiến thắng nào được xem là bước ngoặt quyết định của toàn bộ cuộc Chiến tranh thế giới thứ hai?',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q6-a', text: 'Trận Trân Châu Cảng', isCorrect: false, explanation: 'Trận Trân Châu Cảng mở rộng chiến tranh sang Thái Bình Dương, không phải bước ngoặt đánh bại phát xít.' },
+          { id: 'b4-q6-b', text: 'Cuộc chiếm Ba Lan', isCorrect: false, explanation: 'Cuộc chiếm Ba Lan mở đầu chiến tranh năm 1939.' },
+          { id: 'b4-q6-c', text: 'Cuộc ném bom Hi-rô-si-ma', isCorrect: false, explanation: 'Vụ ném bom diễn ra vào tháng 8-1945 ở giai đoạn cuối chiến tranh.' },
+          { id: 'b4-q6-d', text: 'Trận Xta-lin-grát', isCorrect: true, explanation: 'Trận phản công thắng lợi ở Xta-lin-grát (11-1942 đến 2-1943) đã tiêu diệt và bao vây Tập đoàn quân số 6 của Đức, tạo bước ngoặt chuyển bại thành thắng của Khối Đồng minh.' }
+        ]
+      },
+      {
+        id: 'b4-q7',
+        text: 'Ngày 6-6-1944 diễn ra sự kiện quân sự quy mô lớn nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q7-a', text: 'Liên quân Anh – Mỹ đổ bộ Noóc-măng-đi, mở mặt trận thứ hai ở Tây Âu', isCorrect: true, explanation: 'Ngày 6-6-1944, cuộc đổ bộ lịch sử Noóc-măng-đi mở mặt trận thứ hai ở Tây Âu để cùng Liên Xô siết chặt gọng kìm tiêu diệt phát xít Đức.' },
+          { id: 'b4-q7-b', text: 'Hồng quân vào Béc-lin', isCorrect: false, explanation: 'Hồng quân tiến vào Béc-lin ngày 30-4-1945.' },
+          { id: 'b4-q7-c', text: 'Đức đầu hàng', isCorrect: false, explanation: 'Phát xít Đức kí văn kiện đầu hàng ngày 9-5-1945.' },
+          { id: 'b4-q7-d', text: 'Nhật đầu hàng', isCorrect: false, explanation: 'Nhật Bản chấp nhận đầu hàng ngày 15-8-1945.' }
+        ]
+      },
+      {
+        id: 'b4-q8',
+        text: 'Chiến tranh thế giới thứ hai chính thức kết thúc tại châu Á vào ngày nào?',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q8-a', text: '9-5-1945', isCorrect: false, explanation: 'Ngày 9-5-1945 là ngày kết thúc chiến tranh ở châu Âu.' },
+          { id: 'b4-q8-b', text: '15-8-1945', isCorrect: true, explanation: 'Ngày 15-8-1945, Nhật Bản chấp nhận đầu hàng không điều kiện, Chiến tranh thế giới thứ hai chính thức kết thúc.' },
+          { id: 'b4-q8-c', text: '6-8-1945', isCorrect: false, explanation: 'Ngày 6-8-1945 là ngày Mỹ ném quả bom nguyên tử đầu tiên xuống Hi-rô-si-ma.' },
+          { id: 'b4-q8-d', text: '30-4-1945', isCorrect: false, explanation: 'Ngày 30-4-1945 là ngày Hồng quân cắm cờ chiến thắng tại Béc-lin.' }
+        ]
+      },
+      {
+        id: 'b4-q9',
+        text: 'Theo yêu cầu Luyện tập, hãy xác định trục thời gian đúng của các mốc sự kiện chính trong Chiến tranh thế giới thứ hai:',
+        type: 'multiple_choice',
+        sectionId: 'sec-3',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        options: [
+          { id: 'b4-q9-a', text: '9-1939 (Đức tấn công Ba Lan) → 22-6-1941 (Đức tấn công Liên Xô) → 5-1940 (Đức tổng tấn công phía tây) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 6-1942 (Trận Mít-uây) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 9-5-1945 (Đức đầu hàng) → 15-8-1945 (Nhật đầu hàng)', isCorrect: false, explanation: 'Sai thứ tự: 5-1940 diễn ra trước 22-6-1941.' },
+          { id: 'b4-q9-b', text: '9-1939 (Đức tấn công Ba Lan) → 5-1940 (Đức tổng tấn công phía tây) → 22-6-1941 (Đức tấn công Liên Xô) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 6-1942 (Trận Mít-uây) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 15-8-1945 (Nhật đầu hàng) → 9-5-1945 (Đức đầu hàng)', isCorrect: false, explanation: 'Sai thứ tự: Đức đầu hàng (9-5-1945) trước khi Nhật đầu hàng (15-8-1945).' },
+          { id: 'b4-q9-c', text: '5-1940 (Đức tổng tấn công phía tây) → 9-1939 (Đức tấn công Ba Lan) → 22-6-1941 (Đức tấn công Liên Xô) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-1942 (Trận Mít-uây) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 9-5-1945 (Đức đầu hàng) → 15-8-1945 (Nhật đầu hàng)', isCorrect: false, explanation: 'Sai thứ tự: 9-1939 diễn ra trước 5-1940; 6-1942 diễn ra trước 2-1943.' },
+          { id: 'b4-q9-d', text: '9-1939 (Đức tấn công Ba Lan) → 5-1940 (Đức tổng tấn công phía tây) → 22-6-1941 (Đức tấn công Liên Xô) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 6-1942 (Trận Mít-uây) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 9-5-1945 (Đức đầu hàng) → 15-8-1945 (Nhật đầu hàng)', isCorrect: true, explanation: 'Trình tự trục thời gian 9 mốc chính xác hoàn toàn theo yêu cầu Luyện tập 1 SGK Bài 4.' }
+        ]
+      },
+      {
+        id: 'b4-q10',
+        text: 'Vì sao nhân loại bị đẩy vào cuộc chiến này? Nêu nguyên nhân sâu xa và nguyên nhân trực tiếp.',
+        type: 'open_discussion',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Nguyên nhân sâu xa là mâu thuẫn đế quốc về thuộc địa và thị trường sau Véc-xai cùng tác động của đại suy thoái; nguyên nhân trực tiếp là chính sách gây chiến bành trướng của phe phát xít và sự thoả hiệp nhượng bộ của phương Tây.'
+      },
+      {
+        id: 'b4-q11',
+        text: 'Theo em, đâu là nguyên nhân chính dẫn đến chiến tranh thế giới thứ hai: Hiệp ước Véc-xai, hành động của Hít-le hay chính sách nhân nhượng của các nước châu Âu? Có điểm gì tương đồng với nguyên nhân dẫn đến chiến tranh thế giới thứ nhất?',
+        type: 'open_discussion',
+        sectionId: 'sec-1',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Cả ba yếu tố tác động qua lại; điểm tương đồng với chiến tranh thế giới thứ nhất là mâu thuẫn tranh giành thuộc địa và sự hình thành các khối quân sự đối đầu.'
+      },
+      {
+        id: 'b4-q12',
+        text: 'Vì sao trận phản công Xta-lin-grát được coi là bước ngoặt quyết định của Chiến tranh thế giới thứ hai?',
+        type: 'open_discussion',
+        sectionId: 'sec-3',
+        isEmperorQuestion: true,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Thắng lợi Xta-lin-grát đã tiêu diệt hoàn toàn Tập đoàn quân số 6 của Đức, bẻ gãy mũi nhọn quân sự tinh nhuệ nhất của phát xít, biến thế trận từ phòng ngự sang tổng phản công chiến lược của Liên Xô và Đồng minh.'
+      },
+      {
+        id: 'b4-q13',
+        text: 'Phân tích những hậu quả của chiến tranh thế giới thứ hai đối với nhân loại. Vì sao cần giữ gìn kí ức về nạn diệt chủng Holocaust?',
+        type: 'open_discussion',
+        sectionId: 'sec-4',
+        isEmperorQuestion: false,
+        isExplanationReleased: true,
+        guide: 'Gợi mở thảo luận: Gần 60 triệu người chết, hơn nửa là dân thường; thảm kịch Holocaust nhắc nhở nhân loại kiên quyết đấu tranh chống phân biệt chủng tộc, bảo vệ giá trị tự do và phẩm giá con người.'
+      }
+    ],
+    question: {
+      character: {
+        name: 'Người dẫn chuyện',
+        greeting: 'Chào các em học sinh!',
+        speech: 'Trận phản công Xta-lin-grát (11-1942 đến 2-1943) theo Lược đồ 4.4 là bước ngoặt quyết định của Chiến tranh thế giới thứ hai. Dựa trên bản đồ chiến dịch, em hãy phân tích và lựa chọn hướng điều động mũi phản công gọng kìm:'
+      },
+      variables: [
+        {
+          id: 'var-stalingrad-strategy',
+          title: 'Kế hoạch phản công bao vây tại Xta-lin-grát (theo Lược đồ 4.4)',
+          description: 'Lựa chọn phương án tác chiến của Hồng quân Liên Xô tại mặt trận Xta-lin-grát:',
+          options: [
+            {
+              id: 'opt-stalingrad-double-pincer',
+              name: 'Hai mũi phản công gọng kìm đồng thời (19-11 và 30-11-1942), siết chặt bao vây Tập đoàn quân số 6 của Đức',
+              isOriginal: true,
+              desc: 'Tung hai mũi phản công từ hai sườn phía bắc và nam, vượt qua phòng tuyến địch ngày 19-11, khép chặt vòng vây ngày 30-11-1942 và bẻ gãy mũi giải vây của quân Đức.',
+              assumptions: 'Dựa trên Lược đồ 4.4 SGK: bao vây cô lập hoàn toàn Tập đoàn quân số 6 của Đức, đập tan đạo quân giải vây và tạo bước ngoặt chiến lược.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: 0
+            },
+            {
+              id: 'opt-stalingrad-frontal-assault',
+              name: 'Tập trung công kích vỗ mặt một hướng chính diện, không vu hồi bao vây',
+              isOriginal: false,
+              desc: 'Tập trung toàn lực lượng đánh trực diện vào trung tâm thành phố mà không chia hai mũi bọc sườn khép vòng vây.',
+              assumptions: 'Giả định mô phỏng: chiến trận giằng co kéo dài trong đô thị, đối phương không bị cô lập hoàn toàn và có cơ hội rút lui bảo toàn lực lượng.',
+              timeDelta: 0,
+              casualtyDelta: 0,
+              positionScoreDelta: -30
+            }
+          ]
+        }
+      ]
+    },
+    comparisonMetrics: [
+      { id: 'encircle', label: 'Điểm cô lập đối phương', origFormatted: '95 / 100', unit: ' / 100' },
+      { id: 'anti_relief', label: 'Điểm bẻ gãy giải vây', origFormatted: '90 / 100', unit: ' / 100' },
+      { id: 'turning_point', label: 'Điểm thế trận bước ngoặt', origFormatted: '95 / 100', unit: ' / 100' }
+    ],
+    baseline: {
+      durationHours: 95,
+      casualties: 90,
+      positionScore: 95,
+      ratingText: 'Phương án phản công gọng kìm Xta-lin-grát lịch sử'
+    },
+    simulation: {
+      propsConfig: {
+        schematicNotice: 'Sơ đồ minh hoạ chiến thuật theo Lược đồ 4.4, không theo đúng tỉ lệ địa lý thực tế'
+      },
+      unitCounts: {
+        sovietPincers: 2,
+        germanFrontLines: 2,
+        germanEncircling: 1,
+        germanRelief: 1
+      },
+      factionColors: {
+        soviet: '#b91c1c',
+        german: '#475569'
+      },
+      factionNames: {
+        a: 'Liên Xô',
+        b: 'Đức'
+      }
+    },
+    keyNotes: [
+      'Nguyên nhân chiến tranh: Mâu thuẫn đế quốc sau đại suy thoái và chính sách thoả hiệp nhân nhượng của Anh, Pháp tại Muy-ních (1938).',
+      'Ngày 1-9-1939, Đức tấn công Ba Lan; ngày 3-9, Anh và Pháp tuyên chiến, Chiến tranh thế giới thứ hai chính thức bùng nổ.',
+      'Ngày 22-6-1941 phát xít Đức tấn công Liên Xô; ngày 7-12-1941 Nhật Bản tập kích Trân Châu Cảng, lôi cuốn Mỹ vào cuộc chiến.',
+      'Ngày 1-1-1942, Khối Đồng minh ra đời với 26 quốc gia kí Tuyên ngôn Liên hợp quốc chống phát xít.',
+      'Trận Xta-lin-grát (11-1942 đến 2-1943) bao vây Tập đoàn quân số 6 của Đức là bước ngoặt quyết định xoay chuyển cục diện chiến tranh.',
+      'Chiến tranh kết thúc ngày 15-8-1945; gần 60 triệu người chết (khoảng 27 triệu người Xô viết); mở ra thời cơ Cách mạng tháng Tám ở Việt Nam.'
+    ],
+    privateNotes: 'Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập 1: Hoàn thành trục thời gian 9 mốc sự kiện chính (9-1939, 5-1940, 22-6-1941, 7-12-1941, 6-1942, 2-1943, 6-6-1944, 9-5-1945, 15-8-1945).\n- Luyện tập 2 & Vận dụng: Dựa trên Lược đồ 4.4, học sinh viết đoạn văn ngắn khoảng 150 chữ miêu tả trận phản công ở Xta-lin-grát.\n- Lưu ý đạo đức khi giảng dạy: Nội dung về Holocaust, bom nguyên tử và thương vong dân thường cần diễn đạt khách quan, đúng sự thật, tôn trọng nạn nhân.\n- Sơ đồ sa bàn: Nhấn mạnh đây là sơ đồ chiến thuật minh hoạ theo Lược đồ 4.4, không vẽ biểu tượng hay cờ Quốc xã, phân biệt bằng nhãn "Liên Xô" và "Đức".',
+    reviewFlags: [
+      'Bộ sách: xác nhận từ bìa.',
+      'Lược đồ 4.3 và 4.4: ranh giới các đường mặt trận, hướng mũi tên và vị trí các thành phố phải lấy đúng từ bản gốc, không đoán.',
+      'Số liệu hậu quả (gần 60 triệu người chết, 90 triệu tàn tật, hơn 6 triệu người Do Thái, khoảng 27 triệu người Xô viết): kiểm tra lại với bản gốc; số liệu lịch sử có thể khác nhau giữa các nguồn.',
+      'Hai mốc ghi trong trục thời gian Luyện tập đã đọc từ ảnh: 6-1942 (Mít-uây) và 2-1943 (kết thúc Xta-lin-grát).',
+      'Cách phiên âm tên riêng (Muy-ních, Noóc-măng-đi, Xta-lin-grát, Mít-uây, Trân Châu Cảng...) giữ như sách.'
+    ]
+  }
+];
+
+// Write file
+const content = `/**
+ * lesson-data.js - Seed curriculum lesson data (Chương 1: Lịch sử và Địa lí 9, Chân trời sáng tạo)
+ * Autogenerated by scripts/build-lesson-data.mjs
+ */
+
+(function (window) {
+  'use strict';
+
+  const SEED_LESSONS = ${JSON.stringify(SEED_LESSONS, null, 2)};
+
+  window.SEED_LESSONS = SEED_LESSONS;
+})(typeof window !== 'undefined' ? window : globalThis);
+`;
+
+fs.writeFileSync(OUT_FILE, content, 'utf8');
+console.log('Successfully wrote', OUT_FILE);

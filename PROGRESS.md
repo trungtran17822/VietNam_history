@@ -1,7 +1,7 @@
 # Tiến Độ Thực Hiện BƯỚC 3 (feature/sgk-lessons)
 
 - [x] **B3-2**: Bảng thiết kế mô phỏng (Đã hoàn thành và ghi vào `implementation_plan.md`)
-- [ ] **B3-1**: Ánh xạ 4 bài vào `frontend/js/lesson-data.js`
+- [x] **B3-1**: Ánh xạ 4 bài vào `frontend/js/lesson-data.js`
 - [ ] **B3-3**: Khám phá tạm bằng dòng thời gian khi chưa có renderer chuyên biệt
 - [ ] **B3-4**: Script bám nguồn `scripts/check-lesson-grounding.mjs` + Test âm
 - [ ] **B3-5**: Đổi bài thí điểm sang bài mới trong tests và backend
