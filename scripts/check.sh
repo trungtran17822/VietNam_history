@@ -2,6 +2,16 @@
 # Static checks for frontend/ and backend/ (unit and E2E tests: npm test).
 # Usage: bash scripts/check.sh   (run from anywhere)
 set -u
+export PATH="$PATH:/c/Program Files/nodejs:/mnt/c/Program Files/nodejs"
+if ! command -v node >/dev/null 2>&1; then
+  if command -v node.exe >/dev/null 2>&1; then
+    node() { node.exe "$@"; }
+  elif [ -x "/mnt/c/Program Files/nodejs/node.exe" ]; then
+    node() { "/mnt/c/Program Files/nodejs/node.exe" "$@"; }
+  elif [ -x "/c/Program Files/nodejs/node.exe" ]; then
+    node() { "/c/Program Files/nodejs/node.exe" "$@"; }
+  fi
+fi
 cd "$(dirname "$0")/../frontend" || exit 1
 
 fail=0

@@ -150,6 +150,18 @@
             optionId: optKey,
             text: feedbacks[varKey][optKey]
           });
+        } else if (lessonData && lessonData.question && lessonData.question.variables) {
+          const v = lessonData.question.variables.find((item) => item.id === varKey);
+          if (v && v.options) {
+            const opt = v.options.find((o) => o.id === optKey);
+            if (opt) {
+              variablePoints.push({
+                variableId: varKey,
+                optionId: optKey,
+                text: opt.assumptions || opt.desc || opt.name
+              });
+            }
+          }
         }
       });
 

@@ -234,12 +234,12 @@ async function run() {
         await page.waitForSelector('#panel-tab-questions.active', { timeout: 3000 });
         console.log('  ✓ Teacher Tab 2: Câu hỏi & Thảo luận active');
 
-        // Tab C: 3D Simulation & Live Preview
+        // Tab C: 3D Simulation & Live Preview / Timeline notice
         const tabSim = page.locator('.btn-editor-tab[data-tab="tab-sim3d"]');
         await tabSim.click();
         await page.waitForSelector('#panel-tab-sim3d.active', { timeout: 3000 });
-        await page.waitForSelector('#editor-preview-canvas-mount canvas', { timeout: 5000 });
-        console.log('  ✓ Teacher Tab 3: Mô phỏng 3D trực tiếp & live preview mount active');
+        await page.waitForSelector('#editor-non-3d-notice, #editor-preview-canvas-mount canvas', { timeout: 5000 });
+        console.log('  ✓ Teacher Tab 3: Mô phỏng/khám phá trực tiếp active');
         await page.screenshot({ path: path.join(ARTIFACT_DIR, 'report_teacher_editor_3d.png') });
 
         // Tab D: Notes

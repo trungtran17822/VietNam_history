@@ -21,11 +21,11 @@ const SEED_LESSONS = [
     year: '1918–1945',
     teacher: 'Thầy Nguyễn Văn Hưng',
     class: 'Lớp 9A1',
-    date: '2026-11-11',
+    date: '2026-10-25',
     subject: 'Lịch sử',
     grade: 'Khối 9',
     period: 'Tiết 1 · 45 phút',
-    status: 'Nháp',
+    status: 'Đã dạy',
     isPilot: true,
     disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
     simulationDisclaimer: 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
@@ -196,25 +196,25 @@ const SEED_LESSONS = [
       variables: [
         {
           id: 'var-collectivization-speed',
-          title: 'Tốc độ tập thể hoá nông nghiệp và cân đối đầu tư',
-          description: 'Lựa chọn phương thức tập thể hoá nông nghiệp gắn với ưu tiên đầu tư công nghiệp nặng hay cân đối công nghiệp nhẹ:',
+          title: 'Tốc độ tập thể hoá nông nghiệp và tỉ lệ đầu tư cho công nghiệp nhẹ',
+          description: 'Lựa chọn tốc độ tập thể hoá nông nghiệp gắn với ưu tiên đầu tư công nghiệp nặng hay công nghiệp nhẹ:',
           options: [
             {
               id: 'opt-collectivization-fast',
-              name: 'Tập thể hoá nhanh, ưu tiên tuyệt đối công nghiệp nặng',
+              name: 'Tập thể hoá nhanh, ưu tiên tuyệt đối công nghiệp nặng (lựa chọn lịch sử của Liên Xô)',
               isOriginal: true,
-              desc: 'Tập thể hoá ồ ạt đưa nông dân vào nông trang tập thể, dồn mọi nguồn lực xây dựng công nghiệp nặng vượt bậc.',
-              assumptions: 'Dựa trên thực tế lịch sử: tạo ra sức mạnh công nghiệp nặng thần tốc trước năm 1941 nhưng gây áp lực lớn lên đời sống nông dân.',
+              desc: 'Đẩy nhanh tiến độ tập thể hoá nông nghiệp gắn với ưu tiên tối đa phát triển công nghiệp nặng qua hai kế hoạch 5 năm (1928–1937).',
+              assumptions: 'Dựa trên tư liệu SGK Bài 1: công nghiệp nặng đứng đầu châu Âu và thứ hai thế giới (1937), nhưng tập thể hoá quá nhanh khi nông dân chưa sẵn sàng và đầu tư cho công nghiệp nhẹ quá thấp.',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: 0
             },
             {
               id: 'opt-collectivization-gradual',
-              name: 'Tập thể hoá dần từng bước kết hợp tự nguyện, cân đối thêm công nghiệp nhẹ',
+              name: 'Giảm tốc độ tập thể hoá nông nghiệp, tăng tỉ lệ đầu tư cho công nghiệp nhẹ',
               isOriginal: false,
-              desc: 'Tuyên truyền tự nguyện, tiến hành từng bước vững chắc, chia sẻ thêm vốn đầu tư cho hàng tiêu dùng và công nghiệp nhẹ.',
-              assumptions: 'Giả định mô phỏng: giữ vững ổn định nông thôn và đời sống dân cư cao hơn, song tốc độ tích luỹ cho công nghiệp nặng tăng chậm hơn.',
+              desc: 'Tiến hành tập thể hoá chậm hơn khi nông dân chuẩn bị sẵn sàng hơn, đồng thời tăng tỉ lệ vốn đầu tư cho công nghiệp nhẹ và hàng tiêu dùng.',
+              assumptions: 'Giả định mô phỏng (ngoài tư liệu gốc, lấy theo gợi ý câu hỏi trong giáo án): đời sống nông dân và sản xuất tiêu dùng được cải thiện, nhưng sản lượng công nghiệp nặng tăng chậm hơn.',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: -10
@@ -224,15 +224,25 @@ const SEED_LESSONS = [
       ]
     },
     comparisonMetrics: [
-      { id: 'heavy_ind', label: 'Điểm công nghiệp nặng', origFormatted: '90 / 100', unit: ' / 100' },
-      { id: 'rural_stab', label: 'Điểm ổn định nông thôn', origFormatted: '50 / 100', unit: ' / 100' },
-      { id: 'defense', label: 'Điểm năng lực phòng thủ', origFormatted: '85 / 100', unit: ' / 100' }
+      { id: 'heavy_ind', label: 'Sản lượng công nghiệp nặng', origFormatted: '90 / 100', unit: ' / 100' },
+      { id: 'food_supply', label: 'Sản lượng lương thực', origFormatted: '50 / 100', unit: ' / 100' },
+      { id: 'farmer_life', label: 'Đời sống nông dân', origFormatted: '45 / 100', unit: ' / 100' }
     ],
     baseline: {
       durationHours: 90,
       casualties: 50,
       positionScore: 85,
       ratingText: 'Phương án lịch sử công nghiệp hoá thần tốc'
+    },
+    explanations: {
+      intro: 'Rất đáng khen cho tinh thần tìm tòi, phản biện khoa học của các em khi nghiên cứu lịch sử Liên Xô.',
+      variableFeedbacks: {
+        'var-collectivization-speed': {
+          'opt-collectivization-fast': 'Tập thể hoá nhanh tạo ra sức mạnh công nghiệp nặng thần tốc trước năm 1941, nhưng gây áp lực lớn lên nông nghiệp và đời sống nông dân do tập thể hoá quá nhanh khi nông dân chưa sẵn sàng.',
+          'opt-collectivization-gradual': 'Giảm tốc độ tập thể hoá và chia sẻ thêm đầu tư cho công nghiệp nhẹ giúp ổn định đời sống nông thôn, song tích luỹ vốn cho công nghiệp nặng tăng chậm hơn.'
+        }
+      },
+      encouragingConclusion: 'Lịch sử là bức tranh đa chiều. Việc hiểu rõ cả thành tựu vĩ đại và hạn chế lịch sử sẽ giúp các em rèn luyện tư duy khách quan, sâu sắc.'
     },
     keyNotes: [
       'Nội chiến 1918–1920 buộc Nhà nước Xô viết thực hiện chính sách cộng sản thời chiến để bảo vệ chính quyền cách mạng.',
@@ -247,7 +257,8 @@ const SEED_LESSONS = [
       'Bộ sách: xác nhận từ bìa (Chân trời sáng tạo hay bộ khác) để ghi nguồn đúng.',
       'Năm nội chiến chấm dứt: dòng thời gian ghi 1920, đoạn văn nói "sau nội chiến (1921) bước vào thời kì hoà bình". Giáo viên chọn cách diễn đạt thống nhất.',
       'Số liệu bảng điện và thép: kiểm tra lại với bản gốc trước khi phát hành.',
-      'Cách phiên âm tên riêng (Bôn-sê-vích, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ, Đni-ép) giữ như sách.'
+      'Cách phiên âm tên riêng (Bôn-sê-vích, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ, Đni-ép) giữ như sách.',
+      'Phương án mô phỏng "Giảm tốc độ tập thể hoá, tăng tỉ lệ đầu tư công nghiệp nhẹ" là giả định ngoài tư liệu gốc (lấy theo câu hỏi "Nếu... thì sao?" gợi ý trong giáo án) để so sánh các chỉ số sản lượng công nghiệp nặng, lương thực và đời sống nông dân.'
     ]
   },
 
@@ -261,11 +272,11 @@ const SEED_LESSONS = [
     year: '1918–1945',
     teacher: 'Thầy Nguyễn Văn Hưng',
     class: 'Lớp 9A1',
-    date: '2026-11-11',
+    date: '2026-10-26',
     subject: 'Lịch sử',
     grade: 'Khối 9',
     period: 'Tiết 2 · 45 phút',
-    status: 'Nháp',
+    status: 'Đã dạy',
     isPilot: false,
     disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
     simulationDisclaimer: 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
@@ -487,20 +498,20 @@ const SEED_LESSONS = [
           options: [
             {
               id: 'opt-intervention-deep',
-              name: 'Nhà nước can thiệp sâu, đầu tư công quy mô lớn (Thoả thuận mới - New Deal)',
+              name: 'Thực hiện cải cách "Thoả thuận mới", nhà nước can thiệp sâu vào kinh tế',
               isOriginal: true,
-              desc: 'Chính phủ quản lí hệ thống ngân hàng, thị trường tài chính, đầu tư công vào các công trình lớn tạo việc làm và bảo đảm phúc lợi.',
-              assumptions: 'Dựa trên cải cách thực tế của Tổng thống Ru-dơ-ven: từng bước phục hồi sản xuất, cứu vãn việc làm và giữ vững ổn định chính trị.',
+              desc: 'Nhà nước trực tiếp quản lí ngân hàng và thị trường chứng khoán, đầu tư công vào các công trình lớn tạo việc làm và chú trọng phúc lợi xã hội theo chính sách của Ru-dơ-ven.',
+              assumptions: 'Dựa trên các biện pháp của "Thoả thuận mới" trong SGK Bài 2: quản lí ngân hàng, đầu tư công (như đập thuỷ lợi Bon-nơ-viu tạo việc làm cho khoảng 30 000 lao động), chú trọng phúc lợi.',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: 0
             },
             {
               id: 'opt-intervention-minimal',
-              name: 'Can thiệp tối thiểu, để thị trường tự do điều tiết',
+              name: 'Giữ nguyên cơ chế tự do kinh tế thị trường, nhà nước can thiệp tối thiểu',
               isOriginal: false,
-              desc: 'Nhà nước không can thiệp vào tài chính, cắt giảm ngân sách đầu tư công, để thị trường và các doanh nghiệp tự thanh lọc.',
-              assumptions: 'Giả định mô phỏng: ngân sách chính phủ không phải chi trả nhiều, song thất nghiệp kéo dài nghiêm trọng và mâu thuẫn xã hội leo thang.',
+              desc: 'Để thị trường tự điều chỉnh cân bằng cung cầu tự nhiên, giảm chi ngân sách và tránh can thiệp hành chính vào hệ thống tài chính tư nhân.',
+              assumptions: 'Giả định mô phỏng (ngoài tư liệu gốc): không có đầu tư công tạo việc làm và trợ cấp xã hội, cuộc khủng hoảng trầm trọng kéo dài hơn và bất ổn xã hội tiếp diễn.',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: -35
@@ -518,7 +529,17 @@ const SEED_LESSONS = [
       durationHours: 75,
       casualties: 80,
       positionScore: 85,
-      ratingText: 'Phương án cải cách Thoả thuận mới (New Deal)'
+      ratingText: 'Phương án cải cách "Thoả thuận mới"'
+    },
+    explanations: {
+      intro: 'Rất đáng khen cho tinh thần nghiên cứu và tư duy hoạch định chính sách của các em.',
+      variableFeedbacks: {
+        'var-state-intervention': {
+          'opt-intervention-deep': 'Thực hiện cải cách "Thoả thuận mới" với sự can thiệp sâu của nhà nước đã cứu vãn hệ thống tài chính, giải quyết việc làm qua đầu tư công và giữ vững ổn định chính trị – xã hội.',
+          'opt-intervention-minimal': 'Can thiệp tối thiểu để thị trường tự do thanh lọc khiến khủng hoảng kinh tế kéo dài, tỷ lệ thất nghiệp tăng cao và mâu thuẫn xã hội trầm trọng.'
+        }
+      },
+      encouragingConclusion: 'Mỗi quyết sách kinh tế đều gắn liền với số phận của hàng triệu người dân và sự ổn định của nền hoà bình thế giới.'
     },
     keyNotes: [
       'Phong trào cách mạng 1918–1923 bùng nổ ở châu Âu, tiêu biểu tại Đức và Hung-ga-ri.',
@@ -526,7 +547,7 @@ const SEED_LESSONS = [
       'Đại suy thoái 1929–1933 bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc và lan rộng ra toàn cầu.',
       'Chỉ số sản xuất công nghiệp năm 1932: Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65% so với năm 1929.',
       'Chế độ phát xít được thiết lập ở I-ta-li-a (1922) và Đức (1933); liên minh phát xít Đức – I-ta-li-a hình thành năm 1936.',
-      'Tại Mỹ, Tổng thống Ru-dơ-ven thực hiện "Thoả thuận mới" (New Deal) từ năm 1932, can thiệp sâu vào kinh tế để phục hồi đất nước.'
+      'Tại Mỹ, Tổng thống Ru-dơ-ven thực hiện "Thoả thuận mới" từ năm 1932, can thiệp sâu vào kinh tế để phục hồi đất nước.'
     ],
     privateNotes: 'Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập 1: Vẽ trục thời gian các giai đoạn phát triển kinh tế của châu Âu và Mỹ 1918–1939.\n- Luyện tập 2: Giải thích vì sao từ năm 1936 hoà bình châu Âu bị đe doạ nghiêm trọng.\n- Vận dụng: Nêu một chính sách của Thoả thuận mới mà em thấy vẫn còn giá trị đến ngày nay (can thiệp tài chính, an sinh).\n- Lưu ý khi biên soạn: Các nội dung về phát xít, trại tập trung cần diễn đạt khách quan, đúng sự thật, không gây sốc hình ảnh.\n- Mô phỏng minh hoạ: Nhấn mạnh người học chỉ nhập vai nhà hoạch định chính sách dân chủ, tuyệt đối không đặt vai vào phe phát xít.',
     reviewFlags: [
@@ -534,7 +555,8 @@ const SEED_LESSONS = [
       'Giá trị các đường trong biểu đồ chỉ số sản xuất (bảng ở Mục 2): đối chiếu từng đường với biểu đồ gốc.',
       'Các mốc trên dòng thời gian hình thành chủ nghĩa phát xít (1920, 1935, 1939): chữ nhỏ trên ảnh chụp, cần đọc lại từ bản gốc, nhất là mốc 1935 (đạo luật bài Do Thái) và 1939.',
       'Năm khởi đầu và kết thúc đại suy thoái: sách ghi 1929–1933, có nơi kéo dài đến 1933–1934.',
-      'Cách phiên âm tên riêng (Hung-ga-ri, Mút-xô-li-ni, Hít-le, Ru-dơ-ven, Bon-nơ-viu...) giữ như sách.'
+      'Cách phiên âm tên riêng (Hung-ga-ri, Mút-xô-li-ni, Hít-le, Ru-dơ-ven, Bon-nơ-viu...) giữ như sách.',
+      'Phương án mô phỏng "Giữ nguyên cơ chế tự do kinh tế thị trường" là giả định ngoài tư liệu gốc (lấy theo câu hỏi "Nếu... thì sao?" gợi ý trong giáo án) để so sánh các chỉ số thất nghiệp, niềm tin xã hội, ổn định chính trị.'
     ]
   },
 
@@ -548,11 +570,11 @@ const SEED_LESSONS = [
     year: '1918–1945',
     teacher: 'Thầy Nguyễn Văn Hưng',
     class: 'Lớp 9A1',
-    date: '2026-11-11',
+    date: '2026-10-27',
     subject: 'Lịch sử',
     grade: 'Khối 9',
     period: 'Tiết 3 · 45 phút',
-    status: 'Nháp',
+    status: 'Đã dạy',
     isPilot: false,
     disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
     simulationDisclaimer: 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
@@ -803,23 +825,23 @@ const SEED_LESSONS = [
           options: [
             {
               id: 'opt-struggle-united-broad',
-              name: 'Vận động quần chúng đấu tranh bất bạo động, đoàn kết toàn dân tộc',
+              name: 'Đấu tranh bất bạo động, bất tuân lệnh chính quyền thuộc địa (tiêu biểu ở Ấn Độ)',
               isOriginal: true,
-              desc: 'Tập hợp rộng rãi mọi tầng lớp nhân dân, sử dụng các biện pháp biểu tình hoà bình, tẩy chay kinh tế thực dân và xây dựng mặt trận đoàn kết.',
-              assumptions: 'Dựa trên con đường của phong trào Gan-đi và Mặt trận thống nhất: thu hút hàng triệu quần chúng tham gia, tạo sức ép chính trị to lớn lên chính quyền thuộc địa.',
+              desc: 'Vận động nhân dân đòi độc lập, tẩy chay hàng hoá Anh và thực hiện cuộc đi bộ chống thuế muối bất bạo động do Gan-đi lãnh đạo.',
+              assumptions: 'Dựa trên phong trào đấu tranh bất bạo động do Gan-đi lãnh đạo ở Ấn Độ (Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3).',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: 0
             },
             {
-              id: 'opt-struggle-premature-violence',
-              name: 'Đơn phương bạo động cục bộ khi chưa chuẩn bị đủ lực lượng',
+              id: 'opt-struggle-armed-alliance',
+              name: 'Đấu tranh vũ trang và thành lập liên minh các lực lượng (tiêu biểu ở Trung Quốc và Đông Nam Á)',
               isOriginal: false,
-              desc: 'Tiến hành khởi nghĩa vũ trang đột ngột ở một vài địa phương mà không có sự liên minh rộng rãi của toàn dân.',
-              assumptions: 'Giả định mô phỏng: thể hiện tinh thần dũng cảm song nguy cơ tổn thất lực lượng cao và phong trào dễ bị chính quyền thực dân đàn áp.',
+              desc: 'Xây dựng lực lượng vũ trang và thành lập mặt trận dân tộc thống nhất tập hợp các tầng lớp nhân dân chống chủ nghĩa đế quốc và phát xít.',
+              assumptions: 'Dựa trên các hình thức đấu tranh nêu trong SGK Bài 3: Mặt trận dân tộc thống nhất chống Nhật ở Trung Quốc, khởi nghĩa vũ trang ở Gia-va, Xu-ma-tra và Xô viết Nghệ – Tĩnh ở Đông Nam Á.',
               timeDelta: 0,
               casualtyDelta: 0,
-              positionScoreDelta: -25
+              positionScoreDelta: -10
             }
           ]
         }
@@ -827,7 +849,7 @@ const SEED_LESSONS = [
     },
     comparisonMetrics: [
       { id: 'mobilization', label: 'Điểm huy động quần chúng', origFormatted: '85 / 100', unit: ' / 100' },
-      { id: 'safety', label: 'Điểm hạn chế thương vong', origFormatted: '75 / 100', unit: ' / 100' },
+      { id: 'safety', label: 'Hạn chế rủi ro đàn áp', origFormatted: '75 / 100', unit: ' / 100' },
       { id: 'pressure', label: 'Điểm sức ép chính trị', origFormatted: '80 / 100', unit: ' / 100' }
     ],
     baseline: {
@@ -835,6 +857,16 @@ const SEED_LESSONS = [
       casualties: 75,
       positionScore: 80,
       ratingText: 'Phương án đại đoàn kết dân tộc và vận động quần chúng'
+    },
+    explanations: {
+      intro: 'Rất đáng khen cho tinh thần trân trọng các phong trào giải phóng dân tộc của các em.',
+      variableFeedbacks: {
+        'var-asia-struggle-form': {
+          'opt-struggle-united-broad': 'Đấu tranh bất bạo động và bất tuân lệnh chính quyền thuộc địa như phong trào Gan-đi đã tập hợp đông đảo quần chúng, tạo sức ép chính trị lớn mà giảm thiểu thương vong trực tiếp.',
+          'opt-struggle-armed-alliance': 'Đấu tranh vũ trang kết hợp liên minh các lực lượng như Mặt trận thống nhất ở Trung Quốc và khởi nghĩa ở Đông Nam Á thể hiện quyết tâm tự vệ kiên cường của nhân dân chống phát xít.'
+        }
+      },
+      encouragingConclusion: 'Đoàn kết toàn dân và phương thức đấu tranh linh hoạt là bài học vô giá cho mọi phong trào độc lập dân tộc.'
     },
     keyNotes: [
       'Nhật Bản quân phiệt hoá chính phủ, chiếm Phụng Thiên (1931), lập Mãn Châu quốc (1932) và xâm lược Trung Quốc (1937).',
@@ -850,7 +882,8 @@ const SEED_LESSONS = [
       'Lược đồ 3.2: ranh giới ba vùng (lãnh thổ Nhật 1931; chiếm đóng 1931–1933; chiếm đóng 1937–1938) cần vẽ lại đúng theo bản gốc, không đoán.',
       'Cách diễn đạt "Mãn Châu quốc", "Thuyết Đại Đông Á", "bất tuân lệnh" giữ đúng như sách.',
       'Số liệu "gần 400 km" và ngày 12-3-1930 (cuộc đi bộ của Gan-đi) lấy từ chú thích hình 3.4.',
-      'Cách phiên âm tên riêng (Gan-đi, Gia-va, Xu-ma-tra, Véc-xai, Hi-rô-hi-tô) giữ như sách.'
+      'Cách phiên âm tên riêng (Gan-đi, Gia-va, Xu-ma-tra, Véc-xai, Hi-rô-hi-tô) giữ như sách.',
+      'Các phương án mô phỏng lấy từ các hình thức đấu tranh nêu trong bài: bất bạo động (Ấn Độ), vũ trang và liên minh lực lượng (Trung Quốc, Đông Nam Á) theo đúng gợi ý của giáo án.'
     ]
   },
 
@@ -864,11 +897,11 @@ const SEED_LESSONS = [
     year: '1939–1945',
     teacher: 'Thầy Nguyễn Văn Hưng',
     class: 'Lớp 9A1',
-    date: '2026-11-11',
+    date: '2026-10-28',
     subject: 'Lịch sử',
     grade: 'Khối 9',
     period: 'Tiết 4 · 45 phút',
-    status: 'Nháp',
+    status: 'Đã dạy',
     isPilot: false,
     disclaimer: 'Nội dung minh hoạ, chưa được chuyên gia duyệt',
     simulationDisclaimer: 'ĐÂY LÀ SƠ ĐỒ MINH HOẠ CHIẾN THUẬT, KHÔNG THEO ĐÚNG TỈ LỆ ĐỊA LÝ THỰC TẾ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.',
@@ -1146,20 +1179,20 @@ const SEED_LESSONS = [
           options: [
             {
               id: 'opt-stalingrad-double-pincer',
-              name: 'Hai mũi phản công gọng kìm đồng thời (19-11 và 30-11-1942), siết chặt bao vây Tập đoàn quân số 6 của Đức',
+              name: 'Phản công từ đường mặt trận ngày 19-11-1942, tiến đến đường mặt trận ngày 30-11-1942 khép vòng vây Tập đoàn quân số 6 của Đức',
               isOriginal: true,
-              desc: 'Tung hai mũi phản công từ hai sườn phía bắc và nam, vượt qua phòng tuyến địch ngày 19-11, khép chặt vòng vây ngày 30-11-1942 và bẻ gãy mũi giải vây của quân Đức.',
-              assumptions: 'Dựa trên Lược đồ 4.4 SGK: bao vây cô lập hoàn toàn Tập đoàn quân số 6 của Đức, đập tan đạo quân giải vây và tạo bước ngoặt chiến lược.',
+              desc: 'Các mũi phản công của Liên Xô xuất phát từ đường mặt trận ngày 19-11-1942, tiến đánh và bao vây Tập đoàn quân số 6 của Đức tại đường mặt trận ngày 30-11-1942, đồng thời chặn đứng mũi giải vây của Đức.',
+              assumptions: 'Dựa trên Lược đồ 4.4 SGK: đường mặt trận ngày 19-11-1942 và ngày 30-11-1942, các mũi phản công của Liên Xô bao vây Tập đoàn quân số 6 của Đức và bẻ gãy đạo quân Đức giải vây.',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: 0
             },
             {
               id: 'opt-stalingrad-frontal-assault',
-              name: 'Tập trung công kích vỗ mặt một hướng chính diện, không vu hồi bao vây',
+              name: 'Thay đổi thời điểm khép vòng vây (chậm hơn so với mốc đường mặt trận ngày 30-11-1942)',
               isOriginal: false,
-              desc: 'Tập trung toàn lực lượng đánh trực diện vào trung tâm thành phố mà không chia hai mũi bọc sườn khép vòng vây.',
-              assumptions: 'Giả định mô phỏng: chiến trận giằng co kéo dài trong đô thị, đối phương không bị cô lập hoàn toàn và có cơ hội rút lui bảo toàn lực lượng.',
+              desc: 'Khép vòng vây muộn hơn mốc ngày 30-11-1942, ưu tiên củng cố chiều sâu phòng tuyến trước khi siết chặt bao vây.',
+              assumptions: 'Giả định mô phỏng (ngoài tư liệu gốc): việc khép vòng vây muộn hơn cho đối phương thêm thời gian điều động mũi giải vây, làm giảm hiệu quả cô lập Tập đoàn quân số 6 của Đức.',
               timeDelta: 0,
               casualtyDelta: 0,
               positionScoreDelta: -30
@@ -1177,7 +1210,17 @@ const SEED_LESSONS = [
       durationHours: 95,
       casualties: 90,
       positionScore: 95,
-      ratingText: 'Phương án phản công gọng kìm Xta-lin-grát lịch sử'
+      ratingText: 'Phương án phản công bao vây theo Lược đồ 4.4'
+    },
+    explanations: {
+      intro: 'Rất đáng khen cho tinh thần phân tích chiến thuật quân sự sâu sắc của các em.',
+      variableFeedbacks: {
+        'var-stalingrad-strategy': {
+          'opt-stalingrad-double-pincer': 'Phản công từ đường mặt trận ngày 19-11-1942 đến ngày 30-11-1942 khép vòng vây Tập đoàn quân số 6 của Đức đã bẻ gãy mũi giải vây và tạo nên bước ngoặt quyết định của cuộc chiến.',
+          'opt-stalingrad-frontal-assault': 'Khép vòng vây muộn hơn mốc ngày 30-11-1942 cho đối phương thêm thời gian tiếp viện và điều động giải vây, làm giảm hiệu quả bao vây cô lập Tập đoàn quân số 6.'
+        }
+      },
+      encouragingConclusion: 'Trận Xta-lin-grát là biểu tượng bất diệt cho ý chí kiên cường bảo vệ Tổ quốc và chiến thắng của công lí trước chủ nghĩa phát xít.'
     },
     simulation: {
       propsConfig: {
@@ -1212,7 +1255,8 @@ const SEED_LESSONS = [
       'Lược đồ 4.3 và 4.4: ranh giới các đường mặt trận, hướng mũi tên và vị trí các thành phố phải lấy đúng từ bản gốc, không đoán.',
       'Số liệu hậu quả (gần 60 triệu người chết, 90 triệu tàn tật, hơn 6 triệu người Do Thái, khoảng 27 triệu người Xô viết): kiểm tra lại với bản gốc; số liệu lịch sử có thể khác nhau giữa các nguồn.',
       'Hai mốc ghi trong trục thời gian Luyện tập đã đọc từ ảnh: 6-1942 (Mít-uây) và 2-1943 (kết thúc Xta-lin-grát).',
-      'Cách phiên âm tên riêng (Muy-ních, Noóc-măng-đi, Xta-lin-grát, Mít-uây, Trân Châu Cảng...) giữ như sách.'
+      'Cách phiên âm tên riêng (Muy-ních, Noóc-măng-đi, Xta-lin-grát, Mít-uây, Trân Châu Cảng...) giữ như sách.',
+      'Phương án mô phỏng "Thay đổi thời điểm khép vòng vây" là giả định ngoài tư liệu gốc (lấy theo gợi ý câu hỏi "Nếu... thì sao?" trong giáo án) để so sánh hiệu quả cô lập đối phương và bẻ gãy mũi giải vây.'
     ]
   }
 ];

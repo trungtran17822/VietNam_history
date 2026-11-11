@@ -8,4 +8,4 @@
 - [x] **B3-6**: Trình soạn thảo thích ứng theo `explorationMode`
 - [x] **B3-7**: Cập nhật migration seed và unit test
 - [x] **B3-8**: Dọn sạch tên bài cũ trong toàn dự án
-- [ ] **B3-9**: Đạt CỔNG 2 và báo cáo kết quả thật
+- [x] **B3-9**: Đạt CỔNG 2 và báo cáo kết quả thật (Đã hoàn thành toàn bộ kiểm chứng thực tế)

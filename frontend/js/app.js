@@ -1018,7 +1018,15 @@
     elements.teacherLessonsGrid.classList.add('filtering');
 
     const filtered = all.filter((l) => {
-      const matchesSearch = !searchTerm || l.title.toLowerCase().includes(searchTerm.toLowerCase()) || (l.class && l.class.toLowerCase().includes(searchTerm.toLowerCase()));
+      const q = searchTerm ? searchTerm.toLowerCase().trim() : '';
+      const matchesSearch = !q ||
+        l.title.toLowerCase().includes(q) ||
+        (l.subtitle && l.subtitle.toLowerCase().includes(q)) ||
+        (l.objectives && l.objectives.toLowerCase().includes(q)) ||
+        (l.class && l.class.toLowerCase().includes(q)) ||
+        (l.grade && l.grade.toLowerCase().includes(q)) ||
+        (l.subject && l.subject.toLowerCase().includes(q)) ||
+        (Array.isArray(l.sections) && l.sections.some(s => (s.title && s.title.toLowerCase().includes(q)) || (s.narration && s.narration.toLowerCase().includes(q))));
       const matchesStatus = statusFilter === 'all' || l.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
@@ -1771,6 +1779,7 @@
         const modeDesc = (activeLesson && modeLabels[activeLesson.explorationMode]) || 'Trục thời gian tư liệu tương tác';
 
         const noticeDiv = document.createElement('div');
+        noticeDiv.id = 'editor-non-3d-notice';
         noticeDiv.className = 'authoring-group exploration-mode-notice-group';
         noticeDiv.style.cssText = 'background: rgba(20,35,30,0.65); border: 1px solid rgba(176,141,74,0.35); border-radius: 8px; padding: 14px; margin-bottom: 12px;';
         noticeDiv.innerHTML = `
