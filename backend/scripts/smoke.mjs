@@ -26,7 +26,7 @@ const health = await call('GET', '/api/health');
 check('health', health.status === 200);
 check('CORS echoes allowed origin', health.headers.get('Access-Control-Allow-Origin') === origin);
 
-const opened = await call('POST', '/api/sessions', { body: { lessonId: 'ngoc-hoi-ha-hoi-1789' } });
+const opened = await call('POST', '/api/sessions', { body: { lessonId: 'bai-1-lien-xo' } });
 check('open session', opened.status === 201, opened.data && opened.data.code);
 const { code, teacherKey } = opened.data;
 const answer = (id) => `/api/sessions/${code}/answers/${id}`;

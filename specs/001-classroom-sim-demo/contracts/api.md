@@ -30,7 +30,7 @@ Common rules
 
 ## POST /api/sessions — open a class session (teacher)
 
-Body `{ "lessonId": "ngoc-hoi-ha-hoi-1789" }`
+Body `{ "lessonId": "bai-1-lien-xo" }`
 
 `201 { "code": "K7M2QX", "teacherKey": "9f…(32 hex)", "lessonId": "…", "expiresAt": 1762200000000 }`
 

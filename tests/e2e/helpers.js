@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test');
 
-const PILOT = 'ngoc-hoi-ha-hoi-1789';
+const PILOT = 'bai-1-lien-xo';
 
 async function login(page, role = 'teacher') {
   await page.goto('/');

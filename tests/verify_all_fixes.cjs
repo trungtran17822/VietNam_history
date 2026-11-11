@@ -20,8 +20,10 @@ if (!fs.existsSync(ARTIFACT_DIR)) {
 const BASE_URL = 'http://localhost:8080';
 
 const LESSONS = [
-  { id: 'ngoc-hoi-ha-hoi-1789', hasVariables: true, title: 'Trận Ngọc Hồi - Hạ Hồi' },
-  { id: 'rach-gam-xoai-mut-1785', hasVariables: false, title: 'Trận Rạch Gầm - Xoài Mút' }
+  { id: 'bai-1-lien-xo', hasVariables: true, title: 'Bài 1. Nước Nga và Liên Xô' },
+  { id: 'bai-2-chau-au-my', hasVariables: true, title: 'Bài 2. Châu Âu và nước Mỹ' },
+  { id: 'bai-3-chau-a', hasVariables: true, title: 'Bài 3. Châu Á' },
+  { id: 'bai-4-chien-tranh-the-gioi-2', hasVariables: true, title: 'Bài 4. Chiến tranh thế giới thứ hai' }
 ];
 
 const CONFIGS = [
@@ -217,7 +219,7 @@ async function run() {
           } catch (e) {}
         });
 
-        await page.goto(`${BASE_URL}/#/lesson/ngoc-hoi-ha-hoi-1789/edit`);
+        await page.goto(`${BASE_URL}/#/lesson/bai-1-lien-xo/edit`);
         await page.waitForSelector('#view-teacher-editor.active', { timeout: 6000 });
 
         // Tab A: Content

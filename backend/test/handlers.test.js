@@ -22,7 +22,7 @@ function setup(start = Date.UTC(2026, 10, 3, 1, 0, 0)) {
     const data = res.status === 204 || res.status === 304 ? null : type.includes('json') ? await res.json() : new TextDecoder('utf-8', { ignoreBOM: true }).decode(await res.arrayBuffer());
     return { status: res.status, headers: res.headers, data };
   };
-  const open = async () => (await call('POST', '/api/sessions', { body: { lessonId: 'ngoc-hoi-ha-hoi-1789' } })).data;
+  const open = async () => (await call('POST', '/api/sessions', { body: { lessonId: 'bai-1-lien-xo' } })).data;
   return { ctx, clock, call, open };
 }
 
@@ -39,7 +39,7 @@ test('health', async () => {
 
 test('create session returns a readable code and a 32-hex teacher key; only the hash is stored', async () => {
   const { ctx, call } = setup();
-  const r = await call('POST', '/api/sessions', { body: { lessonId: 'ngoc-hoi-ha-hoi-1789' } });
+  const r = await call('POST', '/api/sessions', { body: { lessonId: 'bai-1-lien-xo' } });
   assert.equal(r.status, 201);
   assert.match(r.data.code, new RegExp(`^[${CODE_ALPHABET}]{6}$`));
   assert.doesNotMatch(r.data.code, /[01OIL]/);
@@ -235,7 +235,7 @@ test('CSV export: BOM, anonymous ids, one column per variable, formula-safe, no 
   const lines = r.data.slice(1).trim().split('\r\n');
   assert.equal(lines.length, 3);
   assert.equal(lines[0], 'session_code,lesson_id,anonymous_id,direction,timing,duration_sec,rating_interest,rating_visualize,rating_again,updated_at_iso');
-  assert.ok(lines[1].startsWith(`${s.code},ngoc-hoi-ha-hoi-1789,A01,frontal_allout,'-x,300,4,3,5,`));
+  assert.ok(lines[1].startsWith(`${s.code},bai-1-lien-xo,A01,frontal_allout,'-x,300,4,3,5,`));
   assert.ok(lines[2].includes(',A02,flanking_multidirectional,,,,,'));
   assert.ok(!r.data.includes(CLIENT_A) && !r.data.includes(CLIENT_B));
 });
