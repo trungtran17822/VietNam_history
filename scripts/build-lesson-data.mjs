@@ -306,7 +306,7 @@ const SEED_LESSONS = [
       {
         id: 'sec-2',
         title: 'Mục 2. Cuộc đại suy thoái kinh tế (1929–1933)',
-        narration: 'Sau thời kì thịnh vượng ngắn ngủi những năm 1920, kinh tế tư bản rơi vào khủng hoảng trầm trọng, bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc (tháng 10-1929) rồi lan nhanh sang châu Âu và toàn thế giới đến năm 1933–1934. Hàng chục triệu người thất nghiệp, hàng loạt nhà máy và nông trại phá sản. Năm 1932, chỉ số sản xuất công nghiệp của Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65%, Pháp còn 78%, Anh còn 85%. Khủng hoảng làm lung lay nền tảng chính trị – xã hội của nhiều quốc gia.',
+        narration: 'Sau thời kì thịnh vượng ngắn ngủi những năm 1920, kinh tế tư bản rơi vào khủng hoảng trầm trọng, bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc (năm 1929) rồi lan nhanh sang châu Âu và toàn thế giới đến năm 1933–1934. Hàng chục triệu người thất nghiệp, hàng loạt nhà máy và nông trại phá sản. Năm 1932, chỉ số sản xuất công nghiệp của Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65%, Pháp còn 78%, Anh còn 85%. Khủng hoảng làm lung lay nền tảng chính trị – xã hội của nhiều quốc gia.',
         caption: 'Cuộc đại suy thoái kinh tế 1929–1933 làm sụt giảm nghiêm trọng chỉ số sản xuất công nghiệp toàn cầu.',
         timelineRange: 0.45,
         timeLabel: '1929–1933',
@@ -334,7 +334,7 @@ const SEED_LESSONS = [
       {
         id: 'sec-4',
         title: 'Mục 4. Nước Mỹ giữa hai cuộc chiến tranh thế giới (1918–1939)',
-        narration: 'Sau chiến tranh thế giới thứ nhất, Mỹ phồn vinh và trở thành nước tư bản giàu mạnh nhất, dù vẫn tồn tại bất công xã hội và nạn phân biệt chủng tộc đối với người da đen (năm 1921 Đảng Cộng sản Mỹ thành lập). Năm 1929, đại suy thoái nổ ra khiến hàng triệu người mất việc. Năm 1932, Ru-dơ-ven đắc cử Tổng thống và ban hành chính sách "Thoả thuận mới" (New Deal): nhà nước trực tiếp can thiệp sâu vào ngân hàng, thị trường chứng khoán; đầu tư công vào các công trình lớn tạo việc làm (tiêu biểu như đập thuỷ lợi Bon-nơ-viu ở bang Ô-rê-gơn tạo việc làm cho khoảng 30.000 lao động) và chú trọng an sinh xã hội. "Thoả thuận mới" giúp nước Mỹ vượt qua khủng hoảng và duy trì nền dân chủ tư sản.',
+        narration: 'Sau chiến tranh thế giới thứ nhất, Mỹ phồn vinh và trở thành nước tư bản giàu mạnh nhất, dù vẫn tồn tại bất công xã hội và nạn phân biệt chủng tộc đối với người da đen (năm 1921 Đảng Cộng sản Mỹ thành lập). Năm 1929, đại suy thoái nổ ra khiến hàng triệu người mất việc. Năm 1932, Ru-dơ-ven đắc cử Tổng thống và ban hành chính sách "Thoả thuận mới" (New Deal): nhà nước trực tiếp can thiệp sâu vào ngân hàng, thị trường chứng khoán; đầu tư công vào các công trình lớn tạo việc làm (tiêu biểu như đập thuỷ lợi Bon-nơ-viu ở bang Ô-rê-gơn tạo việc làm cho khoảng 30 000 lao động) và chú trọng an sinh xã hội. "Thoả thuận mới" giúp nước Mỹ vượt qua khủng hoảng và duy trì nền dân chủ tư sản.',
         caption: 'Tổng thống Ru-dơ-ven thực hiện chính sách "Thoả thuận mới" phục hồi kinh tế và ổn định nước Mỹ.',
         timelineRange: 0.95,
         timeLabel: '1918–1939',
@@ -383,7 +383,7 @@ const SEED_LESSONS = [
         isEmperorQuestion: false,
         isExplanationReleased: true,
         options: [
-          { id: 'b2-q3-a', text: 'Thị trường chứng khoán Niu Oóc sụp đổ', isCorrect: true, explanation: 'Cuộc đại suy thoái kinh tế bắt đầu từ vụ sụp đổ của thị trường chứng khoán Niu Oóc (tháng 10-1929) rồi lan rộng khắp thế giới.' },
+          { id: 'b2-q3-a', text: 'Thị trường chứng khoán Niu Oóc sụp đổ', isCorrect: true, explanation: 'Cuộc đại suy thoái kinh tế bắt đầu từ vụ sụp đổ của thị trường chứng khoán Niu Oóc (năm 1929) rồi lan rộng khắp thế giới.' },
           { id: 'b2-q3-b', text: 'Hoàng đế Đức thoái vị', isCorrect: false, explanation: 'Hoàng đế Đức thoái vị vào tháng 11-1918 trong phong trào cách mạng sau chiến tranh thế giới thứ nhất.' },
           { id: 'b2-q3-c', text: 'Quốc tế Cộng sản giải tán', isCorrect: false, explanation: 'Quốc tế Cộng sản tuyên bố giải tán vào năm 1943.' },
           { id: 'b2-q3-d', text: 'Mút-xô-li-ni lên nắm quyền', isCorrect: false, explanation: 'Mút-xô-li-ni làm Thủ tướng I-ta-li-a từ năm 1922, trước khi nổ ra đại suy thoái.' }
@@ -461,7 +461,7 @@ const SEED_LESSONS = [
         sectionId: 'sec-3',
         isEmperorQuestion: true,
         isExplanationReleased: true,
-        guide: 'Gợi mở thảo luận: Anh, Pháp có thuộc địa rộng lớn, truyền thống dân chủ; Đức, I-ta-li-a bất mãn với trật tự Véc-xai, thiếu thuộc địa và thị trường nên chọn con đường phát xít hoá để gây chiến chia lại thế giới, đe doạ trực tiếp hoà bình nhân loại.'
+        guide: 'Gợi mở thảo luận: Anh, Pháp có thuộc địa rộng lớn, truyền thống dân chủ; Đức, I-ta-li-a thiếu thuộc địa và thị trường nên tăng tốc chạy đua vũ trang, thiết lập chế độ độc tài phát xít để gây chiến chia lại thế giới, đe doạ trực tiếp hoà bình nhân loại.'
       },
       {
         id: 'b2-q10',
@@ -593,7 +593,7 @@ const SEED_LESSONS = [
       },
       {
         id: 'sec-2',
-        title: 'Mục 2.1. Phong trào giải phóng dân tộc ở Trung Quốc',
+        title: 'Mục 2. Phong trào giải phóng dân tộc ở Trung Quốc',
         narration: 'Ngày 4-5-1919, phong trào Ngũ tứ bùng nổ mạnh mẽ trong giới học sinh, sinh viên, công nhân phản đối quyết định bất công của Hội nghị Véc-xai trao đặc quyền ở Sơn Đông cho Nhật Bản; phong trào thúc đẩy truyền bá sâu rộng chủ nghĩa Mác – Lê-nin. Năm 1921, Đảng Cộng sản Trung Quốc ra đời, phối hợp cùng Quốc dân đảng chống các thế lực quân phiệt. Năm 1927, liên minh Quốc – Cộng tan vỡ dẫn đến nội chiến. Đến tháng 7-1937, trước hiểm hoạ xâm lược toàn diện của phát xít Nhật, hai bên quyết định đình chiến và thành lập Mặt trận dân tộc thống nhất chống Nhật để bảo vệ đất nước.',
         caption: 'Phong trào Ngũ tứ 1919 và Mặt trận dân tộc thống nhất chống phát xít Nhật thành lập năm 1937.',
         timelineRange: 0.5,
@@ -607,7 +607,7 @@ const SEED_LESSONS = [
       },
       {
         id: 'sec-3',
-        title: 'Mục 2.2. Phong trào giải phóng dân tộc ở Ấn Độ',
+        title: 'Mục 2. Phong trào giải phóng dân tộc ở Ấn Độ',
         narration: 'Tại Ấn Độ, Đảng Quốc đại dưới sự dẫn dắt của lãnh tụ Gan-đi đã vận động nhân dân đấu tranh giành độc lập bằng con đường hoà bình, bất bạo động, tẩy chay hàng hoá của Anh và phát triển kinh tế dân tộc. Năm 1925, Đảng Cộng sản Ấn Độ thành lập thúc đẩy phong trào chống thực dân Anh. Ngày 12-3-1930, Gan-đi dẫn đầu cuộc đi bộ biểu tình bất bạo động gần 400 km ra bờ biển phía Tây để tự làm muối, phản đối chính quyền thuộc địa độc quyền và đánh thuế muối nặng nề. Cuộc đi bộ "Muối" đã thức tỉnh tinh thần phản kháng và thôi thúc đông đảo quần chúng bất tuân lệnh chính quyền thực dân Anh.',
         caption: 'Lãnh tụ Gan-đi dẫn đầu cuộc đi bộ "Muối" gần 400 km (12-3-1930) đấu tranh bất bạo động.',
         timelineRange: 0.75,
@@ -621,7 +621,7 @@ const SEED_LESSONS = [
       },
       {
         id: 'sec-4',
-        title: 'Mục 2.3. Phong trào giải phóng dân tộc ở Đông Nam Á',
+        title: 'Mục 2. Phong trào giải phóng dân tộc ở Đông Nam Á',
         narration: 'Sau Chiến tranh thế giới thứ nhất, phong trào độc lập dân tộc ở Đông Nam Á dâng cao với sự tham gia của đông đảo công nhân, nông dân, trí thức và tư sản dân tộc. Các đảng cộng sản liên tiếp ra đời: In-đô-nê-xi-a (1920), Việt Nam (1930), Mã Lai (1930). Nhiều phong trào đấu tranh kiên cường bùng nổ, tiêu biểu là cuộc khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (1926–1927) và phong trào Xô viết Nghệ – Tĩnh (1930–1931) tại Việt Nam. Tại Thái Lan, năm 1932 nổ ra cuộc cách mạng chuyển từ chế độ quân chủ chuyên chế sang quân chủ lập hiến. Từ năm 1940, nhân dân toàn khu vực Đông Nam Á kiên quyết đứng lên chống lại ách chiếm đóng và đô hộ của phát xít Nhật.',
         caption: 'Sự ra đời của các Đảng Cộng sản và phong trào giải phóng dân tộc chống thực dân, phát xít ở Đông Nam Á.',
         timelineRange: 0.95,
@@ -646,7 +646,7 @@ const SEED_LESSONS = [
           { id: 'b3-q1-a', text: 'Vùng Đông Bắc (Mãn Châu)', isCorrect: true, explanation: 'Ngày 18-9-1931, quân đội Nhật chiếm Phụng Thiên, mở đầu quá trình xâm chiếm toàn bộ vùng Đông Bắc Trung Quốc.' },
           { id: 'b3-q1-b', text: 'Vùng Tây Tạng', isCorrect: false, explanation: 'Tây Tạng ở phía tây nam, không phải vùng Nhật Bản chiếm đóng năm 1931.' },
           { id: 'b3-q1-c', text: 'Vùng Hoa Nam', isCorrect: false, explanation: 'Hoa Nam bị Nhật tiến đánh trong giai đoạn mở rộng chiến tranh sau năm 1937.' },
-          { id: 'b3-q1-d', text: 'Đài Loan', isCorrect: false, explanation: 'Đài Loan bị Nhật chiếm từ trước chiến tranh thế giới thứ nhất (năm 1895).' }
+          { id: 'b3-q1-d', text: 'Đài Loan', isCorrect: false, explanation: 'Đài Loan bị Nhật Bản chiếm đóng từ trước Chiến tranh thế giới thứ nhất.' }
         ]
       },
       {
@@ -672,7 +672,7 @@ const SEED_LESSONS = [
         isExplanationReleased: true,
         options: [
           { id: 'b3-q3-a', text: 'Chấm dứt chiến tranh với Trung Quốc', isCorrect: false, explanation: 'Thuyết Đại Đông Á không nhằm chấm dứt chiến tranh mà mở rộng phạm vi bành trướng.' },
-          { id: 'b3-q3-b', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản do Lênin thành lập ở Mát-xcơ-va năm 1919.' },
+          { id: 'b3-q3-b', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản được thành lập năm 1919 ở châu Âu, không phải sự kiện ở Nhật Bản.' },
           { id: 'b3-q3-c', text: 'Ủng hộ phong trào giải phóng dân tộc', isCorrect: false, explanation: 'Khẩu hiệu "Đại Đông Á" là vỏ bọc mị dân nhằm đô hộ các nước châu Á.' },
           { id: 'b3-q3-d', text: 'Tạo cơ sở cho hoạt động xâm lược các nước Đông Nam Á', isCorrect: true, explanation: 'Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á để làm cơ sở tư tưởng biện minh cho việc xâm lược các nước Đông Nam Á.' }
         ]
@@ -913,7 +913,7 @@ const SEED_LESSONS = [
       },
       {
         id: 'sec-2',
-        title: 'Mục 2.1. Giai đoạn 1: Chiến tranh bùng nổ và lan rộng ra toàn thế giới (1939–1941)',
+        title: 'Mục 2. Giai đoạn 1: Chiến tranh bùng nổ và lan rộng ra toàn thế giới (1939–1941)',
         narration: 'Tháng 5-1940, quân Đức tổng tấn công ở phía tây, đánh chiếm Hà Lan, Bỉ, Lúc-xăm-bua, Pháp, Đan Mạch, Na Uy, rồi oanh tạc Luân Đôn nhưng không khuất phục được nước Anh. Ngày 22-6-1941, phát xít Đức bội ước bất ngờ tấn công Liên Xô; quân dân Liên Xô kiên cường phòng ngự tại Lê-nin-grát và ngoại vi Mát-xcơ-va. Tại châu Á – Thái Bình Dương, ngày 7-12-1941 Nhật Bản bất ngờ tập kích hạm đội Mỹ ở Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và chính thức tham chiến. Chiến tranh bùng phát dữ dội trên khắp châu Âu, Bắc Phi và châu Á – Thái Bình Dương.',
         caption: 'Phát xít Đức tấn công Liên Xô (22-6-1941) và Nhật Bản tập kích Trân Châu Cảng (7-12-1941).',
         timelineRange: 0.35,
@@ -927,8 +927,8 @@ const SEED_LESSONS = [
       },
       {
         id: 'sec-3',
-        title: 'Mục 2.2. Giai đoạn 2: Quân Đồng minh phản công, chiến tranh kết thúc (1942–1945)',
-        narration: 'Ngày 1-1-1942, 26 quốc gia đứng đầu là Liên Xô, Mỹ, Anh kí Tuyên ngôn Liên hợp quốc chống phát xít, Khối Đồng minh chính thức ra đời. Từ tháng 11-1942 đến tháng 2-1943, Hồng quân Liên Xô phản công thắng lợi rực rỡ tại Xta-lin-grát: từ hai phòng tuyến ngày 19-11 và 30-11-1942, các cánh quân Liên Xô khép chặt vòng vây bao vây Tập đoàn quân số 6 của Đức và bẻ gãy mũi giải vây, tạo bước ngoặt căn bản của cuộc chiến. Ngày 6-6-1944, liên quân Anh – Mỹ với khoảng 160.000 quân đổ bộ Noóc-măng-đi mở mặt trận thứ hai ở Tây Âu. Ngày 30-4-1945, Hồng quân cắm cờ chiến thắng tại Béc-lin; ngày 9-5-1945 phát xít Đức kí văn kiện đầu hàng không điều kiện. Sau khi Mỹ ném bom nguyên tử xuống Hi-rô-si-ma và Na-ga-xa-ki và Liên Xô đè bẹp đạo quân Nhật ở Đông Bắc Trung Quốc, ngày 15-8-1945 Nhật Bản chấp nhận đầu hàng không điều kiện, chiến tranh thế giới thứ hai kết thúc.',
+        title: 'Mục 2. Giai đoạn 2: Quân Đồng minh phản công, chiến tranh kết thúc (1942–1945)',
+        narration: 'Ngày 1-1-1942, 26 quốc gia đứng đầu là Liên Xô, Mỹ, Anh kí Tuyên ngôn Liên hợp quốc chống phát xít, Khối Đồng minh chính thức ra đời. Từ tháng 11-1942 đến tháng 2-1943, Hồng quân Liên Xô phản công thắng lợi rực rỡ tại Xta-lin-grát: từ hai phòng tuyến ngày 19-11 và 30-11-1942, các cánh quân Liên Xô khép chặt vòng vây bao vây Tập đoàn quân số 6 của Đức và bẻ gãy mũi giải vây, tạo bước ngoặt căn bản của cuộc chiến. Ngày 6-6-1944, liên quân Anh – Mỹ với khoảng 160 000 quân đổ bộ Noóc-măng-đi mở mặt trận thứ hai ở Tây Âu. Ngày 30-4-1945, Hồng quân cắm cờ chiến thắng tại Béc-lin; ngày 9-5-1945 phát xít Đức kí văn kiện đầu hàng không điều kiện. Sau khi Mỹ ném bom nguyên tử xuống Hi-rô-si-ma và Na-ga-xa-ki và Liên Xô đè bẹp đạo quân Nhật ở Đông Bắc Trung Quốc, ngày 15-8-1945 Nhật Bản chấp nhận đầu hàng không điều kiện, chiến tranh thế giới thứ hai kết thúc.',
         caption: 'Trận phản công Xta-lin-grát tạo bước ngoặt xoay chuyển cục diện đưa Khối Đồng minh tới thắng lợi hoàn toàn.',
         timelineRange: 0.65,
         timeLabel: '1942–1945',
@@ -993,7 +993,7 @@ const SEED_LESSONS = [
         options: [
           { id: 'b4-q2-a', text: 'Liên minh chặt chẽ với Anh – Pháp', isCorrect: false, explanation: 'Mỹ không tham gia liên minh quân sự với Anh - Pháp trước năm 1941.' },
           { id: 'b4-q2-b', text: 'Tấn công Đức', isCorrect: false, explanation: 'Mỹ chỉ tham chiến sau khi bị Nhật Bản bất ngờ tấn công ngày 7-12-1941.' },
-          { id: 'b4-q2-c', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản do những người cộng sản thành lập ở Liên Xô năm 1919.' },
+          { id: 'b4-q2-c', text: 'Thành lập Quốc tế Cộng sản', isCorrect: false, explanation: 'Quốc tế Cộng sản được thành lập sau Chiến tranh thế giới thứ nhất, không phải chính sách đối ngoại của Mỹ.' },
           { id: 'b4-q2-d', text: 'Chính sách biệt lập', isCorrect: true, explanation: 'Trước năm 1941, nước Mỹ thực hiện chính sách biệt lập, không can thiệp vào các biến động ở châu Âu.' }
         ]
       },

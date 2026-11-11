@@ -35,5 +35,9 @@ for f in ../backend/src/*.js ../backend/dev-server.js; do
   node --check "$f" 2>&1 || err "syntax error in $f"
 done
 
+# 6. Lesson content grounding audit (SGK Chân trời sáng tạo).
+node ../scripts/check-lesson-grounding.mjs || err "lesson grounding audit failed"
+
 [ "$fail" -eq 0 ] && echo "OK: all checks passed"
 exit "$fail"
+
