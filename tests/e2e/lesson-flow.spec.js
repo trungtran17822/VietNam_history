@@ -57,16 +57,14 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
   await expect(page.locator('.lesson-disclaimer, .global-notice-strip').first()).toBeVisible();
 
   await goToStage(page, 3);
-  await expect(page.locator('#variables-container .variable-card')).toHaveCount(4);
+  await expect(page.locator('#variables-container .variable-card')).toHaveCount(1);
   // Original options are preselected and labelled.
-  await expect(page.locator('.variable-option.is-original input:checked')).toHaveCount(4);
-  await expect(page.locator('.original-badge').first()).toHaveText('Cách của nghĩa quân Tây Sơn');
+  await expect(page.locator('.variable-option.is-original input:checked')).toHaveCount(1);
+  await expect(page.locator('.original-badge').first()).toHaveText('Phương án lịch sử');
 
-  await page.click('.variable-option:has(input[value="frontal_allout"])');
-  await page.click('.variable-option:has(input[value="cavalry_instead"])');
+  await page.click('.variable-option:has(input[value="opt-collectivization-gradual"])');
   await page.click('#btn-run-simulation');
   await expect(page.locator('#screen-sim-custom')).toBeVisible();
-  await expect(page.locator('#viewport-custom-canvas canvas')).toHaveCount(1);
 
   await page.click('#btn-goto-comparison');
   const banner = page.locator('#screen-comparison .prominent-simulation-banner');
@@ -77,17 +75,16 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
 
   await page.click('#btn-view-assumptions');
   await expect(page.locator('#modal-assumptions')).toHaveClass(/active/);
-  await expect(page.locator('#modal-assumptions')).toContainText('Dồn toàn lực');
+  await expect(page.locator('#modal-assumptions')).toContainText('tập thể hoá');
   await page.locator('#modal-assumptions [data-close], #modal-assumptions .btn-close-modal').first().click();
 
   await page.click('#btn-goto-explanation');
-  await expect(page.locator('#explanation-points-list > *')).toHaveCount(4);
+  await expect(page.locator('#explanation-points-list > *')).toHaveCount(1);
   await expect(page.locator('#class-survey')).toBeHidden(); // not in a class session
 
   // Try again: previous choices are kept; the same plan gives the same numbers.
   await page.click('#btn-try-another-tactics');
-  await expect(page.locator('input[value="frontal_allout"]')).toBeChecked();
-  await expect(page.locator('input[value="cavalry_instead"]')).toBeChecked();
+  await expect(page.locator('input[value="opt-collectivization-gradual"]')).toBeChecked();
   await page.click('#btn-run-simulation');
   await goToStage(page, 5);
   expect(await readComparison(page)).toEqual(first);
@@ -96,8 +93,7 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
   await page.reload();
   await openLoop(page);
   await goToStage(page, 3);
-  await page.click('.variable-option:has(input[value="frontal_allout"])');
-  await page.click('.variable-option:has(input[value="cavalry_instead"])');
+  await page.click('.variable-option:has(input[value="opt-collectivization-gradual"])');
   await page.click('#btn-run-simulation');
   await goToStage(page, 5);
   expect(await readComparison(page)).toEqual(first);
@@ -105,7 +101,19 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
 
 test('lesson without variables explains it and blocks stages 4-6', async ({ page }) => {
   await login(page, 'teacher');
-  await openLoop(page, 'rach-gam-xoai-mut-1785');
+  await page.evaluate(() => {
+    const l = {
+      id: 'lesson-no-vars',
+      title: 'Bài tập nghiên cứu',
+      status: 'Đã dạy',
+      date: '2026-01-01',
+      sections: [{ id: 's1', title: 'Khởi động' }],
+      question: { variables: [] },
+      questions: []
+    };
+    window.LessonStorage.saveLesson(l);
+  });
+  await openLoop(page, 'lesson-no-vars');
   await goToStage(page, 3);
   await expect(page.locator('#question-empty-notice')).toBeVisible();
   await expect(page.locator('#question-empty-notice')).toContainText('chưa có phần thử cách khác');

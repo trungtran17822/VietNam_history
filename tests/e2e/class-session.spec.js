@@ -31,21 +31,19 @@ test('US3/US4: live class distribution, replace on resubmit, survey, CSV and del
   expect(code).toMatch(/^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$/);
   await expect(page.locator('[data-class-count]')).toHaveText('0');
 
-  const a = await studentJoinsAndRuns(browser, code, ['frontal_allout']);
-  const b = await studentJoinsAndRuns(browser, code, ['siege_starvation', 'midday_light']);
+  const a = await studentJoinsAndRuns(browser, code, ['opt-collectivization-gradual']);
+  const b = await studentJoinsAndRuns(browser, code, ['opt-collectivization-fast']);
 
   await expect(page.locator('[data-class-count]')).toHaveText('2', { timeout: 10_000 });
-  await expect(page.locator('[data-option-count="direction:frontal_allout"]')).toHaveText('1');
-  await expect(page.locator('[data-option-count="direction:siege_starvation"]')).toHaveText('1');
-  await expect(page.locator('[data-option-count="direction:flanking_multidirectional"]')).toHaveText('0');
-  await expect(page.locator('[data-option-count="timing:dawn_tet5"]')).toHaveText('1');
+  await expect(page.locator('[data-option-count="var-collectivization-speed:opt-collectivization-gradual"]')).toHaveText('1');
+  await expect(page.locator('[data-option-count="var-collectivization-speed:opt-collectivization-fast"]')).toHaveText('1');
 
   // Student A changes their mind: the answer is replaced, the count stays 2.
   await goToStage(a.page, 3);
-  await a.page.click('.variable-option:has(input[value="flanking_multidirectional"])');
+  await a.page.click('.variable-option:has(input[value="opt-collectivization-fast"])');
   await a.page.click('#btn-run-simulation');
-  await expect(page.locator('[data-option-count="direction:flanking_multidirectional"]')).toHaveText('1', { timeout: 10_000 });
-  await expect(page.locator('[data-option-count="direction:frontal_allout"]')).toHaveText('0');
+  await expect(page.locator('[data-option-count="var-collectivization-speed:opt-collectivization-fast"]')).toHaveText('2', { timeout: 10_000 });
+  await expect(page.locator('[data-option-count="var-collectivization-speed:opt-collectivization-gradual"]')).toHaveText('0');
   await expect(page.locator('[data-class-count]')).toHaveText('2');
 
   // Student B answers the survey at stage 6.
@@ -105,7 +103,7 @@ test('US3: wrong code is refused and the lesson continues', async ({ page }) => 
 });
 
 test('US3: a code for another lesson is refused', async ({ page, request }) => {
-  const res = await request.post('http://localhost:8787/api/sessions', { data: { lessonId: 'rach-gam-xoai-mut-1785' } });
+  const res = await request.post('http://localhost:8787/api/sessions', { data: { lessonId: 'bai-2-chau-au-my' } });
   const { code } = await res.json();
   await login(page, 'student');
   await openLoop(page);
