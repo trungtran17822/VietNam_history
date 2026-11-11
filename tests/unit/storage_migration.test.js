@@ -34,12 +34,12 @@ function createSandbox(initialStorage = {}) {
   sandbox.window = sandbox;
   vm.createContext(sandbox);
 
-  // Define new dummy seeds for testing
+  // Define new seeds for testing
   sandbox.window.SEED_LESSONS = [
-    { id: 'bai-1-nuoc-nga-va-lien-xo', title: 'Bài 1. Nước Nga và Liên Xô' },
-    { id: 'bai-2-chau-au-va-nuoc-my', title: 'Bài 2. Châu Âu và nước Mỹ' },
+    { id: 'bai-1-lien-xo', title: 'Bài 1. Nước Nga và Liên Xô' },
+    { id: 'bai-2-chau-au-my', title: 'Bài 2. Châu Âu và nước Mỹ' },
     { id: 'bai-3-chau-a', title: 'Bài 3. Châu Á' },
-    { id: 'bai-4-chien-tranh-the-gioi-thu-hai', title: 'Bài 4. Chiến tranh thế giới thứ hai' }
+    { id: 'bai-4-chien-tranh-the-gioi-2', title: 'Bài 4. Chiến tranh thế giới thứ hai' }
   ];
 
   const code = fs.readFileSync(STORAGE_FILE, 'utf8');
@@ -79,10 +79,10 @@ test('migration v2 to v3 removes only 4 old seeds, backups old seeds, keeps v2 i
   const v3Lessons = JSON.parse(store.get('history_sim_lessons_db_v3'));
   assert.equal(v3Lessons.length, 5, 'v3 must contain 4 new seeds + 1 teacher lesson');
   const v3Ids = v3Lessons.map((l) => l.id);
-  assert.ok(v3Ids.includes('bai-1-nuoc-nga-va-lien-xo'));
-  assert.ok(v3Ids.includes('bai-2-chau-au-va-nuoc-my'));
+  assert.ok(v3Ids.includes('bai-1-lien-xo'));
+  assert.ok(v3Ids.includes('bai-2-chau-au-my'));
   assert.ok(v3Ids.includes('bai-3-chau-a'));
-  assert.ok(v3Ids.includes('bai-4-chien-tranh-the-gioi-thu-hai'));
+  assert.ok(v3Ids.includes('bai-4-chien-tranh-the-gioi-2'));
   assert.ok(v3Ids.includes('lesson-custom-1'), 'teacher created lesson must be preserved');
   assert.equal(v3Lessons.find((l) => l.id === 'lesson-custom-1').title, 'Bài giảng Lịch sử mới');
 
