@@ -1404,19 +1404,19 @@
     "comparisonMetrics": [
       {
         "id": "mobilization",
-        "label": "Điểm huy động quần chúng",
+        "label": "Mức huy động quần chúng",
         "origFormatted": "85 / 100",
         "unit": " / 100"
       },
       {
         "id": "safety",
-        "label": "Hạn chế rủi ro đàn áp",
+        "label": "Rủi ro bị đàn áp",
         "origFormatted": "75 / 100",
         "unit": " / 100"
       },
       {
         "id": "pressure",
-        "label": "Điểm sức ép chính trị",
+        "label": "Sức ép quốc tế",
         "origFormatted": "80 / 100",
         "unit": " / 100"
       }
