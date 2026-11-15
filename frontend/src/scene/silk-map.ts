@@ -56,6 +56,8 @@ export class SilkMapScene {
   private materials: MeshBasicMaterial[] = [];
   private fogCards: Mesh[] = [];
   private labels: { element: HTMLElement; position: Vector3 }[] = [];
+  private popover: HTMLElement | null = null;
+  private popoverTrigger: HTMLElement | null = null;
   private caveat: HTMLElement;
   private colors: { a: string; b: string };
   private random = Math.random;
@@ -101,6 +103,13 @@ export class SilkMapScene {
     this.bindPointer();
     this.setQuality(this.options.quality);
     this.updateTimeline(0);
+    // Warm-up: compile shaders and upload textures now, so the first Play does not stall.
+    try {
+      this.renderer.compile(this.scene, this.camera);
+      this.renderer.render(this.scene, this.camera);
+    } catch {
+      /* best effort: the first frame just compiles lazily */
+    }
     this.resizeObserver = new ResizeObserver(() => this.onResize());
     this.resizeObserver.observe(container);
     this.frame = requestAnimationFrame(this.animate);
@@ -308,10 +317,28 @@ export class SilkMapScene {
 
   // Terrain labels are HTML so Vietnamese diacritics render with the page fonts.
   private buildLabels() {
+    document.addEventListener('keydown', this.onPopoverKey);
     for (const label of this.sim.scene.labels) {
       const element = document.createElement('span');
       element.className = 'lesson-scene-label';
       element.textContent = label.text.normalize('NFC');
+      const info = label.info?.normalize('NFC');
+      if (info) {
+        // A label with an `info` text opens a small card; keyboard users get Enter / Space.
+        element.classList.add('lesson-scene-label-info');
+        element.setAttribute('role', 'button');
+        element.tabIndex = 0;
+        element.setAttribute('aria-haspopup', 'dialog');
+        element.addEventListener('click', (event) => {
+          event.stopPropagation();
+          this.openPopover(element.textContent ?? '', info, element);
+        });
+        element.addEventListener('keydown', (event) => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          this.openPopover(element.textContent ?? '', info, element);
+        });
+      }
       this.container.appendChild(element);
       this.labels.push({ element, position: new Vector3(label.at[0], 0.7, label.at[1]) });
     }
@@ -321,6 +348,48 @@ export class SilkMapScene {
     this.container.appendChild(caveat);
     return caveat;
   }
+
+  // ponytail: the card shows the label's own text only (no mini-map crop); one card at a time.
+  private openPopover(title: string, info: string, trigger: HTMLElement) {
+    this.closePopover(false);
+    const card = document.createElement('div');
+    card.className = 'lesson-scene-popover';
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-label', title);
+    const heading = document.createElement('strong');
+    heading.className = 'lesson-scene-popover-title';
+    heading.textContent = title;
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'lesson-scene-popover-close';
+    close.setAttribute('aria-label', 'Đóng');
+    close.textContent = '×';
+    close.addEventListener('click', (event) => {
+      event.stopPropagation();
+      this.closePopover();
+    });
+    const body = document.createElement('p');
+    body.textContent = info;
+    card.append(close, heading, body);
+    // Dragging or scrolling inside the card must not move the camera underneath.
+    card.addEventListener('pointerdown', (event) => event.stopPropagation());
+    card.addEventListener('wheel', (event) => event.stopPropagation());
+    this.container.appendChild(card);
+    this.popover = card;
+    this.popoverTrigger = trigger;
+    close.focus();
+  }
+
+  private closePopover(restoreFocus = true) {
+    this.popover?.remove();
+    this.popover = null;
+    if (restoreFocus && this.popoverTrigger?.isConnected) this.popoverTrigger.focus();
+    this.popoverTrigger = null;
+  }
+
+  private onPopoverKey = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && this.popover) this.closePopover();
+  };
 
   private bindPointer() {
     const canvas = this.renderer.domElement;
@@ -552,6 +621,8 @@ export class SilkMapScene {
     this.destroyed = true;
     cancelAnimationFrame(this.frame);
     this.resizeObserver.disconnect();
+    document.removeEventListener('keydown', this.onPopoverKey);
+    this.closePopover(false);
     for (const label of this.labels) label.element.remove();
     this.caveat.remove();
     this.scene.traverse((object) => (object as Mesh).geometry?.dispose());

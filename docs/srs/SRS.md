@@ -109,7 +109,7 @@ Cột "PRD" ánh xạ về mã yêu cầu trong PRD; "Spec" ánh xạ về `spec
 |---|---|---|---|---|---|
 | SRS-F-04 | Nhân vật vua Quang Trung đặt 1-2 câu hỏi cuối bài, gồm câu "nếu là các con… sẽ làm khác ở điểm nào?" | P0 | F4 | FR-004 | E2E |
 | SRS-F-05 | Học sinh chọn 1 phương án cho mỗi biến số (3-5 biến số, mỗi biến ≥2 phương án); phương án lịch sử được chọn sẵn và đánh dấu "Cách của nghĩa quân Tây Sơn"; không có ô nhập chữ tự do | P0 | F5 | FR-005 | E2E |
-| SRS-F-06 | Cùng lựa chọn luôn cho cùng kết quả; mọi con số tính từ hệ số trong dữ liệu bài | P0 | F6 | FR-006 | Unit: 81 tổ hợp × 2 lần |
+| SRS-F-06 | Cùng lựa chọn luôn cho cùng kết quả; mọi con số tính từ hệ số trong dữ liệu bài | P0 | F6 | FR-006 | Unit: 256 tổ hợp × 2 lần |
 | SRS-F-07 | Màn so sánh hiện thời gian, tổn thất ước tính, điểm thế trận của cách gốc và cách của em; khung cảnh báo mô phỏng là phần tử đầu tiên và được cuộn vào tầm nhìn; nút "Xem giả định" liệt kê mọi hệ số áp dụng | P0 | F7 | FR-007 | E2E |
 | SRS-F-08 | Lời giải thích nêu điều kiện lịch sử cho từng biến số, kết bằng lời mời suy nghĩ tiếp, có nút "Thử phương án khác" giữ lựa chọn trước; không dùng từ chấm đúng sai (danh sách ở SRS-Q-03) | P0 | F8 | FR-008 | Unit: quét từ ngữ |
 | SRS-F-09 | Bài chưa có biến số hiển thị "Bài học này chưa có phần thử cách khác" và không cho sang màn 4-6 | P0 | – | Edge case | E2E |
@@ -176,7 +176,7 @@ HTTPS; CORS chỉ cho các origin trong `ALLOWED_ORIGINS`; header `X-Teacher-Key
 |---|---|---|
 | SRS-Q-01 | Độ đúng nội dung | Mọi sự kiện hiển thị có nguồn; nhãn "Nội dung minh họa, chưa được chuyên gia duyệt" và khung cảnh báo mô phỏng không thể bị dữ liệu bài ẩn đi |
 | SRS-Q-02 | Giải thích được | 100% con số so sánh truy ngược được về hệ số trong "Xem giả định" |
-| SRS-Q-03 | Giọng khuyến khích | 0 lần xuất hiện các từ "sai", "sai lầm", "thất bại", "kém", "tệ", "dở", "ngu" trong lời giải thích và tóm tắt kết quả, trên cả 81 tổ hợp |
+| SRS-Q-03 | Giọng khuyến khích | 0 lần xuất hiện các từ "sai", "sai lầm", "thất bại", "kém", "tệ", "dở", "ngu" trong lời giải thích và tóm tắt kết quả, trên cả 256 tổ hợp |
 | SRS-Q-04 | Hiệu năng | Màn đầu dùng được ≤3 giây trên mạng trường; giáo viên từ đăng nhập tới sa bàn đang chạy ≤60 giây; giáo viên thấy câu trả lời mới ≤5 giây với 40 thiết bị |
 | SRS-Q-05 | Khả dụng khi mất kết nối | Tắt máy chủ lớp học: cả 6 màn chạy hết, 0 lỗi chặn, có thông báo rõ |
 | SRS-Q-06 | Riêng tư | Không lưu tên, email, IP, user agent, văn bản tự do; mã ẩn danh mới cho mỗi phiên; log request của Worker tắt; lưu tối đa 180 ngày |
@@ -209,7 +209,7 @@ HTTPS; CORS chỉ cho các origin trong `ALLOWED_ORIGINS`; header `X-Teacher-Key
 | G4 nội dung đúng | SRS-Q-01, Q-02, F-20..21 | Cố vấn duyệt; nhãn cảnh báo |
 | G5 giáo viên muốn dùng lại | SRS-F-10..19 | Phỏng vấn giáo viên |
 
-Tiêu chí nghiệm thu demo (trước T9): mọi E2E xanh; 81 tổ hợp đúng SRS-F-06, Q-02, Q-03; chạy thử trên
+Tiêu chí nghiệm thu demo (trước T9): mọi E2E xanh; 256 tổ hợp đúng SRS-F-06, Q-02, Q-03; chạy thử trên
 máy yếu thật của trường và một điện thoại; CSV không có trường định danh.
 
 ## 5. Phụ lục: câu hỏi mở (từ PRD, chưa chặn demo kỹ thuật)

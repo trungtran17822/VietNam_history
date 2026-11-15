@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { comparisonRows } from '../lib/comparison';
 import { isTimelineMode, type Section, type Source, type Status } from '../lib/lesson-schema';
 import { chapterAt, sectionProgress } from '../lib/timeline';
-import { getAllLessons, getLessonProgress, getStudentRun, getVisibleForStudent, saveLesson, saveLessonProgress, type AppLesson } from '../lib/storage';
+import { getAllLessons, getLessonProgress, getStudentRun, getVisibleForStudent, saveLesson, saveLessonProgress, saveQuizAnswer, type AppLesson } from '../lib/storage';
 import landmarks from '../content/atlas/landmarks.json';
 import { Player, type SceneHandle } from './Player';
 import { Icon, Modal, StatusChip } from './ui';
@@ -309,7 +309,10 @@ function Questions({ lesson, interactive }: { lesson: AppLesson; interactive: bo
                 <legend className="sr-only">Chọn một đáp án</legend>
                 {q.options.map((o) => (
                   <label key={o.id} className="variable-option">
-                    <input type="radio" name={`q-${q.id}`} value={o.id} checked={picked[q.id] === o.id} onChange={() => setPicked({ ...picked, [q.id]: o.id })} />
+                    <input type="radio" name={`q-${q.id}`} value={o.id} checked={picked[q.id] === o.id} onChange={() => {
+                      setPicked({ ...picked, [q.id]: o.id });
+                      if (interactive) saveQuizAnswer(lesson.id, q.id, o.id);
+                    }} />
                     <span>{o.text}{!interactive && o.isCorrect && <span className="original-badge">Đáp án</span>}</span>
                   </label>
                 ))}

@@ -1,4 +1,4 @@
-// SC-002 (determinism over all 81 combinations), SC-008 (no grading words), FR-006 (numbers trace
+// SC-002 (determinism over all 256 combinations), SC-008 (no grading words), FR-006 (numbers trace
 // to coefficients), FR-020 (visibility), the lesson contract and the v1 → v2 storage migration.
 import { beforeEach, describe, expect, test } from 'vitest';
 import pilotJson from '../content/lessons/ngoc-hoi-ha-hoi-1789.json';
@@ -36,9 +36,10 @@ describe('lesson contract (plan §4.1)', () => {
     expect(JSON.stringify(lesson)).toBe(JSON.stringify(nfc(lesson)));
   });
 
-  test('pilot runs all 6 stages: 4 variables x 3 options, one original with zero deltas', () => {
+  test('pilot runs all 6 stages: 4 variables x 4 options, one original with zero deltas', () => {
     expect(playabilityIssues(pilot)).toEqual([]);
-    expect(combos).toHaveLength(81);
+    expect(variables.map((v) => v.options.length)).toEqual([4, 4, 4, 4]);
+    expect(combos).toHaveLength(256);
   });
 
   test('a variable with two originals or a non-zero original is rejected', () => {
