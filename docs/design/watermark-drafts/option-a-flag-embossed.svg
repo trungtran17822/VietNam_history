@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<title>Quốc kỳ - chìm nổi</title>
+<defs>
+<filter id="emboss" x="-5%" y="-5%" width="110%" height="110%">
+<feGaussianBlur in="SourceAlpha" stdDeviation="3" result="b"/>
+<feSpecularLighting in="b" surfaceScale="5" specularConstant="0.9" specularExponent="18" lighting-color="#fff" result="hi"><feDistantLight azimuth="225" elevation="45"/></feSpecularLighting>
+<feComposite in="hi" in2="SourceAlpha" operator="in" result="hi2"/>
+<feOffset in="SourceAlpha" dx="3" dy="3" result="o"/>
+<feGaussianBlur in="o" stdDeviation="3" result="ob"/>
+<feComposite in="SourceAlpha" in2="ob" operator="out" result="inner"/>
+<feFlood flood-color="#3a0d0a" flood-opacity="0.55"/>
+<feComposite in2="inner" operator="in" result="shade"/>
+<feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="shade"/><feMergeNode in="hi2"/></feMerge>
+</filter>
+</defs>
+<rect width="900" height="600" fill="#F6F1E4"/>
+<g filter="url(#emboss)" opacity="0.16">
+<rect x="90" y="60" width="720" height="480" rx="4" fill="#B3261E"/>
+<polygon points="450.0,140.0 488.2,257.5 611.7,257.5 511.8,330.1 549.9,447.5 450.0,374.9 350.1,447.5 388.2,330.1 288.3,257.5 411.8,257.5" fill="#C9A227"/>
+</g>
+</svg>
