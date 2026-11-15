@@ -371,6 +371,8 @@
       this.bindMapCamera();
       this.setQuality(this.options.quality);
       this.updateTimeline(0);
+      // Warm-up: compile shaders and upload textures now so the first Play does not stall.
+      try { this.renderer.compile(this.scene, this.camera); this.renderer.render(this.scene, this.camera); } catch (error) { /* compile is best-effort */ }
       this.animate = this.animate.bind(this);
       this.onResizeBound = this.onResize.bind(this);
       window.addEventListener('resize', this.onResizeBound);
@@ -537,14 +539,23 @@
 
     buildSceneLabels() {
       const definitions = [
-        { text: 'Vùng bố trí', position: [0, .7, -27] },
-        { text: 'Địa hình trũng', position: [72, .7, 18] },
-        { text: 'Dải nước', position: [-82, .7, -55] }
+        { text: 'Vùng bố trí', position: [0, .7, -27], info: 'Khu vực quân đội tập kết và dựng thế trận trước giờ xuất kích. Đây là nơi bố trí lực lượng chính, vật cản và các điểm quan sát. Mô tả chung, mang tính minh họa.' },
+        { text: 'Địa hình trũng', position: [72, .7, 18], info: 'Vùng đất thấp, ẩm và nhiều bùn lầy, gây khó khăn cho việc di chuyển của đội hình lớn. Địa hình kiểu này thường làm chậm bước tiến và hạn chế tầm nhìn. Mô tả chung, mang tính minh họa.' },
+        { text: 'Dải nước', position: [-82, .7, -55], info: 'Sông hoặc đầm nước chạy dọc một phía bãi chiến trường, vừa là ranh giới tự nhiên vừa là đường cản bước. Đây là mô tả chung, mang tính minh họa, chưa được chuyên gia duyệt.' }
       ];
+      this.atlasPopover = null;
+      this.onAtlasKey = (event) => { if (event.key === 'Escape' && this.atlasPopover) this.closeAtlasPopover(); };
+      document.addEventListener('keydown', this.onAtlasKey);
       definitions.forEach((definition) => {
         const label = document.createElement('span');
-        label.className = 'lesson-scene-label';
+        label.className = 'lesson-scene-label lesson-scene-label-atlas';
+        label.setAttribute('role', 'button');
+        label.tabIndex = 0;
+        label.setAttribute('aria-haspopup', 'dialog');
         label.textContent = window.normalizeVietnamese ? window.normalizeVietnamese(definition.text) : definition.text;
+        const open = () => this.openAtlasPopover(definition, label);
+        label.addEventListener('click', (event) => { event.stopPropagation(); open(); });
+        label.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); } });
         this.container.appendChild(label);
         this.floatingLabels.push({ element: label, position: new THREE.Vector3(...definition.position) });
       });
@@ -552,6 +563,58 @@
       this.costumeNote.className = 'lesson-scene-caveat';
       this.costumeNote.textContent = 'Trang phục và màu sắc chỉ là minh họa, chờ chuyên gia thẩm định';
       this.container.appendChild(this.costumeNote);
+    }
+
+    openAtlasPopover(definition, trigger) {
+      this.closeAtlasPopover();
+      const norm = (text) => (window.normalizeVietnamese ? window.normalizeVietnamese(text) : text);
+      const card = document.createElement('div');
+      card.className = 'lesson-atlas-popover';
+      card.setAttribute('role', 'dialog');
+      card.setAttribute('aria-label', norm(definition.text));
+      const title = document.createElement('strong');
+      title.className = 'lesson-atlas-title';
+      title.textContent = norm(definition.text);
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'lesson-atlas-close';
+      close.setAttribute('aria-label', 'Đóng');
+      close.textContent = '×';
+      close.addEventListener('click', (event) => { event.stopPropagation(); this.closeAtlasPopover(); });
+      // Mini-map: crop of the existing map artwork centred on the label (2D canvas, no extra WebGL).
+      const thumb = document.createElement('canvas');
+      thumb.className = 'lesson-atlas-thumb';
+      thumb.width = 180; thumb.height = 140;
+      try {
+        const centre = this.mapPosition(definition.position[0], definition.position[2]);
+        const cropW = 450, cropH = 350;
+        const sx = Math.max(0, Math.min(this.mapCanvas.width - cropW, centre.x - cropW / 2));
+        const sy = Math.max(0, Math.min(this.mapCanvas.height - cropH, centre.y - cropH / 2));
+        const ctx = thumb.getContext('2d');
+        ctx.drawImage(this.mapCanvas, sx, sy, cropW, cropH, 0, 0, thumb.width, thumb.height);
+        const px = (centre.x - sx) / cropW * thumb.width; const py = (centre.y - sy) / cropH * thumb.height;
+        ctx.strokeStyle = '#b3402e'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2); ctx.stroke();
+      } catch (error) { /* thumbnail is decorative */ }
+      thumb.setAttribute('role', 'img');
+      thumb.setAttribute('aria-label', `Bản đồ thu nhỏ quanh ${norm(definition.text)}`);
+      const body = document.createElement('p');
+      body.className = 'lesson-atlas-body';
+      body.textContent = norm(definition.info);
+      card.append(close, title, thumb, body);
+      card.addEventListener('pointerdown', (event) => event.stopPropagation());
+      card.addEventListener('wheel', (event) => event.stopPropagation());
+      this.container.appendChild(card);
+      this.atlasPopover = card;
+      this.atlasTrigger = trigger;
+      close.focus();
+    }
+
+    closeAtlasPopover() {
+      if (!this.atlasPopover) return;
+      this.atlasPopover.remove();
+      this.atlasPopover = null;
+      if (this.atlasTrigger && this.atlasTrigger.isConnected) this.atlasTrigger.focus();
+      this.atlasTrigger = null;
     }
 
     bindMapCamera() {
@@ -610,19 +673,26 @@
       const keyframes = this.options.lessonConfig && this.options.lessonConfig.simulation && this.options.lessonConfig.simulation.keyframes || [];
       const keyframe = keyframes.filter((frame) => time >= Number(frame.time || 0)).pop();
       if (keyframe && keyframe.preset && keyframe.preset !== this.activePreset && time > 0) this.setCameraPreset(keyframe.preset);
+      const now = performance.now();
+      const staticDue = !this._lastStaticUpdate || now - this._lastStaticUpdate >= 50 || time !== this._lastStaticTime;
+      const dummy = this._dummy || (this._dummy = new THREE.Object3D());
+      // Units start marching right away (no dead time) and arrive at 92% of the timeline.
+      const localProgress = Math.max(0, Math.min(1, (time - .02) / .9));
       Object.keys(this.meshGroups).forEach((key) => {
         const group = this.meshGroups[key];
-        const dummy = new THREE.Object3D();
+        const isTroops = group.groupName === 'troops';
         group.meshes.forEach((batch) => {
+          // Skip batches nothing changed in: props only sway slowly, so ~20 Hz is plenty.
+          if (!isTroops && !staticDue && batch.drawn && batch.lastCount === batch.mesh.count) return;
+          batch.drawn = true; batch.lastCount = batch.mesh.count;
           for (let index = 0; index < batch.mesh.count; index++) {
             const record = batch.records[index];
             const moving = record.startX !== undefined && record.endX !== undefined;
-            const localProgress = moving ? Math.max(0, Math.min(1, (time - .2) / .72)) : 0;
             const x = moving ? record.startX + (record.endX - record.startX) * localProgress : record.x;
             const z = moving ? record.startZ + (record.endZ - record.startZ) * localProgress : record.z;
-            const bob = group.groupName === 'troops' ? Math.sin(time * 16 + record.phase) * .22 : Math.sin(performance.now() * .0014 + record.phase) * .07;
+            const bob = isTroops ? Math.sin(time * 16 + record.phase) * .22 : Math.sin(now * .0014 + record.phase) * .07;
             dummy.position.set(x, .38 + bob, z);
-            dummy.rotation.set(-Math.PI / 2, 0, record.rotation + Math.sin(performance.now() * .001 + record.phase) * .035);
+            dummy.rotation.set(-Math.PI / 2, 0, record.rotation + Math.sin(now * .001 + record.phase) * .035);
             dummy.scale.set(record.scale, record.scale, record.scale);
             dummy.updateMatrix(); batch.mesh.setMatrixAt(index, dummy.matrix);
             dummy.position.set(x, .07, z);
@@ -633,6 +703,7 @@
           batch.mesh.instanceMatrix.needsUpdate = true; batch.shadows.instanceMatrix.needsUpdate = true;
         });
       });
+      if (staticDue) { this._lastStaticUpdate = now; this._lastStaticTime = time; }
       if (this.options.onProgressUpdate) this.options.onProgressUpdate(this.currentTime);
     }
 
@@ -766,6 +837,8 @@
       this.destroyed = true;
       cancelAnimationFrame(this.animationFrameId);
       window.removeEventListener('resize', this.onResizeBound);
+      if (this.onAtlasKey) document.removeEventListener('keydown', this.onAtlasKey);
+      if (this.atlasPopover) { this.atlasPopover.remove(); this.atlasPopover = null; }
       this.floatingLabels.forEach((label) => label.element.remove());
       if (this.costumeNote) this.costumeNote.remove();
       this.scene.traverse((object) => { if (object.geometry) object.geometry.dispose(); });
