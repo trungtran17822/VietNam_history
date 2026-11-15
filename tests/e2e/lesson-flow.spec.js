@@ -103,7 +103,7 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
   expect(await readComparison(page)).toEqual(first);
 });
 
-test('lesson without variables explains it and blocks stages 4-6', async ({ page }) => {
+test('lesson without variables explains it, blocks stages 4 and 6 and offers the opinion summary at stage 5', async ({ page }) => {
   await login(page, 'teacher');
   // Every bundled lesson now has variables; a blank lesson is the one without.
   await page.click('#btn-create-lesson');
@@ -113,5 +113,13 @@ test('lesson without variables explains it and blocks stages 4-6', async ({ page
   await expect(page.locator('#question-empty-notice')).toBeVisible();
   await expect(page.locator('#question-empty-notice')).toContainText('chưa có phần thử cách khác');
   await expect(page.locator('#btn-run-simulation')).toBeHidden();
-  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="4"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="6"]')).toBeDisabled();
+  // Stage 5 is the opinion summary: no comparison, no simulation notice, the mandatory label stays.
+  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toBeEnabled();
+  await page.click('#btn-goto-opinion-summary');
+  await expect(page.locator('#screen-opinion-summary')).toBeVisible();
+  await expect(page.locator('#screen-comparison')).toHaveCount(0);
+  await expect(page.locator('#screen-opinion-summary')).toContainText('ý kiến thảo luận minh họa');
+  await expect(page.locator('body')).toContainText('Nội dung minh họa, chưa được chuyên gia duyệt');
 });

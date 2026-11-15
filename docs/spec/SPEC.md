@@ -116,13 +116,15 @@ Status key: **Built** = works in the prototype; **Partial**; **Not built**. "Bui
 | F2 | Built | Play/pause toggle, rewind, timeline slider and camera presets in the lesson page and in the 6-stage screens ([Player.tsx](../../frontend/src/components/Player.tsx)) |
 | F3 | Built (unverified sources) | Each chapter has narration, caption, time label and a "Xem nguồn" button ([LessonPage.tsx](../../frontend/src/components/LessonPage.tsx)). Sources are inline `{book, chapter, quote, note}` strings (e.g. *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); nothing in the repo checks them against a catalogue (see §12 item 1) |
 | F4 | Built | `question.character` speech plus question `q-3` flagged `isEmperorQuestion` |
-| F5 | Built | 4 variables × 3 options = 81 combinations (§9.2). Options exceed the PRD's minimum of 2; their historical grounding is unreviewed |
-| F6 | Built, verified | All 81 combinations run twice through `calculate` give identical output (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). The engine has no randomness. Visual jitter of units in the scene uses `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); it does not change any number |
+| F5 | Built | 4 variables × 4 options = 256 combinations (§9.2; the pilot lesson has a 4th option per variable and per multiple-choice question, `revision` 2). Options exceed the PRD's minimum of 2; their historical grounding is unreviewed |
+| F6 | Built, verified | All 256 combinations run twice through `calculate` give identical output (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). The engine has no randomness. Visual jitter of units in the scene uses `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); it does not change any number |
 | F7 | Built | Notice "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." shown first on the comparison screen (`SIMULATION_NOTICE` in [ui.tsx](../../frontend/src/components/ui.tsx), used by [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx); `scripts/check.sh` fails if it disappears); under it the line "* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa." (`SIMULATION_NOTICE_NOTE`, also checked); assumptions rendered from `appliedAssumptions` |
 | F8 | Built | `generateExplanation` picks the scripted `variableFeedbacks[variable][option]` text plus an intro and an encouraging conclusion ([engine.ts](../../frontend/src/lib/engine.ts), [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx)). Scripted, no LLM |
 | F9 | **Not built** | No LLM, no server, by design of the prototype |
 | F10 | Built (minimal) | Class session on stage 3: the teacher opens a 6-character code, students join on their own devices, the teacher sees answer count and per-option bars (polling every 4 s). Backend: Cloudflare Worker + D1 in `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Spec: `specs/001-classroom-sim-demo/` |
 | F11 | Built (minimal) | Per device in a class session: choices, time used and an optional 3-question survey (1-5) on stage 6. The teacher downloads a CSV with anonymous ids (A01…) and no identity columns, and can delete the session. Sessions expire after 12 h; data is purged after 180 days. Paper forms stay the fallback |
+
+**Classroom extras on top of the PRD** (post-S5, ported from the v1 feedback round): (1) **Word / PDF export** in the editor ([docx-export.ts](../../frontend/src/lib/docx-export.ts): a hand-built OOXML package in a store-only ZIP, and a print page for "Save as PDF"; both carry the label "Nội dung minh họa, chưa được chuyên gia duyệt" and export the unsaved draft); (2) **opinion summary**: a lesson without variables opens stage 5 as "Tổng kết ý kiến" ([OpinionSummary.tsx](../../frontend/src/components/OpinionSummary.tsx)) showing the student's answers and how often each option was picked **on this device** (`saveQuizAnswer` / `getQuizAnswers` in [storage.ts](../../frontend/src/lib/storage.ts), no names), instead of a comparison; stages 4 and 6 stay closed; (3) **label popover**: a scene label with an optional `info` text is clickable and opens a small card (Esc or × closes it), editable per label in the editor; (4) the scene compiles its shaders once at start so the first Play does not stall.
 
 **Ten bundled lessons.** Six run the 6 stages in full (v2 session S2, below). Four more are Trung's SGK lessons (v2 session S5, ported from `origin/Process`): Bài 1 Nước Nga và Liên Xô, Bài 2 Châu Âu và nước Mỹ, Bài 3 Châu Á (timeline mode, no 3D table) and Bài 4 Chiến tranh thế giới thứ hai (3D table with a schematic Stalingrad scene). They have 1 variable × 2 options, review flags for the teacher and no atlas links; their text is audited against the textbook extracts in `history_data/` (`scripts/check-lesson-grounding.mjs`, part of `npm run check`). Details: `specs/002-v2-tanstack-atlas/notes/s5-trung-sgk.md`.
 
@@ -155,6 +157,8 @@ frontend/
 | `lib/audio.ts` | Procedural Web Audio battle sound |
 | `lib/class-session.ts` | Class session API client: open/join/submit/summary/CSV/delete, teacher key and student id in `localStorage`; API origin per environment (`localhost` → `:8787`; deployed → `DEPLOYED_API_BASE` or `VITE_API_BASE`, empty turns class features off) |
 | `scene/silk-map.ts` | `SilkMapScene`: three.js silk-map renderer driven by `simulation.scene`; `InstancedMesh` sprites; 4 camera presets; HTML overlays for terrain labels (never text in canvas/geometry); PNGs in `src/scene/sprites/` override procedural sprites |
+| `lib/docx-export.ts` | Lesson → Word (.docx, hand-built OOXML in a store-only ZIP) and a print page for PDF; dependency-free, unit-tested |
+| `components/OpinionSummary.tsx` | Stage 5 of a lesson without variables: the student's answers and per-device option counts (`getQuizAnswers` in `lib/storage.ts`) |
 | `components/StageLoop.tsx` | 6-stage loop |
 | `components/Editor.tsx`, `VariablesEditor.tsx` | Teacher editor with undo/redo; tab "Biến số & hệ số" edits baseline, character, variables and options (exactly one original, 3 coefficients, assumptions, stage-6 feedback) with a live try-out |
 | `components/ClassPanel.tsx` | Stage 3 teacher panel / student join card and stage 6 survey |
@@ -188,7 +192,7 @@ frontend/
 | Exploration mode | `explorationMode?`: absent or ending in `_3d` = 3D sand table; any other value (`ussr_charts`, `depression_charts`, `asia_map`, ...) = timeline mode (stepped timeline player, no three.js, `simulation` and `factions` optional). `isTimelineMode(lesson)` in `lesson-schema.ts` |
 | Timeline lessons | `timeline?[{year, event}]` (steps of the timeline player; without it the sections are the steps), `sourceCitation?`, `reviewFlags?[]` (shown verbatim to the teacher in the editor), `comparisonMetrics?[{id?, label, unit?, origFormatted?}]` (up to 3; relabel duration, casualties and score on the comparison screen, e.g. "Sản lượng công nghiệp nặng: 90 / 100") |
 | Factions | `factions? {a {name, color}, b {name, color}}` (required for 3D lessons) |
-| Scene | `simulation? {schematicNotice?, propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; feature types river, hill, fort, village, forest, road, marsh, airfield, camp, stakes; routes are drawn on the table as the timeline reaches them; camera presets are fixed in the renderer (overview, follow_troops, close_up, top_down) |
+| Scene | `simulation? {schematicNotice?, propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[] {text, at, info?}, routes[], formations, aSpecialKind, bSpecialKind}}`; feature types river, hill, fort, village, forest, road, marsh, airfield, camp, stakes; routes are drawn on the table as the timeline reaches them; camera presets are fixed in the renderer (overview, follow_troops, close_up, top_down) |
 | The character's question | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
 | Variables | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
 | Explanation | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
@@ -217,7 +221,7 @@ Outcome tone from `student.positionScore`: identical to original → `perfect`; 
 | 3. Che chắn | `wet_straw_shields` | `standard_wood_shields` -4/+850/-15; `dispersed_rush` -6/+1400/-28 |
 | 4. Voi chiến | `elephants_vanguard` | `elephants_reserve` +6/+550/-12; `cavalry_instead` -2/+1200/-24 |
 
-**Measured over all 81 combinations:** deterministic (two runs identical); exactly 1 combination equals the original; duration 28-234 h; casualties 1,400-6,450; score 10-95. Tone counts: `perfect` 1, `positive` 4, `moderate` 13, **`challenging` 63**.
+**Measured over all 256 combinations:** deterministic (two runs identical); exactly 1 combination equals the original; duration 28-254 h; casualties 1,400-6,450; score 10-95. Tone counts: `perfect` 1, `positive` 10, `moderate` 55, **`challenging` 190**.
 
 > Design concern, not a bug: 63 of the 80 alternative plans (79%) end in the `challenging` tone. Combined with the explanation texts, a student who changes almost anything is told the plan fared badly. That sits uneasily with the PRD rule that the character must not make students feel graded. Decide with the history advisor whether coefficients should be rebalanced so plausible alternatives are not nearly all "challenging". Do it in the data, not the engine.
 
@@ -233,7 +237,7 @@ Outcome tone from `student.positionScore`: identical to original → `perfect`; 
 Automated, all run in CI on every push (`npm test` locally):
 
 - `bash scripts/check.sh` (also `/check`): `tsc` (strict) on `frontend/src`; every lesson JSON passes the zod schema; the mandatory labels are still in the source; every source file is NFC; local references in `index.html` exist; `node --check` on the backend sources.
-- Unit (`npm run test:unit`: Vitest for `frontend/src/lib`, `node:test` for the backend): lesson schema, v1 data migration, engine determinism over all 81 combinations × 2, exactly one combination equals the original, every number traces to coefficients, no grading words, student visibility rule; backend API (validation, merge/replace, 60-answer cap, expiry, teacher key, CSV, purge, CORS).
+- Unit (`npm run test:unit`: Vitest for `frontend/src/lib`, `node:test` for the backend): lesson schema, v1 data migration, engine determinism over all 256 combinations × 2, exactly one combination equals the original, every number traces to coefficients, no grading words, student visibility rule; backend API (validation, merge/replace, 60-answer cap, expiry, teacher key, CSV, purge, CORS).
 - Atlas (`npm run atlas:test`, `node:test`): 34 units, the two archipelagos, landmarks inside their provinces, ids, NFC, size budget, search scoring, and every `atlasPlaceIds` value resolving to a real place (a lesson may omit the field; world-history lessons do).
 - Grounding audit (`node scripts/check-lesson-grounding.mjs`, also step 7 of `check.sh`): the years, dates, transliterated names and decimals in the four SGK lessons all occur in `history_data/*.md`, and no term known to be outside the source appears.
 - Build + `npm run budget`: the JS of a first visit (entry + modulepreloads) ≤ 200 KB gzip; three.js and the atlas only in lazy chunks.
@@ -244,7 +248,7 @@ Automated, all run in CI on every push (`npm test` locally):
 **Acceptance checklist for the demo (to be run by T9, before the class trial)**
 
 1. All 6 stages complete without console errors, in teacher and student mode, on a real low-end school machine and a phone.
-2. Comparison screen shows the simulation notice and the assumption list for every one of the 81 combinations.
+2. Comparison screen shows the simulation notice and the assumption list for every one of the 256 combinations.
 3. Same choices give the same numbers across reloads (automated: `frontend/src/lib/domain.test.ts`, `tests/e2e/lesson-flow.spec.js`).
 4. Student mode never shows `privateNotes`, and never shows a lesson that is not `Đã dạy` with `date <= today`.
 5. Every displayed event has a source the advisor has approved; no content reaches students unapproved.

@@ -10,6 +10,7 @@ import { isTimelineMode } from '../lib/lesson-schema';
 import { sectionProgress } from '../lib/timeline';
 import { saveStudentRun, type AppLesson } from '../lib/storage';
 import { ClassPanel, Survey, submitChoices, surveyVisible } from './ClassPanel';
+import { OpinionSummary } from './OpinionSummary';
 import { Player, type SceneHandle } from './Player';
 import { Icon, Modal, SIMULATION_NOTICE, SIMULATION_NOTICE_NOTE } from './ui';
 
@@ -21,9 +22,14 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
   const variables = lesson.question?.variables ?? [];
   const hasVariables = variables.length > 0;
   const timeline = isTimelineMode(lesson);
-  const STEPS = stepNames(timeline);
+  // Without variables there is nothing to simulate: steps 4 and 6 stay closed and step 5 shows the
+  // class's own answers (OpinionSummary) instead of a comparison.
+  const STEPS = stepNames(timeline).map((name, i) => (i === 4 && !hasVariables ? 'Tổng kết ý kiến' : name));
   const rows = comparisonRows(lesson);
-  const clampStep = (n: number) => Math.min(hasVariables ? 6 : 3, Math.max(1, Math.round(n) || 1));
+  const clampStep = (n: number) => {
+    const step = Math.min(hasVariables ? 6 : 5, Math.max(1, Math.round(n) || 1));
+    return !hasVariables && step === 4 ? 5 : step;
+  };
   const [step, setStep] = useState(() => clampStep(initialStep ?? 1));
   const [choices, setChoices] = useState<Choices>(() => originalChoices(lesson));
   const [toast, setToast] = useState<{ text: string; tone: string } | null>(null);
@@ -44,7 +50,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
       return;
     }
     heading.current?.focus({ preventScroll: true });
-    const anchor = step === 5 ? document.querySelector('#screen-comparison .prominent-simulation-banner') : document.querySelector('.lesson-stepper');
+    const anchor = step === 5 && hasVariables ? document.querySelector('#screen-comparison .prominent-simulation-banner') : document.querySelector('.lesson-stepper');
     anchor?.scrollIntoView({ block: 'start' });
     document.querySelector(`.step-node[data-step="${step}"]`)?.scrollIntoView({ block: 'nearest', inline: 'center' });
   }, [step]);
@@ -87,7 +93,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
               data-step={n}
               data-screen={SCREENS[i]}
               aria-current={n === step ? 'step' : undefined}
-              disabled={n > 3 && !hasVariables}
+              disabled={n > 3 && n !== 5 && !hasVariables}
               onClick={() => goTo(n)}
             >
               <span className="step-num">{n < step ? <Icon name="check" className="h-3.5 w-3.5" /> : n}</span>
@@ -168,6 +174,11 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
                 <button id="btn-run-simulation" type="button" className="btn btn-primary" hidden={!hasVariables} onClick={run}>
                   Chạy mô phỏng phương án của em <Icon name="next" />
                 </button>
+                {!hasVariables && (
+                  <button id="btn-goto-opinion-summary" type="button" className="btn btn-primary" onClick={() => goTo(5)}>
+                    Xem tổng kết ý kiến <Icon name="next" />
+                  </button>
+                )}
               </div>
             </div>
           </section>
@@ -251,6 +262,8 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
             </Modal>
           </section>
         )}
+
+        {step === 5 && !hasVariables && <OpinionSummary lesson={lesson} onBack={() => goTo(3)} onFinish={() => navigate({ to: '/lesson/$id', params: { id: lesson.id } })} />}
 
         {step === 6 && <Explanation lesson={lesson} choices={choices} role={role} startedAt={startedAt} onRetry={() => goTo(3)} onFinish={() => navigate({ to: '/lesson/$id', params: { id: lesson.id } })} />}
       </div>

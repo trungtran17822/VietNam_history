@@ -63,6 +63,8 @@ Bài chưa có biến số thì bước 3 nói rõ "Bài học này chưa có ph
 Năm thẻ: **Nội dung** (thông tin bài, các giai đoạn và nguồn), **Câu hỏi**, **Biến số & hệ số**,
 **Sa bàn 3D**, **Ghi chú**. Hoàn tác/làm lại cho mọi thay đổi (nút hoặc Ctrl+Z / Ctrl+Shift+Z ngoài ô
 nhập). Bài chỉ lưu được khi qua kiểm tra zod (`lib/lesson-schema.ts`); lỗi hiện thành danh sách tiếng Việt.
+Nút **Word** và **PDF** trên thanh công cụ xuất bài đang soạn (kể cả phần chưa lưu) qua `lib/docx-export.ts`: Word là tệp .docx tự dựng, PDF mở hộp thoại in để chọn "Lưu thành PDF". Mỗi nhãn trên sa bàn có thể kèm mô tả ngắn (`info`) hiện thành thẻ nhỏ khi bấm vào nhãn.
+Bài không có biến số vẫn đi tới giai đoạn 5 "Tổng kết ý kiến" (`components/OpinionSummary.tsx`): câu trả lời trắc nghiệm của em và số lượt chọn từng đáp án trên thiết bị này, không lưu tên.
 
 Thẻ **Biến số & hệ số**:
 

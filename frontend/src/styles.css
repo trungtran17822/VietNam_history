@@ -177,6 +177,14 @@
   .player-canvas-mount canvas { display: block; width: 100% !important; height: 100% !important; }
   .lesson-scene-label { position: absolute; transform: translate(-50%, -50%); pointer-events: none; font-family: var(--font-serif); font-size: 0.875rem; font-weight: 600; color: var(--ink); background: color-mix(in srgb, var(--silk-light) 85%, transparent); padding: 1px 8px; border-radius: 4px; white-space: nowrap; }
   .lesson-scene-caveat { position: absolute; left: 10px; bottom: 8px; pointer-events: none; font-size: 0.8125rem; color: var(--color-notice-ink); background: color-mix(in srgb, var(--silk-light) 90%, transparent); padding: 2px 8px; border-radius: 4px; max-width: calc(100% - 20px); }
+  /* A label with an `info` text is clickable and opens a small card (scene/silk-map.ts). */
+  .lesson-scene-label-info { pointer-events: auto; cursor: pointer; }
+  .lesson-scene-label-info:hover, .lesson-scene-label-info:focus-visible { outline: 2px solid var(--color-action); outline-offset: 1px; }
+  .lesson-scene-popover { position: absolute; z-index: 5; top: 12px; right: 12px; width: min(15rem, calc(100% - 24px)); padding: 10px 12px 12px; border: 1px solid var(--color-rule); border-radius: 8px; background: var(--color-card); color: var(--color-ink); box-shadow: 0 6px 20px color-mix(in srgb, var(--color-ink) 25%, transparent); font-size: 0.8125rem; line-height: 1.45; }
+  .lesson-scene-popover-title { display: block; margin: 0 28px 6px 0; font-family: var(--font-serif); font-size: 0.9375rem; }
+  .lesson-scene-popover p { margin: 0; }
+  .lesson-scene-popover-close { position: absolute; top: 2px; right: 2px; width: 32px; height: 32px; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; cursor: pointer; border-radius: 6px; }
+  .lesson-scene-popover-close:hover { background: var(--color-action-tint); }
   .scene-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-muted); font-size: 0.875rem; }
   .btn-cam-pill { min-height: 36px; padding: 6px 12px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; background: color-mix(in srgb, var(--color-card) 92%, transparent); border: 1px solid var(--color-rule); color: var(--color-ink); white-space: nowrap; }
   .btn-cam-pill.active { background: var(--color-lacquer); color: var(--color-page); border-color: var(--color-lacquer); }

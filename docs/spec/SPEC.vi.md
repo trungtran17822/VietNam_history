@@ -118,13 +118,15 @@ Chú giải: **Đã có** = chạy được trong prototype; **Một phần**; *
 | F2 | Đã có | Nút phát/tạm dừng, tua lại, thanh dòng thời gian và các góc nhìn trên trang bài học và trong các màn hình 6 giai đoạn ([Player.tsx](../../frontend/src/components/Player.tsx)) |
 | F3 | Đã có (nguồn chưa kiểm chứng) | Mỗi chương có thuyết minh, chú thích, nhãn thời gian và nút "Xem nguồn" ([LessonPage.tsx](../../frontend/src/components/LessonPage.tsx)). Nguồn là các chuỗi `{book, chapter, quote, note}` nằm ngay trong dữ liệu (ví dụ *Hoàng Lê nhất thống chí*, *Đại Nam chính biên liệt truyện*); không có gì trong repo đối chiếu chúng với danh mục nguồn (xem mục 12 điểm 1) |
 | F4 | Đã có | Lời thoại `question.character` cùng câu hỏi `q-3` có cờ `isEmperorQuestion` |
-| F5 | Đã có | 4 biến số × 3 phương án = 81 tổ hợp (mục 9.2). Số phương án vượt mức tối thiểu 2 của PRD; cơ sở lịch sử của chúng chưa được duyệt |
-| F6 | Đã có, đã kiểm chứng | Cả 81 tổ hợp chạy hai lần qua `calculate` cho kết quả giống hệt nhau (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). Bộ máy không có yếu tố ngẫu nhiên. Việc đơn vị trong cảnh xê dịch ngẫu nhiên dùng `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); không làm thay đổi con số nào |
+| F5 | Đã có | 4 biến số × 4 phương án = 256 tổ hợp (mục 9.2; bài thí điểm có phương án thứ 4 cho mỗi biến số và mỗi câu trắc nghiệm, `revision` 2). Số phương án vượt mức tối thiểu 2 của PRD; cơ sở lịch sử của chúng chưa được duyệt |
+| F6 | Đã có, đã kiểm chứng | Cả 256 tổ hợp chạy hai lần qua `calculate` cho kết quả giống hệt nhau (Vitest, [domain.test.ts](../../frontend/src/lib/domain.test.ts)). Bộ máy không có yếu tố ngẫu nhiên. Việc đơn vị trong cảnh xê dịch ngẫu nhiên dùng `Math.random` ([silk-map.ts](../../frontend/src/scene/silk-map.ts)); không làm thay đổi con số nào |
 | F7 | Đã có | Thông báo "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ." luôn đứng đầu màn hình so sánh (`SIMULATION_NOTICE` trong [ui.tsx](../../frontend/src/components/ui.tsx), dùng ở [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx); `scripts/check.sh` báo lỗi nếu nó biến mất); giả định hiển thị từ `appliedAssumptions`; ngay dưới có dòng "* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa." (`SIMULATION_NOTICE_NOTE`, cũng được `check.sh` kiểm tra) |
 | F8 | Đã có | `generateExplanation` chọn đoạn `variableFeedbacks[variable][option]` có sẵn, kèm lời mở đầu và lời kết khích lệ ([engine.ts](../../frontend/src/lib/engine.ts), [StageLoop.tsx](../../frontend/src/components/StageLoop.tsx)). Kịch bản có sẵn, không dùng LLM |
 | F9 | **Chưa có** | Không có LLM, không có máy chủ, do cách thiết kế của prototype |
 | F10 | Đã có (tối thiểu) | Phiên lớp học ở giai đoạn 3: giáo viên mở mã 6 ký tự, học sinh tham gia trên máy của mình, giáo viên thấy số bài đã gửi và thanh tỉ lệ cho từng phương án (cập nhật mỗi 4 giây). Backend: Cloudflare Worker + D1 trong `backend/`; frontend: [class-session.ts](../../frontend/src/lib/class-session.ts), [ClassPanel.tsx](../../frontend/src/components/ClassPanel.tsx). Đặc tả: `specs/001-classroom-sim-demo/` |
 | F11 | Đã có (tối thiểu) | Theo từng máy trong phiên lớp: lựa chọn, thời gian dùng và khảo sát 3 câu (1-5, không bắt buộc) ở giai đoạn 6. Giáo viên tải CSV với mã ẩn danh (A01…), không có cột định danh, và có thể xoá phiên. Phiên hết hạn sau 12 giờ; dữ liệu tự xoá sau 180 ngày. Phiếu giấy vẫn là phương án dự phòng |
+
+**Tiện ích lớp học ngoài PRD** (sau S5, port từ đợt góp ý v1): (1) **Xuất Word / PDF** trong trình soạn bài ([docx-export.ts](../../frontend/src/lib/docx-export.ts): gói OOXML tự dựng trong ZIP không nén, và trang in cho "Lưu thành PDF"; cả hai đều mang nhãn "Nội dung minh họa, chưa được chuyên gia duyệt" và xuất cả bản nháp chưa lưu); (2) **tổng kết ý kiến**: bài không có biến số mở giai đoạn 5 thành "Tổng kết ý kiến" ([OpinionSummary.tsx](../../frontend/src/components/OpinionSummary.tsx)), hiện câu trả lời của học sinh và số lượt chọn từng đáp án **trên thiết bị này** (`saveQuizAnswer` / `getQuizAnswers` trong [storage.ts](../../frontend/src/lib/storage.ts), không lưu tên) thay cho bảng so sánh; giai đoạn 4 và 6 vẫn đóng; (3) **thẻ thông tin nhãn**: nhãn trên sa bàn có trường `info` tùy chọn thì bấm được và mở thẻ nhỏ (Esc hoặc × để đóng), sửa được từng nhãn trong trình soạn bài; (4) sa bàn biên dịch shader ngay khi khởi tạo để lần Phát đầu tiên không bị khựng.
 
 **Có mười bài mẫu.** Sáu bài chạy đủ 6 giai đoạn (phiên v2 S2, bên dưới). Bốn bài còn lại là các bài SGK của Trung (phiên v2 S5, chuyển từ nhánh `origin/Process`): Bài 1 Nước Nga và Liên Xô, Bài 2 Châu Âu và nước Mỹ, Bài 3 Châu Á (chế độ trục thời gian, không có sa bàn 3D) và Bài 4 Chiến tranh thế giới thứ hai (sa bàn 3D, cảnh sơ đồ Xta-lin-grát). Mỗi bài có 1 biến số × 2 phương án, cờ rà soát cho giáo viên và không liên kết với atlas; nội dung được đối chiếu với trích đoạn sách giáo khoa trong `history_data/` (`scripts/check-lesson-grounding.mjs`, nằm trong `npm run check`). Chi tiết: `specs/002-v2-tanstack-atlas/notes/s5-trung-sgk.md`.
 
@@ -157,6 +159,8 @@ frontend/
 | `lib/audio.ts` | Âm thanh trận đánh sinh bằng Web Audio |
 | `lib/class-session.ts` | Client API phiên lớp: mở/tham gia/gửi/tổng hợp/CSV/xoá, khoá giáo viên và mã học sinh trong `localStorage`; địa chỉ API theo môi trường (`localhost` → `:8787`; đã triển khai → `DEPLOYED_API_BASE` hoặc `VITE_API_BASE`, để trống thì tắt tính năng lớp học) |
 | `scene/silk-map.ts` | `SilkMapScene`: trình dựng bản đồ lụa Three.js theo `simulation.scene`; sprite `InstancedMesh`; 4 góc nhìn; nhãn địa hình là lớp phủ HTML (không bao giờ là chữ trong canvas/hình học); PNG trong `src/scene/sprites/` ghi đè sprite sinh tự động |
+| `lib/docx-export.ts` | Bài học → Word (.docx, OOXML tự dựng trong ZIP không nén) và trang in cho PDF; không phụ thuộc thư viện, có unit test |
+| `components/OpinionSummary.tsx` | Giai đoạn 5 của bài không có biến số: câu trả lời của học sinh và số lượt chọn theo thiết bị (`getQuizAnswers` trong `lib/storage.ts`) |
 | `components/StageLoop.tsx` | Vòng 6 giai đoạn |
 | `components/Editor.tsx`, `VariablesEditor.tsx` | Trình soạn bài có hoàn tác/làm lại; thẻ "Biến số & hệ số" sửa số liệu gốc, nhân vật, biến số và phương án (đúng một phương án gốc, 3 hệ số, giả định, nhận xét bước 6) kèm ô thử nhanh |
 | `components/ClassPanel.tsx` | Bảng giáo viên / thẻ tham gia của học sinh ở giai đoạn 3 và khảo sát ở giai đoạn 6 |
@@ -190,7 +194,7 @@ frontend/
 | Chế độ khám phá | `explorationMode?`: vắng mặt hoặc kết thúc bằng `_3d` = sa bàn 3D; giá trị khác (`ussr_charts`, `depression_charts`, `asia_map`, ...) = chế độ trục thời gian (trình phát trục thời gian theo từng mốc, không nạp three.js, `simulation` và `factions` là tùy chọn). Hàm `isTimelineMode(lesson)` trong `lesson-schema.ts` |
 | Bài theo trục thời gian | `timeline?[{year, event}]` (các mốc của trình phát; không có thì dùng các giai đoạn), `sourceCitation?`, `reviewFlags?[]` (hiện nguyên văn cho giáo viên trong trình soạn), `comparisonMetrics?[{id?, label, unit?, origFormatted?}]` (tối đa 3; đổi tên thời gian, tổn thất, điểm ở màn hình so sánh, ví dụ "Sản lượng công nghiệp nặng: 90 / 100") |
 | Hai phe | `factions? {a {name, color}, b {name, color}}` (bắt buộc với bài sa bàn 3D) |
-| Cảnh | `simulation? {schematicNotice?, propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[], routes[], formations, aSpecialKind, bSpecialKind}}`; loại địa vật river, hill, fort, village, forest, road, marsh, airfield, camp, stakes (bãi cọc); đường tiến quân được vẽ lên mặt bàn khi dòng thời gian chạy tới; các góc camera cố định trong trình dựng (overview, follow_troops, close_up, top_down) |
+| Cảnh | `simulation? {schematicNotice?, propsConfig, unitCounts, keyframes[{time, preset}], outcomes, scene {terrain, features[], labels[] {text, at, info?}, routes[], formations, aSpecialKind, bSpecialKind}}`; loại địa vật river, hill, fort, village, forest, road, marsh, airfield, camp, stakes (bãi cọc); đường tiến quân được vẽ lên mặt bàn khi dòng thời gian chạy tới; các góc camera cố định trong trình dựng (overview, follow_troops, close_up, top_down) |
 | Câu hỏi của nhân vật | `question {character {name, dynasty, greeting, speech?}, originalLabel?, variables[]}` |
 | Biến số | `variables[] {id, title, options[] {id, name, shortName, desc, isOriginal, timeDelta, casualtyDelta, positionScoreDelta, assumptions}}` |
 | Giải thích | `explanations {intro, variableFeedbacks[varId][optId], encouragingConclusion}` |
@@ -219,7 +223,7 @@ Sắc thái kết quả theo `student.positionScore`: giống bản gốc → `p
 | 3. Che chắn | `wet_straw_shields` | `standard_wood_shields` -4/+850/-15; `dispersed_rush` -6/+1400/-28 |
 | 4. Voi chiến | `elephants_vanguard` | `elephants_reserve` +6/+550/-12; `cavalry_instead` -2/+1200/-24 |
 
-**Đo trên cả 81 tổ hợp:** xác định (hai lần chạy giống hệt); đúng 1 tổ hợp bằng bản gốc; thời gian 28-234 giờ; thương vong 1.400-6.450; điểm 10-95. Số lượng theo sắc thái: `perfect` 1, `positive` 4, `moderate` 13, **`challenging` 63**.
+**Đo trên cả 256 tổ hợp:** xác định (hai lần chạy giống hệt); đúng 1 tổ hợp bằng bản gốc; thời gian 28-254 giờ; thương vong 1.400-6.450; điểm 10-95. Số lượng theo sắc thái: `perfect` 1, `positive` 10, `moderate` 55, **`challenging` 190**.
 
 > Lo ngại về thiết kế, không phải lỗi: 63 trong 80 phương án khác bản gốc (79%) kết thúc ở sắc thái `challenging`. Kết hợp với các đoạn giải thích, học sinh đổi hầu như bất cứ điều gì cũng bị báo là kế hoạch kém. Điều này không phù hợp với quy tắc của PRD là nhân vật không được khiến học sinh cảm thấy bị chấm điểm. Hãy cùng cố vấn Lịch sử quyết định có nên cân lại hệ số để các phương án hợp lý không gần như đều là "challenging". Làm trong dữ liệu, không làm trong bộ máy.
 
@@ -235,7 +239,7 @@ Sắc thái kết quả theo `student.positionScore`: giống bản gốc → `p
 Tự động, chạy trong CI ở mọi lần push (`npm test` trên máy):
 
 - `bash scripts/check.sh` (cũng là `/check`): `tsc` (strict) cho `frontend/src`; mọi JSON bài học qua được lược đồ zod; các nhãn bắt buộc vẫn còn trong mã; mọi tệp nguồn ở dạng NFC; tham chiếu cục bộ trong `index.html` tồn tại; `node --check` cho mã backend.
-- Unit (`npm run test:unit`: Vitest cho `frontend/src/lib`, `node:test` cho backend): lược đồ bài học, chuyển dữ liệu v1, bộ máy cho cùng kết quả ở cả 81 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
+- Unit (`npm run test:unit`: Vitest cho `frontend/src/lib`, `node:test` cho backend): lược đồ bài học, chuyển dữ liệu v1, bộ máy cho cùng kết quả ở cả 256 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
 - Atlas (`npm run atlas:test`, `node:test`): 34 đơn vị, hai quần đảo, địa danh nằm trong tỉnh, id, NFC, dung lượng, chấm điểm tìm kiếm, và mọi `atlasPlaceIds` của bài giảng trỏ tới địa danh có thật.
 - Kiểm tra căn cứ (`node scripts/check-lesson-grounding.mjs`, cũng là bước 7 của `check.sh`): năm, ngày tháng, tên phiên âm và số thập phân trong bốn bài SGK đều có mặt trong `history_data/*.md`, và không có thuật ngữ nào đã biết là nằm ngoài nguồn.
 - Build + `npm run budget`: JS của lần vào đầu (entry + modulepreload) ≤ 200 KB gzip; three.js và atlas chỉ nằm trong chunk tải lười.
@@ -246,7 +250,7 @@ Tự động, chạy trong CI ở mọi lần push (`npm test` trên máy):
 **Danh sách chấp nhận cho demo (chạy xong trước T9, trước buổi dạy thử)**
 
 1. Cả 6 giai đoạn hoàn tất không có lỗi console, ở chế độ giáo viên và học sinh, trên một máy yếu thật của trường và một điện thoại.
-2. Màn hình so sánh hiện thông báo mô phỏng và danh sách giả định với từng tổ hợp trong 81 tổ hợp.
+2. Màn hình so sánh hiện thông báo mô phỏng và danh sách giả định với từng tổ hợp trong 256 tổ hợp.
 3. Cùng lựa chọn cho cùng số liệu qua các lần tải lại (đã tự động: `frontend/src/lib/domain.test.ts`, `tests/e2e/lesson-flow.spec.js`).
 4. Chế độ học sinh không bao giờ hiện `privateNotes`, và không bao giờ hiện bài học không thỏa cả hai điều kiện `Đã dạy` và `date <= today`.
 5. Mọi sự kiện hiển thị đều có nguồn mà cố vấn đã duyệt; không có nội dung nào đến học sinh khi chưa được duyệt.
