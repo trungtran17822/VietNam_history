@@ -160,3 +160,12 @@ html, body { overflow-x: clip; overflow-y: visible; }
 html { overflow-y: auto; }
 .emperor-card[hidden], .opinion-summary[hidden], #comparison-sim-content[hidden] { display: none !important; }
 .opinion-summary { padding: 24px; margin-bottom: 20px; }
+
+/* Atlas labels on the scene: clickable, with a small popover card. */
+.lesson-scene-label-atlas { pointer-events: auto; cursor: pointer; }
+.lesson-scene-label-atlas:hover, .lesson-scene-label-atlas:focus-visible { outline: 2px solid var(--vermilion, #b3402e); outline-offset: 1px; }
+.lesson-atlas-popover { position: absolute; z-index: 60; top: 12px; right: 12px; width: min(240px, calc(100% - 24px)); padding: 10px 12px 12px; border: 1px solid rgba(122,92,62,.5); background: rgba(251,247,236,.97); color: #2b2926; box-shadow: 0 6px 20px rgba(43,41,38,.25); font-size: .8rem; line-height: 1.45; }
+.lesson-atlas-title { display: block; margin: 0 28px 6px 0; font-size: .9rem; }
+.lesson-atlas-close { position: absolute; top: 4px; right: 4px; width: 32px; height: 32px; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+.lesson-atlas-thumb { display: block; width: 100%; height: auto; margin: 0 0 8px; border: 1px solid rgba(122,92,62,.35); }
+.lesson-atlas-body { margin: 0; }
