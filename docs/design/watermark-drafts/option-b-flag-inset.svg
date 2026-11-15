@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<title>Quốc kỳ - chìm</title>
+<defs>
+<filter id="sunk" x="-5%" y="-5%" width="110%" height="110%">
+<feOffset in="SourceAlpha" dx="4" dy="4" result="o1"/>
+<feGaussianBlur in="o1" stdDeviation="2.5" result="ob1"/>
+<feComposite in="SourceAlpha" in2="ob1" operator="out" result="dark"/>
+<feFlood flood-color="#2b1a10" flood-opacity="0.8"/>
+<feComposite in2="dark" operator="in" result="darkEdge"/>
+<feOffset in="SourceAlpha" dx="-3" dy="-3" result="o2"/>
+<feGaussianBlur in="o2" stdDeviation="2" result="ob2"/>
+<feComposite in="SourceAlpha" in2="ob2" operator="out" result="light"/>
+<feFlood flood-color="#ffffff" flood-opacity="0.9"/>
+<feComposite in2="light" operator="in" result="lightEdge"/>
+<feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="darkEdge"/><feMergeNode in="lightEdge"/></feMerge>
+</filter>
+</defs>
+<rect width="900" height="600" fill="#F4EEDD"/>
+<g filter="url(#sunk)" opacity="0.1">
+<rect x="90" y="60" width="720" height="480" rx="4" fill="#B3261E"/>
+<polygon points="450.0,140.0 488.2,257.5 611.7,257.5 511.8,330.1 549.9,447.5 450.0,374.9 350.1,447.5 388.2,330.1 288.3,257.5 411.8,257.5" fill="#C9A227"/>
+</g>
+</svg>
