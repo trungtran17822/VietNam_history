@@ -5,23 +5,24 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Role } from '../lib/auth';
 import { calculate, generateExplanation, originalChoices, type Choices } from '../lib/engine';
 import { isConfigured } from '../lib/class-session';
+import { comparisonRows } from '../lib/comparison';
+import { isTimelineMode } from '../lib/lesson-schema';
+import { sectionProgress } from '../lib/timeline';
 import { saveStudentRun, type AppLesson } from '../lib/storage';
 import { ClassPanel, Survey, submitChoices, surveyVisible } from './ClassPanel';
-import { sectionProgress } from './LessonPage';
-import { Player } from './Player';
-import type { SilkMapScene } from '../scene/silk-map';
-import { Icon, Modal, SIMULATION_NOTICE } from './ui';
+import { Player, type SceneHandle } from './Player';
+import { Icon, Modal, SIMULATION_NOTICE, SIMULATION_NOTICE_NOTE } from './ui';
 
-const STEPS = ['Khởi động', 'Khám phá sa bàn gốc', 'Câu hỏi của nhân vật', 'Thử cách khác', 'So sánh', 'Củng cố & Tổng kết'];
+const stepNames = (timeline: boolean) => ['Khởi động', timeline ? 'Khám phá trục thời gian' : 'Khám phá sa bàn gốc', 'Câu hỏi của nhân vật', 'Thử cách khác', 'So sánh', 'Củng cố & Tổng kết'];
 const SCREENS = ['screen-intro', 'screen-sim-original', 'screen-question', 'screen-sim-custom', 'screen-comparison', 'screen-explanation'];
-
-const days = (hours: number) => (hours / 24).toLocaleString('vi-VN', { maximumFractionDigits: 1 });
-const signed = (n: number, unit = '') => (n === 0 ? 'như cách gốc' : `${n > 0 ? '+' : '−'}${Math.abs(n).toLocaleString('vi-VN')}${unit} so với cách gốc`);
 
 export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; role: Role; initialStep?: number }) {
   const navigate = useNavigate();
   const variables = lesson.question?.variables ?? [];
   const hasVariables = variables.length > 0;
+  const timeline = isTimelineMode(lesson);
+  const STEPS = stepNames(timeline);
+  const rows = comparisonRows(lesson);
   const clampStep = (n: number) => Math.min(hasVariables ? 6 : 3, Math.max(1, Math.round(n) || 1));
   const [step, setStep] = useState(() => clampStep(initialStep ?? 1));
   const [choices, setChoices] = useState<Choices>(() => originalChoices(lesson));
@@ -116,7 +117,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
 
         {step === 2 && (
           <section id="screen-sim-original" className="screen-view active grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
-            <OriginalStage lesson={lesson} onNext={() => goTo(3)} />
+            <OriginalStage lesson={lesson} timeline={timeline} onNext={() => goTo(3)} />
           </section>
         )}
 
@@ -175,7 +176,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
         {step === 4 && (
           <section id="screen-sim-custom" className="screen-view active grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <div>
-              <Player lesson={lesson} prefix="custom" badge="Sa bàn theo lựa chọn của em" />
+              <Player lesson={lesson} prefix="custom" badge={timeline ? 'Trục thời gian theo lựa chọn của em' : 'Sa bàn theo lựa chọn của em'} />
             </div>
             <aside className="flex flex-col gap-3">
               <h3 className="t-lg font-semibold">Phương án của em</h3>
@@ -205,24 +206,23 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
               <div>
                 <p className="banner-warning-text">{SIMULATION_NOTICE}</p>
                 <p className="mt-1 t-sm">{stripNotice(lesson.simulationDisclaimer) || 'Mọi số liệu (thời gian, tổn thất, điểm thế trận) là giá trị minh họa từ các giả định của bài học nhằm khơi gợi tư duy phản biện, không thay thế cho các nghiên cứu lịch sử chính thức.'}</p>
+                <p id="simulation-notice-note" className="mt-1.5 t-sm italic">{SIMULATION_NOTICE_NOTE}</p>
               </div>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <Outcome
                 prefix="orig"
                 title={originalLabel}
-                duration={`${result.original.durationHours} giờ (~${days(result.original.durationHours)} ngày)`}
-                casualties={`${result.original.casualties.toLocaleString('vi-VN')} binh sĩ`}
-                score={`${result.original.positionScore} / 100`}
+                labels={rows.map((r) => r.label)}
+                values={[result.original.durationHours, result.original.casualties, result.original.positionScore].map((n, i) => rows[i].original(n))}
                 note={lesson.baseline?.ratingText}
               />
               <Outcome
                 prefix="cust"
                 title="Phương án của em"
-                duration={`${result.student.durationHours} giờ (~${days(result.student.durationHours)} ngày)`}
-                casualties={`${result.student.casualties.toLocaleString('vi-VN')} binh sĩ`}
-                score={`${result.student.positionScore} / 100`}
-                deltas={[signed(result.student.durationHours - result.original.durationHours, ' giờ'), signed(result.student.casualties - result.original.casualties), signed(result.student.positionScore - result.original.positionScore, ' điểm')]}
+                labels={rows.map((r) => r.label)}
+                values={[result.student.durationHours, result.student.casualties, result.student.positionScore].map((n, i) => rows[i].value(n))}
+                deltas={[result.student.durationHours - result.original.durationHours, result.student.casualties - result.original.casualties, result.student.positionScore - result.original.positionScore].map((n, i) => rows[i].delta(n))}
                 note={result.student.outcomeSummary}
                 highlight
               />
@@ -236,7 +236,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
               </button>
             </div>
             <Modal id="modal-assumptions" open={assumptionsOpen} title="Giả định và cách tính" onClose={() => setAssumptionsOpen(false)}>
-              <p className="t-sm">Kết quả = số liệu gốc ({lesson.baseline?.durationHours ?? 36} giờ, {(lesson.baseline?.casualties ?? 1800).toLocaleString('vi-VN')} binh sĩ, {lesson.baseline?.positionScore ?? 95} điểm) cộng các hệ số của từng lựa chọn. Cùng lựa chọn luôn cho cùng kết quả.</p>
+              <p className="t-sm">Kết quả = số liệu gốc ({[lesson.baseline?.durationHours ?? 36, lesson.baseline?.casualties ?? 1800, lesson.baseline?.positionScore ?? 95].map((n, i) => (lesson.comparisonMetrics?.[i] ? `${rows[i].label}: ${rows[i].original(n)}` : rows[i].original(n))).join(', ')}) cộng các hệ số của từng lựa chọn. Cùng lựa chọn luôn cho cùng kết quả.</p>
               <ul className="mt-3 flex flex-col gap-2">
                 {result.appliedAssumptions.map((a) => (
                   <li key={a.variableId} className="rounded-lg bg-page p-3">
@@ -260,14 +260,14 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
   );
 }
 
-function OriginalStage({ lesson, onNext }: { lesson: AppLesson; onNext: () => void }) {
-  const scene = useRef<SilkMapScene | null>(null);
+function OriginalStage({ lesson, timeline, onNext }: { lesson: AppLesson; timeline: boolean; onNext: () => void }) {
+  const scene = useRef<SceneHandle | null>(null);
   const [active, setActive] = useState(-1);
   const sections = lesson.sections;
   return (
     <>
       <div>
-        <Player lesson={lesson} prefix="original" badge={`Sa bàn diễn biến gốc${lesson.era ? ` · ${lesson.era}` : ''}`} onScene={(s) => (scene.current = s)} speed />
+        <Player lesson={lesson} prefix="original" badge={`${timeline ? 'Trục thời gian diễn biến gốc' : 'Sa bàn diễn biến gốc'}${lesson.era ? ` · ${lesson.era}` : ''}`} onScene={(s) => (scene.current = s)} speed />
         <div className="mt-3 flex justify-end">
           <button id="btn-goto-question" type="button" className="btn btn-primary" onClick={onNext}>
             Tiếp tục: câu hỏi của nhân vật <Icon name="next" />
@@ -298,8 +298,9 @@ function OriginalStage({ lesson, onNext }: { lesson: AppLesson; onNext: () => vo
   );
 }
 
-function Outcome({ prefix, title, duration, casualties, score, deltas, note, highlight }: { prefix: string; title: string; duration: string; casualties: string; score: string; deltas?: string[]; note?: string; highlight?: boolean }) {
-  const rows: [string, string, string][] = [['duration', 'Thời gian chiến dịch', duration], ['casualties', 'Tổn thất ước tính', casualties], ['score', 'Điểm thế trận', score]];
+function Outcome({ prefix, title, labels, values, deltas, note, highlight }: { prefix: string; title: string; labels: string[]; values: string[]; deltas?: string[]; note?: string; highlight?: boolean }) {
+  const keys = ['duration', 'casualties', 'score'];
+  const rows = keys.map((key, i) => [key, labels[i], values[i]] as const);
   return (
     <article className={`card p-5 ${highlight ? 'border-faction-b' : ''}`}>
       <h3 className="t-xl font-semibold">{title}</h3>

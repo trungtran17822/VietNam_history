@@ -1,9 +1,9 @@
 // Rule-based, deterministic simulation: baseline + the deltas declared on each chosen option.
 // Identical choices always give identical numbers. Tune coefficients in lesson data, not here.
-import type { Baseline, Lesson } from './lesson-schema';
+import { isTimelineMode, type Baseline, type Lesson } from './lesson-schema';
 
 export type Choices = Record<string, string>;
-type EngineLesson = Pick<Lesson, 'baseline' | 'question' | 'explanations'> & { simulation?: Pick<Lesson['simulation'], 'outcomes'> };
+type EngineLesson = Pick<Lesson, 'baseline' | 'question' | 'explanations' | 'explorationMode'> & { simulation?: Pick<NonNullable<Lesson['simulation']>, 'outcomes'> };
 
 const DEFAULT_BASELINE: Baseline = { durationHours: 36, casualties: 1800, positionScore: 95, ratingText: 'Chuẩn mực thần tốc' };
 
@@ -14,6 +14,14 @@ const DEFAULT_OUTCOMES = {
   moderate: 'Thế trận giằng co; đối phương có thêm cơ hội để chống đỡ.',
   challenging: 'Thế trận mất yếu tố bất ngờ; đối phương có thời gian củng cố và phản công.'
 };
+
+// For timeline-mode lessons (economics, politics: no battle) that declare no outcomes: Trung's neutral wording.
+const timelineOutcomes = (ratingText?: string) => ({
+  perfect: ratingText ? `Tái hiện phương án lịch sử: ${ratingText}.` : 'Tái hiện chuẩn xác phương án lịch sử gốc.',
+  positive: 'Phương án đạt hiệu quả cao, đạt các mục tiêu trọng tâm nhưng có sự thay đổi về chỉ số so với lịch sử.',
+  moderate: 'Phương án có điểm khả thi nhưng còn hạn chế, các chỉ số có sự chênh lệch đáng kể so với phương án gốc.',
+  challenging: 'Phương án đối mặt nhiều khó khăn; các chỉ số biến động bất lợi so với phương án lịch sử gốc.'
+});
 
 export function calculate(lesson: EngineLesson, choices: Choices = {}) {
   const baseline = lesson.baseline ?? DEFAULT_BASELINE;
@@ -46,7 +54,7 @@ export function calculate(lesson: EngineLesson, choices: Choices = {}) {
   const casualties = Math.max(baseline.minCasualties ?? 500, baseline.casualties + casualtyDelta);
   const positionScore = Math.max(10, Math.min(100, baseline.positionScore + scoreDelta));
 
-  const outcomes = lesson.simulation?.outcomes ?? DEFAULT_OUTCOMES;
+  const outcomes = lesson.simulation?.outcomes ?? (isTimelineMode(lesson) ? timelineOutcomes(baseline.ratingText) : DEFAULT_OUTCOMES);
   const outcomeTone = isIdenticalToOriginal ? 'perfect' : positionScore >= 75 ? 'positive' : positionScore >= 55 ? 'moderate' : 'challenging';
 
   return {

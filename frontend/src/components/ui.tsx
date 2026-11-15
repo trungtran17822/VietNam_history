@@ -113,4 +113,6 @@ export function AtlasCard() {
 }
 
 export const SIMULATION_NOTICE = 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.';
+// Under the notice on the comparison screen: the indicators are classroom assumptions, not the textbook's conclusion.
+export const SIMULATION_NOTICE_NOTE = '* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa.';
 export const PROTOTYPE_NOTICE = 'Nội dung minh họa, chưa được chuyên gia duyệt';

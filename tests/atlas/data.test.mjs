@@ -120,9 +120,13 @@ test('every unit has a label point on its own land', () => {
 
 test('lessons and places link both ways: every atlasPlaceIds value is a landmark, unit or archipelago', () => {
   assert.ok(LESSONS.length >= 6, 'bundled lessons found');
+  // The atlas only knows Viet Nam: world-history lessons (the four SGK lessons) carry no atlasPlaceIds.
+  // A lesson that has the field must have it non-empty and every id must resolve.
+  assert.ok(lessons.filter((l) => l.atlasPlaceIds?.length).length >= 6, 'the Viet Nam lessons link to the atlas');
   const places = new Set([...provinces, ...archipelagos].map((f) => f.properties.id).concat(landmarks.map((l) => l.id)));
   for (const lesson of lessons) {
-    assert.ok(lesson.atlasPlaceIds?.length, `${lesson.id} has atlasPlaceIds`);
+    if (lesson.atlasPlaceIds === undefined) continue;
+    assert.ok(lesson.atlasPlaceIds.length, `${lesson.id} has an empty atlasPlaceIds (omit the field instead)`);
     for (const id of lesson.atlasPlaceIds) assert.ok(places.has(id), `${lesson.id} → unknown atlas place "${id}"`);
   }
   // The other direction (landmark.lessonIds → a bundled lesson) is checked in the §4.2 fields test above.

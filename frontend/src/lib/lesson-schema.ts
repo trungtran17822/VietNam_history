@@ -101,6 +101,8 @@ export const sceneSchema = z.object({
 const camera = z.object({ pos: z.tuple([z.number(), z.number(), z.number()]), target: z.tuple([z.number(), z.number(), z.number()]) });
 
 const simulation = z.object({
+  // One line shown under the table when the scene is a schematic, not a map to scale (Stalingrad).
+  schematicNotice: text.optional(),
   propsConfig: z.record(z.string(), z.boolean()).optional(),
   unitCounts: z.record(z.string(), z.number().int().min(0).max(300)).optional(),
   factionColors: z.record(z.string(), hex).optional(),
@@ -118,6 +120,14 @@ export const baselineSchema = z.object({
   minDurationHours: z.number().min(0).optional(),
   minCasualties: z.number().min(0).optional()
 });
+
+// Timeline-mode lessons (explorationMode set and not "*_3d") replace the table with a stepped
+// timeline: `timeline` events, or the sections when there are none.
+const timelineEvent = z.object({ year: text, event: text });
+
+// Relabels the three comparison rows (duration, casualties, score) for lessons whose numbers are
+// not hours, soldiers and a battle score (Trung's SGK lessons: "Sản lượng công nghiệp nặng / 100").
+const comparisonMetric = z.object({ id: text.optional(), label: text.min(1), unit: text.optional(), origFormatted: text.optional() });
 
 export const lessonSchema = z
   .object({
@@ -144,13 +154,19 @@ export const lessonSchema = z
     disclaimer: text.optional(),
     simulationDisclaimer: text.optional(),
     introSummary: text.optional(),
-    factions: z.object({ a: z.object({ name: text.min(1), color: hex }), b: z.object({ name: text.min(1), color: hex }) }),
+    explorationMode: text.optional(),
+    sourceCitation: text.optional(),
+    timeline: z.array(timelineEvent).optional(),
+    reviewFlags: z.array(text).optional(),
+    comparisonMetrics: z.array(comparisonMetric).max(3).optional(),
+    // Required for 3D lessons (checked below); timeline-mode lessons have no table.
+    factions: z.object({ a: z.object({ name: text.min(1), color: hex }), b: z.object({ name: text.min(1), color: hex }) }).optional(),
     sections: z.array(section),
     keyNotes: z.array(text),
     privateNotes: text,
     questions: z.array(question),
     baseline: baselineSchema.optional(),
-    simulation,
+    simulation: simulation.optional(),
     question: z
       .object({
         character: z.object({ name: text.min(1), dynasty: text.optional(), avatarSvg: text.optional(), greeting: text.optional(), speech: text.optional() }),
@@ -163,6 +179,10 @@ export const lessonSchema = z
       .optional()
   })
   .superRefine((l, ctx) => {
+    if (!isTimelineMode(l)) {
+      if (!l.simulation) ctx.addIssue({ code: 'custom', path: ['simulation'], message: 'Bài dùng sa bàn 3D cần phần "simulation" (địa hình, nhãn, đặc điểm, đường tiến quân)' });
+      if (!l.factions) ctx.addIssue({ code: 'custom', path: ['factions'], message: 'Bài dùng sa bàn 3D cần khai báo hai phe (factions)' });
+    }
     const vars = l.question?.variables ?? [];
     if (vars.length && !l.baseline) ctx.addIssue({ code: 'custom', path: ['baseline'], message: 'Bài có biến số cần số liệu gốc (baseline)' });
     const ids = vars.map((v) => v.id);
@@ -179,6 +199,25 @@ export type Scene = z.infer<typeof sceneSchema>;
 export type Baseline = z.infer<typeof baselineSchema>;
 export type Status = (typeof STATUSES)[number];
 export type Point = [number, number];
+export type Simulation = z.infer<typeof simulation>;
+export type Factions = NonNullable<Lesson['factions']>;
+export type TimelineEvent = z.infer<typeof timelineEvent>;
+export type ComparisonMetric = z.infer<typeof comparisonMetric>;
+
+/** explorationMode absent or ending in "_3d" → 3D sand table; anything else → the timeline player. */
+export function isTimelineMode(lesson: { explorationMode?: string | undefined }): boolean {
+  const mode = lesson.explorationMode?.trim();
+  return Boolean(mode) && !mode!.endsWith('_3d');
+}
+
+// Teacher-facing names of the exploration modes (Trung's labels). Charts and the map of those
+// modes are not drawn yet: every timeline-mode lesson shows the stepped timeline.
+export const MODE_LABELS: Record<string, string> = {
+  ussr_charts: 'Biểu đồ tăng trưởng kinh tế & Trục thời gian tư liệu (Nước Nga & Liên Xô)',
+  depression_charts: 'Biểu đồ chỉ số đại suy thoái & Trục thời gian tư liệu (Châu Âu & Mỹ)',
+  asia_map: 'Lược đồ tương tác & Trục thời gian tư liệu (Châu Á 1918–1945)'
+};
+export const modeLabel = (lesson: { explorationMode?: string | undefined }) => (lesson.explorationMode && MODE_LABELS[lesson.explorationMode]) || 'Trục thời gian tư liệu tương tác';
 
 /** Vietnamese, human-readable issues; empty when the lesson is valid. */
 export function validateLesson(lesson: unknown): string[] {

@@ -11,7 +11,7 @@ import { TABLE, paintMap, paintRoutes, paintSprite, palette, routeReveal, type P
 
 export type Quality = 'high' | 'low';
 export type PresetName = 'overview' | 'follow_troops' | 'close_up' | 'top_down';
-type SceneLesson = Pick<Lesson, 'simulation' | 'factions'>;
+type SceneLesson = Required<Pick<Lesson, 'simulation' | 'factions'>>;
 type Options = { quality?: Quality; lesson: SceneLesson; onProgressUpdate?: (progress: number) => void };
 type UnitRecord = { x: number; z: number; startX?: number; startZ?: number; endX?: number; endZ?: number; phase: number; scale: number; rotation: number };
 type Batch = { mesh: InstancedMesh; shadows: InstancedMesh; records: UnitRecord[]; material: MeshBasicMaterial };
