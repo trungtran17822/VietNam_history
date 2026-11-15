@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
 import { requireUser } from '../lib/guards';
 import { getStudentRun, getVisibleForStudent } from '../lib/storage';
+import { comparisonRows } from '../lib/comparison';
 import { fold } from '../lib/text';
 import { Thumbnail } from '../components/Thumbnail';
 import { AtlasCard, Icon } from '../components/ui';
@@ -32,7 +33,7 @@ function StudentDashboard() {
                 <p className="t-sm muted">{lesson.era} · {lesson.teacher}</p>
                 <h2 className="t-lg font-semibold">{lesson.title}</h2>
                 <p className="line-clamp-2 t-sm muted">{lesson.subtitle || lesson.objectives}</p>
-                {run && <p className="t-xs text-ok">Em đã thử một phương án: điểm thế trận {run.student.positionScore}/100</p>}
+                {run && <p className="t-xs text-ok">Em đã thử một phương án: {comparisonRows(lesson)[2].label.toLowerCase()} {comparisonRows(lesson)[2].value(run.student.positionScore)}</p>}
                 <div className="mt-auto flex flex-wrap gap-2 pt-2">
                   <Link to="/lesson/$id" params={{ id: lesson.id }} className="btn btn-primary btn-sm"><Icon name="play" /> Xem bài</Link>
                   {Boolean(lesson.question?.variables.length) && (

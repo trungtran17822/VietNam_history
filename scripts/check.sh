@@ -19,7 +19,9 @@ need() { grep -rqF "$2" "$1" || err "missing required label in $1: $2"; }
 need frontend/src/components/ui.tsx 'Nội dung minh họa, chưa được chuyên gia duyệt'
 need frontend/src/components/ui.tsx 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.'
 need frontend/src/routes/__root.tsx 'PROTOTYPE_NOTICE'
+need frontend/src/components/ui.tsx '* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa.'
 need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE'
+need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE_NOTE'
 need frontend/src/scene/silk-map.ts 'Trang phục và màu sắc chỉ là minh họa, chờ chuyên gia thẩm định'
 need frontend/src/features/atlas/AtlasView.tsx 'OpenStreetMap</a> contributors' # ODbL attribution on the atlas
 
@@ -40,6 +42,9 @@ done
 for f in backend/src/*.js backend/dev-server.js; do
   node --check "$f" 2>&1 || err "syntax error in $f"
 done
+
+# 7. Grounding audit: the SGK lessons only use years, dates and names found in history_data/ (skips if absent).
+node scripts/check-lesson-grounding.mjs >/dev/null || err "lesson grounding audit failed (run: node scripts/check-lesson-grounding.mjs)"
 
 [ "$fail" -eq 0 ] && echo "OK: all checks passed"
 exit "$fail"

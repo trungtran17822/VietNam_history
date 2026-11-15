@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "bai-3-chau-a",
+  "era": "1918–1945",
+  "title": "Bài 3. Châu Á từ năm 1918 đến năm 1945",
+  "subtitle": "Nhật Bản quân phiệt hoá và cao trào đấu tranh giành độc lập ở Trung Quốc, Ấn Độ, Đông Nam Á",
+  "year": "1918–1945",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 9A1",
+  "date": "2026-10-27",
+  "subject": "Lịch sử",
+  "grade": "Khối 9",
+  "period": "Tiết 3 · 45 phút",
+  "objectives": "Nêu được những nét chính về tình hình châu Á từ năm 1918 đến năm 1945, bao gồm quá trình quân phiệt hoá bành trướng của Nhật Bản và các phong trào giải phóng dân tộc tiêu biểu ở Trung Quốc, Ấn Độ, Đông Nam Á.",
+  "focusQuestion": "Vì sao quân đội Nhật Bản có mặt ở Trung Quốc? Hãy nêu nguyên nhân từ tình hình kinh tế và chính trị của Nhật.",
+  "status": "Đã dạy",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh hoạ, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.",
+  "introSummary": "Châu Á giai đoạn 1918–1945 chuyển biến dữ dội: Nhật Bản khủng hoảng kinh tế dẫn tới giới quân phiệt kiểm soát chính phủ và phát động chiến tranh xâm lược; đồng thời ngọn lửa đấu tranh giải phóng dân tộc bùng cháy mạnh mẽ ở Trung Quốc (phong trào Ngũ tứ, Mặt trận chống Nhật), Ấn Độ (phong trào bất bạo động của Gan-đi) và Đông Nam Á.",
+  "explorationMode": "asia_map",
+  "sourceCitation": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)",
+  "timeline": [
+    {
+      "year": "1919 (4-5)",
+      "event": "Phong trào Ngũ tứ ở Trung Quốc"
+    },
+    {
+      "year": "1920",
+      "event": "Đảng Cộng sản In-đô-nê-xi-a thành lập"
+    },
+    {
+      "year": "1921",
+      "event": "Đảng Cộng sản Trung Quốc ra đời"
+    },
+    {
+      "year": "1922",
+      "event": "Đảng Cộng sản Nhật Bản thành lập, hoạt động công khai"
+    },
+    {
+      "year": "1925",
+      "event": "Đảng Cộng sản Ấn Độ thành lập"
+    },
+    {
+      "year": "1926–1927",
+      "event": "Khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (In-đô-nê-xi-a)"
+    },
+    {
+      "year": "1927",
+      "event": "Kinh tế Nhật có dấu hiệu khủng hoảng; liên minh Quốc – Cộng ở Trung Quốc tan vỡ, nội chiến bùng phát"
+    },
+    {
+      "year": "1930",
+      "event": "Kinh tế Nhật khủng hoảng kéo dài; ngày 12-3 Gan-đi bắt đầu cuộc biểu tình \"Muối\" ở Ấn Độ; Đảng Cộng sản thành lập ở Việt Nam và Mã Lai"
+    },
+    {
+      "year": "1930–1931",
+      "event": "Xô viết Nghệ – Tĩnh (Việt Nam)"
+    },
+    {
+      "year": "1931 (18-9)",
+      "event": "Quân Nhật chiếm Phụng Thiên, bắt đầu xâm chiếm vùng Đông Bắc Trung Quốc"
+    },
+    {
+      "year": "1932",
+      "event": "Ngày 9-3, Nhật lập \"Mãn Châu quốc\"; ở Thái Lan nổ ra cách mạng chuyển sang quân chủ lập hiến"
+    },
+    {
+      "year": "1937 (tháng 7)",
+      "event": "Nhật mở rộng xâm lược toàn Trung Quốc; Quốc – Cộng đình chiến, lập Mặt trận dân tộc thống nhất chống Nhật"
+    },
+    {
+      "year": "1940",
+      "event": "Nhật công bố Thuyết Đại Đông Á; nhân dân Đông Nam Á đấu tranh chống Nhật xâm lược, đô hộ"
+    }
+  ],
+  "reviewFlags": [
+    "Bộ sách: xác nhận từ bìa.",
+    "Lược đồ 3.2: ranh giới ba vùng (lãnh thổ Nhật 1931; chiếm đóng 1931–1933; chiếm đóng 1937–1938) cần vẽ lại đúng theo bản gốc, không đoán.",
+    "Cách diễn đạt \"Mãn Châu quốc\", \"Thuyết Đại Đông Á\", \"bất tuân lệnh\" giữ đúng như sách.",
+    "Số liệu \"gần 400 km\" và ngày 12-3-1930 (cuộc đi bộ của Gan-đi) lấy từ chú thích hình 3.4.",
+    "Cách phiên âm tên riêng (Gan-đi, Gia-va, Xu-ma-tra, Véc-xai, Hi-rô-hi-tô) giữ như sách.",
+    "Các phương án mô phỏng lấy từ các hình thức đấu tranh nêu trong bài: bất bạo động (Ấn Độ), vũ trang và liên minh lực lượng (Trung Quốc, Đông Nam Á) theo đúng gợi ý của giáo án."
+  ],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "Mục 1. Nhật Bản giữa hai cuộc chiến tranh thế giới",
+      "narration": "Sau chiến tranh thế giới thứ nhất, kinh tế Nhật Bản phát triển ổn định ngắn ngủi rồi bộc lộ dấu hiệu khủng hoảng từ năm 1927 trong ngành tài chính – ngân hàng, kéo dài trầm trọng đến năm 1930. Giới quân phiệt Nhật giành quyền kiểm soát chính phủ và chọn Hoàng đế làm biểu tượng quyền lực để huy động dân chúng. Để giải quyết bế tắc kinh tế, Nhật Bản đẩy mạnh xâm lược bành trướng: ngày 18-9-1931 chiếm Phụng Thiên, thôn tính vùng Đông Bắc Trung Quốc; ngày 9-3-1932 dựng nên chính quyền bù nhìn \"Mãn Châu quốc\"; từ tháng 7-1937 mở rộng chiến tranh ra toàn lãnh thổ Trung Quốc; và năm 1940 công bố Thuyết Đại Đông Á làm bình phong xâm lược các nước Đông Nam Á.",
+      "caption": "Quân đội Nhật Bản tiến vào Phụng Thiên (1931) và mở rộng xâm lược bành trướng khắp châu Á.",
+      "timelineRange": 0.25,
+      "timeLabel": "1918–1940",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 1",
+        "quote": "Quân đội giành quyền kiểm soát chính phủ và chủ trương giải quyết khó khăn kinh tế bằng xâm lược, bành trướng sang các nước láng giềng... năm 1931 chiếm vùng Đông Bắc Trung Quốc; ngày 9-3-1932 lập Mãn Châu quốc; từ tháng 7-1937 mở rộng chiến tranh ra toàn Trung Quốc...",
+        "note": "Điểm giống phát xít châu Âu: chủ nghĩa dân tộc cực đoan và tham vọng bành trướng, xâm lược."
+      }
+    },
+    {
+      "id": "sec-2",
+      "title": "Mục 2. Phong trào giải phóng dân tộc ở Trung Quốc",
+      "narration": "Ngày 4-5-1919, phong trào Ngũ tứ bùng nổ mạnh mẽ trong giới học sinh, sinh viên, công nhân phản đối quyết định bất công của Hội nghị Véc-xai trao đặc quyền ở Sơn Đông cho Nhật Bản; phong trào thúc đẩy truyền bá sâu rộng chủ nghĩa Mác – Lê-nin. Năm 1921, Đảng Cộng sản Trung Quốc ra đời, phối hợp cùng Quốc dân đảng chống các thế lực quân phiệt. Năm 1927, liên minh Quốc – Cộng tan vỡ dẫn đến nội chiến. Đến tháng 7-1937, trước hiểm hoạ xâm lược toàn diện của phát xít Nhật, hai bên quyết định đình chiến và thành lập Mặt trận dân tộc thống nhất chống Nhật để bảo vệ đất nước.",
+      "caption": "Phong trào Ngũ tứ 1919 và Mặt trận dân tộc thống nhất chống phát xít Nhật thành lập năm 1937.",
+      "timelineRange": 0.5,
+      "timeLabel": "1919–1937",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "Phong trào Ngũ tứ (4-5-1919) của sinh viên, học sinh, trí thức, công nhân, thị dân... Năm 1921, Đảng Cộng sản Trung Quốc ra đời... Năm 1937, trước sự xâm lược của Nhật, hai bên đình chiến và lập Mặt trận dân tộc thống nhất chống Nhật.",
+        "note": "Sự chuyển hướng chiến lược từ nội chiến sang đại đoàn kết dân tộc kháng chiến chống ngoại xâm."
+      }
+    },
+    {
+      "id": "sec-3",
+      "title": "Mục 2. Phong trào giải phóng dân tộc ở Ấn Độ",
+      "narration": "Tại Ấn Độ, Đảng Quốc đại dưới sự dẫn dắt của lãnh tụ Gan-đi đã vận động nhân dân đấu tranh giành độc lập bằng con đường hoà bình, bất bạo động, tẩy chay hàng hoá của Anh và phát triển kinh tế dân tộc. Năm 1925, Đảng Cộng sản Ấn Độ thành lập thúc đẩy phong trào chống thực dân Anh. Ngày 12-3-1930, Gan-đi dẫn đầu cuộc đi bộ biểu tình bất bạo động gần 400 km ra bờ biển phía Tây để tự làm muối, phản đối chính quyền thuộc địa độc quyền và đánh thuế muối nặng nề. Cuộc đi bộ \"Muối\" đã thức tỉnh tinh thần phản kháng và thôi thúc đông đảo quần chúng bất tuân lệnh chính quyền thực dân Anh.",
+      "caption": "Lãnh tụ Gan-đi dẫn đầu cuộc đi bộ \"Muối\" gần 400 km (12-3-1930) đấu tranh bất bạo động.",
+      "timelineRange": 0.75,
+      "timeLabel": "1925–1930",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "Ngày 12-3-1930, Gan-đi bắt đầu cuộc đi bộ gần 400 km đến bờ biển phía Tây để phản đối luật Anh cấm người Ấn tự thu hoạch muối và đánh thuế muối quá cao. Cách đấu tranh bất bạo động này thôi thúc nhiều người Ấn Độ bất tuân lệnh chính quyền thuộc địa.",
+        "note": "Hình thức đấu tranh bất bạo động độc đáo tạo nên sức mạnh quần chúng rộng lớn chống thực dân Anh."
+      }
+    },
+    {
+      "id": "sec-4",
+      "title": "Mục 2. Phong trào giải phóng dân tộc ở Đông Nam Á",
+      "narration": "Sau Chiến tranh thế giới thứ nhất, phong trào độc lập dân tộc ở Đông Nam Á dâng cao với sự tham gia của đông đảo công nhân, nông dân, trí thức và tư sản dân tộc. Các đảng cộng sản liên tiếp ra đời: In-đô-nê-xi-a (1920), Việt Nam (1930), Mã Lai (1930). Nhiều phong trào đấu tranh kiên cường bùng nổ, tiêu biểu là cuộc khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (1926–1927) và phong trào Xô viết Nghệ – Tĩnh (1930–1931) tại Việt Nam. Tại Thái Lan, năm 1932 nổ ra cuộc cách mạng chuyển từ chế độ quân chủ chuyên chế sang quân chủ lập hiến. Từ năm 1940, nhân dân toàn khu vực Đông Nam Á kiên quyết đứng lên chống lại ách chiếm đóng và đô hộ của phát xít Nhật.",
+      "caption": "Sự ra đời của các Đảng Cộng sản và phong trào giải phóng dân tộc chống thực dân, phát xít ở Đông Nam Á.",
+      "timelineRange": 0.95,
+      "timeLabel": "1920–1945",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3, trang 17–19 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "Các đảng cộng sản lần lượt thành lập: In-đô-nê-xi-a (1920), Việt Nam (1930), Mã Lai (1930)... Tiêu biểu: khởi nghĩa vũ trang ở Gia-va và Xu-ma-tra (1926–1927), Xô viết Nghệ – Tĩnh (1930–1931)... Từ năm 1940, nhân dân Đông Nam Á chống lại sự xâm lược và đô hộ của phát xít Nhật.",
+        "note": "Đông Nam Á là địa bàn gắn kết chặt chẽ với lịch sử Việt Nam qua mốc thành lập Đảng và Xô viết Nghệ - Tĩnh."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Nhật Bản quân phiệt hoá chính phủ, chiếm Phụng Thiên (1931), lập Mãn Châu quốc (1932) và xâm lược Trung Quốc (1937).",
+    "Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á nhằm phục vụ mưu đồ bành trướng xâm chiếm Đông Nam Á.",
+    "Phong trào Ngũ tứ (4-5-1919) ở Trung Quốc mở đường truyền bá chủ nghĩa Mác – Lê-nin; Đảng Cộng sản Trung Quốc thành lập năm 1921.",
+    "Năm 1937, Đảng Cộng sản và Quốc dân đảng Trung Quốc đình chiến, thành lập Mặt trận dân tộc thống nhất chống Nhật.",
+    "Tại Ấn Độ, lãnh tụ Gan-đi dẫn đầu phong trào đấu tranh bất bạo động với cuộc đi bộ \"Muối\" gần 400 km ngày 12-3-1930.",
+    "Ở Đông Nam Á, các Đảng Cộng sản lần lượt ra đời (In-đô-nê-xi-a 1920, Việt Nam 1930, Mã Lai 1930) lãnh đạo cao trào chống thực dân, phát xít."
+  ],
+  "privateNotes": "Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập: Hướng dẫn học sinh vẽ và hoàn thành trục thời gian 5 mốc lịch sử Nhật Bản (1922, 1927, 1931, 1937, 1940).\n- Vận dụng: Khuyến khích học sinh trình bày cảm nghĩ về lãnh tụ Gan-đi hoặc phong trào Xô viết Nghệ – Tĩnh (1930–1931).\n- Liên hệ lịch sử Việt Nam: Nhấn mạnh mốc thành lập Đảng Cộng sản Việt Nam năm 1930 trong bối cảnh chung của phong trào độc lập châu Á.\n- Lưu ý mô phỏng: Chỉ cho học sinh tìm hiểu các phương thức đấu tranh tự vệ chính nghĩa của nhân dân thuộc địa, không đặt người học vào phe xâm lược.",
+  "questions": [
+    {
+      "id": "b3-q1",
+      "text": "Năm 1931, Nhật Bản chiếm vùng nào của Trung Quốc?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q1-a",
+          "text": "Vùng Đông Bắc (Mãn Châu)",
+          "isCorrect": true,
+          "explanation": "Ngày 18-9-1931, quân đội Nhật chiếm Phụng Thiên, mở đầu quá trình xâm chiếm toàn bộ vùng Đông Bắc Trung Quốc."
+        },
+        {
+          "id": "b3-q1-b",
+          "text": "Vùng Tây Tạng",
+          "isCorrect": false,
+          "explanation": "Tây Tạng ở phía tây nam, không phải vùng Nhật Bản chiếm đóng năm 1931."
+        },
+        {
+          "id": "b3-q1-c",
+          "text": "Vùng Hoa Nam",
+          "isCorrect": false,
+          "explanation": "Hoa Nam bị Nhật tiến đánh trong giai đoạn mở rộng chiến tranh sau năm 1937."
+        },
+        {
+          "id": "b3-q1-d",
+          "text": "Đài Loan",
+          "isCorrect": false,
+          "explanation": "Đài Loan bị Nhật Bản chiếm đóng từ trước Chiến tranh thế giới thứ nhất."
+        }
+      ]
+    },
+    {
+      "id": "b3-q2",
+      "text": "Từ tháng 7-1937, Nhật Bản có hành động quân sự lớn nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q2-a",
+          "text": "Rút quân khỏi Trung Quốc",
+          "isCorrect": false,
+          "explanation": "Quân Nhật không rút quân mà tăng cường mở rộng quy mô chiến tranh."
+        },
+        {
+          "id": "b3-q2-b",
+          "text": "Ký hoà ước với Quốc dân đảng",
+          "isCorrect": false,
+          "explanation": "Quốc dân đảng và Đảng Cộng sản đình chiến để cùng chống Nhật, không ký hoà ước với Nhật."
+        },
+        {
+          "id": "b3-q2-c",
+          "text": "Mở rộng chiến tranh xâm lược ra toàn lãnh thổ Trung Quốc",
+          "isCorrect": true,
+          "explanation": "Từ tháng 7-1937, quân phiệt Nhật Bản đẩy mạnh xâm lược ra toàn bộ lãnh thổ Trung Quốc."
+        },
+        {
+          "id": "b3-q2-d",
+          "text": "Chỉ giữ Mãn Châu quốc",
+          "isCorrect": false,
+          "explanation": "Nhật Bản đã vượt khỏi biên giới Mãn Châu quốc để tấn công vào nội địa Trung Quốc."
+        }
+      ]
+    },
+    {
+      "id": "b3-q3",
+      "text": "Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á nhằm mục đích gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q3-a",
+          "text": "Chấm dứt chiến tranh với Trung Quốc",
+          "isCorrect": false,
+          "explanation": "Thuyết Đại Đông Á không nhằm chấm dứt chiến tranh mà mở rộng phạm vi bành trướng."
+        },
+        {
+          "id": "b3-q3-b",
+          "text": "Thành lập Quốc tế Cộng sản",
+          "isCorrect": false,
+          "explanation": "Quốc tế Cộng sản được thành lập năm 1919 ở châu Âu, không phải sự kiện ở Nhật Bản."
+        },
+        {
+          "id": "b3-q3-c",
+          "text": "Ủng hộ phong trào giải phóng dân tộc",
+          "isCorrect": false,
+          "explanation": "Khẩu hiệu \"Đại Đông Á\" là vỏ bọc mị dân nhằm đô hộ các nước châu Á."
+        },
+        {
+          "id": "b3-q3-d",
+          "text": "Tạo cơ sở cho hoạt động xâm lược các nước Đông Nam Á",
+          "isCorrect": true,
+          "explanation": "Năm 1940, Nhật Bản công bố Thuyết Đại Đông Á để làm cơ sở tư tưởng biện minh cho việc xâm lược các nước Đông Nam Á."
+        }
+      ]
+    },
+    {
+      "id": "b3-q4",
+      "text": "Điểm giống nhau cơ bản giữa giới quân phiệt Nhật và phát xít châu Âu là gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q4-a",
+          "text": "Theo đuổi chủ nghĩa dân tộc cực đoan và tham vọng bành trướng, xâm lược",
+          "isCorrect": true,
+          "explanation": "Điểm tương đồng căn bản là đều mang bản chất chủ nghĩa dân tộc cực đoan và dã tâm phát động chiến tranh bành trướng, xâm chiếm đất đai."
+        },
+        {
+          "id": "b3-q4-b",
+          "text": "Cùng có một nhà độc tài duy nhất",
+          "isCorrect": false,
+          "explanation": "Nhật Bản không có nhà độc tài cá nhân như Hít-le hay Mút-xô-li-ni mà dùng biểu tượng Hoàng đế."
+        },
+        {
+          "id": "b3-q4-c",
+          "text": "Cùng thiết lập chế độ cộng hoà",
+          "isCorrect": false,
+          "explanation": "Cả hai đều xoá bỏ thể chế cộng hoà dân chủ, thiết lập nền độc tài chuyên chế."
+        },
+        {
+          "id": "b3-q4-d",
+          "text": "Cùng đề cao chủ nghĩa Mác – Lê-nin",
+          "isCorrect": false,
+          "explanation": "Cả hai đều điên cuồng chống phá chủ nghĩa cộng sản và phong trào công nhân."
+        }
+      ]
+    },
+    {
+      "id": "b3-q5",
+      "text": "Phong trào Ngũ tứ ở Trung Quốc bùng nổ vào ngày tháng năm nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q5-a",
+          "text": "5-4-1921",
+          "isCorrect": false,
+          "explanation": "Năm 1921 là năm Đảng Cộng sản Trung Quốc ra đời."
+        },
+        {
+          "id": "b3-q5-b",
+          "text": "4-5-1919",
+          "isCorrect": true,
+          "explanation": "Ngày 4-5-1919, phong trào Ngũ tứ của sinh viên, học sinh và nhân dân Trung Quốc bùng nổ phản đối Hội nghị Véc-xai."
+        },
+        {
+          "id": "b3-q5-c",
+          "text": "4-5-1927",
+          "isCorrect": false,
+          "explanation": "Năm 1927 là thời điểm liên minh Quốc – Cộng tan vỡ."
+        },
+        {
+          "id": "b3-q5-d",
+          "text": "9-3-1932",
+          "isCorrect": false,
+          "explanation": "Ngày 9-3-1932 là ngày Nhật lập chính quyền Mãn Châu quốc."
+        }
+      ]
+    },
+    {
+      "id": "b3-q6",
+      "text": "Hành động nổi bật của Gan-đi năm 1930 để phản đối luật muối của chính quyền thực dân Anh là gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q6-a",
+          "text": "Phát động khởi nghĩa vũ trang",
+          "isCorrect": false,
+          "explanation": "Gan-đi kiên trì đường lối đấu tranh hoà bình, bất bạo động, không chủ trương khởi nghĩa vũ trang."
+        },
+        {
+          "id": "b3-q6-b",
+          "text": "Đàm phán ngoại giao tại Luân Đôn",
+          "isCorrect": false,
+          "explanation": "Hành động nổi bật năm 1930 là trực tiếp biểu tình đi bộ ra biển cùng nhân dân."
+        },
+        {
+          "id": "b3-q6-c",
+          "text": "Dẫn đầu cuộc đi bộ gần 400 km ra biển để tự làm muối, đấu tranh bất bạo động",
+          "isCorrect": true,
+          "explanation": "Ngày 12-3-1930, Gan-đi bắt đầu cuộc đi bộ gần 400 km đến bờ biển phía Tây để tự thu hoạch muối, phản đối thuế muối bất công."
+        },
+        {
+          "id": "b3-q6-d",
+          "text": "Rời Ấn Độ ra nước ngoài",
+          "isCorrect": false,
+          "explanation": "Gan-đi ở lại Ấn Độ trực tiếp lãnh đạo phong trào bất tuân dân sự."
+        }
+      ]
+    },
+    {
+      "id": "b3-q7",
+      "text": "Đảng Cộng sản Việt Nam và Đảng Cộng sản Mã Lai cùng được thành lập vào năm nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q7-a",
+          "text": "1920",
+          "isCorrect": false,
+          "explanation": "Năm 1920 là năm thành lập Đảng Cộng sản In-đô-nê-xi-a."
+        },
+        {
+          "id": "b3-q7-b",
+          "text": "1925",
+          "isCorrect": false,
+          "explanation": "Năm 1925 là năm thành lập Đảng Cộng sản Ấn Độ."
+        },
+        {
+          "id": "b3-q7-c",
+          "text": "1937",
+          "isCorrect": false,
+          "explanation": "Năm 1937 là năm Mặt trận thống nhất chống Nhật thành lập ở Trung Quốc."
+        },
+        {
+          "id": "b3-q7-d",
+          "text": "1930",
+          "isCorrect": true,
+          "explanation": "Năm 1930 ghi dấu sự ra đời của cả Đảng Cộng sản Việt Nam và Đảng Cộng sản Mã Lai."
+        }
+      ]
+    },
+    {
+      "id": "b3-q8",
+      "text": "Cuộc cách mạng năm 1932 ở Thái Lan dẫn đến kết quả chính trị gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q8-a",
+          "text": "Thay quân chủ chuyên chế bằng quân chủ lập hiến",
+          "isCorrect": true,
+          "explanation": "Năm 1932, cuộc cách mạng ở Thái Lan đã chuyển đổi thể chế đất nước từ quân chủ chuyên chế sang quân chủ lập hiến."
+        },
+        {
+          "id": "b3-q8-b",
+          "text": "Xoá bỏ hoàn toàn chế độ quân chủ",
+          "isCorrect": false,
+          "explanation": "Thái Lan vẫn duy trì thiết chế Hoàng gia theo khuôn khổ hiến pháp."
+        },
+        {
+          "id": "b3-q8-c",
+          "text": "Thành lập nước cộng hoà xã hội chủ nghĩa",
+          "isCorrect": false,
+          "explanation": "Thái Lan thiết lập chế độ quân chủ lập hiến tư sản, không phải nhà nước xã hội chủ nghĩa."
+        },
+        {
+          "id": "b3-q8-d",
+          "text": "Thái Lan trở thành thuộc địa của Nhật",
+          "isCorrect": false,
+          "explanation": "Thái Lan giữ được vị thế độc lập tương đối thông qua cải cách chính trị."
+        }
+      ]
+    },
+    {
+      "id": "b3-q9",
+      "text": "Theo yêu cầu Luyện tập, hãy xác định trình tự thời gian đúng của các sự kiện gắn liền với lịch sử Nhật Bản giữa hai cuộc chiến tranh thế giới:",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b3-q9-a",
+          "text": "1927: kinh tế khủng hoảng → 1922: Đảng Cộng sản Nhật thành lập → 1931: chiếm Đông Bắc Trung Quốc → 1940: Thuyết Đại Đông Á → 1937: mở rộng xâm lược toàn Trung Quốc",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: 1922 diễn ra trước 1927; 1937 diễn ra trước 1940."
+        },
+        {
+          "id": "b3-q9-b",
+          "text": "1922: Đảng Cộng sản Nhật thành lập → 1931: chiếm Đông Bắc Trung Quốc → 1927: kinh tế khủng hoảng → 1937: mở rộng xâm lược toàn Trung Quốc → 1940: Thuyết Đại Đông Á",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Khủng hoảng kinh tế bắt đầu từ năm 1927 trước khi chiếm Đông Bắc Trung Quốc năm 1931."
+        },
+        {
+          "id": "b3-q9-c",
+          "text": "1922: Đảng Cộng sản Nhật thành lập → 1927: kinh tế khủng hoảng → 1931: chiếm Đông Bắc Trung Quốc → 1937: mở rộng xâm lược toàn Trung Quốc → 1940: Thuyết Đại Đông Á",
+          "isCorrect": true,
+          "explanation": "Trình tự trục thời gian chính xác theo yêu cầu Luyện tập SGK: 1922 (Đảng Cộng sản) → 1927 (khủng hoảng tài chính) → 1931 (chiếm Phụng Thiên) → 1937 (xâm lược toàn Trung Quốc) → 1940 (Thuyết Đại Đông Á)."
+        },
+        {
+          "id": "b3-q9-d",
+          "text": "1931: chiếm Đông Bắc Trung Quốc → 1922: Đảng Cộng sản Nhật thành lập → 1927: kinh tế khủng hoảng → 1937: mở rộng xâm lược toàn Trung Quốc → 1940: Thuyết Đại Đông Á",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Năm 1931 không thể đứng trước các sự kiện năm 1922 và 1927."
+        }
+      ]
+    },
+    {
+      "id": "b3-q10",
+      "text": "Vì sao quân đội Nhật Bản có mặt ở Trung Quốc? Hãy nêu nguyên nhân từ tình hình kinh tế và chính trị của Nhật.",
+      "type": "open_discussion",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Khủng hoảng kinh tế tài chính năm 1927–1930 làm cạn kiệt tài nguyên; giới quân phiệt nắm chính phủ và chủ trương bành trướng xâm lược láng giềng để giải quyết khó khăn trong nước."
+    },
+    {
+      "id": "b3-q11",
+      "text": "Vì sao có thể gọi hành động của Gan-đi trong cuộc đi bộ \"Muối\" là \"bất bạo động\"?",
+      "type": "open_discussion",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Cuộc đi bộ không dùng vũ khí hay bạo lực, biểu tình tuần hành hoà bình ra biển tự lấy muối, thức tỉnh lương tri nhân loại và vận động quần chúng bất tuân lệnh cai trị bất công."
+    },
+    {
+      "id": "b3-q12",
+      "text": "Trong các nhà lãnh đạo phong trào giải phóng dân tộc ở châu Á giai đoạn 1918–1945, em ấn tượng với ai nhất? Giải thích lí do.",
+      "type": "open_discussion",
+      "sectionId": "sec-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Học sinh có thể nêu lãnh tụ Gan-đi (tinh thần bất bạo động, giản dị, kiên định) hoặc các lãnh tụ cộng sản kiên trung dẫn dắt nhân dân Đông Nam Á giành độc lập."
+    }
+  ],
+  "comparisonMetrics": [
+    {
+      "id": "mobilization",
+      "label": "Mức huy động quần chúng",
+      "origFormatted": "85 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "safety",
+      "label": "Rủi ro bị đàn áp",
+      "origFormatted": "75 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "pressure",
+      "label": "Sức ép quốc tế",
+      "origFormatted": "80 / 100",
+      "unit": " / 100"
+    }
+  ],
+  "baseline": {
+    "durationHours": 85,
+    "casualties": 75,
+    "positionScore": 80,
+    "ratingText": "Phương án đại đoàn kết dân tộc và vận động quần chúng",
+    "minDurationHours": 0,
+    "minCasualties": 0
+  },
+  "question": {
+    "character": {
+      "name": "Người dẫn chuyện",
+      "greeting": "Chào các em học sinh!",
+      "speech": "Sau Chiến tranh thế giới thứ nhất, các phong trào giải phóng dân tộc ở châu Á đã đứng trước những câu hỏi lớn về việc lựa chọn con đường và phương thức đấu tranh. Nếu là người tham gia phong trào giải phóng dân tộc, em sẽ lựa chọn hướng đi nào?"
+    },
+    "variables": [
+      {
+        "id": "var-asia-struggle-form",
+        "title": "Phương thức tập hợp lực lượng đấu tranh giành độc lập",
+        "description": "Lựa chọn hình thức tổ chức và phương thức đấu tranh của phong trào dân tộc:",
+        "options": [
+          {
+            "id": "opt-struggle-united-broad",
+            "name": "Đấu tranh bất bạo động, bất tuân lệnh chính quyền thuộc địa (tiêu biểu ở Ấn Độ)",
+            "isOriginal": true,
+            "desc": "Vận động nhân dân đòi độc lập, tẩy chay hàng hoá Anh và thực hiện cuộc đi bộ chống thuế muối bất bạo động do Gan-đi lãnh đạo.",
+            "assumptions": "Dựa trên phong trào đấu tranh bất bạo động do Gan-đi lãnh đạo ở Ấn Độ (Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 3).",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0
+          },
+          {
+            "id": "opt-struggle-armed-alliance",
+            "name": "Đấu tranh vũ trang và thành lập liên minh các lực lượng (tiêu biểu ở Trung Quốc và Đông Nam Á)",
+            "isOriginal": false,
+            "desc": "Xây dựng lực lượng vũ trang và thành lập mặt trận dân tộc thống nhất tập hợp các tầng lớp nhân dân chống chủ nghĩa đế quốc và phát xít.",
+            "assumptions": "Dựa trên các hình thức đấu tranh nêu trong SGK Bài 3: Mặt trận dân tộc thống nhất chống Nhật ở Trung Quốc, khởi nghĩa vũ trang ở Gia-va, Xu-ma-tra và Xô viết Nghệ – Tĩnh ở Đông Nam Á.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": -10
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Rất đáng khen cho tinh thần trân trọng các phong trào giải phóng dân tộc của các em.",
+    "variableFeedbacks": {
+      "var-asia-struggle-form": {
+        "opt-struggle-united-broad": "Đấu tranh bất bạo động và bất tuân lệnh chính quyền thuộc địa như phong trào Gan-đi đã tập hợp đông đảo quần chúng, tạo sức ép chính trị lớn mà giảm thiểu thương vong trực tiếp.",
+        "opt-struggle-armed-alliance": "Đấu tranh vũ trang kết hợp liên minh các lực lượng như Mặt trận thống nhất ở Trung Quốc và khởi nghĩa ở Đông Nam Á thể hiện quyết tâm tự vệ kiên cường của nhân dân chống phát xít."
+      }
+    },
+    "encouragingConclusion": "Đoàn kết toàn dân và phương thức đấu tranh linh hoạt là bài học vô giá cho mọi phong trào độc lập dân tộc."
+  }
+}

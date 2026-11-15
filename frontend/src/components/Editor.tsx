@@ -2,11 +2,11 @@
 // form, the 3D scene and private notes, with undo/redo and zod validation before every save.
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { CAMERA_PRESETS, TERRAINS, playabilityIssues, validateLesson, type Section, type Status } from '../lib/lesson-schema';
+import { CAMERA_PRESETS, TERRAINS, isTimelineMode, modeLabel, playabilityIssues, validateLesson, type Section, type Status } from '../lib/lesson-schema';
 import { saveLesson, type AppLesson } from '../lib/storage';
 import type { SilkMapScene } from '../scene/silk-map';
 import { normalizeCounts } from '../scene/counts';
-import { CAMERA_LABELS, Player } from './Player';
+import { CAMERA_LABELS, Player, ScenePlayer } from './Player';
 import { Field, Icon, Modal, StatusChip } from './ui';
 import { VariablesEditor, type Edit } from './VariablesEditor';
 
@@ -35,6 +35,7 @@ function useHistory(initial: AppLesson) {
 
 const TABS = [['content', 'Nội dung'], ['questions', 'Câu hỏi'], ['variables', 'Biến số & hệ số'], ['scene', 'Sa bàn 3D'], ['notes', 'Ghi chú']] as const;
 type Tab = (typeof TABS)[number][0];
+type SceneLesson = AppLesson & Required<Pick<AppLesson, 'simulation' | 'factions'>>;
 
 export function Editor({ initial, teacher }: { initial: AppLesson; teacher: string }) {
   const navigate = useNavigate();
@@ -46,6 +47,8 @@ export function Editor({ initial, teacher }: { initial: AppLesson; teacher: stri
   const issues = useMemo(() => validateLesson(lesson), [lesson]);
   const hints = useMemo(() => playabilityIssues(lesson), [lesson]);
   const dirty = JSON.stringify(lesson) !== savedJson;
+  // Timeline-mode lessons have no table: their "scene" tab edits the timeline events instead.
+  const timeline = isTimelineMode(lesson) || !lesson.simulation || !lesson.factions;
 
   // Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z outside text fields (fields keep their own undo).
   useEffect(() => {
@@ -139,16 +142,18 @@ export function Editor({ initial, teacher }: { initial: AppLesson; teacher: stri
         </section>
       )}
 
+      <ReviewFlags lesson={lesson} />
+
       <div className="tabs mt-5" role="tablist">
         {TABS.map(([id, label]) => (
-          <button key={id} type="button" role="tab" className="tab" aria-selected={tab === id} data-editor-tab={id} onClick={() => setTab(id)}>{label}</button>
+          <button key={id} type="button" role="tab" className="tab" aria-selected={tab === id} data-editor-tab={id} onClick={() => setTab(id)}>{id === 'scene' && timeline ? 'Trục thời gian' : label}</button>
         ))}
       </div>
       <div className="pt-5" role="tabpanel">
         {tab === 'content' && <ContentTab lesson={lesson} edit={edit} />}
         {tab === 'questions' && <QuestionsTab lesson={lesson} edit={edit} />}
         {tab === 'variables' && <VariablesEditor lesson={lesson} edit={edit} />}
-        {tab === 'scene' && <SceneTab lesson={lesson} edit={edit} />}
+        {tab === 'scene' && (timeline ? <TimelineTab lesson={lesson} edit={edit} /> : <SceneTab lesson={lesson as SceneLesson} edit={edit} />)}
         {tab === 'notes' && (
           <div className="grid max-w-4xl gap-6">
             <Field label="Ghi chú giảng dạy (chỉ giáo viên thấy)"><textarea className="field" rows={8} value={lesson.privateNotes} onChange={(e) => edit('notes', (d) => void (d.privateNotes = e.target.value))} /></Field>
@@ -326,6 +331,55 @@ function QuestionsTab({ lesson, edit }: TabProps) {
   );
 }
 
+/** Flags the textbook reviewer left on a lesson, verbatim, read-only. */
+function ReviewFlags({ lesson }: { lesson: AppLesson }) {
+  const flags = lesson.reviewFlags ?? [];
+  if (!flags.length) return null;
+  return (
+    <section id="review-flags-panel" className="card mt-4 bg-warn-tint p-4" aria-label="Cờ rà soát nội dung">
+      <h2 className="font-sans t-base font-semibold">Cờ rà soát ({flags.length}): cần thầy cô đối chiếu trước khi phát hành</h2>
+      {lesson.sourceCitation && <p className="mt-1 t-sm">Nguồn tham chiếu: {lesson.sourceCitation}</p>}
+      <ul id="editor-review-flags-list" className="mt-2 list-disc pl-5 t-sm">
+        {flags.map((flag, i) => <li key={i}>{flag}</li>)}
+      </ul>
+    </section>
+  );
+}
+
+function TimelineTab({ lesson, edit }: TabProps) {
+  const events = lesson.timeline ?? [];
+  return (
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_28rem]">
+      <div className="lg:sticky lg:top-40">
+        <Player lesson={lesson} prefix="editor" badge="Xem trước" />
+      </div>
+      <div className="flex flex-col gap-5">
+        <section id="editor-non-3d-notice" className="card flex flex-col gap-1 p-4">
+          <h3 className="t-lg font-semibold">Chế độ khám phá bài giảng</h3>
+          <p className="t-sm">Chế độ áp dụng: <strong>{modeLabel(lesson)}</strong>.</p>
+          <p className="t-xs muted">Bài này không dùng sa bàn trận đánh, nên các tuỳ chọn sa bàn 3D (địa hình, nhãn, quân số, góc nhìn) được ẩn. Học sinh đi qua các mốc dưới đây.</p>
+        </section>
+        <Group title={`Các mốc thời gian (${events.length})`}>
+          {!events.length && <p className="t-sm muted">Chưa có mốc nào: trục thời gian đang lấy theo các giai đoạn của bài.</p>}
+          <ol className="flex flex-col gap-3">
+            {events.map((event, i) => (
+              <li key={i} className="grid gap-2 rounded-lg border border-rule p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="t-sm font-semibold">Mốc {i + 1}</span>
+                  <Mover index={i} count={events.length} label="mốc" onMove={(to) => edit('tl.move', (d) => move(d.timeline!, i, to))} onDelete={() => edit('tl.del', (d) => void d.timeline!.splice(i, 1))} />
+                </div>
+                <Field label="Năm / thời điểm"><input className="field" value={event.year} onChange={(e) => edit(`tl.${i}.y`, (d) => void (d.timeline![i].year = e.target.value))} /></Field>
+                <Field label="Sự kiện"><textarea className="field" rows={2} value={event.event} onChange={(e) => edit(`tl.${i}.e`, (d) => void (d.timeline![i].event = e.target.value))} /></Field>
+              </li>
+            ))}
+          </ol>
+          <button type="button" id="btn-add-timeline-event" className="btn btn-secondary btn-sm self-start" onClick={() => edit('tl.add', (d) => void (d.timeline ??= []).push({ year: '', event: '' }))}><Icon name="plus" /> Thêm mốc</button>
+        </Group>
+      </div>
+    </div>
+  );
+}
+
 const PROPS: [string, string][] = [['palisade', 'Đồn lũy, chòi canh'], ['tents', 'Lều trại'], ['elephants', 'Đơn vị đặc biệt'], ['banners', 'Cờ hiệu'], ['fire', 'Đuốc'], ['village', 'Làng'], ['bamboo', 'Rặng tre']];
 const TERRAIN_LABELS: Record<string, string> = { plain: 'Đồng bằng', river: 'Sông nước', 'mountain-pass': 'Đèo núi', basin: 'Lòng chảo', 'coast-river': 'Cửa sông ven biển', urban: 'Đô thị' };
 
@@ -338,7 +392,8 @@ function useDebounced<T>(value: T, ms: number) {
   return current;
 }
 
-function SceneTab({ lesson, edit }: TabProps) {
+// Only rendered for 3D lessons, which the schema guarantees to have both (hence the `!` on the draft copies).
+function SceneTab({ lesson, edit }: { lesson: SceneLesson; edit: Edit }) {
   const scene = useRef<SilkMapScene | null>(null);
   const sim = lesson.simulation;
   const counts = normalizeCounts(sim.unitCounts);
@@ -346,9 +401,9 @@ function SceneTab({ lesson, edit }: TabProps) {
   const mapKey = useDebounced(JSON.stringify(sim.scene), 500);
   const setCount = (key: 'aInfantry' | 'bInfantry', value: number) =>
     edit(`count.${key}`, (d) => {
-      const next = normalizeCounts(d.simulation.unitCounts);
+      const next = normalizeCounts(d.simulation!.unitCounts);
       next[key] = value;
-      d.simulation.unitCounts = next;
+      d.simulation!.unitCounts = next;
     });
   const setCountLive = (key: 'aInfantry' | 'bInfantry', value: number) => {
     setCount(key, value);
@@ -357,16 +412,16 @@ function SceneTab({ lesson, edit }: TabProps) {
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
       <div className="lg:sticky lg:top-40">
-        <Player key={mapKey} lesson={lesson} prefix="editor" onScene={(s) => (scene.current = s)} badge="Xem trước" />
+        <ScenePlayer key={mapKey} lesson={lesson} prefix="editor" onScene={(s) => (scene.current = s)} badge="Xem trước" />
       </div>
       <div className="flex flex-col gap-5">
         <Group title="Hai phe">
           {(['a', 'b'] as const).map((side) => (
             <div key={side} className="grid grid-cols-[minmax(0,1fr)_3.5rem] items-end gap-2">
-              <Field label={side === 'a' ? 'Phe A (phe ta)' : 'Phe B'}><input className="field" value={lesson.factions[side].name} onChange={(e) => edit(`fac.${side}`, (d) => void (d.factions[side].name = e.target.value))} /></Field>
+              <Field label={side === 'a' ? 'Phe A (phe ta)' : 'Phe B'}><input className="field" value={lesson.factions[side].name} onChange={(e) => edit(`fac.${side}`, (d) => void (d.factions![side].name = e.target.value))} /></Field>
               <input type="color" className="h-11 w-14 cursor-pointer rounded-lg border border-rule" aria-label={`Màu ${lesson.factions[side].name}`} value={lesson.factions[side].color} onChange={(e) => {
                 const color = e.target.value;
-                edit(`color.${side}`, (d) => void (d.factions[side].color = color));
+                edit(`color.${side}`, (d) => void (d.factions![side].color = color));
                 scene.current?.updateFactionColors({ [side]: color });
               }} />
             </div>
@@ -383,7 +438,7 @@ function SceneTab({ lesson, edit }: TabProps) {
               <label key={key} className="flex min-h-11 items-center gap-2 t-sm">
                 <input type="checkbox" className="h-[18px] w-[18px]" checked={sim.propsConfig?.[key] !== false} onChange={(e) => {
                   const on = e.target.checked;
-                  edit(`prop.${key}`, (d) => void ((d.simulation.propsConfig ??= {})[key] = on));
+                  edit(`prop.${key}`, (d) => void ((d.simulation!.propsConfig ??= {})[key] = on));
                   scene.current?.applyPropConfig({ ...sim.propsConfig, [key]: on });
                 }} /> {label}
               </label>
@@ -392,7 +447,7 @@ function SceneTab({ lesson, edit }: TabProps) {
         </Group>
         <Group title="Địa hình và nhãn">
           <Field label="Kiểu địa hình">
-            <select className="field" value={sim.scene.terrain} onChange={(e) => edit('terrain', (d) => void (d.simulation.scene.terrain = e.target.value as typeof sim.scene.terrain))}>
+            <select className="field" value={sim.scene.terrain} onChange={(e) => edit('terrain', (d) => void (d.simulation!.scene.terrain = e.target.value as typeof sim.scene.terrain))}>
               {TERRAINS.map((t) => <option key={t} value={t}>{TERRAIN_LABELS[t]}</option>)}
             </select>
           </Field>
@@ -400,17 +455,17 @@ function SceneTab({ lesson, edit }: TabProps) {
             <legend className="label">Nhãn trên sa bàn (x: −120…120, z: −93…93; z dương gần người xem)</legend>
             {sim.scene.labels.map((label, i) => (
               <div key={i} className="mb-2 grid grid-cols-[minmax(0,1fr)_4.5rem_4.5rem_auto] gap-2">
-                <input className="field" aria-label={`Nhãn ${i + 1}`} value={label.text} onChange={(e) => edit(`lbl.${i}.t`, (d) => void (d.simulation.scene.labels[i].text = e.target.value))} />
+                <input className="field" aria-label={`Nhãn ${i + 1}`} value={label.text} onChange={(e) => edit(`lbl.${i}.t`, (d) => void (d.simulation!.scene.labels[i].text = e.target.value))} />
                 {[0, 1].map((axis) => (
                   <input key={axis} className="field tabular-nums" inputMode="numeric" aria-label={axis ? 'Toạ độ z' : 'Toạ độ x'} value={label.at[axis]} onChange={(e) => {
                     const n = Number(e.target.value);
-                    if (Number.isFinite(n)) edit(`lbl.${i}.${axis}`, (d) => void (d.simulation.scene.labels[i].at[axis] = n));
+                    if (Number.isFinite(n)) edit(`lbl.${i}.${axis}`, (d) => void (d.simulation!.scene.labels[i].at[axis] = n));
                   }} />
                 ))}
-                <button type="button" className="btn btn-quiet btn-sm text-action" aria-label="Xoá nhãn" onClick={() => edit('lbl.del', (d) => void d.simulation.scene.labels.splice(i, 1))}><Icon name="trash" /></button>
+                <button type="button" className="btn btn-quiet btn-sm text-action" aria-label="Xoá nhãn" onClick={() => edit('lbl.del', (d) => void d.simulation!.scene.labels.splice(i, 1))}><Icon name="trash" /></button>
               </div>
             ))}
-            <button type="button" className="btn btn-secondary btn-sm" onClick={() => edit('lbl.add', (d) => void d.simulation.scene.labels.push({ text: 'Nhãn mới', at: [0, 0] }))}><Icon name="plus" /> Thêm nhãn</button>
+            <button type="button" className="btn btn-secondary btn-sm" onClick={() => edit('lbl.add', (d) => void d.simulation!.scene.labels.push({ text: 'Nhãn mới', at: [0, 0] }))}><Icon name="plus" /> Thêm nhãn</button>
           </fieldset>
         </Group>
         <Group title="Góc máy theo thời gian">
@@ -418,16 +473,16 @@ function SceneTab({ lesson, edit }: TabProps) {
             <div key={i} className="grid grid-cols-[5.5rem_minmax(0,1fr)_auto] items-center gap-2">
               <input className="field tabular-nums" inputMode="numeric" aria-label="Thời điểm (%)" value={Math.round(frame.time * 100)} onChange={(e) => {
                 const n = Number(e.target.value);
-                if (Number.isFinite(n)) edit(`kf.${i}.t`, (d) => void (d.simulation.keyframes![i].time = Math.min(1, Math.max(0, n / 100))));
+                if (Number.isFinite(n)) edit(`kf.${i}.t`, (d) => void (d.simulation!.keyframes![i].time = Math.min(1, Math.max(0, n / 100))));
               }} />
-              <select className="field" aria-label="Góc nhìn" value={frame.preset} onChange={(e) => edit(`kf.${i}.p`, (d) => void (d.simulation.keyframes![i].preset = e.target.value as (typeof CAMERA_PRESETS)[number]))}>
+              <select className="field" aria-label="Góc nhìn" value={frame.preset} onChange={(e) => edit(`kf.${i}.p`, (d) => void (d.simulation!.keyframes![i].preset = e.target.value as (typeof CAMERA_PRESETS)[number]))}>
                 {CAMERA_LABELS.map(([key, label]) => <option key={key} value={key}>{label}</option>)}
               </select>
-              <button type="button" className="btn btn-quiet btn-sm text-action" aria-label="Xoá mốc góc máy" onClick={() => edit('kf.del', (d) => void d.simulation.keyframes!.splice(i, 1))}><Icon name="trash" /></button>
+              <button type="button" className="btn btn-quiet btn-sm text-action" aria-label="Xoá mốc góc máy" onClick={() => edit('kf.del', (d) => void d.simulation!.keyframes!.splice(i, 1))}><Icon name="trash" /></button>
             </div>
           ))}
           <p className="t-xs muted">Thời điểm tính theo % tiến trình mô phỏng.</p>
-          <button type="button" className="btn btn-secondary btn-sm self-start" onClick={() => edit('kf.add', (d) => void (d.simulation.keyframes ??= []).push({ time: 0.5, preset: 'follow_troops' }))}><Icon name="plus" /> Thêm mốc góc máy</button>
+          <button type="button" className="btn btn-secondary btn-sm self-start" onClick={() => edit('kf.add', (d) => void (d.simulation!.keyframes ??= []).push({ time: 0.5, preset: 'follow_troops' }))}><Icon name="plus" /> Thêm mốc góc máy</button>
         </Group>
       </div>
     </div>
