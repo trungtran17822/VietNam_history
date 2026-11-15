@@ -143,6 +143,8 @@
     elements.btnEditorRedo = document.getElementById('btn-editor-redo');
     elements.btnEditorPreviewStudent = document.getElementById('btn-editor-preview-student');
     elements.btnEditorSaveDraft = document.getElementById('btn-editor-save-draft');
+    elements.btnEditorExportDocx = document.getElementById('btn-editor-export-docx');
+    elements.btnEditorExportPdf = document.getElementById('btn-editor-export-pdf');
     elements.btnEditorSchedule = document.getElementById('btn-editor-schedule');
     elements.btnEditorPublish = document.getElementById('btn-editor-publish');
     elements.editorSectionsContainer = document.getElementById('editor-sections-container');
@@ -514,6 +516,14 @@
       if (activeLesson) navigateToLesson(activeLesson.id);
     });
 
+    elements.btnEditorExportDocx.addEventListener('click', () => exportActiveLesson('docx'));
+    elements.btnEditorExportPdf.addEventListener('click', () => exportActiveLesson('pdf'));
+    const gotoOpinion = document.getElementById('btn-goto-opinion-summary');
+    if (gotoOpinion) gotoOpinion.addEventListener('click', () => goTo6StageScreen(5));
+    const opinionBack = document.getElementById('btn-opinion-back');
+    if (opinionBack) opinionBack.addEventListener('click', () => goTo6StageScreen(3));
+    const opinionFinish = document.getElementById('btn-opinion-finish');
+    if (opinionFinish) opinionFinish.addEventListener('click', () => elements.btnFinish6stages.click());
     elements.btnEditorSaveDraft.addEventListener('click', () => saveActiveLessonWithStatus('Nháp'));
     elements.btnEditorSchedule.addEventListener('click', () => saveActiveLessonWithStatus('Đã lên lịch'));
     elements.btnEditorPublish.addEventListener('click', () => {
@@ -723,7 +733,7 @@
     if (!elements.fontTestRows || elements.fontTestRows.dataset.rendered === 'true') return;
     elements.fontTestRows.dataset.rendered = 'true';
     const samples = [
-      'Trận Ngọc Hồi - Hạ Hồi',
+      'Bài học lịch sử Việt Nam',
       'Hồ Hầu Ế Ề Ổ Ỗ Ộ',
       'ồ ố ổ ỗ ộ ầ ấ ẩ ẫ ậ ề ế ể ễ ệ ằ ắ ẳ ẵ ặ',
       'ươ ữ ừ ử ự ứ',
@@ -1222,6 +1232,13 @@
       .filter((s) => s.length > 0);
 
     elements.editorDisplayTitle.textContent = activeLesson.title;
+  }
+
+  function exportActiveLesson(kind) {
+    if (!activeLesson || !window.DocxExport) return;
+    syncFormToActiveLesson();
+    if (kind === 'pdf') window.DocxExport.exportLessonPdf(activeLesson);
+    else window.DocxExport.exportLessonDocx(activeLesson);
   }
 
   function saveActiveLessonWithStatus(newStatus) {
@@ -2195,6 +2212,7 @@
           radio.addEventListener('change', (e) => {
             const optId = e.target.value;
             const chosen = q.options.find((o) => o.id === optId);
+            window.LessonStorage.saveQuizAnswer(lesson.id, q.id, optId);
             const fbBox = box.querySelector(`#feedback-q-${q.id}`);
             if (chosen && fbBox) {
               fbBox.style.display = 'block';
@@ -2275,12 +2293,31 @@
       });
     }
 
-    const speech = lesson.question && lesson.question.character && lesson.question.character.speech;
+    const character = lesson.question && lesson.question.character;
+    const speech = character && character.speech;
     if (speech) document.getElementById('emperor-speech').textContent = `"${speech}"`;
+    const emperorCard = document.getElementById('emperor-card');
+    if (emperorCard) emperorCard.hidden = !character;
+    const emperorName = document.getElementById('emperor-name');
+    if (emperorName && character && character.name) emperorName.textContent = character.name;
+    renderLoopHeadings(lesson);
     window.ClassPanel.markLessonStart();
     renderVariablesQuestionForm(lesson);
     showView('view-lesson-detail');
     goTo6StageScreen(1);
+  }
+
+  function renderLoopHeadings(lesson) {
+    const title = lesson.title || 'Bài học lịch sử';
+    document.querySelectorAll('#view-lesson-detail .lesson-title-text').forEach((n) => { n.textContent = title; });
+    document.querySelectorAll('#view-lesson-detail .lesson-subtitle-text').forEach((n) => { n.textContent = lesson.subtitle || ''; });
+    const heading = document.getElementById('intro-heading');
+    if (heading) heading.textContent = title;
+    const intro = document.getElementById('intro-summary-text');
+    const text = lesson.introSummary || lesson.objectives;
+    if (intro && text) intro.textContent = text;
+    const step5 = document.querySelector('.lesson-stepper .step-node[data-step="5"] .step-name');
+    if (step5) step5.textContent = lessonHasVariables(lesson) ? 'So sánh' : 'Tổng kết ý kiến';
   }
 
   function lessonHasVariables(lesson) {
@@ -2319,7 +2356,8 @@
 
   function goTo6StageScreen(stepIndex) {
     // Without variables there is nothing to simulate: stage 3 explains, 4-6 are unreachable.
-    if (stepIndex > 3 && !lessonHasVariables(activeLesson)) stepIndex = 3;
+    // Exception: stage 5 shows a neutral opinion summary for such lessons.
+    if (stepIndex > 3 && stepIndex !== 5 && !lessonHasVariables(activeLesson)) stepIndex = 3;
     current6StageIndex = stepIndex;
 
     // Update Stepper UI
@@ -2329,7 +2367,7 @@
       node.classList.toggle('complete', idx < stepIndex);
       if (idx === stepIndex) node.setAttribute('aria-current', 'step');
       else node.removeAttribute('aria-current');
-      node.disabled = idx > 3 && !lessonHasVariables(activeLesson);
+      node.disabled = idx > 3 && idx !== 5 && !lessonHasVariables(activeLesson);
     });
     const activeNode = document.querySelector(`.lesson-stepper .step-node[data-step="${stepIndex}"]`);
     if (activeNode && activeNode.scrollIntoView) activeNode.scrollIntoView({ block: 'nearest', inline: 'center' });
@@ -2565,7 +2603,63 @@
     });
   }
 
+  function renderOpinionSummary() {
+    const lesson = activeLesson;
+    const answers = window.LessonStorage.getQuizAnswers(lesson.id);
+    const questions = (lesson.questions || []).filter((q) => q.type === 'multiple_choice' && q.options);
+    document.getElementById('opinion-summary-intro').textContent =
+      'Bài học này không có phần mô phỏng, nên không có phương án để so sánh. Dưới đây là các câu trả lời của em và số lượt chọn của từng đáp án trên thiết bị này, để cả lớp cùng thảo luận. Nội dung minh họa, chưa được chuyên gia duyệt.';
+    const list = document.getElementById('opinion-summary-list');
+    list.innerHTML = '';
+    if (!questions.length) {
+      const empty = document.createElement('p');
+      empty.style.color = 'var(--text-muted)';
+      empty.textContent = 'Bài học chưa có câu hỏi trắc nghiệm. Em hãy chia sẻ suy nghĩ của mình trong phần thảo luận trên lớp.';
+      list.appendChild(empty);
+      return;
+    }
+    questions.forEach((q, idx) => {
+      const mine = answers.mine[q.id];
+      const tally = answers.tally[q.id] || {};
+      const total = Object.values(tally).reduce((n, v) => n + v, 0);
+      const box = document.createElement('div');
+      box.style.cssText = 'background:var(--bg-dark-input); padding:12px 14px; border-radius:6px;';
+      const head = document.createElement('div');
+      head.style.cssText = 'font-weight:700; margin-bottom:6px;';
+      head.textContent = `Câu ${idx + 1}: ${q.text}`;
+      box.appendChild(head);
+      const own = q.options.find((o) => o.id === mine);
+      const ownLine = document.createElement('div');
+      ownLine.style.cssText = 'font-size:0.92rem; margin-bottom:6px;';
+      ownLine.textContent = own ? `Em đã chọn: ${own.text}` : 'Em chưa trả lời câu này.';
+      box.appendChild(ownLine);
+      q.options.forEach((o) => {
+        const n = tally[o.id] || 0;
+        const pct = total ? Math.round((n / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.style.cssText = 'font-size:0.85rem; color:var(--text-secondary); margin-top:4px;';
+        row.textContent = `${o.text} - ${n} lượt chọn (${pct}%)`;
+        box.appendChild(row);
+      });
+      list.appendChild(box);
+    });
+  }
+
   function computeAndRenderComparison() {
+    const simContent = document.getElementById('comparison-sim-content');
+    const opinion = document.getElementById('opinion-summary');
+    const bannerSub = document.getElementById('comparison-banner-sub');
+    if (!lessonHasVariables(activeLesson)) {
+      if (simContent) simContent.hidden = true;
+      if (opinion) opinion.hidden = false;
+      if (bannerSub && bannerSub.dataset.simText === undefined) bannerSub.dataset.simText = bannerSub.textContent;
+      if (bannerSub) bannerSub.textContent = 'Phần tổng kết dưới đây chỉ là ý kiến thảo luận minh họa, không thay thế cho các nghiên cứu lịch sử chính thức.';
+      renderOpinionSummary();
+      return;
+    }
+    if (simContent) simContent.hidden = false;
+    if (opinion) opinion.hidden = true;
+    if (bannerSub && bannerSub.dataset.simText !== undefined) bannerSub.textContent = bannerSub.dataset.simText;
     const result = window.SimulationEngine.calculate(activeLesson, studentTacticalChoices);
 
     // Save student run into localStorage

@@ -120,6 +120,12 @@
               text: 'Vì tấm ván quá nhẹ giúp binh sĩ chạy nhanh hơn tốc độ viên đạn',
               isCorrect: false,
               explanation: 'Tấm ván bọc rơm ướt do 20 tráng sĩ khiêng rất nặng, đánh đổi tốc độ cơ động để lấy sự che chắn tuyệt đối.'
+            },
+            {
+              id: 'opt-1-d',
+              text: 'Vì rơm ướt có màu sẫm nên quân giặc trên thành khó nhìn thấy để ngắm bắn',
+              isCorrect: false,
+              explanation: 'Màu sắc của rơm không phải yếu tố chính; tác dụng của rơm ướt là dập lửa và làm giảm sức xuyên của mảnh đạn khi bắn ở cự ly gần.'
             }
           ]
         },
@@ -148,6 +154,12 @@
               text: 'Để nghi binh thu hút hỏa lực của quân Mãn Thanh khỏi đồn Ngọc Hồi',
               isCorrect: false,
               explanation: 'Đạo quân Đô đốc Bảo ẩn náu hoàn toàn bí mật, không hề nổ súng nghi binh cho đến khi quân Thanh tháo chạy tới.'
+            },
+            {
+              id: 'opt-2-d',
+              text: 'Để chặn đường tiến của viện binh quân Thanh từ phương Bắc xuống Ngọc Hồi',
+              isCorrect: false,
+              explanation: 'Nhiệm vụ của đạo quân này là chặn đường rút lui của tàn quân từ đồn Ngọc Hồi, không phải đón viện binh từ phương Bắc.'
             }
           ]
         },
@@ -247,6 +259,17 @@
                 casualtyDelta: -400,
                 positionScoreDelta: -35,
                 assumptions: 'Giảm được thương vong trực tiếp ban đầu nhưng làm mất hoàn toàn yếu tố thần tốc; cho phép Tôn Sĩ Nghị ở Thăng Long có đủ thời gian điều viện binh 20 vạn quân Nam tiến phản công kẹp ta vào giữa.'
+              },
+              {
+                id: 'two_wing_encircle',
+                isOriginal: false,
+                name: 'Chia hai cánh bọc hậu, bỏ qua Đầm Mực',
+                shortName: 'Hai cánh bọc hậu, không ém Đầm Mực',
+                desc: 'Chia quân thành hai cánh vòng ra phía sau đồn Ngọc Hồi, không bố trí đạo quân mai phục tại Đầm Mực.',
+                timeDelta: 6,
+                casualtyDelta: 300,
+                positionScoreDelta: -10,
+                assumptions: 'Giả định minh họa: bọc hậu giúp cắt đường tiếp viện nhưng bỏ ngỏ hướng tháo chạy qua Đầm Mực, nên tàn quân đối phương còn cơ hội thoát và hội quân.'
               }
             ]
           },
@@ -287,6 +310,17 @@
                 casualtyDelta: 1100,
                 positionScoreDelta: -40,
                 assumptions: 'Quân ta có thể lực tốt hơn nhưng quân Thanh đã hoàn thành việc củng cố công sự kiên cố quanh Thăng Long và viện binh từ Lưỡng Quảng có thời gian chi viện.'
+              },
+              {
+                id: 'dusk_attack',
+                isOriginal: false,
+                name: 'Phát động tấn công lúc hoàng hôn',
+                shortName: 'Tấn công lúc hoàng hôn',
+                desc: 'Chờ đến chiều muộn khi ánh sáng yếu dần mới đồng loạt tiến sát đồn lũy.',
+                timeDelta: 4,
+                casualtyDelta: 350,
+                positionScoreDelta: -12,
+                assumptions: 'Giả định minh họa: bóng tối giúp che bớt đội hình nhưng làm khó việc liên lạc giữa các mũi tiến công và không còn yếu tố bất ngờ của buổi sáng sớm.'
               }
             ]
           },
@@ -327,6 +361,17 @@
                 casualtyDelta: 1400,
                 positionScoreDelta: -28,
                 assumptions: 'Áp sát lũy rất nhanh nhưng trước mật độ chông sắt dày đặc và hỏa lực bắn rát dồn dập, đội hình tản mát khó tạo ra sức công phá xuyên thủng cổng thành.'
+              },
+              {
+                id: 'earth_trench',
+                isOriginal: false,
+                name: 'Đào hào, đắp lũy tiến dần đến sát đồn',
+                shortName: 'Đào hào tiến dần',
+                desc: 'Đào đường hào và đắp lũy đất để che chắn, nhích dần từng đoạn về phía đồn Ngọc Hồi.',
+                timeDelta: 20,
+                casualtyDelta: 150,
+                positionScoreDelta: -15,
+                assumptions: 'Giả định minh họa: giảm bớt tổn thất khi áp sát nhưng tốn nhiều thời gian, cho đối phương thêm cơ hội củng cố phòng tuyến và chờ tiếp viện.'
               }
             ]
           },
@@ -367,6 +412,17 @@
                 casualtyDelta: 1200,
                 positionScoreDelta: -24,
                 assumptions: 'Ngựa chiến dễ bị sập bẫy chông sắt và hỏa hổ làm kinh hãi; không đủ thể trọng để ủi sập tường đất kiên cố của đồn Ngọc Hồi.'
+              },
+              {
+                id: 'elephants_flank',
+                isOriginal: false,
+                name: 'Dùng voi đánh tạt cánh, bộ binh đánh chính diện',
+                shortName: 'Voi đánh tạt cánh',
+                desc: 'Cho tượng binh vòng đánh vào một bên sườn đồn lũy trong khi bộ binh giữ hướng chính diện.',
+                timeDelta: 3,
+                casualtyDelta: 250,
+                positionScoreDelta: -8,
+                assumptions: 'Giả định minh họa: voi vẫn tạo sức ép lên phòng tuyến nhưng bộ binh chính diện phải chịu hỏa lực nhiều hơn so với khi voi mở đường phía trước.'
               }
             ]
           }
@@ -378,22 +434,26 @@
           direction: {
             flanking_multidirectional: 'Con đã nhìn ra tầm quan trọng của việc diệt cỏ phải nhổ tận gốc. Ém quân Đầm Mực chính là chiếc khóa then cài chặt số phận tướng giặc.',
             frontal_allout: 'Đánh vỗ mặt chính diện thể hiện khí phách ngút trời, nhưng tường cao hào sâu của giặc đã cướp đi quá nhiều máu xương của tráng sĩ, lại để tướng giặc mở đường máu tháo chạy về Thăng Long.',
-            siege_starvation: 'Kế vây thành chờ giặc đói là kế sách sách vở cổ điển. Song đối đầu với 29 vạn quân giặc, dây dưa dài ngày chính là tự trói tay mình chờ giặc từ phương Bắc tràn xuống kẹp ta vào giữa.'
+            siege_starvation: 'Kế vây thành chờ giặc đói là kế sách sách vở cổ điển. Song đối đầu với 29 vạn quân giặc, dây dưa dài ngày chính là tự trói tay mình chờ giặc từ phương Bắc tràn xuống kẹp ta vào giữa.',
+            two_wing_encircle: 'Bọc hậu bằng hai cánh là ý tưởng táo bạo, song bỏ ngỏ Đầm Mực nghĩa là đường tháo chạy của giặc không bị khóa chặt, tàn quân còn cơ hội thoát về hội quân.'
           },
           timing: {
             dawn_tet5: 'Chọn lúc mờ sáng mùng 5 Tết, khi kẻ thù chìm trong chén rượu xuân say mèm, chính là nắm chắc binh pháp: "Bất ngờ xuất hiện nơi địch không phòng bị".',
             midday_light: 'Tấn công giữa trưa tuy sáng rõ đường đi lối lại nhưng đã trao cho đại pháo giặc cự ly ngắm bắn hoàn hảo, khiến quân ta trúng đạn pháo từ rất xa.',
-            after_fullmoon: 'Chờ qua rằm mới tiến quân tuy quân sĩ no nê dưỡng sức, song khí thế thần tốc ngút trời đã nguội lạnh, giặc đã kịp đắp xong tầng tầng lớp lớp chiến lũy kiên cố.'
+            after_fullmoon: 'Chờ qua rằm mới tiến quân tuy quân sĩ no nê dưỡng sức, song khí thế thần tốc ngút trời đã nguội lạnh, giặc đã kịp đắp xong tầng tầng lớp lớp chiến lũy kiên cố.',
+            dusk_attack: 'Đánh lúc hoàng hôn giúp bóng tối che bớt đội hình, nhưng liên lạc giữa các mũi tiến công khó hơn và ta mất đi yếu tố bất ngờ của buổi sáng sớm đầu năm.'
           },
           shield: {
             wet_straw_shields: 'Sáng kiến khiên rơm ướt từ chính rơm rạ đồng quê Đại Việt đã biến súng đạn tối tân của giặc thành đồ phế thải. Trí tuệ dân gian muôn đời là vũ khí sắc bén nhất!',
             standard_wood_shields: 'Khiên gỗ bọc da nhẹ nhàng cơ động, song trước đạn gang đỏ lửa và hỏa cầu tẩm dầu, khiên bắt lửa biến hàng quân thành biển lửa.',
-            dispersed_rush: 'Chạy tản mát né tránh pháo kích rất dũng cảm, nhưng khi không có hỏa lực che chắn tập trung, dũng sĩ dễ bị chông sắt và tên độc ghìm chặt dưới chân thành.'
+            dispersed_rush: 'Chạy tản mát né tránh pháo kích rất dũng cảm, nhưng khi không có hỏa lực che chắn tập trung, dũng sĩ dễ bị chông sắt và tên độc ghìm chặt dưới chân thành.',
+            earth_trench: 'Đào hào tiến dần giúp giảm thương vong khi áp sát, nhưng mỗi ngày kéo dài lại cho đối phương thêm thời gian củng cố đồn lũy và chờ tiếp viện.'
           },
           elephants: {
             elephants_vanguard: 'Tượng binh voi chiến chính là "xe bọc thép" thời cổ. Trẫm dùng voi mở đường để san phẳng mọi bãi chông, dẫm nát phòng tuyến sắt đá của địch.',
             elephants_reserve: 'Để voi lại phía sau làm lực lượng dự bị là quá cẩn trọng, khiến bộ binh phải lấy thân mình mở đường máu qua hào chông đẫm máu.',
-            cavalry_instead: 'Ngựa chiến nhanh nhẹn nhưng ngửi thấy mùi thuốc súng và hỏa hổ thì hoảng loạn giẫm đạp lên nhau, không thể ủi đổ bờ lũy đất kiên cố như voi chiến.'
+            cavalry_instead: 'Ngựa chiến nhanh nhẹn nhưng ngửi thấy mùi thuốc súng và hỏa hổ thì hoảng loạn giẫm đạp lên nhau, không thể ủi đổ bờ lũy đất kiên cố như voi chiến.',
+            elephants_flank: 'Voi đánh tạt cánh vẫn gây sức ép lên phòng tuyến, song bộ binh chính diện phải gánh nhiều hỏa lực hơn khi không có voi mở đường phía trước.'
           }
         },
         encouragingConclusion: 'Thắng bại trong mô phỏng chính là bài học để rèn giũa nhãn quan chiến lược. Đất nước mai sau trông chờ vào trí tuệ mưu lược và ý chí tự cường của thế hệ các con!'
