@@ -180,7 +180,7 @@ flowchart LR
 | Level | Tool | Covers |
 |---|---|---|
 | Static | `scripts/check.sh` | `tsc`, lesson schema for every lesson JSON, mandatory labels, NFC, backend syntax |
-| Unit (frontend logic) | Vitest | Lesson schema, engine determinism over all 81 combos, grading-word scan, storage visibility rule and v1 migration |
+| Unit (frontend logic) | Vitest | Lesson schema, engine determinism over all 256 combos, grading-word scan, storage visibility rule and v1 migration |
 | Unit (backend) | `node:test` + MemoryStore | Every endpoint, validation, cap, expiry, auth, CORS, CSV |
 | Unit (atlas data) | `node:test` (`tests/atlas/`) | 34 units, archipelagos, landmarks inside provinces, id space, NFC, size budget, search scoring, every lesson's `atlasPlaceIds` resolves |
 | Bundle | `scripts/bundle-budget.mjs` | Initial JS ≤ 200 KB gzip; three.js and the atlas lazy |

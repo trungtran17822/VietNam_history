@@ -215,3 +215,33 @@ export function saveStudentRun(lessonId: string, run: SimulationResult) {
 export function getStudentRun(lessonId: string): StudentRun | null {
   return read<Record<string, StudentRun>>(RUNS_KEY, {})[lessonId] ?? null;
 }
+
+/**
+ * Multiple-choice answers given on this device, no names: this student's latest pick per
+ * question (`mine`) and how often each option was picked here (`tally`). The opinion summary of
+ * a lesson without a simulation reads it.
+ */
+export type QuizAnswers = { mine: Record<string, string>; tally: Record<string, Record<string, number>> };
+const QUIZ_KEY = 'history_sim_quiz_answers';
+const emptyQuiz = (): QuizAnswers => ({ mine: {}, tally: {} });
+
+/** A changed answer moves the tally from the old option to the new one; the same answer counts once. */
+export function recordQuizAnswer(prev: QuizAnswers, questionId: string, optionId: string): QuizAnswers {
+  const tally = { ...(prev.tally[questionId] ?? {}) };
+  const before = prev.mine[questionId];
+  if (before === optionId) return prev;
+  if (before && tally[before] > 0) tally[before] -= 1;
+  tally[optionId] = (tally[optionId] ?? 0) + 1;
+  return { mine: { ...prev.mine, [questionId]: optionId }, tally: { ...prev.tally, [questionId]: tally } };
+}
+
+export function saveQuizAnswer(lessonId: string, questionId: string, optionId: string) {
+  if (!lessonId || !questionId || !optionId) return;
+  const all = read<Record<string, QuizAnswers>>(QUIZ_KEY, {});
+  all[lessonId] = recordQuizAnswer(all[lessonId] ?? emptyQuiz(), questionId, optionId);
+  write(QUIZ_KEY, all);
+}
+
+export function getQuizAnswers(lessonId: string): QuizAnswers {
+  return read<Record<string, QuizAnswers>>(QUIZ_KEY, {})[lessonId] ?? emptyQuiz();
+}

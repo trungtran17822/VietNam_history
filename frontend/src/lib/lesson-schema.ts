@@ -89,7 +89,8 @@ const feature = z
 
 export const sceneSchema = z.object({
   terrain: z.enum(TERRAINS),
-  labels: z.array(z.object({ text: text.min(1, 'Nhãn không được để trống'), at: point })),
+  // `info` (optional): a short, general description shown in a popover when the label is clicked.
+  labels: z.array(z.object({ text: text.min(1, 'Nhãn không được để trống'), at: point, info: text.optional() })),
   features: z.array(feature),
   routes: z.array(z.object({ faction, points: z.array(point).min(2), from: progress, to: progress })),
   // Where each side's troops start and where they end up as the timeline runs (world units).

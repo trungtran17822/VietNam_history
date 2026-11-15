@@ -3,6 +3,7 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { CAMERA_PRESETS, TERRAINS, isTimelineMode, modeLabel, playabilityIssues, validateLesson, type Section, type Status } from '../lib/lesson-schema';
+import { exportLessonDocx, exportLessonPdf } from '../lib/docx-export';
 import { saveLesson, type AppLesson } from '../lib/storage';
 import type { SilkMapScene } from '../scene/silk-map';
 import { normalizeCounts } from '../scene/counts';
@@ -102,6 +103,8 @@ export function Editor({ initial, teacher }: { initial: AppLesson; teacher: stri
             <button type="button" id="btn-editor-undo" className="btn btn-quiet btn-sm" disabled={!canUndo} onClick={undo} title="Hoàn tác (Ctrl+Z)"><Icon name="undo" /> <span className="hidden sm:inline">Hoàn tác</span></button>
             <button type="button" id="btn-editor-redo" className="btn btn-quiet btn-sm" disabled={!canRedo} onClick={redo} title="Làm lại (Ctrl+Shift+Z)"><Icon name="redo" /> <span className="hidden sm:inline">Làm lại</span></button>
             <button type="button" id="btn-editor-preview-student" className="btn btn-secondary btn-sm" onClick={() => save() && navigate({ to: '/lesson/$id/preview', params: { id: lesson.id } })}><Icon name="eye" /> <span className="hidden md:inline">Xem như học sinh</span></button>
+            <button type="button" id="btn-editor-export-docx" className="btn btn-quiet btn-sm" onClick={() => exportLessonDocx(lesson)} title="Tải bài học về dạng Word (.docx), gồm cả nội dung chưa lưu"><Icon name="download" /> <span className="hidden lg:inline">Word</span></button>
+            <button type="button" id="btn-editor-export-pdf" className="btn btn-quiet btn-sm" onClick={() => exportLessonPdf(lesson)} title="Mở hộp thoại in, chọn “Lưu thành PDF”"><Icon name="download" /> <span className="hidden lg:inline">PDF</span></button>
             <button type="button" id="btn-editor-save-draft" className="btn btn-secondary btn-sm" onClick={() => save('Nháp')}>Lưu nháp</button>
             <button type="button" id="btn-editor-schedule" className="btn btn-secondary btn-sm" onClick={() => save('Đã lên lịch')}>Lên lịch</button>
             <button type="button" id="btn-editor-publish" className="btn btn-primary btn-sm" onClick={requestPublish}>Phát hành</button>
@@ -454,7 +457,8 @@ function SceneTab({ lesson, edit }: { lesson: SceneLesson; edit: Edit }) {
           <fieldset>
             <legend className="label">Nhãn trên sa bàn (x: −120…120, z: −93…93; z dương gần người xem)</legend>
             {sim.scene.labels.map((label, i) => (
-              <div key={i} className="mb-2 grid grid-cols-[minmax(0,1fr)_4.5rem_4.5rem_auto] gap-2">
+              <div key={i} className="mb-3">
+              <div className="grid grid-cols-[minmax(0,1fr)_4.5rem_4.5rem_auto] gap-2">
                 <input className="field" aria-label={`Nhãn ${i + 1}`} value={label.text} onChange={(e) => edit(`lbl.${i}.t`, (d) => void (d.simulation!.scene.labels[i].text = e.target.value))} />
                 {[0, 1].map((axis) => (
                   <input key={axis} className="field tabular-nums" inputMode="numeric" aria-label={axis ? 'Toạ độ z' : 'Toạ độ x'} value={label.at[axis]} onChange={(e) => {
@@ -463,6 +467,20 @@ function SceneTab({ lesson, edit }: { lesson: SceneLesson; edit: Edit }) {
                   }} />
                 ))}
                 <button type="button" className="btn btn-quiet btn-sm text-action" aria-label="Xoá nhãn" onClick={() => edit('lbl.del', (d) => void d.simulation!.scene.labels.splice(i, 1))}><Icon name="trash" /></button>
+              </div>
+              <input
+                className="field mt-1"
+                aria-label={`Mô tả nhãn ${i + 1}`}
+                placeholder="Mô tả ngắn hiện khi bấm vào nhãn (tuỳ chọn)"
+                value={label.info ?? ''}
+                onChange={(e) =>
+                  edit(`lbl.${i}.i`, (d) => {
+                    const target = d.simulation!.scene.labels[i];
+                    if (e.target.value) target.info = e.target.value;
+                    else delete target.info;
+                  })
+                }
+              />
               </div>
             ))}
             <button type="button" className="btn btn-secondary btn-sm" onClick={() => edit('lbl.add', (d) => void d.simulation!.scene.labels.push({ text: 'Nhãn mới', at: [0, 0] }))}><Icon name="plus" /> Thêm nhãn</button>
