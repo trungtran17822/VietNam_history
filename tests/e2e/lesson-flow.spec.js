@@ -110,5 +110,10 @@ test('lesson without variables explains it and blocks stages 4-6', async ({ page
   await expect(page.locator('#question-empty-notice')).toBeVisible();
   await expect(page.locator('#question-empty-notice')).toContainText('chưa có phần thử cách khác');
   await expect(page.locator('#btn-run-simulation')).toBeHidden();
-  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="4"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toBeEnabled();
+  await goToStage(page, 5);
+  await expect(page.locator('#opinion-summary')).toBeVisible();
+  await expect(page.locator('#comparison-sim-content')).toBeHidden();
+  await expect(page.locator('#screen-comparison .prominent-simulation-banner')).toBeVisible();
 });

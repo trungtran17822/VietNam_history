@@ -48,7 +48,8 @@ test('pilot lesson has 3-5 variables with at least 2 options each and one origin
     assert.ok(v.options.length >= 2, v.id);
     assert.equal(v.options.filter((o) => o.isOriginal).length, 1, `${v.id} original count`);
   }
-  assert.equal(combos.length, 81);
+  assert.equal(combos.length, variables.reduce((n, v) => n * v.options.length, 1));
+  assert.equal(combos.length, 256);
 });
 
 test('engine is deterministic: every combination gives identical numbers on a second run (SC-002)', () => {

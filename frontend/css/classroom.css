@@ -153,3 +153,10 @@
 @media (prefers-reduced-motion: reduce) {
   .class-bar-fill, .variable-option, .lesson-stepper .step-node { transition: none; }
 }
+
+/* Header must stay pinned: `overflow-x: hidden` on both html and body turned body into a
+   scroll container, so the sticky header scrolled away with the page. `clip` does not. */
+html, body { overflow-x: clip; overflow-y: visible; }
+html { overflow-y: auto; }
+.emperor-card[hidden], .opinion-summary[hidden], #comparison-sim-content[hidden] { display: none !important; }
+.opinion-summary { padding: 24px; margin-bottom: 20px; }

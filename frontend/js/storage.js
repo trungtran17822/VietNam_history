@@ -7,8 +7,9 @@
 (function (window) {
   'use strict';
 
-  const STORAGE_KEY_LESSONS = 'history_sim_lessons_db_v2';
+  const STORAGE_KEY_LESSONS = 'history_sim_lessons_db_v3';
   const STORAGE_KEY_STUDENT_RUNS = 'history_sim_student_runs';
+  const STORAGE_KEY_QUIZ_ANSWERS = 'history_sim_quiz_answers';
 
   function normalizeData(value) {
     return window.normalizeVietnamese ? window.normalizeVietnamese(value) : value;
@@ -247,6 +248,42 @@
         localStorage.setItem(STORAGE_KEY_STUDENT_RUNS, JSON.stringify(runs));
       } catch (e) {
         console.warn('Failed to save student run:', e);
+      }
+    },
+
+    /**
+     * Remember a student's answer to a multiple-choice question on this device.
+     * Keeps this student's latest choice and a per-option tally for the device (no names).
+     */
+    saveQuizAnswer(lessonId, questionId, optionId) {
+      if (!lessonId || !questionId || !optionId) return;
+      try {
+        const all = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ_ANSWERS) || '{}') || {};
+        const lesson = all[lessonId] || { mine: {}, tally: {} };
+        const previous = lesson.mine[questionId];
+        const tally = lesson.tally[questionId] || {};
+        if (previous && tally[previous] > 0) tally[previous] -= 1;
+        tally[optionId] = (tally[optionId] || 0) + 1;
+        lesson.tally[questionId] = tally;
+        lesson.mine[questionId] = optionId;
+        all[lessonId] = lesson;
+        localStorage.setItem(STORAGE_KEY_QUIZ_ANSWERS, JSON.stringify(all));
+      } catch (e) {
+        console.warn('Failed to save quiz answer:', e);
+      }
+    },
+
+    /**
+     * @returns {{ mine: Object, tally: Object }} answers of this device for a lesson
+     */
+    getQuizAnswers(lessonId) {
+      const empty = { mine: {}, tally: {} };
+      if (!lessonId) return empty;
+      try {
+        const all = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ_ANSWERS) || '{}') || {};
+        return all[lessonId] || empty;
+      } catch (e) {
+        return empty;
       }
     },
 
