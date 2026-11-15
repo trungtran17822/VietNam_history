@@ -73,7 +73,7 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
   }
   ```
 - `unitCounts` cũ (`taySonInfantry`, `qingInfantry`...) được renderer chấp nhận như alias của `aInfantry`, `aSpecial`, `bInfantry`, `bArtillery`. Bài mới dùng tên mới.
-- Bài phải chạy đủ 6 bước: tối thiểu 3 biến, mỗi biến 3 phương án, đúng 1 `isOriginal` có delta 0.
+- Bài phải chạy đủ 6 bước: tối thiểu 3 biến, mỗi biến 3 phương án, đúng 1 `isOriginal` có delta 0. (Ngoại lệ từ S5: bốn bài SGK của Trung chỉ có 1 biến × 2 phương án; xem mục "Thêm ở S5".)
 - **Nguồn**: mọi `source.quote` phải là trích dẫn thật lấy từ tài liệu mà session thực sự đọc được (PDF SGK trong repo, hoặc trang web công khai đã mở được). Không đọc được nguyên văn thì để `quote: ""` và `note: "Cần bổ sung trích dẫn nguyên văn"`. Mọi con số mô phỏng là minh họa và ghi rõ. Giữ nhãn "Nội dung minh họa, chưa được chuyên gia duyệt".
 - Bảng màu phe: không dùng biểu tượng/cờ mang tính kỳ thị hay quân phiệt làm trang trí.
 - S1 là chủ của zod schema cuối cùng. Nếu phải lệch khỏi mục này, S1 sửa mục này và ghi vào `notes/s1.md`.
@@ -90,6 +90,11 @@ Không commit `.claude/settings.json` (đang có thay đổi cục bộ của Đ
   - `source.chapter`, `source.quote`, `source.note` và `question.character.speech` là tùy chọn.
   - `factions[].color` là màu thật được vẽ trên sa bàn; `simulation.factionColors` và `simulation.cameraPresets` cũ vẫn được chấp nhận nhưng không dùng (4 góc camera cố định trong renderer).
   - "Tối thiểu 3 biến, mỗi biến 3 phương án" là gợi ý (trình soạn bài báo nhắc), không chặn lưu; luật cứng là ≥ 2 phương án và đúng 1 `isOriginal` có delta 0. Bài có từ 1 biến số là chạy đủ 6 bước.
+- **Thêm ở S5** (bốn bài SGK của Trung, chi tiết trong `notes/s5-trung-sgk.md`):
+  - `explorationMode` (chuỗi, tùy chọn): vắng mặt hoặc kết thúc bằng `_3d` = sa bàn 3D; giá trị khác = chế độ trục thời gian (`isTimelineMode` trong `lesson-schema.ts`). Bài trục thời gian không cần `simulation` và `factions` (hai trường này thành tùy chọn); bài 3D thiếu một trong hai bị schema từ chối.
+  - `timeline` `[{year, event}]`, `reviewFlags` `string[]`, `sourceCitation`, `comparisonMetrics` `[{id?, label, unit?, origFormatted?}]` (tối đa 3, đổi tên thời gian / tổn thất / điểm ở màn hình so sánh), `simulation.schematicNotice` (một dòng dưới sa bàn khi cảnh là sơ đồ, không theo tỉ lệ). Tất cả tùy chọn.
+  - `atlasPlaceIds` vắng mặt với bài lịch sử thế giới; test atlas bỏ qua bài không có trường này nhưng vẫn bắt buộc mọi id có mặt phải khớp một địa danh.
+  - Số liệu gốc là điểm /100: đặt `baseline.minDurationHours` và `minCasualties` bằng 0.
 
 ### 4.2 Atlas (`frontend/src/content/atlas/`)
 

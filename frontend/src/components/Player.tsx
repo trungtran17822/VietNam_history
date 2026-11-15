@@ -2,10 +2,13 @@
 // One component for every surface (lesson page, stages 2 and 4, editor preview); `prefix` keeps
 // the element ids the E2E suite and docs refer to (#btn-play-original, #timeline-slider-custom…).
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import type { Lesson } from '../lib/lesson-schema';
+import { isTimelineMode, type Lesson } from '../lib/lesson-schema';
 import { useQuality } from '../lib/prefs';
 import type { PresetName, SilkMapScene } from '../scene/silk-map';
+import { TimelinePlayer, type SceneHandle, type TimelineLesson } from './TimelinePlayer';
 import { Icon } from './ui';
+
+export type { SceneHandle };
 
 export const CAMERA_LABELS: [PresetName, string][] = [
   ['overview', 'Toàn cảnh sa bàn'],
@@ -14,7 +17,7 @@ export const CAMERA_LABELS: [PresetName, string][] = [
   ['top_down', 'Từ trên']
 ];
 
-type SceneLesson = Pick<Lesson, 'simulation' | 'factions' | 'baseline'>;
+type SceneLesson = Pick<Lesson, 'baseline'> & Required<Pick<Lesson, 'simulation' | 'factions'>>;
 
 /** Mounts a SilkMapScene; destroys it on unmount so renderers never pile up. */
 export function SceneView({ lesson, id, onReady, onProgress }: { lesson: SceneLesson; id: string; onReady?: (scene: SilkMapScene | null) => void; onProgress?: (p: number) => void }) {
@@ -64,7 +67,7 @@ export function formatReadout(progress: number, hours = 36) {
   return `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
 }
 
-type PlayerProps = {
+type ScenePlayerProps = {
   lesson: SceneLesson;
   prefix: string;
   badge?: ReactNode;
@@ -75,7 +78,8 @@ type PlayerProps = {
   speed?: boolean;
 };
 
-export function Player({ lesson, prefix, badge, initialProgress = 0, onProgress, onScene, extraControls, speed }: PlayerProps) {
+/** The 3D table with camera pills, timeline and play controls (3D lessons only). */
+export function ScenePlayer({ lesson, prefix, badge, initialProgress = 0, onProgress, onScene, extraControls, speed }: ScenePlayerProps) {
   const scene = useRef<SilkMapScene | null>(null);
   const [progress, setProgress] = useState(initialProgress);
   const [playing, setPlaying] = useState(false);
@@ -192,4 +196,13 @@ export function Player({ lesson, prefix, badge, initialProgress = 0, onProgress,
       </div>
     </div>
   );
+}
+
+type PlayerLesson = TimelineLesson & Pick<Lesson, 'baseline' | 'simulation' | 'factions'>;
+type PlayerProps = Omit<ScenePlayerProps, 'lesson' | 'onScene'> & { lesson: PlayerLesson; onScene?: (scene: SceneHandle | null) => void };
+
+/** Every surface uses this one: the 3D table, or the timeline player for timeline-mode lessons. */
+export function Player({ lesson, ...rest }: PlayerProps) {
+  if (isTimelineMode(lesson) || !lesson.simulation || !lesson.factions) return <TimelinePlayer lesson={lesson} {...rest} />;
+  return <ScenePlayer lesson={{ baseline: lesson.baseline, simulation: lesson.simulation, factions: lesson.factions }} {...rest} />;
 }

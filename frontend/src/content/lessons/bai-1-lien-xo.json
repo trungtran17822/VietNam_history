@@ -1,0 +1,411 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "bai-1-lien-xo",
+  "era": "1918–1945",
+  "title": "Bài 1. Nước Nga và Liên Xô từ năm 1918 đến năm 1945",
+  "subtitle": "Nước Nga Xô viết và Liên Xô trong công cuộc xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc",
+  "year": "1918–1945",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 9A1",
+  "date": "2026-10-25",
+  "subject": "Lịch sử",
+  "grade": "Khối 9",
+  "period": "Tiết 1 · 45 phút",
+  "objectives": "Nêu được những nét chính về nước Nga trước khi Liên Xô được thành lập (1918–1922); trình bày được thành tựu và chỉ ra hạn chế của công cuộc xây dựng chủ nghĩa xã hội ở Liên Xô (1922–1945).",
+  "focusQuestion": "Vì sao nước Nga chuyển từ chính sách cộng sản thời chiến sang NEP? Việc chuyển đổi đã mang lại kết quả gì?",
+  "status": "Đã dạy",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh hoạ, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.",
+  "introSummary": "Từ năm 1918 đến năm 1945, nước Nga Xô viết và Liên bang Xô viết đã trải qua những giai đoạn phát triển trọng yếu: vượt qua nội chiến và sự can thiệp của đế quốc, thực hiện Chính sách kinh tế mới (NEP), thành lập Liên Xô năm 1922, hoàn thành hai kế hoạch 5 năm công nghiệp hoá và bước vào cuộc chiến tranh vệ quốc năm 1941.",
+  "explorationMode": "ussr_charts",
+  "sourceCitation": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 1, trang 8–11 (NXB Giáo dục Việt Nam)",
+  "timeline": [
+    {
+      "year": "1918",
+      "event": "Nội chiến bắt đầu; thực hiện chính sách cộng sản thời chiến (triển khai từ năm 1919)"
+    },
+    {
+      "year": "1920",
+      "event": "Nội chiến chấm dứt (theo dòng thời gian của bài)"
+    },
+    {
+      "year": "1921",
+      "event": "Thực hiện Chính sách kinh tế mới (NEP)"
+    },
+    {
+      "year": "1922",
+      "event": "Thành lập Liên bang Cộng hoà xã hội chủ nghĩa Xô viết (Liên Xô)"
+    },
+    {
+      "year": "1928",
+      "event": "Bắt đầu công nghiệp hoá (kế hoạch 5 năm lần thứ nhất, 1928–1932)"
+    },
+    {
+      "year": "1933–1937",
+      "event": "Kế hoạch 5 năm lần thứ hai"
+    },
+    {
+      "year": "1941",
+      "event": "Bắt đầu cuộc chiến tranh vệ quốc (phát xít Đức xâm lược)"
+    },
+    {
+      "year": "1945",
+      "event": "Chiến tranh vệ quốc kết thúc thắng lợi"
+    }
+  ],
+  "reviewFlags": [
+    "Bộ sách: xác nhận từ bìa (Chân trời sáng tạo hay bộ khác) để ghi nguồn đúng.",
+    "Năm nội chiến chấm dứt: dòng thời gian ghi 1920, đoạn văn nói \"sau nội chiến (1921) bước vào thời kì hoà bình\". Giáo viên chọn cách diễn đạt thống nhất.",
+    "Số liệu bảng điện và thép: kiểm tra lại với bản gốc trước khi phát hành.",
+    "Cách phiên âm tên riêng (Bôn-sê-vích, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ, Đni-ép) giữ như sách.",
+    "Phương án mô phỏng \"Giảm tốc độ tập thể hoá, tăng tỉ lệ đầu tư công nghiệp nhẹ\" là giả định ngoài tư liệu gốc (lấy theo câu hỏi \"Nếu... thì sao?\" gợi ý trong giáo án) để so sánh các chỉ số sản lượng công nghiệp nặng, lương thực và đời sống nông dân."
+  ],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "Giai đoạn 1. Nước Nga Xô viết trước khi Liên Xô thành lập (1918–1922)",
+      "narration": "Chiến tranh thế giới thứ nhất tàn phá nặng nề kinh tế Nga. Nông nghiệp và công nghiệp sa sút, thương mại bế tắc. Nội chiến nổ ra do lực lượng Bạch vệ chống phá cùng sự can thiệp của các nước đế quốc. Nhà nước thực hiện chính sách cộng sản thời chiến (1919): nắm toàn bộ công nghiệp, trưng thu lương thực thừa và bắt buộc lao động đối với toàn dân nhằm bảo đảm lương thực cho Hồng quân. Sau nội chiến (đến năm 1921), đất nước bước vào hoà bình nhưng còn rất khó khăn. Tháng 3-1921, Đảng Bôn-sê-vích Nga quyết định thực hiện Chính sách kinh tế mới (NEP) do V. I. Lênin khởi xướng: bãi bỏ trưng thu lương thực thừa thay bằng thu thuế; nhà nước giữ các ngành then chốt nhưng cho tư nhân thuê hoặc xây dựng nhà máy, nông trang quy mô nhỏ và khuyến khích đầu tư nước ngoài; tư nhân được tự do buôn bán. Nhờ đó, sản xuất hồi phục dần, chính trị và xã hội ổn định. Cuối năm 1922, Liên Xô thành lập gồm các nước cộng hoà đầu tiên: Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Ngoại Cáp-ca-dơ.",
+      "caption": "Nước Nga vượt qua nội chiến, phục hồi kinh tế với NEP và thành lập Liên bang Xô viết cuối năm 1922.",
+      "timelineRange": 0.1,
+      "timeLabel": "1918–1922",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 1, trang 8–11 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 1",
+        "quote": "Tháng 3-1921, Đảng Bôn-sê-vích Nga quyết định thực hiện Chính sách kinh tế mới (NEP), do V. I. Lênin khởi xướng... Cuối năm 1922, Liên Xô thành lập, gồm các nước cộng hoà đầu tiên: Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Cộng hoà Ngoại Cáp-ca-dơ.",
+        "note": "Tư liệu giáo khoa chính thống về giai đoạn phục hồi kinh tế và thành lập Nhà nước Liên bang Xô viết."
+      }
+    },
+    {
+      "id": "sec-2",
+      "title": "Giai đoạn 2. Liên Xô từ năm 1922 đến năm 1945",
+      "narration": "Tháng 12-1925, Đại hội XIV Đảng Bôn-sê-vích xác định đường lối công nghiệp hoá xã hội chủ nghĩa, trọng tâm là công nghiệp nặng, chuyển từ kinh tế nông nghiệp cá thể nhỏ sang kinh tế tập thể lớn. Qua hai kế hoạch 5 năm (1928–1932 và 1933–1937), Liên Xô đạt nhiều thành tựu vượt bậc: năm 1937, sản lượng công nghiệp nặng vươn lên đứng đầu châu Âu và đứng thứ hai thế giới (sau Mỹ); nhà máy thuỷ điện Đni-ép xây dựng từ năm 1927 trở thành đập thuỷ điện lớn nhất châu Âu. Về nông nghiệp, tập thể hoá thành công với nông trang tập thể và nông trường quốc doanh. Về văn hoá – xã hội, Liên Xô xoá nạn mù chữ, phổ cập tiểu học cả nước và trung học cơ sở ở thành phố; xoá bỏ giai cấp bóc lột, củng cố khối liên minh công – nông. Tuy nhiên, tập thể hoá nông nghiệp diễn ra quá nhanh khi nông dân chưa sẵn sàng, và đầu tư cho công nghiệp nhẹ còn quá thấp. Năm 1941, khi phát xít Đức xâm lược, Liên Xô tạm dừng kế hoạch 5 năm lần thứ ba để tiến hành cuộc chiến tranh vệ quốc.",
+      "caption": "Công nghiệp hoá và tập thể hoá đưa Liên Xô thành cường quốc công nghiệp trước khi bước vào Chiến tranh vệ quốc (1941).",
+      "timelineRange": 0.8,
+      "timeLabel": "1922–1945",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 1, trang 8–11 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "Qua hai kế hoạch 5 năm (1928–1932 và 1933–1937), Liên Xô đạt nhiều thành tựu và trở thành cường quốc công nghiệp đứng đầu châu Âu, đứng thứ hai thế giới (sau Mỹ)... Hạn chế: tập thể hoá nông nghiệp quá nhanh khi nông dân chưa sẵn sàng; đầu tư cho công nghiệp nhẹ quá thấp.",
+        "note": "Số liệu sản xuất điện năm 1913 là 2,0 tỉ kWh và năm 1940 là 48,3 tỉ kWh; thép từ 4,2 triệu tấn (1913) lên 18,3 triệu tấn (1940)."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Nội chiến 1918–1920 buộc Nhà nước Xô viết thực hiện chính sách cộng sản thời chiến để bảo vệ chính quyền cách mạng.",
+    "Tháng 3-1921, V. I. Lênin khởi xướng Chính sách kinh tế mới (NEP), phục hồi sản xuất và củng cố liên minh công – nông.",
+    "Cuối năm 1922, Liên bang Cộng hoà xã hội chủ nghĩa Xô viết (Liên Xô) chính thức được thành lập.",
+    "Đến năm 1937, Liên Xô trở thành cường quốc công nghiệp đứng đầu châu Âu và đứng thứ hai thế giới (sau Mỹ).",
+    "Sản lượng điện tăng từ 2,0 tỉ kWh (1913) lên 48,3 tỉ kWh (1940); sản lượng thép tăng từ 4,2 lên 18,3 triệu tấn.",
+    "Hạn chế lịch sử: Tập thể hoá nông nghiệp diễn ra quá nhanh khi nông dân chưa sẵn sàng, và đầu tư cho công nghiệp nhẹ còn quá thấp."
+  ],
+  "privateNotes": "Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập: Hướng dẫn học sinh hoàn thành bảng tóm tắt nội dung chính cho hai mốc 1918–1922 và 1922–1945 theo SGK.\n- Vận dụng: Cân nhắc hướng dẫn học sinh tìm hiểu quan hệ lịch sử với tinh thần khách quan khoa học.\n- Lưu ý sư phạm: Làm nổi bật tính tất yếu của việc chuyển từ chính sách cộng sản thời chiến sang NEP.\n- Mô phỏng minh hoạ: Nhấn mạnh các chỉ số mô phỏng là giả định minh hoạ phục vụ rèn luyện tư duy phản biện, không thay thế sự thật lịch sử.",
+  "questions": [
+    {
+      "id": "b1-q1",
+      "text": "Chính sách cộng sản thời chiến được thực hiện chủ yếu nhằm mục đích gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b1-q1-a",
+          "text": "Khuyến khích tư nhân buôn bán tự do",
+          "isCorrect": false,
+          "explanation": "Chính sách cộng sản thời chiến cấm tư nhân buôn bán tự do; tự do buôn bán chỉ có sau khi thực hiện NEP."
+        },
+        {
+          "id": "b1-q1-b",
+          "text": "Bảo đảm lương thực và vật tư cho Hồng quân trong nội chiến",
+          "isCorrect": true,
+          "explanation": "Nội chiến và can thiệp nước ngoài buộc nhà nước kiểm soát công nghiệp và trưng thu lương thực thừa để nuôi quân."
+        },
+        {
+          "id": "b1-q1-c",
+          "text": "Thu hút đầu tư nước ngoài",
+          "isCorrect": false,
+          "explanation": "Thu hút đầu tư nước ngoài là biện pháp trong Chính sách kinh tế mới (NEP), không phải chính sách cộng sản thời chiến."
+        },
+        {
+          "id": "b1-q1-d",
+          "text": "Xoá bỏ nạn mù chữ",
+          "isCorrect": false,
+          "explanation": "Xoá nạn mù chữ là thành tựu giáo dục trong giai đoạn xây dựng chủ nghĩa xã hội những năm 1922–1945."
+        }
+      ]
+    },
+    {
+      "id": "b1-q2",
+      "text": "Chính sách kinh tế mới (NEP) do ai khởi xướng và quyết định vào thời điểm nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b1-q2-a",
+          "text": "G. Xta-lin, năm 1925",
+          "isCorrect": false,
+          "explanation": "Năm 1925 là thời điểm Đại hội XIV Đảng Bôn-sê-vích đề ra đường lối công nghiệp hoá, không phải thời điểm NEP."
+        },
+        {
+          "id": "b1-q2-b",
+          "text": "G. Xta-lin, năm 1922",
+          "isCorrect": false,
+          "explanation": "Năm 1922 là thời điểm thành lập Liên Xô; NEP do Lênin khởi xướng năm 1921."
+        },
+        {
+          "id": "b1-q2-c",
+          "text": "V. I. Lênin, tháng 3-1921",
+          "isCorrect": true,
+          "explanation": "Tháng 3-1921, Đảng Bôn-sê-vích Nga quyết định thực hiện Chính sách kinh tế mới (NEP) do V. I. Lênin khởi xướng."
+        },
+        {
+          "id": "b1-q2-d",
+          "text": "V. I. Lênin, năm 1928",
+          "isCorrect": false,
+          "explanation": "Năm 1928 là thời điểm bắt đầu kế hoạch 5 năm lần thứ nhất, không phải thời điểm bắt đầu NEP."
+        }
+      ]
+    },
+    {
+      "id": "b1-q3",
+      "text": "Nội dung nào sau đây thuộc Chính sách kinh tế mới (NEP)?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b1-q3-a",
+          "text": "Nhà nước quản lý toàn bộ thương nghiệp",
+          "isCorrect": false,
+          "explanation": "Trong NEP, thương nghiệp cho phép tư nhân được tự do buôn bán, trao đổi hàng hoá."
+        },
+        {
+          "id": "b1-q3-b",
+          "text": "Lao động bắt buộc đối với toàn dân",
+          "isCorrect": false,
+          "explanation": "Lao động bắt buộc là biện pháp của chính sách cộng sản thời chiến, không thuộc NEP."
+        },
+        {
+          "id": "b1-q3-c",
+          "text": "Bỏ hoàn toàn khuyến khích đầu tư nước ngoài",
+          "isCorrect": false,
+          "explanation": "Trong NEP, nhà nước khuyến khích đầu tư nước ngoài vào một số ngành."
+        },
+        {
+          "id": "b1-q3-d",
+          "text": "Thu thuế thay cho trưng thu lương thực thừa",
+          "isCorrect": true,
+          "explanation": "Trong nông nghiệp, NEP bãi bỏ chế độ trưng thu lương thực thừa và thay bằng thu thuế lương thực."
+        }
+      ]
+    },
+    {
+      "id": "b1-q4",
+      "text": "Liên Xô được thành lập vào thời điểm nào và gồm những nước cộng hoà đầu tiên nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b1-q4-a",
+          "text": "Cuối năm 1922; Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Ngoại Cáp-ca-dơ",
+          "isCorrect": true,
+          "explanation": "Cuối năm 1922, Liên Xô thành lập gồm 4 nước cộng hoà đầu tiên: Nga, Bê-lô-rút-xi-a, U-crai-na và các nước Ngoại Cáp-ca-dơ."
+        },
+        {
+          "id": "b1-q4-b",
+          "text": "Năm 1920; Nga, Đức, Ba Lan",
+          "isCorrect": false,
+          "explanation": "Đức và Ba Lan là các quốc gia độc lập ngoài Liên Xô, không tham gia thành lập Liên Xô."
+        },
+        {
+          "id": "b1-q4-c",
+          "text": "Năm 1928; Nga và U-crai-na",
+          "isCorrect": false,
+          "explanation": "Năm 1928 là thời điểm bắt đầu kế hoạch 5 năm lần thứ nhất, Liên Xô đã thành lập từ cuối năm 1922."
+        },
+        {
+          "id": "b1-q4-d",
+          "text": "Năm 1941; Nga, Bê-lô-rút-xi-a và Ba Lan",
+          "isCorrect": false,
+          "explanation": "Năm 1941 là thời điểm chiến tranh vệ quốc bùng nổ, không phải thời điểm thành lập Liên Xô."
+        }
+      ]
+    },
+    {
+      "id": "b1-q5",
+      "text": "Đến năm 1937, vị thế công nghiệp của Liên Xô là gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b1-q5-a",
+          "text": "Đứng đầu thế giới",
+          "isCorrect": false,
+          "explanation": "Liên Xô đứng đầu châu Âu và đứng thứ hai thế giới sau Mỹ, chưa vượt qua sản lượng của Mỹ."
+        },
+        {
+          "id": "b1-q5-b",
+          "text": "Đứng đầu châu Âu và thứ hai thế giới",
+          "isCorrect": true,
+          "explanation": "Đến năm 1937, sản lượng công nghiệp nặng của Liên Xô vươn lên đứng đầu châu Âu và đứng thứ hai thế giới (sau Mỹ)."
+        },
+        {
+          "id": "b1-q5-c",
+          "text": "Đứng thứ ba châu Âu",
+          "isCorrect": false,
+          "explanation": "Liên Xô đã vượt qua Anh, Pháp, Đức để đứng đầu châu Âu vào năm 1937."
+        },
+        {
+          "id": "b1-q5-d",
+          "text": "Vẫn chủ yếu là nước nông nghiệp",
+          "isCorrect": false,
+          "explanation": "Liên Xô đã hoàn thành công nghiệp hoá và trở thành cường quốc công nghiệp lớn."
+        }
+      ]
+    },
+    {
+      "id": "b1-q6",
+      "text": "Hãy sắp xếp các sự kiện lịch sử sau theo đúng trình tự thời gian diễn ra từ năm 1918 đến năm 1941:",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b1-q6-a",
+          "text": "Nội chiến bắt đầu (1918) → Thực hiện NEP (1921) → Thành lập Liên Xô (1922) → Kế hoạch 5 năm lần thứ nhất (1928) → Bắt đầu Chiến tranh vệ quốc (1941)",
+          "isCorrect": true,
+          "explanation": "Trình tự diễn tiến lịch sử chuẩn xác theo SGK: Nội chiến bắt đầu (1918) → NEP (1921) → Thành lập Liên Xô (1922) → Kế hoạch 5 năm lần thứ nhất (1928) → Chiến tranh vệ quốc (1941)."
+        },
+        {
+          "id": "b1-q6-b",
+          "text": "Thực hiện NEP (1921) → Nội chiến bắt đầu (1918) → Thành lập Liên Xô (1922) → Kế hoạch 5 năm lần thứ nhất (1928) → Bắt đầu Chiến tranh vệ quốc (1941)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Nội chiến (1918) diễn ra trước khi thực hiện NEP (1921)."
+        },
+        {
+          "id": "b1-q6-c",
+          "text": "Nội chiến bắt đầu (1918) → Thành lập Liên Xô (1922) → Thực hiện NEP (1921) → Kế hoạch 5 năm lần thứ nhất (1928) → Bắt đầu Chiến tranh vệ quốc (1941)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: NEP được quyết định vào tháng 3-1921 trước khi Liên Xô thành lập vào cuối năm 1922."
+        },
+        {
+          "id": "b1-q6-d",
+          "text": "Thành lập Liên Xô (1922) → Nội chiến bắt đầu (1918) → Thực hiện NEP (1921) → Bắt đầu Chiến tranh vệ quốc (1941) → Kế hoạch 5 năm lần thứ nhất (1928)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự toàn bộ các mốc thời gian lịch sử."
+        }
+      ]
+    },
+    {
+      "id": "b1-q7",
+      "text": "Theo em, sự kiện nào quan trọng nhất trong giai đoạn 1918–1922? Vì sao?",
+      "type": "open_discussion",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Học sinh có thể chọn NEP (bước ngoặt khôi phục kinh tế, ổn định lòng dân) hoặc Thành lập Liên Xô (tạo sức mạnh đoàn kết liên bang để xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc)."
+    },
+    {
+      "id": "b1-q8",
+      "text": "Vì sao nước Nga chuyển từ chính sách cộng sản thời chiến sang NEP? Việc chuyển đổi đã mang lại kết quả gì?",
+      "type": "open_discussion",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Sau nội chiến, đất nước khủng hoảng trầm trọng; chính sách cộng sản thời chiến không còn phù hợp trong hoà bình. Chuyển sang NEP giúp khơi dậy động lực sản xuất của nông dân, lưu thông hàng hoá và phục hồi kinh tế nhanh chóng."
+    },
+    {
+      "id": "b1-q9",
+      "text": "Em hãy nêu ít nhất hai thành tựu và hai hạn chế của công cuộc xây dựng chủ nghĩa xã hội ở Liên Xô trước năm 1941. Số liệu điện và thép chứng minh điều gì?",
+      "type": "open_discussion",
+      "sectionId": "sec-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Thành tựu công nghiệp hoá (sản lượng điện tăng từ 2,0 lên 48,3 tỉ kWh, thép tăng từ 4,2 lên 18,3 triệu tấn), xoá mù chữ. Hạn chế: tập thể hoá quá vội vã cưỡng bức và xem nhẹ công nghiệp nhẹ."
+    }
+  ],
+  "comparisonMetrics": [
+    {
+      "id": "heavy_ind",
+      "label": "Sản lượng công nghiệp nặng",
+      "origFormatted": "90 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "food_supply",
+      "label": "Sản lượng lương thực",
+      "origFormatted": "50 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "farmer_life",
+      "label": "Đời sống nông dân",
+      "origFormatted": "45 / 100",
+      "unit": " / 100"
+    }
+  ],
+  "baseline": {
+    "durationHours": 90,
+    "casualties": 50,
+    "positionScore": 85,
+    "ratingText": "Phương án lịch sử công nghiệp hoá thần tốc",
+    "minDurationHours": 0,
+    "minCasualties": 0
+  },
+  "question": {
+    "character": {
+      "name": "Người dẫn chuyện",
+      "greeting": "Chào các em học sinh!",
+      "speech": "Trong công cuộc công nghiệp hoá xã hội chủ nghĩa, Liên Xô đã đạt được nhiều thành tựu vượt bậc nhưng cũng bộc lộ hạn chế khi tập thể hoá nông nghiệp quá nhanh. Nếu được thay đổi phương án triển khai, em sẽ lựa chọn thế nào?"
+    },
+    "variables": [
+      {
+        "id": "var-collectivization-speed",
+        "title": "Tốc độ tập thể hoá nông nghiệp và tỉ lệ đầu tư cho công nghiệp nhẹ",
+        "description": "Lựa chọn tốc độ tập thể hoá nông nghiệp gắn với ưu tiên đầu tư công nghiệp nặng hay công nghiệp nhẹ:",
+        "options": [
+          {
+            "id": "opt-collectivization-fast",
+            "name": "Tập thể hoá nhanh, ưu tiên tuyệt đối công nghiệp nặng (lựa chọn lịch sử của Liên Xô)",
+            "isOriginal": true,
+            "desc": "Đẩy nhanh tiến độ tập thể hoá nông nghiệp gắn với ưu tiên tối đa phát triển công nghiệp nặng qua hai kế hoạch 5 năm (1928–1937).",
+            "assumptions": "Dựa trên tư liệu SGK Bài 1: công nghiệp nặng đứng đầu châu Âu và thứ hai thế giới (1937), nhưng tập thể hoá quá nhanh khi nông dân chưa sẵn sàng và đầu tư cho công nghiệp nhẹ quá thấp.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0
+          },
+          {
+            "id": "opt-collectivization-gradual",
+            "name": "Giảm tốc độ tập thể hoá nông nghiệp, tăng tỉ lệ đầu tư cho công nghiệp nhẹ",
+            "isOriginal": false,
+            "desc": "Tiến hành tập thể hoá chậm hơn khi nông dân chuẩn bị sẵn sàng hơn, đồng thời tăng tỉ lệ vốn đầu tư cho công nghiệp nhẹ và hàng tiêu dùng.",
+            "assumptions": "Giả định mô phỏng (ngoài tư liệu gốc, lấy theo gợi ý câu hỏi trong giáo án): đời sống nông dân và sản xuất tiêu dùng được cải thiện, nhưng sản lượng công nghiệp nặng tăng chậm hơn.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": -10
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Rất đáng khen cho tinh thần tìm tòi, phản biện khoa học của các em khi nghiên cứu lịch sử Liên Xô.",
+    "variableFeedbacks": {
+      "var-collectivization-speed": {
+        "opt-collectivization-fast": "Tập thể hoá nhanh tạo ra sức mạnh công nghiệp nặng thần tốc trước năm 1941, nhưng gây áp lực lớn lên nông nghiệp và đời sống nông dân do tập thể hoá quá nhanh khi nông dân chưa sẵn sàng.",
+        "opt-collectivization-gradual": "Giảm tốc độ tập thể hoá và chia sẻ thêm đầu tư cho công nghiệp nhẹ giúp ổn định đời sống nông thôn, song tích luỹ vốn cho công nghiệp nặng tăng chậm hơn."
+      }
+    },
+    "encouragingConclusion": "Lịch sử là bức tranh đa chiều. Việc hiểu rõ cả thành tựu vĩ đại và hạn chế lịch sử sẽ giúp các em rèn luyện tư duy khách quan, sâu sắc."
+  }
+}

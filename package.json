@@ -17,6 +17,9 @@
     "smoke": "node backend/scripts/smoke.mjs https://sv-class-api.suviet.workers.dev https://vietnam-history-eight.vercel.app",
     "deploy": "npm run check && npm run test:unit && npm run deploy:backend && npm run smoke && npm run deploy:frontend",
     "atlas:build": "node scripts/atlas/build-boundaries.mjs && node scripts/atlas/build-terrain.mjs && node scripts/atlas/build-landmarks.mjs",
+    "audit:grounding": "node scripts/check-lesson-grounding.mjs",
+    "audit:quotes": "node scripts/verify-all-quotes.mjs",
+    "audit:mc": "node scripts/stats-mc-distribution.mjs",
     "atlas:test": "node --test tests/atlas/*.test.mjs",
     "atlas:harness": "vite --config scripts/atlas/harness/vite.config.mjs",
     "atlas:shoot": "node scripts/atlas/harness/shoot.mjs"

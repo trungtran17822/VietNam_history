@@ -1,0 +1,490 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "bai-2-chau-au-my",
+  "era": "1918–1945",
+  "title": "Bài 2. Châu Âu và nước Mỹ từ năm 1918 đến năm 1945",
+  "subtitle": "Phong trào cách mạng, đại suy thoái kinh tế 1929–1933, chủ nghĩa phát xít và nước Mỹ giữa hai cuộc đại chiến",
+  "year": "1918–1945",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 9A1",
+  "date": "2026-10-26",
+  "subject": "Lịch sử",
+  "grade": "Khối 9",
+  "period": "Tiết 2 · 45 phút",
+  "objectives": "Trình bày được những nét chính về phong trào cách mạng và sự thành lập Quốc tế Cộng sản, cuộc đại suy thoái kinh tế 1929–1933 và sự hình thành chủ nghĩa phát xít ở châu Âu; nhận biết được tình hình chính trị và sự phát triển kinh tế của nước Mỹ giữa hai cuộc chiến tranh thế giới.",
+  "focusQuestion": "Vì sao Anh, Pháp chọn cải cách kinh tế – xã hội còn Đức, I-ta-li-a đẩy mạnh phát xít hoá và tái vũ trang? Việc này tác động thế nào đến nền hoà bình thế giới?",
+  "status": "Đã dạy",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh hoạ, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN GIẢ ĐỊNH TOÁN HỌC MINH HOẠ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.",
+  "introSummary": "Giai đoạn 1918–1945 tại châu Âu và nước Mỹ chứng kiến những biến động sâu sắc: cao trào cách mạng bùng nổ sau Chiến tranh thế giới thứ nhất và Quốc tế Cộng sản ra đời; cuộc đại suy thoái 1929–1933 tàn phá kinh tế toàn cầu dẫn tới hai lối thoát đối lập: cải cách dân chủ ở Mỹ (Thoả thuận mới), Anh, Pháp hoặc phát xít hoá gây chiến ở Đức, I-ta-li-a.",
+  "explorationMode": "depression_charts",
+  "sourceCitation": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)",
+  "timeline": [
+    {
+      "year": "1918 (11)",
+      "event": "Quần chúng ở Đức nổi dậy, Hoàng đế Đức thoái vị, chế độ quân chủ sụp đổ"
+    },
+    {
+      "year": "1918 (12)",
+      "event": "Đảng Cộng sản Đức thành lập"
+    },
+    {
+      "year": "1919 (3)",
+      "event": "Thành lập Quốc tế Cộng sản tại Mát-xcơ-va; Mút-xô-li-ni lập \"Các nhóm chiến đấu\" ở I-ta-li-a"
+    },
+    {
+      "year": "1920",
+      "event": "Đảng Cộng sản Pháp và Anh ra đời; Hít-le thành lập Đảng Quốc xã Đức"
+    },
+    {
+      "year": "1921",
+      "event": "Đảng Cộng sản I-ta-li-a và Đảng Cộng sản Mỹ ra đời; Đảng Quốc gia phát xít I-ta-li-a thành lập"
+    },
+    {
+      "year": "1922",
+      "event": "Mút-xô-li-ni làm Thủ tướng I-ta-li-a, chế độ phát xít được thiết lập"
+    },
+    {
+      "year": "1923",
+      "event": "Lạm phát nặng ở Đức (đồng tiền mất giá)"
+    },
+    {
+      "year": "1929",
+      "event": "Thị trường chứng khoán Niu Oóc sụp đổ; đại suy thoái bắt đầu"
+    },
+    {
+      "year": "1932",
+      "event": "Hơn 6 triệu người thất nghiệp ở Đức; Ru-dơ-ven đắc cử Tổng thống Mỹ, chuẩn bị \"Thoả thuận mới\""
+    },
+    {
+      "year": "1933",
+      "event": "Hít-le làm Thủ tướng Đức; đại suy thoái kết thúc ở nhiều nước"
+    },
+    {
+      "year": "1934",
+      "event": "Khủng hoảng chính trị ở Pháp"
+    },
+    {
+      "year": "1936",
+      "event": "Liên minh phát xít Đức – I-ta-li-a (Trục Béc-lin – Rô-ma)"
+    }
+  ],
+  "reviewFlags": [
+    "Bộ sách: xác nhận từ bìa.",
+    "Giá trị các đường trong biểu đồ chỉ số sản xuất (bảng ở Mục 2): đối chiếu từng đường với biểu đồ gốc.",
+    "Các mốc trên dòng thời gian hình thành chủ nghĩa phát xít (1920, 1935, 1939): chữ nhỏ trên ảnh chụp, cần đọc lại từ bản gốc, nhất là mốc 1935 (đạo luật bài Do Thái) và 1939.",
+    "Năm khởi đầu và kết thúc đại suy thoái: sách ghi 1929–1933, có nơi kéo dài đến 1933–1934.",
+    "Cách phiên âm tên riêng (Hung-ga-ri, Mút-xô-li-ni, Hít-le, Ru-dơ-ven, Bon-nơ-viu...) giữ như sách.",
+    "Phương án mô phỏng \"Giữ nguyên cơ chế tự do kinh tế thị trường\" là giả định ngoài tư liệu gốc (lấy theo câu hỏi \"Nếu... thì sao?\" gợi ý trong giáo án) để so sánh các chỉ số thất nghiệp, niềm tin xã hội, ổn định chính trị."
+  ],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "Mục 1. Phong trào cách mạng (1918–1923) và sự thành lập Quốc tế Cộng sản (1919)",
+      "narration": "Sau chiến tranh thế giới thứ nhất, chịu ảnh hưởng của Cách mạng tháng Mười Nga và hậu quả chiến tranh, các nước châu Âu như Anh, Pháp, Đức đều gặp khó khăn lớn: kinh tế tàn phá, thất nghiệp cao, lạm phát tăng vọt, mâu thuẫn xã hội căng thẳng. Phong trào cách mạng nổ ra mạnh nhất ở Đức và Hung-ga-ri. Tháng 11-1918, nhân dân Đức buộc Hoàng đế thoái vị. Tháng 12-1918, Đảng Cộng sản Đức thành lập. Chính quyền Xô viết xuất hiện ở Đức và Hung-ga-ri. Tháng 3-1919, Lênin cùng các nhà cách mạng quốc tế thành lập Quốc tế Cộng sản (Quốc tế thứ ba) tại Mát-xcơ-va để thống nhất đường lối cách mạng vô sản, lãnh đạo các đảng cộng sản đấu tranh chống chủ nghĩa đế quốc và chủ nghĩa phát xít.",
+      "caption": "Cao trào cách mạng 1918–1923 bùng nổ ở châu Âu và Quốc tế Cộng sản thành lập tại Mát-xcơ-va.",
+      "timelineRange": 0.15,
+      "timeLabel": "1918–1923",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 1",
+        "quote": "Lê-nin cùng một số nhà cách mạng quốc tế tổ chức đại hội thành lập Quốc tế Cộng sản tại Mát-xcơ-va (tháng 3-1919). Tổ chức này lãnh đạo các đảng cộng sản nhiều nước đấu tranh chống chủ nghĩa đế quốc và chủ nghĩa phát xít...",
+        "note": "Sự ra đời của Quốc tế Cộng sản thúc đẩy thành lập các Đảng Cộng sản Pháp, Anh (1920), I-ta-li-a (1921)."
+      }
+    },
+    {
+      "id": "sec-2",
+      "title": "Mục 2. Cuộc đại suy thoái kinh tế (1929–1933)",
+      "narration": "Sau thời kì thịnh vượng ngắn ngủi những năm 1920, kinh tế tư bản rơi vào khủng hoảng trầm trọng, bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc (năm 1929) rồi lan nhanh sang châu Âu và toàn thế giới đến năm 1933–1934. Hàng chục triệu người thất nghiệp, hàng loạt nhà máy và nông trại phá sản. Năm 1932, chỉ số sản xuất công nghiệp của Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65%, Pháp còn 78%, Anh còn 85%. Khủng hoảng làm lung lay nền tảng chính trị – xã hội của nhiều quốc gia.",
+      "caption": "Cuộc đại suy thoái kinh tế 1929–1933 làm sụt giảm nghiêm trọng chỉ số sản xuất công nghiệp toàn cầu.",
+      "timelineRange": 0.45,
+      "timeLabel": "1929–1933",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "Chỉ số sản xuất công nghiệp khoảng năm 1932 (so với năm 1929 = 100%): Hoa Kỳ: 55; Đức: 58; Thế giới: 65; Pháp: 78; Vương quốc Anh: 85.",
+        "note": "Mỹ và Đức chịu mức sụt giảm sản xuất công nghiệp sâu nhất trong cuộc đại suy thoái."
+      }
+    },
+    {
+      "id": "sec-3",
+      "title": "Mục 3. Sự hình thành chủ nghĩa phát xít ở châu Âu",
+      "narration": "Để thoát khỏi đại suy thoái, các nước tư bản phân hoá theo hai hướng: Anh và Pháp chọn cải cách kinh tế – xã hội; trong khi Đức và I-ta-li-a đẩy mạnh phát xít hoá bộ máy nhà nước và tái vũ trang để gây chiến chia lại thế giới. Tại I-ta-li-a, Mút-xô-li-ni lập Đảng Quốc gia phát xít và trở thành Thủ tướng năm 1922. Tại Đức, năm 1933 Hít-le lên làm Thủ tướng, giải tán các đảng đối lập, lập trại tập trung và công khai mục tiêu \"chinh phục không gian sinh tồn\" cùng chính sách bài Do Thái tàn bạo. Năm 1936, liên minh phát xít Đức – I-ta-li-a hình thành, đẩy nhân loại vào nguy cơ chiến tranh thế giới.",
+      "caption": "Chủ nghĩa phát xít hình thành ở I-ta-li-a và Đức, tái vũ trang đe doạ hoà bình thế giới.",
+      "timelineRange": 0.7,
+      "timeLabel": "1922–1936",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 3",
+        "quote": "Năm 1933 Hít-le, lãnh đạo Đảng Công nhân quốc gia xã hội chủ nghĩa Đức (Đảng Quốc xã), trở thành Thủ tướng... Năm 1936, liên minh phát xít Đức – I-ta-li-a ra đời.",
+        "note": "Bản chất của chủ nghĩa phát xít là độc tài khủng bố, phân biệt chủng tộc và gây chiến tranh xâm lược."
+      }
+    },
+    {
+      "id": "sec-4",
+      "title": "Mục 4. Nước Mỹ giữa hai cuộc chiến tranh thế giới (1918–1939)",
+      "narration": "Sau chiến tranh thế giới thứ nhất, Mỹ phồn vinh và trở thành nước tư bản giàu mạnh nhất, dù vẫn tồn tại bất công xã hội và nạn phân biệt chủng tộc đối với người da đen (năm 1921 Đảng Cộng sản Mỹ thành lập). Năm 1929, đại suy thoái nổ ra khiến hàng triệu người mất việc. Năm 1932, Ru-dơ-ven đắc cử Tổng thống và ban hành chính sách \"Thoả thuận mới\" (New Deal): nhà nước trực tiếp can thiệp sâu vào ngân hàng, thị trường chứng khoán; đầu tư công vào các công trình lớn tạo việc làm (tiêu biểu như đập thuỷ lợi Bon-nơ-viu ở bang Ô-rê-gơn tạo việc làm cho khoảng 30 000 lao động) và chú trọng an sinh xã hội. \"Thoả thuận mới\" giúp nước Mỹ vượt qua khủng hoảng và duy trì nền dân chủ tư sản.",
+      "caption": "Tổng thống Ru-dơ-ven thực hiện chính sách \"Thoả thuận mới\" phục hồi kinh tế và ổn định nước Mỹ.",
+      "timelineRange": 0.95,
+      "timeLabel": "1918–1939",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 2, trang 12–16 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 4",
+        "quote": "Năm 1932, Ru-dơ-ven đắc cử Tổng thống và thực hiện các cải cách kinh tế – xã hội gọi chung là \"Thoả thuận mới\" (New Deal)... Nhà nước trực tiếp quản lí, can thiệp sâu vào ngân hàng, thị trường chứng khoán. Đầu tư công vào các công trình lớn để tạo việc làm...",
+        "note": "Chính sách can thiệp kinh tế của nhà nước là giải pháp trung tâm của New Deal."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Phong trào cách mạng 1918–1923 bùng nổ ở châu Âu, tiêu biểu tại Đức và Hung-ga-ri.",
+    "Tháng 3-1919, Quốc tế Cộng sản (Quốc tế thứ ba) được thành lập tại Mát-xcơ-va dưới sự lãnh đạo của V. I. Lênin.",
+    "Đại suy thoái 1929–1933 bắt đầu từ sự sụp đổ của thị trường chứng khoán Niu Oóc và lan rộng ra toàn cầu.",
+    "Chỉ số sản xuất công nghiệp năm 1932: Mỹ giảm còn 55%, Đức còn 58%, toàn thế giới giảm còn 65% so với năm 1929.",
+    "Chế độ phát xít được thiết lập ở I-ta-li-a (1922) và Đức (1933); liên minh phát xít Đức – I-ta-li-a hình thành năm 1936.",
+    "Tại Mỹ, Tổng thống Ru-dơ-ven thực hiện \"Thoả thuận mới\" từ năm 1932, can thiệp sâu vào kinh tế để phục hồi đất nước."
+  ],
+  "privateNotes": "Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập 1: Vẽ trục thời gian các giai đoạn phát triển kinh tế của châu Âu và Mỹ 1918–1939.\n- Luyện tập 2: Giải thích vì sao từ năm 1936 hoà bình châu Âu bị đe doạ nghiêm trọng.\n- Vận dụng: Nêu một chính sách của Thoả thuận mới mà em thấy vẫn còn giá trị đến ngày nay (can thiệp tài chính, an sinh).\n- Lưu ý khi biên soạn: Các nội dung về phát xít, trại tập trung cần diễn đạt khách quan, đúng sự thật, không gây sốc hình ảnh.\n- Mô phỏng minh hoạ: Nhấn mạnh người học chỉ nhập vai nhà hoạch định chính sách dân chủ, tuyệt đối không đặt vai vào phe phát xít.",
+  "questions": [
+    {
+      "id": "b2-q1",
+      "text": "Quốc tế Cộng sản được thành lập vào thời gian và địa điểm nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q1-a",
+          "text": "Năm 1929 tại Niu Oóc",
+          "isCorrect": false,
+          "explanation": "Năm 1929 là thời điểm sụp đổ thị trường chứng khoán Niu Oóc, không phải nơi lập Quốc tế Cộng sản."
+        },
+        {
+          "id": "b2-q1-b",
+          "text": "Năm 1936 tại Béc-lin",
+          "isCorrect": false,
+          "explanation": "Năm 1936 là thời điểm hình thành liên minh phát xít Đức – I-ta-li-a."
+        },
+        {
+          "id": "b2-q1-c",
+          "text": "Tháng 3-1919 tại Mát-xcơ-va",
+          "isCorrect": true,
+          "explanation": "Tháng 3-1919, Lê-nin cùng các nhà cách mạng quốc tế tổ chức đại hội thành lập Quốc tế Cộng sản tại Mát-xcơ-va."
+        },
+        {
+          "id": "b2-q1-d",
+          "text": "Năm 1943 tại Rô-ma",
+          "isCorrect": false,
+          "explanation": "Năm 1943 là thời điểm Quốc tế Cộng sản tuyên bố giải tán."
+        }
+      ]
+    },
+    {
+      "id": "b2-q2",
+      "text": "Sau chiến tranh thế giới thứ nhất, phong trào cách mạng ở châu Âu mạnh nhất ở những nước nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q2-a",
+          "text": "Anh và Pháp",
+          "isCorrect": false,
+          "explanation": "Phong trào cách mạng nổ ra ở nhiều nước nhưng bùng nổ mạnh mẽ nhất ở Đức và Hung-ga-ri."
+        },
+        {
+          "id": "b2-q2-b",
+          "text": "I-ta-li-a và Mỹ",
+          "isCorrect": false,
+          "explanation": "I-ta-li-a và Mỹ có phong trào công nhân nhưng không lập chính quyền Xô viết như ở Đức và Hung-ga-ri."
+        },
+        {
+          "id": "b2-q2-c",
+          "text": "Mỹ và Anh",
+          "isCorrect": false,
+          "explanation": "Mỹ và Anh không phải là trọng tâm cao trào cách mạng lật đổ chế độ quân chủ sau chiến tranh."
+        },
+        {
+          "id": "b2-q2-d",
+          "text": "Đức và Hung-ga-ri",
+          "isCorrect": true,
+          "explanation": "Phong trào cách mạng nổ ra ở nhiều nước, mạnh nhất ở Đức và Hung-ga-ri, làm sụp đổ chế độ quân chủ và lập chính quyền Xô viết ngắn ngày."
+        }
+      ]
+    },
+    {
+      "id": "b2-q3",
+      "text": "Sự kiện nào đánh dấu khởi đầu cuộc đại suy thoái kinh tế 1929–1933?",
+      "type": "multiple_choice",
+      "sectionId": "sec-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q3-a",
+          "text": "Thị trường chứng khoán Niu Oóc sụp đổ",
+          "isCorrect": true,
+          "explanation": "Cuộc đại suy thoái kinh tế bắt đầu từ vụ sụp đổ của thị trường chứng khoán Niu Oóc (năm 1929) rồi lan rộng khắp thế giới."
+        },
+        {
+          "id": "b2-q3-b",
+          "text": "Hoàng đế Đức thoái vị",
+          "isCorrect": false,
+          "explanation": "Hoàng đế Đức thoái vị vào tháng 11-1918 trong phong trào cách mạng sau chiến tranh thế giới thứ nhất."
+        },
+        {
+          "id": "b2-q3-c",
+          "text": "Quốc tế Cộng sản giải tán",
+          "isCorrect": false,
+          "explanation": "Quốc tế Cộng sản tuyên bố giải tán vào năm 1943."
+        },
+        {
+          "id": "b2-q3-d",
+          "text": "Mút-xô-li-ni lên nắm quyền",
+          "isCorrect": false,
+          "explanation": "Mút-xô-li-ni làm Thủ tướng I-ta-li-a từ năm 1922, trước khi nổ ra đại suy thoái."
+        }
+      ]
+    },
+    {
+      "id": "b2-q4",
+      "text": "Năm 1922, sự kiện nào diễn ra ở I-ta-li-a?",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q4-a",
+          "text": "Đảng Cộng sản I-ta-li-a bị giải tán",
+          "isCorrect": false,
+          "explanation": "Đảng Cộng sản I-ta-li-a thành lập năm 1921 và bị đàn áp sau khi chế độ phát xít củng cố quyền lực."
+        },
+        {
+          "id": "b2-q4-b",
+          "text": "Mút-xô-li-ni trở thành Thủ tướng, chế độ phát xít được thiết lập",
+          "isCorrect": true,
+          "explanation": "Năm 1922, Mút-xô-li-ni trở thành Thủ tướng I-ta-li-a và chế độ phát xít bắt đầu được thiết lập."
+        },
+        {
+          "id": "b2-q4-c",
+          "text": "Hít-le làm Thủ tướng",
+          "isCorrect": false,
+          "explanation": "Hít-le trở thành Thủ tướng Đức vào năm 1933, không phải ở I-ta-li-a năm 1922."
+        },
+        {
+          "id": "b2-q4-d",
+          "text": "Liên minh Đức – I-ta-li-a ra đời",
+          "isCorrect": false,
+          "explanation": "Liên minh phát xít Đức – I-ta-li-a chính thức ra đời vào năm 1936."
+        }
+      ]
+    },
+    {
+      "id": "b2-q5",
+      "text": "Hít-le trở thành Thủ tướng Đức vào năm nào và là lãnh đạo đảng nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q5-a",
+          "text": "1921, Đảng Cộng sản",
+          "isCorrect": false,
+          "explanation": "Hít-le là trùm phát xít, kẻ thù không đội trời chung của những người cộng sản."
+        },
+        {
+          "id": "b2-q5-b",
+          "text": "1936, Đảng Phát xít I-ta-li-a",
+          "isCorrect": false,
+          "explanation": "Đảng Phát xít I-ta-li-a do Mút-xô-li-ni lãnh đạo; năm 1936 là mốc liên minh Trục."
+        },
+        {
+          "id": "b2-q5-c",
+          "text": "1933, Đảng Quốc xã",
+          "isCorrect": true,
+          "explanation": "Năm 1933, Hít-le, lãnh đạo Đảng Công nhân quốc gia xã hội chủ nghĩa Đức (Đảng Quốc xã), trở thành Thủ tướng Đức."
+        },
+        {
+          "id": "b2-q5-d",
+          "text": "1929, Đảng Cộng hoà",
+          "isCorrect": false,
+          "explanation": "Hít-le lãnh đạo Đảng Quốc xã và nắm quyền vào năm 1933."
+        }
+      ]
+    },
+    {
+      "id": "b2-q6",
+      "text": "Nội dung nào sau đây thuộc \"Thoả thuận mới\" (New Deal) của Tổng thống Ru-dơ-ven?",
+      "type": "multiple_choice",
+      "sectionId": "sec-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q6-a",
+          "text": "Bỏ hoàn toàn can thiệp của nhà nước vào ngân hàng",
+          "isCorrect": false,
+          "explanation": "Ngược lại, Thoả thuận mới quy định nhà nước trực tiếp quản lí, can thiệp sâu vào ngân hàng và tài chính."
+        },
+        {
+          "id": "b2-q6-b",
+          "text": "Thành lập Quốc tế Cộng sản",
+          "isCorrect": false,
+          "explanation": "Quốc tế Cộng sản do Lênin thành lập tại Mát-xcơ-va năm 1919, không liên quan đến chính phủ Mỹ."
+        },
+        {
+          "id": "b2-q6-c",
+          "text": "Tăng cường tái vũ trang để gây chiến",
+          "isCorrect": false,
+          "explanation": "Tái vũ trang gây chiến là chủ trương của các nước phát xít Đức, I-ta-li-a."
+        },
+        {
+          "id": "b2-q6-d",
+          "text": "Đầu tư công vào công trình lớn để tạo việc làm",
+          "isCorrect": true,
+          "explanation": "Thoả thuận mới chú trọng đầu tư công vào các công trình lớn (như đập thuỷ lợi Bon-nơ-viu) để tạo việc làm cho người thất nghiệp."
+        }
+      ]
+    },
+    {
+      "id": "b2-q7",
+      "text": "Hãy sắp xếp các sự kiện lịch sử tiêu biểu ở châu Âu và nước Mỹ theo đúng trình tự thời gian từ năm 1919 đến năm 1936:",
+      "type": "multiple_choice",
+      "sectionId": "sec-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b2-q7-a",
+          "text": "Mút-xô-li-ni làm Thủ tướng (1922) → Quốc tế Cộng sản thành lập (1919) → Hít-le làm Thủ tướng (1933) → Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Liên minh phát xít Đức – I-ta-li-a (1936)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Quốc tế Cộng sản thành lập (1919) trước khi Mút-xô-li-ni làm Thủ tướng (1922)."
+        },
+        {
+          "id": "b2-q7-b",
+          "text": "Quốc tế Cộng sản thành lập (1919) → Mút-xô-li-ni làm Thủ tướng (1922) → Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Hít-le làm Thủ tướng (1933) → Liên minh phát xít Đức – I-ta-li-a (1936)",
+          "isCorrect": true,
+          "explanation": "Trình tự niên đại chính xác theo SGK: 1919 (Quốc tế Cộng sản) → 1922 (Mút-xô-li-ni) → 1929 (sụp đổ chứng khoán Niu Oóc) → 1933 (Hít-le nắm quyền) → 1936 (Liên minh phát xít)."
+        },
+        {
+          "id": "b2-q7-c",
+          "text": "Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Quốc tế Cộng sản thành lập (1919) → Mút-xô-li-ni làm Thủ tướng (1922) → Hít-le làm Thủ tướng (1933) → Liên minh phát xít Đức – I-ta-li-a (1936)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Năm 1929 diễn ra sau các sự kiện năm 1919 và 1922."
+        },
+        {
+          "id": "b2-q7-d",
+          "text": "Quốc tế Cộng sản thành lập (1919) → Hít-le làm Thủ tướng (1933) → Mút-xô-li-ni làm Thủ tướng (1922) → Thị trường chứng khoán Niu Oóc sụp đổ (1929) → Liên minh phát xít Đức – I-ta-li-a (1936)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Hít-le làm Thủ tướng năm 1933, sau Mút-xô-li-ni (1922) và suy thoái (1929)."
+        }
+      ]
+    },
+    {
+      "id": "b2-q8",
+      "text": "Nêu nguyên nhân dẫn đến phong trào cách mạng ở châu Âu sau chiến tranh thế giới thứ nhất và hệ quả của phong trào.",
+      "type": "open_discussion",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Hậu quả nặng nề của chiến tranh, ảnh hưởng của Cách mạng tháng Mười Nga; làm sụp đổ nền quân chủ ở Đức, Áo - Hung và thúc đẩy sự ra đời của Quốc tế Cộng sản."
+    },
+    {
+      "id": "b2-q9",
+      "text": "Vì sao Anh, Pháp chọn cải cách kinh tế – xã hội còn Đức, I-ta-li-a đẩy mạnh phát xít hoá và tái vũ trang? Việc này tác động thế nào đến nền hoà bình thế giới?",
+      "type": "open_discussion",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Anh, Pháp có thuộc địa rộng lớn, truyền thống dân chủ; Đức, I-ta-li-a thiếu thuộc địa và thị trường nên tăng tốc chạy đua vũ trang, thiết lập chế độ độc tài phát xít để gây chiến chia lại thế giới, đe doạ trực tiếp hoà bình nhân loại."
+    },
+    {
+      "id": "b2-q10",
+      "text": "\"Thoả thuận mới\" đã giúp gì cho nước Mỹ và vì sao nó chưa giải quyết triệt để đại suy thoái?",
+      "type": "open_discussion",
+      "sectionId": "sec-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Thoả thuận mới cứu vãn hệ thống tài chính, giải quyết việc làm cho hàng triệu người qua đầu tư công và an sinh; tuy nhiên chưa xoá bỏ được mâu thuẫn nội tại của kinh tế tư bản chủ nghĩa."
+    }
+  ],
+  "comparisonMetrics": [
+    {
+      "id": "employment",
+      "label": "Điểm giải quyết việc làm",
+      "origFormatted": "75 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "banking",
+      "label": "Điểm phục hồi tài chính",
+      "origFormatted": "80 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "stability",
+      "label": "Điểm ổn định chính trị",
+      "origFormatted": "85 / 100",
+      "unit": " / 100"
+    }
+  ],
+  "baseline": {
+    "durationHours": 75,
+    "casualties": 80,
+    "positionScore": 85,
+    "ratingText": "Phương án cải cách \"Thoả thuận mới\"",
+    "minDurationHours": 0,
+    "minCasualties": 0
+  },
+  "question": {
+    "character": {
+      "name": "Người dẫn chuyện",
+      "greeting": "Chào các em học sinh!",
+      "speech": "Đối mặt với đại suy thoái kinh tế 1929–1933, các nước tư bản đã đứng trước những ngã rẽ sống còn về chính sách. Nếu là nhà hoạch định chính sách kinh tế đương thời, em sẽ lựa chọn mức độ can thiệp của nhà nước ra sao?"
+    },
+    "variables": [
+      {
+        "id": "var-state-intervention",
+        "title": "Mức độ can thiệp của Nhà nước vào nền kinh tế",
+        "description": "Lựa chọn phương án can thiệp điều tiết của chính phủ để giải quyết khủng hoảng và thất nghiệp:",
+        "options": [
+          {
+            "id": "opt-intervention-deep",
+            "name": "Thực hiện cải cách \"Thoả thuận mới\", nhà nước can thiệp sâu vào kinh tế",
+            "isOriginal": true,
+            "desc": "Nhà nước trực tiếp quản lí ngân hàng và thị trường chứng khoán, đầu tư công vào các công trình lớn tạo việc làm và chú trọng phúc lợi xã hội theo chính sách của Ru-dơ-ven.",
+            "assumptions": "Dựa trên các biện pháp của \"Thoả thuận mới\" trong SGK Bài 2: quản lí ngân hàng, đầu tư công (như đập thuỷ lợi Bon-nơ-viu tạo việc làm cho khoảng 30 000 lao động), chú trọng phúc lợi.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0
+          },
+          {
+            "id": "opt-intervention-minimal",
+            "name": "Giữ nguyên cơ chế tự do kinh tế thị trường, nhà nước can thiệp tối thiểu",
+            "isOriginal": false,
+            "desc": "Để thị trường tự điều chỉnh cân bằng cung cầu tự nhiên, giảm chi ngân sách và tránh can thiệp hành chính vào hệ thống tài chính tư nhân.",
+            "assumptions": "Giả định mô phỏng (ngoài tư liệu gốc): không có đầu tư công tạo việc làm và trợ cấp xã hội, cuộc khủng hoảng trầm trọng kéo dài hơn và bất ổn xã hội tiếp diễn.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": -35
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Rất đáng khen cho tinh thần nghiên cứu và tư duy hoạch định chính sách của các em.",
+    "variableFeedbacks": {
+      "var-state-intervention": {
+        "opt-intervention-deep": "Thực hiện cải cách \"Thoả thuận mới\" với sự can thiệp sâu của nhà nước đã cứu vãn hệ thống tài chính, giải quyết việc làm qua đầu tư công và giữ vững ổn định chính trị – xã hội.",
+        "opt-intervention-minimal": "Can thiệp tối thiểu để thị trường tự do thanh lọc khiến khủng hoảng kinh tế kéo dài, tỷ lệ thất nghiệp tăng cao và mâu thuẫn xã hội trầm trọng."
+      }
+    },
+    "encouragingConclusion": "Mỗi quyết sách kinh tế đều gắn liền với số phận của hàng triệu người dân và sự ổn định của nền hoà bình thế giới."
+  }
+}

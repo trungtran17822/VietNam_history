@@ -82,14 +82,22 @@ Bài mới tạo từ "Bài giảng trống" hoặc "Tạo bài từ tư liệu"
 | Thư mục | Nội dung |
 | --- | --- |
 | `src/routes/` | Một file cho mỗi route (TanStack Router). `__root.tsx` là khung trang: dải nhãn, header, chân trang, màn chuyển cảnh sau đăng nhập. `routeTree.gen.ts` do plugin Vite sinh ra, không sửa tay. |
-| `src/components/` | Màn hình: `LessonPage` (trang bài học, xem trước), `StageLoop` (6 bước), `Editor` + `VariablesEditor` (soạn bài), `Player` (sa bàn + điều khiển), `ClassPanel` (phiên lớp, khảo sát), `ui.tsx` (icon SVG, modal, `PROTOTYPE_NOTICE`, `SIMULATION_NOTICE`). |
-| `src/lib/` | Logic không có UI, có test Vitest (`domain.test.ts`): `lesson-schema` (zod), `engine` (tính toán xác định), `storage` (localStorage, luật hiển thị, nhập/xuất), `class-session` (API lớp), `auth`, `audio`, `text` (NFC), `intake`, `prefs`, `guards`, `transition`. |
+| `src/components/` | Màn hình: `LessonPage` (trang bài học, xem trước), `StageLoop` (6 bước), `Editor` + `VariablesEditor` (soạn bài), `Player` (sa bàn 3D + điều khiển, hoặc `TimelinePlayer` cho bài theo trục thời gian), `ClassPanel` (phiên lớp, khảo sát), `ui.tsx` (icon SVG, modal, `PROTOTYPE_NOTICE`, `SIMULATION_NOTICE`). |
+| `src/lib/` | Logic không có UI, có test Vitest (`domain.test.ts`): `lesson-schema` (zod, `isTimelineMode`), `timeline`, `comparison`, `engine` (tính toán xác định), `storage` (localStorage, luật hiển thị, nhập/xuất), `class-session` (API lớp), `auth`, `audio`, `text` (NFC), `intake`, `prefs`, `guards`, `transition`. |
 | `src/features/atlas/` | Atlas: `scene.ts` (`VietnamAtlasScene`, three.js), `search.ts` (tìm bỏ dấu, chấm điểm, mã hóa URL; không có DOM), `AtlasView.tsx` (bảng tìm, thẻ địa danh, ghi công OSM). Route `src/routes/atlas.tsx`, chunk riêng tải lười. |
 | `src/content/atlas/` | `provinces.topo.json` (34 đơn vị + 2 quần đảo), `landmarks.json` (71 địa danh), `SOURCES.md`. Id không bao giờ đổi vì bài giảng tham chiếu qua `atlasPlaceIds`. |
-| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Cả 6 bài (bài thí điểm và 5 bài) đều chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
+| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Mười bài. Sáu bài (bài thí điểm và 5 bài) chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Bốn bài SGK của Trung (`bai-1-lien-xo`, `bai-2-chau-au-my`, `bai-3-chau-a` theo trục thời gian; `bai-4-chien-tranh-the-gioi-2` sa bàn 3D) có 1 biến số × 2 phương án, `reviewFlags`, `sourceCitation`, `timeline`, `comparisonMetrics` và không có `atlasPlaceIds`. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
 | `src/scene/` | `silk-map.ts` (lớp `SilkMapScene`, chỉ file này import three, nạp lười), `artwork.ts` (vẽ bản đồ, họa tiết, ảnh thu nhỏ bằng canvas), `counts.ts`, `sprites/` (PNG thay họa tiết). |
 | `public/` | Phông Noto (woff2), logo và `atlas/terrain.png` (địa hình), phục vụ nguyên trạng. |
 | `data/sources.json` | Danh mục nguồn (chưa được code nạp, chưa có chuyên gia duyệt): SGK Lịch sử và Địa lí 9 (Bài 1, 16, 18), Việt Nam sử lược, một mục Wikipedia làm đầu mối. |
+
+Chế độ khám phá: `explorationMode` vắng mặt hoặc kết thúc bằng `_3d` thì bài dùng sa bàn 3D; giá trị khác
+(`ussr_charts`, `depression_charts`, `asia_map`) là chế độ trục thời gian. Bài theo trục thời gian không có
+`simulation`/`factions`, không nạp three.js: `TimelinePlayer` cho học sinh đi từng mốc của `timeline` (nút, thanh
+trượt, phím mũi tên/Home/End, Phát/Dừng), và trong trình soạn tab "Sa bàn 3D" đổi thành "Trục thời gian" để sửa các mốc.
+`reviewFlags` hiện nguyên văn cho giáo viên ở đầu trình soạn. `comparisonMetrics` đổi tên ba chỉ số ở màn hình so sánh.
+Dưới thông báo mô phỏng luôn có dòng "* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa."
+Kiểm tra căn cứ bốn bài SGK với `history_data/`: `npm run audit:grounding` (nằm trong `npm run check`).
 
 Mọi thứ riêng của từng bài nằm trong JSON: biến số, hệ số, giả định, nhận xét, nhân vật, và
 `simulation.scene` (địa hình, đặc điểm, nhãn, mũi tiến quân, đội hình, đơn vị đặc biệt). Muốn đổi kết quả

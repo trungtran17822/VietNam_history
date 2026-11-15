@@ -180,6 +180,13 @@
   .scene-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-muted); font-size: 0.875rem; }
   .btn-cam-pill { min-height: 36px; padding: 6px 12px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; background: color-mix(in srgb, var(--color-card) 92%, transparent); border: 1px solid var(--color-rule); color: var(--color-ink); white-space: nowrap; }
   .btn-cam-pill.active { background: var(--color-lacquer); color: var(--color-page); border-color: var(--color-lacquer); }
+  /* Timeline player (timeline-mode lessons): one round stop per milestone, the passed ones filled. */
+  .timeline-steps { padding: 2px 2px 6px; scroll-snap-type: x proximity; }
+  .timeline-dot { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; border: 2px solid var(--color-rule); background: var(--color-card); font-size: 0.8125rem; font-weight: 700; color: var(--color-lacquer); scroll-snap-align: center; transition: background 160ms, border-color 160ms, transform 160ms; }
+  .timeline-dot:hover { border-color: var(--sepia); }
+  .timeline-dot.passed { background: var(--color-silk); border-color: var(--sepia); }
+  .timeline-dot.active { background: var(--color-lacquer); border-color: var(--color-lacquer); color: var(--color-page); transform: scale(1.1); }
+  @media (prefers-reduced-motion: reduce) { .timeline-dot { transition: none; } .timeline-dot.active { transform: none; } }
   .player-slider { width: 100%; accent-color: var(--color-action); min-height: 28px; }
   .time-readout { font-variant-numeric: tabular-nums; font-size: 0.875rem; font-weight: 600; min-width: 3.5rem; text-align: right; }
 

@@ -2,16 +2,18 @@
 // below. Teachers see editing and planning tools; students (and the teacher's preview) do not.
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useRef, useState } from 'react';
-import type { Section, Source, Status } from '../lib/lesson-schema';
+import { comparisonRows } from '../lib/comparison';
+import { isTimelineMode, type Section, type Source, type Status } from '../lib/lesson-schema';
+import { chapterAt, sectionProgress } from '../lib/timeline';
 import { getAllLessons, getLessonProgress, getStudentRun, getVisibleForStudent, saveLesson, saveLessonProgress, type AppLesson } from '../lib/storage';
-import type { SilkMapScene } from '../scene/silk-map';
 import landmarks from '../content/atlas/landmarks.json';
-import { Player } from './Player';
+import { Player, type SceneHandle } from './Player';
 import { Icon, Modal, StatusChip } from './ui';
 
-export const LESSON_STAGES = [
+// Stage 2 explores the table, or the timeline for timeline-mode lessons.
+export const lessonStages = (timeline: boolean) => [
   { title: 'Khởi động', minutes: 5 },
-  { title: 'Khám phá sa bàn gốc', minutes: 10 },
+  { title: timeline ? 'Khám phá trục thời gian' : 'Khám phá sa bàn gốc', minutes: 10 },
   { title: 'Câu hỏi của nhân vật', minutes: 8 },
   { title: 'Thử cách khác', minutes: 7 },
   { title: 'So sánh', minutes: 8 },
@@ -20,13 +22,6 @@ export const LESSON_STAGES = [
 
 // ponytail: names come from landmarks.json only (12 KB gzip, lesson chunk); a province id shows as its id.
 const placeName = (id: string) => landmarks.find((l) => l.id === id)?.name ?? id;
-
-export const sectionProgress = (section: Section, index: number, count: number) => (section.timelineRange > 0 ? section.timelineRange : (index + 1) / count);
-export function chapterAt(sections: Section[], progress: number) {
-  let active = 0;
-  sections.forEach((s, i) => sectionProgress(s, i, sections.length) <= progress && (active = i));
-  return active;
-}
 
 /** Source dialog: book, chapter, quote, note, and the link only when it is HTTPS. */
 export function SourceModal({ source, onClose }: { source: Source | null; onClose: () => void }) {
@@ -63,7 +58,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
   const sections = lesson.sections;
   const [chapter, setChapter] = useState(Math.min(saved.chapter, Math.max(0, sections.length - 1)));
   const [source, setSource] = useState<Source | null>(null);
-  const scene = useRef<SilkMapScene | null>(null);
+  const scene = useRef<SceneHandle | null>(null);
   const teacher = mode === 'teacher';
   const studentView = mode !== 'teacher';
   const [tab, setTab] = useState(teacher ? 'content' : 'keynotes');
@@ -74,6 +69,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
   const hub = mode === 'student' ? '/student' : '/teacher';
   const current = sections[chapter];
   const hasVariables = Boolean(lesson.question?.variables.length);
+  const timeline = isTimelineMode(lesson);
 
   const onProgress = (progress: number) => {
     const next = chapterAt(sections, progress);
@@ -90,7 +86,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
   };
 
   const tabs: [string, string][] = teacher
-    ? [['content', 'Nội dung'], ['questions', 'Câu hỏi'], ['simulation', 'Mô phỏng 3D'], ['notes', 'Ghi chú giảng dạy']]
+    ? [['content', 'Nội dung'], ['questions', 'Câu hỏi'], ['simulation', timeline ? 'Mô phỏng' : 'Mô phỏng 3D'], ['notes', 'Ghi chú giảng dạy']]
     : [['keynotes', 'Ghi chú chính'], ['questions', 'Câu hỏi của thầy cô'], ['simulation', 'Mô phỏng của em']];
 
   return (
@@ -135,7 +131,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
       </div>
 
       <nav className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-6" aria-label="Kế hoạch tiết học 6 bước">
-        {LESSON_STAGES.map((stage, i) => {
+        {lessonStages(timeline).map((stage, i) => {
           const locked = i >= 3 && !hasVariables;
           return (
             <Link
@@ -155,7 +151,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
       </nav>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <section aria-label="Sa bàn">
+        <section aria-label={timeline ? 'Trục thời gian' : 'Sa bàn'}>
           <Player
             lesson={lesson}
             prefix="lesson"
@@ -163,9 +159,12 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
             initialProgress={saved.progress}
             onProgress={onProgress}
             onScene={(s) => (scene.current = s)}
-            badge={lesson.era ? `Sa bàn · ${lesson.era}` : 'Sa bàn'}
+            badge={`${timeline ? 'Trục thời gian' : 'Sa bàn'}${lesson.era ? ` · ${lesson.era}` : ''}`}
           />
-          <p className="lesson-disclaimer mt-2 t-xs muted">{lesson.simulationDisclaimer || 'Sa bàn là hình minh họa; vị trí, quân số và trang phục chưa được chuyên gia thẩm định.'}</p>
+          <p className="lesson-disclaimer mt-2 t-xs muted">
+            {lesson.simulationDisclaimer || (timeline ? 'Trục thời gian tóm tắt từ tư liệu; nội dung chưa được chuyên gia thẩm định.' : 'Sa bàn là hình minh họa; vị trí, quân số và trang phục chưa được chuyên gia thẩm định.')}
+          </p>
+          {lesson.simulation?.schematicNotice && <p className="lesson-schematic-notice mt-1 t-xs font-semibold muted">{lesson.simulation.schematicNotice}</p>}
           <div className="mt-3 flex items-center justify-between gap-2 t-sm">
             {neighbors.map((n, i) =>
               n ? (
@@ -242,7 +241,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
           {tab === 'questions' && <Questions lesson={lesson} interactive={studentView} />}
           {tab === 'simulation' && (
             <div className="card max-w-3xl p-5">
-              {studentView && <PreviousRun lessonId={lesson.id} />}
+              {studentView && <PreviousRun lesson={lesson} />}
               <p className={studentView ? 'mt-3' : ''}>{hasVariables ? 'Ở bước 3, nhân vật lịch sử đặt câu hỏi. Em đổi phương án, chạy mô phỏng và so sánh với cách gốc.' : 'Bài học này chưa có phần thử cách khác. Các biến số đang được biên soạn.'}</p>
               <button type="button" className="btn btn-primary mt-4" disabled={!hasVariables} onClick={() => navigate({ to: '/lesson/$id/interactive', params: { id: lesson.id }, search: { step: 3 } })}>
                 Đến bước câu hỏi <Icon name="next" />
@@ -331,13 +330,14 @@ function Questions({ lesson, interactive }: { lesson: AppLesson; interactive: bo
   );
 }
 
-function PreviousRun({ lessonId }: { lessonId: string }) {
-  const run = getStudentRun(lessonId);
+function PreviousRun({ lesson }: { lesson: AppLesson }) {
+  const run = getStudentRun(lesson.id);
   if (!run) return <p className="t-sm muted">Em chưa thử phương án riêng nào cho bài học này.</p>;
+  const rows = comparisonRows(lesson);
   return (
     <div className="rounded-lg bg-page p-4">
       <p className="font-semibold">Lần thử trước của em ({new Date(run.timestamp).toLocaleString('vi-VN')})</p>
-      <p className="mt-1 t-sm">Thời gian {run.student.durationHours} giờ · Tổn thất {run.student.casualties.toLocaleString('vi-VN')} · Điểm thế trận {run.student.positionScore}/100</p>
+      <p className="mt-1 t-sm">{[run.student.durationHours, run.student.casualties, run.student.positionScore].map((n, i) => `${rows[i].label} ${rows[i].value(n)}`).join(' · ')}</p>
       <p className="mt-1 t-sm muted">{run.student.outcomeSummary}</p>
     </div>
   );
