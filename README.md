@@ -26,7 +26,6 @@
 | | Địa chỉ |
 | --- | --- |
 | Ứng dụng (Vercel) | https://vietnam-history-eight.vercel.app |
-| API phiên lớp học (Cloudflare Worker) | https://sv-class-api.suviet.workers.dev |
 
 Đăng nhập demo: `admin` / `123` cho cả vai trò giáo viên và học sinh. Đây là tài khoản thử, không bảo vệ dữ liệu.
 
