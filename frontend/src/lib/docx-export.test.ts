@@ -62,6 +62,18 @@ describe('lesson export', () => {
     expect(blocks.find((b) => b.text.startsWith('A. '))?.text).toBe('A. Đáp án (đáp án đúng)');
   });
 
+  test('paragraph properties follow the OOXML order: spacing, ind, jc', () => {
+    const xml = new TextDecoder().decode(listEntries(buildDocxBytes(lesson)).find((e) => e.name === 'word/document.xml')!.data);
+    const props = xml.match(/<w:pPr>.*?<\/w:pPr>/g) ?? [];
+    expect(props.length).toBeGreaterThan(0);
+    for (const p of props) {
+      const order = ['<w:spacing', '<w:ind', '<w:jc'].map((t) => p.indexOf(t)).filter((i) => i >= 0);
+      expect(order).toEqual([...order].sort((a, b) => a - b));
+      expect(p.startsWith('<w:pPr><w:spacing')).toBe(true);
+    }
+    expect(props.some((p) => p.includes('<w:jc'))).toBe(true);
+  });
+
   test('an empty lesson still exports a valid file', () => {
     const entries = listEntries(buildDocxBytes({}));
     expect(entries.length).toBe(4);

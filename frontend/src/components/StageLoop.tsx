@@ -6,11 +6,12 @@ import type { Role } from '../lib/auth';
 import { calculate, generateExplanation, originalChoices, type Choices } from '../lib/engine';
 import { isConfigured } from '../lib/class-session';
 import { comparisonRows } from '../lib/comparison';
-import { isTimelineMode } from '../lib/lesson-schema';
+import { isTimelineMode, usesOpinionSummary } from '../lib/lesson-schema';
 import { sectionProgress } from '../lib/timeline';
-import { saveStudentRun, type AppLesson } from '../lib/storage';
-import { ClassPanel, Survey, submitChoices, surveyVisible } from './ClassPanel';
+import { getQuizAnswers, saveStudentRun, type AppLesson } from '../lib/storage';
+import { ClassPanel, Survey, submitChoices, submitQuizAnswers, surveyVisible } from './ClassPanel';
 import { OpinionSummary } from './OpinionSummary';
+import { QuizQuestions } from './QuizQuestions';
 import { Player, type SceneHandle } from './Player';
 import { Icon, Modal, SIMULATION_NOTICE, SIMULATION_NOTICE_NOTE } from './ui';
 
@@ -19,7 +20,9 @@ const SCREENS = ['screen-intro', 'screen-sim-original', 'screen-question', 'scre
 
 export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; role: Role; initialStep?: number }) {
   const navigate = useNavigate();
-  const variables = lesson.question?.variables ?? [];
+  // A lesson without a real simulation (blank, or timeline mode like Bài 1-3) never plays its variables.
+  const opinion = usesOpinionSummary(lesson);
+  const variables = opinion ? [] : lesson.question?.variables ?? [];
   const hasVariables = variables.length > 0;
   const timeline = isTimelineMode(lesson);
   // Without variables there is nothing to simulate: steps 4 and 6 stay closed and step 5 shows the
@@ -62,6 +65,11 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
   }, [toast]);
 
   const goTo = (n: number) => setStep(clampStep(n));
+  const goOpinion = async () => {
+    const line = role === 'student' ? await submitQuizAnswers(lesson, getQuizAnswers(lesson.id), startedAt) : { text: '', tone: '' };
+    goTo(5);
+    if (line.text) setToast(line);
+  };
   const run = async () => {
     if (!hasVariables) return;
     const sent = { ...choices };
@@ -91,7 +99,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
               type="button"
               className={`step-node${n === step ? ' active' : ''}${n < step ? ' complete' : ''}`}
               data-step={n}
-              data-screen={SCREENS[i]}
+              data-screen={i === 4 && !hasVariables ? 'screen-opinion-summary' : SCREENS[i]}
               aria-current={n === step ? 'step' : undefined}
               disabled={n > 3 && n !== 5 && !hasVariables}
               onClick={() => goTo(n)}
@@ -130,7 +138,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
         {step === 3 && (
           <section id="screen-question" className="screen-view active grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <aside id="class-panel" className="class-panel lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1" aria-label="Phiên lớp" aria-live="polite" hidden={role === 'student' && !isConfigured()}>
-              <ClassPanel lesson={lesson} role={role} />
+              <ClassPanel lesson={lesson} role={role} quiz={opinion} />
             </aside>
             <div className="flex min-w-0 flex-col gap-4 lg:col-start-1 lg:row-start-1">
               {character && (
@@ -168,14 +176,15 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
               </div>
               <div id="question-empty-notice" className="card p-5" hidden={hasVariables}>
                 <strong>Bài học này chưa có phần thử cách khác.</strong>
-                <p className="mt-1 muted">Các biến số để học sinh đổi phương án đang được biên soạn. Em có thể quay lại xem diễn biến và nguồn tư liệu.</p>
+                <p className="mt-1 muted">Em hãy trả lời các câu hỏi dưới đây, rồi xem tổng kết ý kiến. Em có thể quay lại xem diễn biến và nguồn tư liệu.</p>
               </div>
+              {!hasVariables && <QuizQuestions lesson={lesson} interactive record={role === 'student'} />}
               <div className="flex justify-end">
                 <button id="btn-run-simulation" type="button" className="btn btn-primary" hidden={!hasVariables} onClick={run}>
                   Chạy mô phỏng phương án của em <Icon name="next" />
                 </button>
                 {!hasVariables && (
-                  <button id="btn-goto-opinion-summary" type="button" className="btn btn-primary" onClick={() => goTo(5)}>
+                  <button id="btn-goto-opinion-summary" type="button" className="btn btn-primary" onClick={goOpinion}>
                     Xem tổng kết ý kiến <Icon name="next" />
                   </button>
                 )}
@@ -263,7 +272,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
           </section>
         )}
 
-        {step === 5 && !hasVariables && <OpinionSummary lesson={lesson} onBack={() => goTo(3)} onFinish={() => navigate({ to: '/lesson/$id', params: { id: lesson.id } })} />}
+        {step === 5 && !hasVariables && <OpinionSummary lesson={lesson} role={role} onBack={() => goTo(3)} onFinish={() => navigate({ to: '/lesson/$id', params: { id: lesson.id } })} />}
 
         {step === 6 && <Explanation lesson={lesson} choices={choices} role={role} startedAt={startedAt} onRetry={() => goTo(3)} onFinish={() => navigate({ to: '/lesson/$id', params: { id: lesson.id } })} />}
       </div>

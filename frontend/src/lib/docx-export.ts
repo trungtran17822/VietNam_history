@@ -183,7 +183,8 @@ const RUN_STYLE: Record<Block['kind'], RunStyle> = {
 
 function paragraphXml(block: Block): string {
   const st = RUN_STYLE[block.kind];
-  const pPr = `<w:pPr>${st.align ? `<w:jc w:val="${st.align}"/>` : ''}${st.indent ? `<w:ind w:left="${st.indent}"/>` : ''}<w:spacing w:before="${st.before ?? 60}" w:after="100"/></w:pPr>`;
+  // OOXML schema order inside pPr: spacing, ind, jc (strict consumers reject any other order).
+  const pPr = `<w:pPr><w:spacing w:before="${st.before ?? 60}" w:after="100"/>${st.indent ? `<w:ind w:left="${st.indent}"/>` : ''}${st.align ? `<w:jc w:val="${st.align}"/>` : ''}</w:pPr>`;
   const rPr = `<w:rPr>${st.bold ? '<w:b/>' : ''}${st.italic ? '<w:i/>' : ''}${st.color ? `<w:color w:val="${st.color}"/>` : ''}<w:sz w:val="${st.size}"/></w:rPr>`;
   const lines = `${block.kind === 'li' ? '• ' : ''}${block.text}`.split(/\r?\n/);
   const runs = lines.map((line, i) => `<w:r>${rPr}${i ? '<w:br/>' : ''}<w:t xml:space="preserve">${escapeXml(line)}</w:t></w:r>`).join('');
@@ -299,14 +300,22 @@ export function exportLessonPdf(lesson: ExportLesson) {
   frame.document.open();
   frame.document.write(buildLessonHtml(lesson));
   frame.document.close();
-  setTimeout(() => {
+  // Print once the document and its fonts are ready (250 ms fallback); remove the frame on
+  // `afterprint`, with a long fallback because some browsers' print() does not block.
+  let printed = false;
+  const doPrint = () => {
+    if (printed) return;
+    printed = true;
     try {
       frame.focus();
       frame.addEventListener('afterprint', cleanup);
       frame.print();
     } catch {
       cleanup();
+      return;
     }
-    setTimeout(cleanup, 60000);
-  }, 250);
+    setTimeout(cleanup, 10 * 60 * 1000);
+  };
+  const fonts = (frame.document as Document & { fonts?: { ready: Promise<unknown> } }).fonts;
+  (fonts ? Promise.race([fonts.ready, new Promise((r) => setTimeout(r, 1500))]) : new Promise((r) => setTimeout(r, 250))).then(doPrint, doPrint);
 }

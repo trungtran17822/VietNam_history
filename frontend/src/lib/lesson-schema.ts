@@ -211,6 +211,15 @@ export function isTimelineMode(lesson: { explorationMode?: string | undefined })
   return Boolean(mode) && !mode!.endsWith('_3d');
 }
 
+/**
+ * Lessons without a real simulation (blank lessons, and the timeline-mode lessons Bài 1-3) skip the
+ * "try another way" and comparison stages: stage 3 asks the multiple-choice questions and stage 5
+ * is an opinion summary. Their placeholder variables, if any, stay in the data but are not played.
+ */
+export function usesOpinionSummary(lesson: { explorationMode?: string | undefined; question?: { variables?: unknown[] } | undefined }): boolean {
+  return isTimelineMode(lesson) || !lesson.question?.variables?.length;
+}
+
 // Teacher-facing names of the exploration modes (Trung's labels). Charts and the map of those
 // modes are not drawn yet: every timeline-mode lesson shows the stepped timeline.
 export const MODE_LABELS: Record<string, string> = {

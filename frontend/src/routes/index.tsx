@@ -16,7 +16,7 @@ export const Route = createFileRoute('/')({
 
 const ROLES: { role: Role; label: string; copy: string }[] = [
   { role: 'teacher', label: 'Giáo viên', copy: 'Soạn bài, chiếu sa bàn lên lớp và mở phiên để cả lớp cùng trả lời.' },
-  { role: 'student', label: 'Học sinh', copy: 'Xem lại bài đã học và thử cách đánh của riêng em.' }
+  { role: 'student', label: 'Học sinh', copy: 'Xem lại bài đã học và, với bài có mô phỏng, thử phương án của riêng em.' }
 ];
 
 function Login() {
@@ -46,7 +46,7 @@ function Login() {
       <section>
         <img src="./assets/logo/logo-transparent.png" alt="" width={72} height={72} className="h-[4.5rem] w-[4.5rem]" />
         <h1 className="mt-4 t-3xl font-bold">Sử Việt</h1>
-        <p className="mt-3 max-w-xl t-lg">Học lịch sử trên sa bàn lụa: xem lại một trận đánh, rồi thử cách làm của chính em và so sánh với cách của cha ông.</p>
+        <p className="mt-3 max-w-xl t-lg">Học lịch sử trên sa bàn lụa: xem lại một sự kiện lịch sử, rồi (với bài có mô phỏng) thử cách làm của chính em và so sánh với cách của cha ông.</p>
         <ul className="mt-6 flex max-w-xl flex-col gap-3 t-sm">
           {['Sa bàn 3D theo từng giai đoạn, kèm nguồn tư liệu', 'Cả lớp gửi lựa chọn ẩn danh, không cần tài khoản', 'Kết quả tính minh bạch từ giả định của bài, luôn ghi rõ là mô phỏng'].map((t) => (
             <li key={t} className="flex gap-2.5">

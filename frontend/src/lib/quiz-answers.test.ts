@@ -1,32 +1,58 @@
-// Per-device multiple-choice tally used by the opinion summary of lessons without a simulation.
+// Multiple-choice answers of a lesson without a simulation: what a student sends to the class, which
+// lessons use the opinion summary, and that the bundled quiz options are well-formed.
 import { describe, expect, test } from 'vitest';
-import { recordQuizAnswer, type QuizAnswers } from './storage';
+import pilotJson from '../content/lessons/ngoc-hoi-ha-hoi-1789.json';
+import { usesOpinionSummary, type Lesson } from './lesson-schema';
+import { quizChoicesPayload } from './storage';
 
-const empty: QuizAnswers = { mine: {}, tally: {} };
+const mc = (id: string, ids: string[]) => ({ id, type: 'multiple_choice' as const, text: id, options: ids.map((o) => ({ id: o, text: o })) });
+const lesson = {
+  questions: [mc('q1', ['a', 'b']), { id: 'open', type: 'open_discussion' as const, text: 'mở' }, mc('q2', ['c', 'd'])]
+} as unknown as Pick<Lesson, 'questions'>;
 
-describe('recordQuizAnswer', () => {
-  test('the first answer counts once and is remembered as mine', () => {
-    const a = recordQuizAnswer(empty, 'q1', 'a');
-    expect(a.mine).toEqual({ q1: 'a' });
-    expect(a.tally).toEqual({ q1: { a: 1 } });
+describe('quizChoicesPayload', () => {
+  test('keeps only answered multiple-choice questions whose option exists', () => {
+    expect(quizChoicesPayload(lesson, { q1: 'b', open: 'x', q2: 'zzz', other: 'a' })).toEqual({ q1: 'b' });
   });
 
-  test('choosing the same option again does not count twice', () => {
-    const a = recordQuizAnswer(empty, 'q1', 'a');
-    expect(recordQuizAnswer(a, 'q1', 'a')).toBe(a);
+  test('sends at most 10 answers (the class API limit)', () => {
+    const many = { questions: Array.from({ length: 14 }, (_, i) => mc(`q${i}`, ['a', 'b'])) } as unknown as Pick<Lesson, 'questions'>;
+    const answers = Object.fromEntries(many.questions.map((q) => [q.id, 'a']));
+    expect(Object.keys(quizChoicesPayload(many, answers))).toHaveLength(10);
   });
 
-  test('changing the answer moves the count to the new option', () => {
-    const b = recordQuizAnswer(recordQuizAnswer(empty, 'q1', 'a'), 'q1', 'b');
-    expect(b.mine.q1).toBe('b');
-    expect(b.tally.q1).toEqual({ a: 0, b: 1 });
+  test('every id fits the API id rule', () => {
+    for (const [k, v] of Object.entries(quizChoicesPayload(lesson, { q1: 'a', q2: 'd' }))) expect(`${k}${v}`).toMatch(/^[A-Za-z0-9_-]+$/);
   });
+});
 
-  test('questions are tallied independently and the input is never mutated', () => {
-    const a = recordQuizAnswer(empty, 'q1', 'a');
-    const snapshot = JSON.stringify(a);
-    const b = recordQuizAnswer(a, 'q2', 'c');
-    expect(JSON.stringify(a)).toBe(snapshot);
-    expect(b.tally).toEqual({ q1: { a: 1 }, q2: { c: 1 } });
+describe('usesOpinionSummary', () => {
+  const withVars = { question: { variables: [{}] } };
+  test('timeline-mode lessons (Bài 1-3) and lessons without variables use it', () => {
+    expect(usesOpinionSummary({ explorationMode: 'ussr_charts', ...withVars })).toBe(true);
+    expect(usesOpinionSummary({ question: { variables: [] } })).toBe(true);
+    expect(usesOpinionSummary({})).toBe(true);
+  });
+  test('a 3D lesson with variables keeps the comparison', () => {
+    expect(usesOpinionSummary({ explorationMode: 'stalingrad_3d', ...withVars })).toBe(false);
+    expect(usesOpinionSummary(withVars)).toBe(false);
+  });
+});
+
+describe('the pilot quiz', () => {
+  const pilot = pilotJson as unknown as Lesson;
+  test('every multiple-choice question has unique option ids and exactly one correct answer', () => {
+    for (const q of pilot.questions.filter((x) => x.type === 'multiple_choice')) {
+      const ids = q.options!.map((o) => o.id);
+      expect(new Set(ids).size).toBe(ids.length);
+      expect(q.options!.filter((o) => o.isCorrect)).toHaveLength(1);
+    }
+  });
+  test('every simulation variable has unique option ids and exactly one original', () => {
+    for (const v of pilot.question!.variables) {
+      const ids = v.options.map((o) => o.id);
+      expect(new Set(ids).size).toBe(ids.length);
+      expect(v.options.filter((o) => o.isOriginal)).toHaveLength(1);
+    }
   });
 });
