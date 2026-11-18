@@ -23,8 +23,28 @@ function RootLayout() {
         <p className="mt-1">Sử Việt · bản thử nghiệm dành cho lớp học</p>
       </footer>
       <CinematicTransition />
+      <RouteProgress />
     </>
   );
+}
+
+/** A thin bar while a route chunk or loader is pending; quick navigations (< 150 ms) never show it. */
+function RouteProgress() {
+  const pending = useRouterState({ select: (s) => s.status === 'pending' });
+  const [phase, setPhase] = useState<'idle' | 'loading' | 'done'>('idle');
+  useEffect(() => {
+    if (pending) {
+      const timer = setTimeout(() => setPhase('loading'), 150);
+      return () => clearTimeout(timer);
+    }
+    setPhase((p) => (p === 'loading' ? 'done' : 'idle'));
+  }, [pending]);
+  useEffect(() => {
+    if (phase !== 'done') return;
+    const timer = setTimeout(() => setPhase('idle'), 420);
+    return () => clearTimeout(timer);
+  }, [phase]);
+  return <div className="route-progress" data-phase={phase} aria-hidden="true" />;
 }
 
 function useDismiss(open: boolean, close: () => void) {

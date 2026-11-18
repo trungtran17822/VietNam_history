@@ -12,5 +12,5 @@ export const Route = createFileRoute('/atlas')({
 
 function AtlasRoute() {
   const navigate = Route.useNavigate();
-  return <AtlasView search={Route.useSearch()} onSearch={(search, replace) => navigate({ search, replace })} />;
+  return <AtlasView search={Route.useSearch()} onSearch={(search, replace) => navigate({ search, replace, viewTransition: false })} />;
 }
