@@ -98,7 +98,16 @@
 
 @layer base {
   html { background: var(--color-page); color: var(--color-ink); font-family: var(--font-sans); -webkit-text-size-adjust: 100%; }
-  body { min-height: 100dvh; line-height: 1.6; overflow-x: hidden; }
+  body { min-height: 100dvh; line-height: 1.6; overflow-x: hidden; background: var(--color-page); isolation: isolate; }
+  /* Đông Sơn drum, debossed into the page: a grey relief (50% grey = no change) blended with soft-light,
+     fixed behind everything. Cards, the sand table and the atlas are opaque, so it shows only in the margins. */
+  body::before {
+    content: ""; position: fixed; z-index: -1; pointer-events: none;
+    width: min(92vmin, 760px); aspect-ratio: 1; right: max(-30vmin, -280px); top: 50%; translate: 0 -46%;
+    background: url("/assets/decor/drum-watermark.webp") center / contain no-repeat;
+    mix-blend-mode: soft-light;
+  }
+  @media print { body::before { display: none; } }
   h1, h2, h3 { font-family: var(--font-serif); line-height: 1.25; text-wrap: balance; color: var(--color-ink); }
   p { text-wrap: pretty; }
   ::selection { background: var(--color-highlight); color: var(--color-ink); }
@@ -248,6 +257,12 @@
   .transition-rule { width: 0; height: 1px; background: var(--color-gold); animation: rule-grow 1200ms 200ms var(--ease) forwards; }
   @keyframes seal-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
   @keyframes rule-grow { to { width: 160px; } }
+
+  /* Login hero: the national flag. Multiply turns its pale sky into the page colour and the mask fades its edges; text never sits on it. */
+  .login-flag { position: relative; margin: -0.5rem 0 -1.75rem -1rem; max-width: 36rem; aspect-ratio: 16 / 8; overflow: hidden; mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse 60% 56% at 50% 46%, #000 52%, transparent 100%); mask-image: radial-gradient(ellipse 60% 56% at 50% 46%, #000 52%, transparent 100%); }
+  .login-flag img { width: 100%; height: 100%; object-fit: cover; object-position: 54% 42%; animation: flag-in 1100ms var(--ease) both; }
+  @keyframes flag-in { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
 
   .presentation-mode .app-header, .presentation-mode .app-footer { display: none; }
   .presentation-mode main { max-width: none !important; }

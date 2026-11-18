@@ -134,7 +134,7 @@ Chú giải: **Đã có** = chạy được trong prototype; **Một phần**; *
 
 ## 8. Kiến trúc (đúng như đã xây)
 
-Hai thư mục. `frontend/`: ứng dụng một trang build bằng Vite (React 19, TypeScript strict, TanStack Router với hash history, TanStack Query chỉ cho API lớp, Tailwind v4, zod, three.js từ npm) ra `frontend/dist`, triển khai tệp tĩnh lên Vercel ([vercel.json](../../vercel.json)). `backend/`: API nhỏ trên Cloudflare Worker + D1 (SQLite), chỉ dùng cho phiên lớp học (F10/F11); bài học chạy đầy đủ khi không có nó. Thiết kế đầy đủ: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); hệ thiết kế: [DESIGN.md](../../DESIGN.md).
+Hai thư mục. `frontend/`: ứng dụng một trang build bằng Vite (React 19, TypeScript strict, TanStack Router với hash history, TanStack Query chỉ cho API lớp, Tailwind v4, zod, three.js từ npm) ra `frontend/dist`, triển khai tệp tĩnh lên Vercel ([vercel.json](../../vercel.json)). `backend/`: API nhỏ trên Cloudflare Worker + D1 (SQLite), chỉ dùng cho phiên lớp học (F10/F11); bài học chạy đầy đủ khi không có nó. Thiết kế đầy đủ: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); hệ thiết kế: [DESIGN.md](../../DESIGN.md) (gồm phần trang trí: trống đồng Đông Sơn in chìm trên mọi trang và quốc kỳ làm ảnh mở đầu trang đăng nhập, cả hai trong `frontend/public/assets/decor/`).
 
 ```
 frontend/

@@ -44,7 +44,10 @@ function Login() {
   return (
     <main id="view-login" className="app-view active mx-auto grid min-h-[calc(100dvh-8rem)] max-w-6xl items-center gap-10 px-4 py-10 lg:grid-cols-[1.1fr_1fr]">
       <section>
-        <img src="./assets/logo/logo-transparent.png" alt="" width={72} height={72} className="h-[4.5rem] w-[4.5rem]" />
+        <figure className="login-flag">
+          <img src="./assets/decor/vietnam-flag.webp" alt="" width={960} height={615} decoding="async" fetchPriority="high" />
+        </figure>
+        <img src="./assets/logo/logo-transparent.png" alt="" width={72} height={72} className="relative h-[4.5rem] w-[4.5rem]" />
         <h1 className="mt-4 t-3xl font-bold">Sử Việt</h1>
         <p className="mt-3 max-w-xl t-lg">Học lịch sử trên sa bàn lụa: xem lại một sự kiện lịch sử, rồi (với bài có mô phỏng) thử cách làm của chính em và so sánh với cách của cha ông.</p>
         <ul className="mt-6 flex max-w-xl flex-col gap-3 t-sm">

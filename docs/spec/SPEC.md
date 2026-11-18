@@ -132,7 +132,7 @@ Status key: **Built** = works in the prototype; **Partial**; **Not built**. "Bui
 
 ## 8. Architecture (as built)
 
-Two folders. `frontend/`: single-page app built with Vite (React 19, TypeScript strict, TanStack Router with hash history, TanStack Query for the class API only, Tailwind v4, zod, three.js from npm) into `frontend/dist`, deployed as static files to Vercel ([vercel.json](../../vercel.json)). `backend/`: a small Cloudflare Worker + D1 (SQLite) API used only by the class session (F10/F11); the lesson runs fully without it. Full design: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); design system: [DESIGN.md](../../DESIGN.md).
+Two folders. `frontend/`: single-page app built with Vite (React 19, TypeScript strict, TanStack Router with hash history, TanStack Query for the class API only, Tailwind v4, zod, three.js from npm) into `frontend/dist`, deployed as static files to Vercel ([vercel.json](../../vercel.json)). `backend/`: a small Cloudflare Worker + D1 (SQLite) API used only by the class session (F10/F11); the lesson runs fully without it. Full design: [docs/architecture/SYSTEM_DESIGN.md](../architecture/SYSTEM_DESIGN.md); SRS: [docs/srs/SRS.md](../srs/SRS.md); design system: [DESIGN.md](../../DESIGN.md) (including the decor: a Đông Sơn drum debossed into every page and the national flag as the login hero, both in `frontend/public/assets/decor/`).
 
 ```
 frontend/
