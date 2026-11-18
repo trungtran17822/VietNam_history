@@ -227,6 +227,7 @@ Soft rectangles: 8 px for controls, 10–12 px for cards and panels, pills only 
 - **Stepper** (`.lesson-stepper`): numbered circles, a check mark for completed steps, the active one filled vermilion; steps 4–6 are disabled for lessons without variables.
 - **Player**: map, camera pills over the map (top right), a paper control bar below (timeline, readout, rewind, play, speed).
 - **Class panel**: paper card; the class code in large spaced serif on an ivory well; live bars in faction indigo (moss for the original option).
+- **Decor** (`frontend/public/assets/decor/`): the Đông Sơn drum is debossed into the page on every screen (`body::before`, a grey relief blended with `soft-light`, fixed at the right edge, hidden in print); opaque cards, the sand table and the atlas cover it, so it lives in the margins. The national flag appears once, as the login hero: `multiply` melts its pale sky into the page and a radial mask fades its edges.
 - **Notices**: the prototype strip (straw band), the simulation notice (warm sand panel with a warning glyph), the scene caveat (small label in the map corner).
 
 ## Do's and Don'ts
@@ -236,4 +237,5 @@ Soft rectangles: 8 px for controls, 10–12 px for cards and panels, pills only 
 - **Do** honour reduced motion: transitions collapse, the camera jumps instead of gliding, the login curtain lasts 250 ms.
 - **Don't** put text inside the 3D scene; labels are HTML overlays.
 - **Don't** grade students in copy: results are "differences from the original", never right or wrong.
+- **Don't** put text, controls or labels over the flag or the drum, or use the flag as a repeating pattern; it stays a single, whole image.
 - **Don't** add gradient text, glassy cards, hard offset shadows or a second accent colour.
