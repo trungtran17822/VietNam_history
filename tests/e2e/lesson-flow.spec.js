@@ -34,6 +34,33 @@ test('US1: teacher plays, pauses, seeks and changes camera on the original battl
   expect(errors).toEqual([]);
 });
 
+test('a scene label with info opens a card that closes with Esc, the x button or a press outside', async ({ page }) => {
+  await login(page, 'teacher');
+  await openLoop(page);
+  await page.click('#btn-start-6stages');
+  const canvas = page.locator('#viewport-original-canvas canvas');
+  await expect(canvas).toHaveCount(1);
+  const label = page.locator('#viewport-original-canvas .lesson-scene-label-info').first();
+  await expect(label).toHaveCount(1, { timeout: 15_000 });
+  const card = page.locator('#viewport-original-canvas .lesson-scene-popover');
+  const open = () => label.dispatchEvent('click');
+
+  await open();
+  await expect(card).toHaveCount(1);
+  await expect(card).toContainText(/\S/);
+  await page.keyboard.press('Escape');
+  await expect(card).toHaveCount(0);
+
+  await open();
+  await card.locator('.lesson-scene-popover-close').click();
+  await expect(card).toHaveCount(0);
+
+  await open();
+  await expect(card).toHaveCount(1);
+  await page.locator('#screen-sim-original h2, #screen-sim-original .chapter-item-card').first().dispatchEvent('pointerdown');
+  await expect(card).toHaveCount(0);
+});
+
 test('US1: every chapter source opens with book and quote', async ({ page }) => {
   await login(page, 'student');
   await page.goto(`/#/lesson/${PILOT}`);

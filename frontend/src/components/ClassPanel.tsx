@@ -5,12 +5,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState, type FormEvent } from 'react';
 import * as api from '../lib/class-session';
 import type { Lesson } from '../lib/lesson-schema';
+import { quizChoicesPayload } from '../lib/storage';
 import type { Role } from '../lib/auth';
 import { Icon } from './ui';
 
 const RATING_QUESTIONS = [
   { key: 'interest', label: 'Em thấy bài học hôm nay thú vị như thế nào?', low: 'Chưa thú vị', high: 'Rất thú vị' },
-  { key: 'visualize', label: 'Em hình dung diễn biến trận đánh rõ đến đâu?', low: 'Chưa rõ', high: 'Rất rõ' },
+  { key: 'visualize', label: 'Em hình dung diễn biến của bài học rõ đến đâu?', low: 'Chưa rõ', high: 'Rất rõ' },
   { key: 'again', label: 'Em có muốn học các bài khác theo cách này không?', low: 'Không muốn', high: 'Rất muốn' }
 ];
 
@@ -23,28 +24,41 @@ const Status = ({ line }: { line: Line }) => (
 );
 const errorText = (error: unknown) => (error instanceof Error ? error.message : api.MESSAGES.offline);
 
-type PanelLesson = Pick<Lesson, 'id' | 'question'>;
+type PanelLesson = Pick<Lesson, 'id' | 'question' | 'questions'>;
 
-export function ClassPanel({ lesson, role }: { lesson: PanelLesson; role: Role }) {
-  if (role === 'teacher') return <TeacherPanel lesson={lesson} />;
-  if (!api.isConfigured()) return null;
-  return <StudentPanel lesson={lesson} />;
+/** The items the class answers: the lesson's variables, or (`quiz`) its multiple-choice questions. */
+function panelItems(lesson: PanelLesson, quiz: boolean) {
+  if (!quiz) return lesson.question?.variables ?? [];
+  return lesson.questions
+    .filter((q) => q.type === 'multiple_choice' && q.options?.length)
+    .map((q) => ({ id: q.id, title: q.text, options: q.options!.map((o) => ({ id: o.id, name: o.text, shortName: o.text, isOriginal: false })) }));
 }
 
-function TeacherPanel({ lesson }: { lesson: PanelLesson }) {
-  const [session, setSession] = useState(() => api.getTeacherSession(lesson.id));
-  const [line, setLine] = useState<Line>({ text: '', tone: '' });
-  const [busy, setBusy] = useState(false);
-  const queryClient = useQueryClient();
-  const summary = useQuery({
-    queryKey: ['class-summary', lesson.id, session?.code],
-    queryFn: () => api.fetchSummary(lesson.id),
-    enabled: Boolean(session),
+export function ClassPanel({ lesson, role, quiz = false }: { lesson: PanelLesson; role: Role; quiz?: boolean }) {
+  if (role === 'teacher') return <TeacherPanel lesson={lesson} quiz={quiz} />;
+  if (!api.isConfigured()) return null;
+  return <StudentPanel lesson={lesson} quiz={quiz} />;
+}
+
+/** The class summary the teacher's screens poll. Same query key everywhere, so the cache is shared. */
+export function useClassSummary(lessonId: string, code: string | undefined) {
+  return useQuery({
+    queryKey: ['class-summary', lessonId, code],
+    queryFn: () => api.fetchSummary(lessonId),
+    enabled: Boolean(code),
     // 304 polls are free on the server; back off while it is unreachable. Hidden tabs do not poll.
     refetchInterval: (query) => (query.state.status === 'error' ? api.API_CONFIG.backoffMs : api.API_CONFIG.pollIntervalMs),
     refetchIntervalInBackground: false,
     retry: false
   });
+}
+
+function TeacherPanel({ lesson, quiz }: { lesson: PanelLesson; quiz: boolean }) {
+  const [session, setSession] = useState(() => api.getTeacherSession(lesson.id));
+  const [line, setLine] = useState<Line>({ text: '', tone: '' });
+  const [busy, setBusy] = useState(false);
+  const queryClient = useQueryClient();
+  const summary = useClassSummary(lesson.id, session?.code);
   // fetchSummary forgets a session the server no longer knows (deleted elsewhere, purged).
   useEffect(() => {
     if (session && summary.isError && !api.getTeacherSession(lesson.id)) {
@@ -88,7 +102,7 @@ function TeacherPanel({ lesson }: { lesson: PanelLesson }) {
   const isOpen = data ? data.open : Date.now() < session.expiresAt;
   const count = data?.count ?? 0;
   const pollLine: Line = summary.isError ? { text: errorText(summary.error), tone: 'warn' } : !data && summary.isFetching ? { text: 'Đang tải số liệu…', tone: '' } : line;
-  const variables = lesson.question?.variables ?? [];
+  const variables = panelItems(lesson, quiz);
   const ratings = data?.ratings
     ? RATING_QUESTIONS.map((q) => ({ q, r: data.ratings![q.key] })).filter(({ r }) => r && r.n)
     : [];
@@ -198,7 +212,7 @@ function TeacherPanel({ lesson }: { lesson: PanelLesson }) {
   );
 }
 
-function StudentPanel({ lesson }: { lesson: PanelLesson }) {
+function StudentPanel({ lesson, quiz }: { lesson: PanelLesson; quiz: boolean }) {
   const [joined, setJoined] = useState(() => api.getJoined(lesson.id));
   const [line, setLine] = useState<Line>({ text: '', tone: '' });
   const [code, setCode] = useState('');
@@ -210,7 +224,7 @@ function StudentPanel({ lesson }: { lesson: PanelLesson }) {
         <p>
           Đã vào lớp <strong className="font-serif t-lg tracking-widest" data-class-joined>{api.formatCode(joined.code)}</strong>
         </p>
-        <p className="mt-1 t-sm muted">Khi em bấm "Chạy mô phỏng", lựa chọn sẽ được gửi ẩn danh để cả lớp cùng xem. Em có thể đổi ý và chạy lại.</p>
+        <p className="mt-1 t-sm muted">{quiz ? 'Khi em bấm "Xem tổng kết ý kiến", các đáp án em đã chọn sẽ được gửi ẩn danh cho thầy cô. Em có thể đổi đáp án và gửi lại.' : 'Khi em bấm "Chạy mô phỏng", lựa chọn sẽ được gửi ẩn danh để cả lớp cùng xem. Em có thể đổi ý và chạy lại.'}</p>
         <button
           type="button"
           className="btn btn-quiet btn-sm mt-2 underline"
@@ -277,6 +291,14 @@ export async function submitChoices(lessonId: string, choices: Record<string, st
   } catch (error) {
     return { text: `${errorText(error)} Bấm "Chạy mô phỏng" lần nữa để gửi lại.`, tone: 'warn' };
   }
+}
+
+/** Same for a lesson without a simulation: sends the answers to its multiple-choice questions. */
+export async function submitQuizAnswers(lesson: PanelLesson, answers: Record<string, string>, startedAt: number): Promise<Line> {
+  const choices = quizChoicesPayload(lesson, answers);
+  if (!Object.keys(choices).length) return { text: '', tone: '' };
+  const line = await submitChoices(lesson.id, choices, startedAt);
+  return line.tone === 'warn' ? { ...line, text: line.text.replace('Bấm "Chạy mô phỏng" lần nữa để gửi lại.', 'Bấm "Xem tổng kết ý kiến" lần nữa để gửi lại.') } : line;
 }
 
 export function Survey({ lessonId, startedAt }: { lessonId: string; startedAt: number }) {

@@ -71,23 +71,37 @@ test('the teacher editor shows the timeline events and the review flags verbatim
   await expect(page.locator('#viewport-editor-timeline .timeline-dot')).toHaveCount(9);
 });
 
-test('Bài 1 comparison uses its own metric labels and carries the assumption note', async ({ page }) => {
+test('Bài 1 has no simulation: stage 3 asks the questions and stage 5 is the student\'s opinion summary', async ({ page }) => {
   await login(page, 'student');
   await openLoop(page, BAI1);
   await page.click('#btn-start-6stages');
   await expect(page.locator('#viewport-original-timeline')).toBeVisible();
   await page.click('#btn-goto-question');
-  await expect(page.locator('#variables-container .variable-card')).toHaveCount(1);
-  await page.locator('.variable-option:not(.is-original)').first().click();
-  await page.click('#btn-run-simulation');
-  await expect(page.locator('#viewport-custom-timeline')).toBeVisible();
+  // No variables to play: the lesson's multiple-choice questions are asked here instead.
+  await expect(page.locator('#variables-container .variable-card')).toHaveCount(0);
+  await expect(page.locator('#btn-run-simulation')).toBeHidden();
+  await expect(page.locator('#screen-question fieldset')).toHaveCount(6);
+  await page.locator('#screen-question fieldset').first().locator('input[type="radio"]').first().check();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('history_sim_quiz_answers'))).toContain('"');
+  await expect(page.locator('.lesson-stepper .step-node[data-step="4"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="6"]')).toBeDisabled();
+  await page.click('#btn-goto-opinion-summary');
+  await expect(page.locator('#screen-opinion-summary')).toBeVisible();
+  await expect(page.locator('#screen-opinion-summary')).toContainText('Em đã chọn:');
+  await expect(page.locator('#screen-opinion-summary')).toContainText('ý kiến thảo luận minh họa');
+  await expect(page.locator('#screen-comparison')).toHaveCount(0);
+  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toHaveAttribute('data-screen', 'screen-opinion-summary');
+});
+
+test('the teacher sees the opinion summary without a session, and preview mode records nothing', async ({ page }) => {
+  await login(page, 'teacher');
+  await openLoop(page, BAI1);
   await goToStage(page, 5);
-  await expect(page.locator('.prominent-simulation-banner')).toContainText('ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.');
-  await expect(page.locator('#simulation-notice-note')).toHaveText('* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa.');
-  await expect(page.locator('#screen-comparison')).toContainText('Sản lượng công nghiệp nặng');
-  await expect(page.locator('#comp-orig-duration')).toHaveText('90 / 100');
-  await expect(page.locator('#comp-cust-casualties')).toHaveText('50 / 100');
-  await expect(page.locator('#comp-cust-score')).toHaveText('75 / 100');
+  await expect(page.locator('#opinion-summary-no-session')).toContainText('Chưa mở phiên lớp');
+  await page.goto(`/#/lesson/${BAI1}/preview`);
+  await page.click('[data-workspace-tab="questions"]');
+  await page.locator('fieldset input[type="radio"]').first().check();
+  expect(await page.evaluate(() => localStorage.getItem('history_sim_quiz_answers'))).toBeNull();
 });
 
 test('Bài 4 (Stalingrad) is a 3D table and keeps its schematic notice', async ({ page }) => {

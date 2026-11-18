@@ -50,6 +50,8 @@ Body (every field optional, at least one required):
 ```
 
 `200 { "ok": true }`. Merges with the existing answer for the same `clientId`.
+
+`choices` keys are variable ids, or (lessons without a simulation) multiple-choice question ids, at most 10. The server only checks the id format, so the contract is unchanged; `choices` is replaced as a whole, so the client always sends its full answer map. The summary's `distribution` is then keyed by question id.
 `404/410` if the session is unknown/expired; `409 full` if this is a new `clientId` and 60 answers exist.
 The cap is checked in the same statement as the insert, so a burst of new devices never exceeds it.
 

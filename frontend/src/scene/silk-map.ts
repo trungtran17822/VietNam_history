@@ -318,6 +318,7 @@ export class SilkMapScene {
   // Terrain labels are HTML so Vietnamese diacritics render with the page fonts.
   private buildLabels() {
     document.addEventListener('keydown', this.onPopoverKey);
+    document.addEventListener('pointerdown', this.onOutsidePointer);
     for (const label of this.sim.scene.labels) {
       const element = document.createElement('span');
       element.className = 'lesson-scene-label';
@@ -389,6 +390,15 @@ export class SilkMapScene {
 
   private onPopoverKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && this.popover) this.closePopover();
+  };
+
+  // A press anywhere outside the card (and not on a label that opens one) closes it; focus stays
+  // where the user pressed.
+  private onOutsidePointer = (event: PointerEvent) => {
+    if (!this.popover) return;
+    const target = event.target as Element | null;
+    if (target?.closest('.lesson-scene-popover, .lesson-scene-label-info')) return;
+    this.closePopover(false);
   };
 
   private bindPointer() {
@@ -622,6 +632,7 @@ export class SilkMapScene {
     cancelAnimationFrame(this.frame);
     this.resizeObserver.disconnect();
     document.removeEventListener('keydown', this.onPopoverKey);
+    document.removeEventListener('pointerdown', this.onOutsidePointer);
     this.closePopover(false);
     for (const label of this.labels) label.element.remove();
     this.caveat.remove();

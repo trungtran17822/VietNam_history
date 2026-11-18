@@ -3,9 +3,10 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useRef, useState } from 'react';
 import { comparisonRows } from '../lib/comparison';
-import { isTimelineMode, type Section, type Source, type Status } from '../lib/lesson-schema';
+import { isTimelineMode, usesOpinionSummary, type Section, type Source, type Status } from '../lib/lesson-schema';
 import { chapterAt, sectionProgress } from '../lib/timeline';
-import { getAllLessons, getLessonProgress, getStudentRun, getVisibleForStudent, saveLesson, saveLessonProgress, saveQuizAnswer, type AppLesson } from '../lib/storage';
+import { getAllLessons, getLessonProgress, getStudentRun, getVisibleForStudent, saveLesson, saveLessonProgress, type AppLesson } from '../lib/storage';
+import { QuizQuestions } from './QuizQuestions';
 import landmarks from '../content/atlas/landmarks.json';
 import { Player, type SceneHandle } from './Player';
 import { Icon, Modal, StatusChip } from './ui';
@@ -68,7 +69,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
   const neighbors = [list[index - 1], list[index + 1]];
   const hub = mode === 'student' ? '/student' : '/teacher';
   const current = sections[chapter];
-  const hasVariables = Boolean(lesson.question?.variables.length);
+  const hasVariables = !usesOpinionSummary(lesson) && Boolean(lesson.question?.variables.length);
   const timeline = isTimelineMode(lesson);
 
   const onProgress = (progress: number) => {
@@ -132,7 +133,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
 
       <nav className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-6" aria-label="Kế hoạch tiết học 6 bước">
         {lessonStages(timeline).map((stage, i) => {
-          const locked = i >= 3 && !hasVariables;
+          const locked = i >= 3 && i !== 4 && !hasVariables; // step 5 is the opinion summary then
           return (
             <Link
               key={stage.title}
@@ -238,12 +239,12 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
             </div>
           )}
           {tab === 'keynotes' && <KeyNotes notes={lesson.keyNotes} />}
-          {tab === 'questions' && <Questions lesson={lesson} interactive={studentView} />}
+          {tab === 'questions' && <QuizQuestions lesson={lesson} interactive={studentView} record={mode === 'student'} />}
           {tab === 'simulation' && (
             <div className="card max-w-3xl p-5">
               {studentView && <PreviousRun lesson={lesson} />}
-              <p className={studentView ? 'mt-3' : ''}>{hasVariables ? 'Ở bước 3, nhân vật lịch sử đặt câu hỏi. Em đổi phương án, chạy mô phỏng và so sánh với cách gốc.' : 'Bài học này chưa có phần thử cách khác. Các biến số đang được biên soạn.'}</p>
-              <button type="button" className="btn btn-primary mt-4" disabled={!hasVariables} onClick={() => navigate({ to: '/lesson/$id/interactive', params: { id: lesson.id }, search: { step: 3 } })}>
+              <p className={studentView ? 'mt-3' : ''}>{hasVariables ? 'Ở bước 3, nhân vật lịch sử đặt câu hỏi. Em đổi phương án, chạy mô phỏng và so sánh với cách gốc.' : 'Bài học này không có phần thử cách khác. Ở bước 3 em trả lời các câu hỏi, rồi xem tổng kết ý kiến ở bước 5.'}</p>
+              <button type="button" className="btn btn-primary mt-4" onClick={() => navigate({ to: '/lesson/$id/interactive', params: { id: lesson.id }, search: { step: 3 } })}>
                 Đến bước câu hỏi <Icon name="next" />
               </button>
             </div>
@@ -291,45 +292,6 @@ function KeyNotes({ notes }: { notes: string[] }) {
         <li key={i} className="flex gap-3"><Icon name="check" className="icon mt-1 text-ok" /> <span>{n}</span></li>
       ))}
     </ul>
-  );
-}
-
-function Questions({ lesson, interactive }: { lesson: AppLesson; interactive: boolean }) {
-  const [picked, setPicked] = useState<Record<string, string>>({});
-  if (!lesson.questions.length) return <p className="muted">Thầy cô chưa thêm câu hỏi luyện tập cho bài học này.</p>;
-  return (
-    <ol className="flex max-w-3xl flex-col gap-4">
-      {lesson.questions.map((q, i) => {
-        const chosen = q.options?.find((o) => o.id === picked[q.id]);
-        return (
-          <li key={q.id} className="card p-5">
-            <p className="font-semibold">Câu {i + 1}. {q.text}</p>
-            {q.type === 'multiple_choice' && q.options ? (
-              <fieldset className="mt-3 flex flex-col gap-2" disabled={!interactive}>
-                <legend className="sr-only">Chọn một đáp án</legend>
-                {q.options.map((o) => (
-                  <label key={o.id} className="variable-option">
-                    <input type="radio" name={`q-${q.id}`} value={o.id} checked={picked[q.id] === o.id} onChange={() => {
-                      setPicked({ ...picked, [q.id]: o.id });
-                      if (interactive) saveQuizAnswer(lesson.id, q.id, o.id);
-                    }} />
-                    <span>{o.text}{!interactive && o.isCorrect && <span className="original-badge">Đáp án</span>}</span>
-                  </label>
-                ))}
-              </fieldset>
-            ) : (
-              interactive ? <textarea className="field mt-3" placeholder="Em ghi suy nghĩ của mình (chỉ lưu trên màn hình này)…" aria-label={`Trả lời câu ${i + 1}`} /> : q.guide && <p className="mt-2 t-sm muted">Gợi ý: {q.guide}</p>
-            )}
-            {chosen && (
-              <p className={`mt-3 rounded-lg px-3 py-2 t-sm ${chosen.isCorrect ? 'bg-ok-tint text-ok' : 'bg-warn-tint text-warn'}`} role="status">
-                <strong>{chosen.isCorrect ? 'Chính xác. ' : 'Chưa đúng, em thử nghĩ thêm nhé. '}</strong>
-                {q.isExplanationReleased ? chosen.explanation : chosen.isCorrect ? 'Thầy cô sẽ giải thích chi tiết trên lớp.' : 'Hãy xem lại sa bàn và lời dẫn từng giai đoạn.'}
-              </p>
-            )}
-          </li>
-        );
-      })}
-    </ol>
   );
 }
 

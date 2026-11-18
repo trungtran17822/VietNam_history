@@ -1,7 +1,7 @@
 // Lessons live in localStorage (key kept from v1). Bundled lessons come from
 // src/content/lessons/<id>.json and are only fetched when a browser needs to seed or update one.
 import { nfc, today } from './text';
-import { validateLesson, type Lesson, type Scene, type Status } from './lesson-schema';
+import type { Lesson, Scene, Status } from './lesson-schema';
 import type { SimulationResult } from './engine';
 
 export const STORAGE_KEY = 'history_sim_lessons_db_v2';
@@ -169,30 +169,6 @@ export function getVisibleForStudent(): AppLesson[] {
   return getAllLessons().filter(isVisibleForStudent);
 }
 
-export function exportJSON(): string {
-  return JSON.stringify(getAllLessons(), null, 2);
-}
-
-/** Replaces the stored lessons with a file's content after validating every lesson (trust boundary). */
-export function importJSON(json: string): { ok: boolean; message: string } {
-  let parsed: unknown;
-  try {
-    parsed = nfc(JSON.parse(json));
-  } catch (error) {
-    return { ok: false, message: `Lỗi đọc tệp JSON: ${(error as Error).message}` };
-  }
-  const list = Array.isArray(parsed) ? parsed : Array.isArray((parsed as any)?.lessons) ? (parsed as any).lessons : (parsed as any)?.id ? [parsed] : null;
-  if (!list) return { ok: false, message: 'Định dạng JSON không hợp lệ. Phải là mảng danh sách bài học.' };
-  const lessons = list.filter((l: any) => l && l.id && l.title).map((l: any) => (l.schemaVersion === 2 ? l : upgradeV1(l)));
-  if (!lessons.length) return { ok: false, message: 'Không tìm thấy bài giảng hợp lệ trong tệp JSON đã tải.' };
-  for (const lesson of lessons) {
-    const issues = validateLesson(lesson);
-    if (issues.length) return { ok: false, message: `Bài "${lesson.title}" chưa hợp lệ: ${issues.slice(0, 3).join('; ')}` };
-  }
-  write(STORAGE_KEY, lessons);
-  return { ok: true, message: `Nhập thành công ${lessons.length} bài giảng!` };
-}
-
 export async function resetToDefaults(): Promise<void> {
   localStorage.removeItem(STORAGE_KEY);
   localStorage.removeItem(SEEN_KEY);
@@ -217,31 +193,35 @@ export function getStudentRun(lessonId: string): StudentRun | null {
 }
 
 /**
- * Multiple-choice answers given on this device, no names: this student's latest pick per
- * question (`mine`) and how often each option was picked here (`tally`). The opinion summary of
- * a lesson without a simulation reads it.
+ * Multiple-choice answers this device gave (question id -> option id), no names. A lesson without
+ * a simulation asks them in stage 3 and shows them again in the opinion summary. Class-wide counts
+ * come from the class session (the teacher's screen), never from this device.
  */
-export type QuizAnswers = { mine: Record<string, string>; tally: Record<string, Record<string, number>> };
+export type QuizAnswers = Record<string, string>;
 const QUIZ_KEY = 'history_sim_quiz_answers';
-const emptyQuiz = (): QuizAnswers => ({ mine: {}, tally: {} });
-
-/** A changed answer moves the tally from the old option to the new one; the same answer counts once. */
-export function recordQuizAnswer(prev: QuizAnswers, questionId: string, optionId: string): QuizAnswers {
-  const tally = { ...(prev.tally[questionId] ?? {}) };
-  const before = prev.mine[questionId];
-  if (before === optionId) return prev;
-  if (before && tally[before] > 0) tally[before] -= 1;
-  tally[optionId] = (tally[optionId] ?? 0) + 1;
-  return { mine: { ...prev.mine, [questionId]: optionId }, tally: { ...prev.tally, [questionId]: tally } };
-}
 
 export function saveQuizAnswer(lessonId: string, questionId: string, optionId: string) {
   if (!lessonId || !questionId || !optionId) return;
   const all = read<Record<string, QuizAnswers>>(QUIZ_KEY, {});
-  all[lessonId] = recordQuizAnswer(all[lessonId] ?? emptyQuiz(), questionId, optionId);
+  all[lessonId] = { ...getQuizAnswers(lessonId), [questionId]: optionId };
   write(QUIZ_KEY, all);
 }
 
+/** Also reads the first format ({ mine, tally }) that an earlier build stored. */
 export function getQuizAnswers(lessonId: string): QuizAnswers {
-  return read<Record<string, QuizAnswers>>(QUIZ_KEY, {})[lessonId] ?? emptyQuiz();
+  const stored = read<Record<string, any>>(QUIZ_KEY, {})[lessonId];
+  const map = stored && typeof stored.mine === 'object' && stored.mine ? stored.mine : stored;
+  return map && typeof map === 'object' ? { ...map } : {};
+}
+
+/** What a student sends to the class: the answers to this lesson's multiple-choice questions (the API takes at most 10). */
+export function quizChoicesPayload(lesson: Pick<Lesson, 'questions'>, answers: QuizAnswers): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const q of lesson.questions) {
+    if (Object.keys(out).length >= 10) break;
+    if (q.type !== 'multiple_choice' || !q.options?.length) continue;
+    const picked = answers[q.id];
+    if (picked && q.options.some((o) => o.id === picked)) out[q.id] = picked;
+  }
+  return out;
 }

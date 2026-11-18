@@ -40,7 +40,7 @@
   - 6 bài chạy đủ 6 bước với sa bàn 3D: Ngọc Hồi - Hạ Hồi (1789, bài thí điểm), Rạch Gầm - Xoài Mút (1785), Chi Lăng - Xương Giang (1427), Kháng chiến chống Mông - Nguyên, Điện Biên Phủ (1954), Chiến dịch Hồ Chí Minh (1975).
   - 4 bài theo SGK (Bài 1–4, trích trong `history_data/`) dạng trục thời gian: Nước Nga và Liên Xô, Châu Âu và nước Mỹ, Châu Á (1918–1945), Chiến tranh thế giới thứ hai.
 - **Phiên lớp học** (tùy chọn): giáo viên mở mã 6 ký tự, học sinh nhập mã trên điện thoại để gửi lựa chọn; giáo viên xem tỉ lệ phương án và tải CSV ẩn danh. Bài học vẫn chạy khi không có máy chủ.
-- **Trình soạn bài** cho giáo viên: nội dung, câu hỏi, biến số và hệ số, cảnh 3D, hoàn tác/làm lại, kiểm tra dữ liệu trước khi lưu, nhập/xuất JSON.
+- **Trình soạn bài** cho giáo viên: nội dung, câu hỏi, biến số và hệ số, cảnh 3D, hoàn tác/làm lại, kiểm tra dữ liệu trước khi lưu, xuất Word/PDF (từ trình soạn bài và từng thẻ bài trên trang giáo viên).
 
 ---
 
