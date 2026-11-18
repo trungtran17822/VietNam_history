@@ -112,7 +112,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
       </nav>
       <h2 ref={heading} tabIndex={-1} className="sr-only">Bước {step}: {title}</h2>
 
-      <div className="mt-5">
+      <div key={step} className="stage-enter mt-5">
         {step === 1 && (
           <section id="screen-intro" className="screen-view active mx-auto max-w-3xl card p-6 text-center sm:p-10">
             <h2 className="t-3xl font-bold">{lesson.subtitle || lesson.title}</h2>

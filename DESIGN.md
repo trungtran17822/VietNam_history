@@ -230,6 +230,20 @@ Soft rectangles: 8 px for controls, 10–12 px for cards and panels, pills only 
 - **Decor** (`frontend/public/assets/decor/`): the Đông Sơn drum is debossed into the page on every screen (`body::before`, a grey relief blended with `soft-light`, fixed at the right edge, hidden in print); opaque cards, the sand table and the atlas cover it, so it lives in the margins. The national flag appears once, as the login hero: `multiply` melts its pale sky into the page and a radial mask fades its edges.
 - **Notices**: the prototype strip (straw band), the simulation notice (warm sand panel with a warning glyph), the scene caveat (small label in the map corner).
 
+## Motion
+
+Calm and quick: motion confirms what the teacher did, it never performs. Tokens live on `:root` in `styles.css` (`--dur-press` 120 ms, `--dur-state` 160 ms, `--dur-enter` 280 ms, `--dur-exit` 140 ms, `--ease`, `--ease-in`, `--press-scale` 0.97).
+
+- **Page changes**: TanStack Router wraps each path change in `document.startViewTransition` (`defaultViewTransition` in `main.tsx`). The header and the login curtain hold still; the old `main` fades out in 140 ms and the new one rises 10 px and fades in over 300 ms. The names (`app-header`, `page`, `curtain`) are set only under `html:active-view-transition`, so `main` is never a stacking context that would trap a modal under the sticky header. Search-only changes (the atlas query, place and kind chips) skip the transition so the map never freezes. Browsers without view transitions change pages instantly.
+- **Loading**: a 3 px vermilion bar at the top while a route chunk or loader is pending, shown only after 150 ms so local navigations never flash it.
+- **Stages**: each stage of the 6-stage loop rises in (300 ms) when the stepper changes; stepper nodes cross-fade their colours.
+- **Overlays**: menus and the label card pop in from their anchor corner (180 ms); modals fade the backdrop and lift the panel 12 px; the class toast rises from the bottom. Exits are instant (they unmount).
+- **Press**: buttons, chips, pills, header tools, stepper nodes and rating dots shrink to 0.97 on press via the `scale` property (composes with any transform they already have); choice tiles and chapter cards use 0.99.
+- **Hover**: a tone or a rule changes (sepia border, silk fill), never a lift or a shadow (the Flat Paper Rule).
+
+### Named Rules
+**The Explicit Transition Rule.** Never `transition: all`; list the properties. Enter animations use `animation-fill-mode: backwards`, so no transform lingers after they end (a lingering transform would make a containing block for a modal inside).
+
 ## Do's and Don'ts
 
 - **Do** keep every mandatory label verbatim (`.claude/rules/content-labeling.md`).
