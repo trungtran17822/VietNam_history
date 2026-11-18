@@ -15,9 +15,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+# The event is part of the group: once a PR is merged its pull_request run reports the base branch
+# (refs/heads/main) as github.ref and, sharing the push run's group, used to cancel the production
+# deploy. Deploy runs (pushes to Staging and main) queue instead of cancelling each other, so a
+# deploy is never cut between the D1 migration and the Worker / Vercel step.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || (github.ref_name != 'main' && github.ref_name != 'Staging') }}
 
 jobs:
   test:

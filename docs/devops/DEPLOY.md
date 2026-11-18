@@ -37,6 +37,8 @@ Job `test`, on every push and pull request, Node 24:
 
 Jobs `deploy-frontend` and `deploy-backend` need `test` and run only for pushes to `Staging` (Vercel preview, Worker `sv-class-api-staging`) or `main` (production). They use Node 22 for the deploy tools (`vercel@latest`, `wrangler@3`). The Vercel preview URL is printed by the `vercel deploy --prebuilt` step of the run. Every deployed frontend, previews included, calls the production Worker through `DEPLOYED_API_BASE` (see below), so a class session opened on a Staging preview lands in the production D1.
 
+Concurrency: runs are grouped by workflow, event and ref. A newer run cancels an older one on feature branches and pull requests; pushes to `Staging` and `main` queue instead, so a deploy is never cut off midway. The event is in the group because a merged PR's `pull_request` run reports the base branch as its ref: before 2026-11-18 it shared the push run's group and cancelled the production deploy (PR #21, fixed by re-running). If a `main` push run still shows `cancelled`, re-run it with `gh run rerun <id>` and check the live site.
+
 Release flow: feature branch → merge into `Staging` → CI deploys the preview → Đạt reviews it → merge into `main` (production). Nobody else deploys production.
 
 Preview by hand (while the repo secrets are missing), from a checkout of `Staging` with a logged-in Vercel CLI: `npx vercel@latest pull --yes --environment=preview`, `npx vercel@latest build`, `npx vercel@latest deploy --prebuilt`. Never add `--prod`. Previews have Vercel Authentication on, so only signed-in members of the Vercel account can open them; check one from the CLI with `npx vercel@latest curl <url>/index.html`.
