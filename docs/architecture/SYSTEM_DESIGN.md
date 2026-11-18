@@ -45,7 +45,7 @@ the class API, Tailwind v4, zod. Domain modules have no UI and are unit-tested w
 |---|---|
 | `lib/lesson-schema.ts` | zod schema of a lesson (§4.1 of the v2 plan); every bundled lesson and every save is validated |
 | `content/lessons/*.json` | One file per lesson, loaded lazily; `revision` lets a changed seed reach browsers that already have data |
-| `lib/storage.ts` | Lessons in localStorage, one-time v1 migration, student visibility rule, import/export, per-lesson progress |
+| `lib/storage.ts` | Lessons in localStorage, one-time v1 migration, student visibility rule, per-lesson progress (the JSON import/export UI was removed; teachers export Word/PDF instead) |
 | `lib/engine.ts` | Deterministic `calculate` + explanation from the lesson's coefficients |
 | `lib/class-session.ts` | API client, teacher/student session state in localStorage, timeouts, Vietnamese error mapping; `apiBase` per environment (localhost → `:8787`; deployed → Worker URL or `VITE_API_BASE`; empty → class features off) |
 | `lib/auth.ts`, `lib/audio.ts`, `lib/text.ts`, `lib/prefs.ts` | Demo login (not security), procedural battle sound, NFC at input/import boundaries, quality/presentation prefs |

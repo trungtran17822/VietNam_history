@@ -190,14 +190,6 @@ describe('storage', () => {
     const after = storage.getLesson('ngoc-hoi-ha-hoi-1789')!;
     expect([after.title, after.status]).toEqual([pilot.title, 'Nháp']);
   });
-
-  test('import validates every lesson and export round-trips', async () => {
-    await storage.initStorage();
-    const exported = storage.exportJSON();
-    expect(storage.importJSON('{oops').ok).toBe(false);
-    expect(storage.importJSON(JSON.stringify([{ ...pilot, factions: { a: { name: 'x', color: 'red' } } }])).ok).toBe(false);
-    expect(storage.importJSON(exported)).toEqual({ ok: true, message: `Nhập thành công ${JSON.parse(exported).length} bài giảng!` });
-  });
 });
 
 // ---- Trung's SGK lessons, timeline mode, comparison metrics (S5) ----

@@ -16,7 +16,7 @@ function StudentDashboard() {
   return (
     <main id="view-student-dashboard" className="app-view active mx-auto max-w-6xl px-4 pb-12 pt-8">
       <h1 className="t-3xl font-bold">Bài đã học</h1>
-      <p className="mt-1 muted">Xem lại diễn biến trên sa bàn, đọc nguồn tư liệu và thử cách đánh của riêng em.</p>
+      <p className="mt-1 muted">Xem lại diễn biến trên sa bàn, đọc nguồn tư liệu và, với bài có mô phỏng, thử phương án của riêng em.</p>
       <AtlasCard />
       <label className="relative mt-5 block max-w-md">
         <span className="sr-only">Tìm bài học</span>

@@ -1,8 +1,9 @@
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
-import { useMemo, useRef, useState, type FormEvent } from 'react';
+import { useMemo, useState, type FormEvent } from 'react';
 import { requireUser } from '../lib/guards';
 import { assessReferenceUrl, assessmentMessage, blankLesson, intakeLesson, type IntakeForm } from '../lib/intake';
-import { deleteLesson, duplicateLesson, exportJSON, getAllLessons, importJSON, saveLesson, type AppLesson } from '../lib/storage';
+import { exportLessonDocx, exportLessonPdf } from '../lib/docx-export';
+import { deleteLesson, duplicateLesson, getAllLessons, saveLesson, type AppLesson } from '../lib/storage';
 import { fold, today } from '../lib/text';
 import { Thumbnail } from '../components/Thumbnail';
 import { AtlasCard, Field, Icon, Modal, StatusChip } from '../components/ui';
@@ -25,8 +26,6 @@ function TeacherDashboard() {
   const [query, setQuery] = useState('');
   const [intakeOpen, setIntakeOpen] = useState(false);
   const [pendingDelete, setPendingDelete] = useState<AppLesson | null>(null);
-  const [notice, setNotice] = useState('');
-  const fileInput = useRef<HTMLInputElement>(null);
   const refresh = () => setLessons(getAllLessons());
 
   const featured = featuredOf(lessons);
@@ -38,12 +37,6 @@ function TeacherDashboard() {
   const createBlank = () => {
     const lesson = saveLesson(blankLesson(user.displayName));
     navigate({ to: '/lesson/$id/edit', params: { id: lesson.id } });
-  };
-  const download = () => {
-    const url = URL.createObjectURL(new Blob([exportJSON()], { type: 'application/json' }));
-    const link = Object.assign(document.createElement('a'), { href: url, download: `su-viet-bai-giang-${today()}.json` });
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   return (
@@ -100,26 +93,8 @@ function TeacherDashboard() {
             <Icon name="search" className="icon pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 muted" />
             <input id="input-search-lessons" className="field !pl-9" type="search" placeholder="Tìm theo tên bài, lớp…" value={query} onChange={(e) => setQuery(e.target.value)} />
           </label>
-          <button type="button" className="btn btn-quiet btn-sm" onClick={download}><Icon name="download" /> Xuất JSON</button>
-          <button type="button" className="btn btn-quiet btn-sm" onClick={() => fileInput.current?.click()}><Icon name="upload" /> Nhập JSON</button>
-          <input
-            ref={fileInput}
-            type="file"
-            accept="application/json,.json"
-            className="hidden"
-            onChange={async (e) => {
-              const file = e.target.files?.[0];
-              e.target.value = '';
-              if (!file) return;
-              if (!window.confirm('Nhập tệp sẽ thay toàn bộ bài giảng trên máy này bằng nội dung trong tệp. Tiếp tục?')) return;
-              const result = importJSON(await file.text());
-              setNotice(result.message);
-              if (result.ok) refresh();
-            }}
-          />
         </div>
       </div>
-      {notice && <p className="mt-3 t-sm" role="status">{notice}</p>}
 
       <div id="teacher-lessons-grid" className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {shown.map((lesson) => (
@@ -143,6 +118,8 @@ function TeacherDashboard() {
                 <Link to="/lesson/$id/edit" params={{ id: lesson.id }} className="btn btn-secondary btn-sm btn-card-edit"><Icon name="edit" /> Soạn thảo</Link>
                 <Link to="/lesson/$id/preview" params={{ id: lesson.id }} className="btn btn-quiet btn-sm" aria-label={`Xem như học sinh: ${lesson.title}`}><Icon name="eye" /></Link>
                 <button type="button" className="btn btn-quiet btn-sm" aria-label={`Nhân bản: ${lesson.title}`} onClick={() => (duplicateLesson(lesson.id), refresh())}><Icon name="copy" /></button>
+                <button type="button" className="btn btn-quiet btn-sm" aria-label={`Xuất Word: ${lesson.title}`} title="Xuất Word (.docx)" onClick={() => exportLessonDocx(lesson)}><Icon name="download" /> Word</button>
+                <button type="button" className="btn btn-quiet btn-sm" aria-label={`Xuất PDF: ${lesson.title}`} title="Xuất PDF (hộp thoại in)" onClick={() => exportLessonPdf(lesson)}>PDF</button>
                 <button type="button" className="btn btn-quiet btn-sm ml-auto text-action" aria-label={`Xoá: ${lesson.title}`} onClick={() => setPendingDelete(lesson)}><Icon name="trash" /></button>
               </div>
             </div>
@@ -168,7 +145,7 @@ function TeacherDashboard() {
           </>
         }
       >
-        <p>Bài “{pendingDelete?.title}” sẽ bị xoá khỏi máy này. Thao tác này không thể hoàn tác (trừ khi bạn đã xuất JSON).</p>
+        <p>Bài “{pendingDelete?.title}” sẽ bị xoá khỏi máy này. Thao tác này không thể hoàn tác.</p>
       </Modal>
 
       <IntakeModal open={intakeOpen} onClose={() => setIntakeOpen(false)} teacher={user.displayName} onCreated={(id) => navigate({ to: '/lesson/$id/edit', params: { id } })} />

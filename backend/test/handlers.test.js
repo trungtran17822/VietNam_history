@@ -93,6 +93,19 @@ test('answers insert, merge and replace per client; summary counts each device o
   assert.deepEqual(r.data.ratings.again, { n: 0, avg: null });
 });
 
+test('answers to multiple-choice questions (lessons without a simulation) are keyed by question id and replaced as a whole', async () => {
+  const { call, open } = setup();
+  const s = await open();
+  const base = `/api/sessions/${s.code}/answers`;
+  await call('PUT', `${base}/${CLIENT_A}`, { body: { choices: { 'b1-q1': 'opt-1-a', 'b1-q2': 'opt-2-d' } } });
+  await call('PUT', `${base}/${CLIENT_B}`, { body: { choices: { 'b1-q1': 'opt-1-a' } } });
+  // A sends the full map again with one changed answer: replaces, never merges
+  await call('PUT', `${base}/${CLIENT_A}`, { body: { choices: { 'b1-q1': 'opt-1-b' } } });
+  const r = await call('GET', `/api/sessions/${s.code}/summary`, { key: s.teacherKey });
+  assert.equal(r.data.count, 2);
+  assert.deepEqual(r.data.distribution, { 'b1-q1': { 'opt-1-b': 1, 'opt-1-a': 1 } });
+});
+
 test('answer validation rejects bad input and stores nothing', async () => {
   const { ctx, call, open } = setup();
   const s = await open();
