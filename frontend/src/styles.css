@@ -86,7 +86,14 @@
   --focus: var(--color-action);
   --shadow-overlay: 0 18px 48px rgb(43 41 38 / 0.18);
   --shadow-frame: 0 6px 20px rgb(43 41 38 / 0.12);
+  /* Motion vocabulary (DESIGN.md "Motion"): press 120 ms, state 160 ms, enter 260-300 ms, exit 140 ms. */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --dur-press: 120ms;
+  --dur-state: 160ms;
+  --dur-enter: 280ms;
+  --dur-exit: 140ms;
+  --press-scale: 0.97;
   color-scheme: light;
 }
 
@@ -128,18 +135,18 @@
 
   .app-header { --focus: var(--color-page); background: var(--color-lacquer); color: var(--color-page); position: sticky; top: 0; z-index: 30; }
   .app-header a, .app-header button { color: inherit; }
-  .nav-link { padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 0.9375rem; text-decoration: none; opacity: 0.85; transition: background 160ms var(--ease), opacity 160ms; }
+  .nav-link { padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 0.9375rem; text-decoration: none; opacity: 0.85; transition-property: background-color, opacity, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
   .nav-link:hover { opacity: 1; background: color-mix(in srgb, var(--color-page) 8%, transparent); }
   .nav-link[data-status="active"] { opacity: 1; background: color-mix(in srgb, var(--color-page) 14%, transparent); }
   .nav-link[aria-disabled="true"] { opacity: 0.6; cursor: default; }
-  .header-tool { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 10px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; }
-  .header-tool:hover { background: color-mix(in srgb, var(--color-page) 10%, transparent); }
-  .menu-popover { position: absolute; right: 0; top: calc(100% + 6px); min-width: 240px; background: var(--color-card); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: 10px; box-shadow: var(--shadow-overlay); padding: 6px; z-index: 40; --focus: var(--color-action); }
+  .header-tool { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 10px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; transition-property: background-color, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
+  .header-tool:hover, .header-tool[aria-expanded="true"] { background: color-mix(in srgb, var(--color-page) 10%, transparent); }
+  .menu-popover { position: absolute; right: 0; top: calc(100% + 6px); min-width: 240px; background: var(--color-card); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: 10px; box-shadow: var(--shadow-overlay); padding: 6px; z-index: 40; --focus: var(--color-action); transform-origin: top right; animation: pop-in 180ms var(--ease) backwards; }
   .menu-popover button, .menu-popover a { color: var(--color-ink); }
-  .menu-item { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 0.9375rem; text-align: left; }
+  .menu-item { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 0.9375rem; text-align: left; transition: background-color var(--dur-state) var(--ease); }
   .menu-item:hover { background: var(--color-silk); }
 
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.9375rem; line-height: 1.2; border: 1px solid transparent; transition: background 160ms var(--ease), border-color 160ms, color 160ms; text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.9375rem; line-height: 1.2; border: 1px solid transparent; transition-property: background-color, border-color, color, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); text-decoration: none; }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-primary { background: var(--color-action); color: var(--color-card); }
   .btn-primary:hover:not(:disabled) { background: var(--color-action-hover); }
@@ -167,18 +174,21 @@
   .status-chip.scheduled { color: var(--color-scheduled-ink); background: var(--color-scheduled-tint); }
   .status-chip.published { color: var(--color-ok); background: var(--color-ok-tint); }
 
-  .chip { min-height: 36px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--color-rule); background: var(--color-card); font-size: 0.875rem; font-weight: 600; }
+  .chip { min-height: 36px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--color-rule); background: var(--color-card); font-size: 0.875rem; font-weight: 600; transition-property: background-color, border-color, color, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
+  .chip:hover:not([aria-pressed="true"]) { border-color: var(--sepia); }
   .chip[aria-pressed="true"] { background: var(--color-lacquer); color: var(--color-page); border-color: var(--color-lacquer); }
   .chip[aria-pressed="true"] .muted { color: inherit; opacity: 0.8; }
 
   .tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--color-rule); scrollbar-width: none; }
-  .tab { padding: 10px 14px; min-height: 44px; font-weight: 600; font-size: 0.9375rem; color: var(--color-muted); border-bottom: 3px solid transparent; white-space: nowrap; margin-bottom: -1px; }
+  .tab { padding: 10px 14px; min-height: 44px; font-weight: 600; font-size: 0.9375rem; color: var(--color-muted); border-bottom: 3px solid transparent; white-space: nowrap; margin-bottom: -1px; transition-property: color, border-color; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
+  .tab:hover:not([aria-selected="true"]):not(.active) { color: var(--color-ink); border-bottom-color: var(--color-rule); }
   .tab[aria-selected="true"], .tab.active { color: var(--color-ink); border-bottom-color: var(--color-action); }
 
   /* Modal (overlay shadow allowed: it floats above the page). */
   .modal-backdrop { position: fixed; inset: 0; background: color-mix(in srgb, var(--color-lacquer-deep) 55%, transparent); display: grid; place-items: center; padding: 16px; z-index: 60; }
   .modal-backdrop:not(.active) { display: none; }
-  .modal-panel { width: min(640px, 100%); max-height: calc(100dvh - 32px); overflow: auto; background: var(--color-card); border-radius: 12px; box-shadow: var(--shadow-overlay); border: 1px solid var(--color-rule); }
+  .modal-backdrop.active { animation: fade-in 200ms ease-out backwards; }
+  .modal-panel { width: min(640px, 100%); max-height: calc(100dvh - 32px); overflow: auto; background: var(--color-card); border-radius: 12px; box-shadow: var(--shadow-overlay); border: 1px solid var(--color-rule); animation: modal-in var(--dur-enter) var(--ease) backwards; }
 
   /* Silk-map player */
   .player-frame { position: relative; overflow: hidden; border-radius: 12px; background: var(--silk-ivory); border: 1px solid var(--color-rule); box-shadow: var(--shadow-frame); }
@@ -189,17 +199,18 @@
   /* A label with an `info` text is clickable and opens a small card (scene/silk-map.ts). */
   .lesson-scene-label-info { pointer-events: auto; cursor: pointer; }
   .lesson-scene-label-info:hover, .lesson-scene-label-info:focus-visible { outline: 2px solid var(--color-action); outline-offset: 1px; }
-  .lesson-scene-popover { position: absolute; z-index: 5; top: 12px; right: 12px; width: min(15rem, calc(100% - 24px)); padding: 10px 12px 12px; border: 1px solid var(--color-rule); border-radius: 8px; background: var(--color-card); color: var(--color-ink); box-shadow: 0 6px 20px color-mix(in srgb, var(--color-ink) 25%, transparent); font-size: 0.8125rem; line-height: 1.45; }
+  .lesson-scene-popover { position: absolute; z-index: 5; top: 12px; right: 12px; width: min(15rem, calc(100% - 24px)); padding: 10px 12px 12px; border: 1px solid var(--color-rule); border-radius: 8px; background: var(--color-card); color: var(--color-ink); box-shadow: 0 6px 20px color-mix(in srgb, var(--color-ink) 25%, transparent); font-size: 0.8125rem; line-height: 1.45; transform-origin: top right; animation: pop-in 180ms var(--ease) backwards; }
   .lesson-scene-popover-title { display: block; margin: 0 28px 6px 0; font-family: var(--font-serif); font-size: 0.9375rem; }
   .lesson-scene-popover p { margin: 0; }
   .lesson-scene-popover-close { position: absolute; top: 2px; right: 2px; width: 32px; height: 32px; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; cursor: pointer; border-radius: 6px; }
   .lesson-scene-popover-close:hover { background: var(--color-action-tint); }
   .scene-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-muted); font-size: 0.875rem; }
-  .btn-cam-pill { min-height: 36px; padding: 6px 12px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; background: color-mix(in srgb, var(--color-card) 92%, transparent); border: 1px solid var(--color-rule); color: var(--color-ink); white-space: nowrap; }
+  .btn-cam-pill { min-height: 36px; padding: 6px 12px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; background: color-mix(in srgb, var(--color-card) 92%, transparent); border: 1px solid var(--color-rule); color: var(--color-ink); white-space: nowrap; transition-property: background-color, border-color, color, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
+  .btn-cam-pill:hover:not(.active) { border-color: var(--sepia); }
   .btn-cam-pill.active { background: var(--color-lacquer); color: var(--color-page); border-color: var(--color-lacquer); }
   /* Timeline player (timeline-mode lessons): one round stop per milestone, the passed ones filled. */
   .timeline-steps { padding: 2px 2px 6px; scroll-snap-type: x proximity; }
-  .timeline-dot { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; border: 2px solid var(--color-rule); background: var(--color-card); font-size: 0.8125rem; font-weight: 700; color: var(--color-lacquer); scroll-snap-align: center; transition: background 160ms, border-color 160ms, transform 160ms; }
+  .timeline-dot { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; border: 2px solid var(--color-rule); background: var(--color-card); font-size: 0.8125rem; font-weight: 700; color: var(--color-lacquer); scroll-snap-align: center; transition-property: background-color, border-color, color, transform, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
   .timeline-dot:hover { border-color: var(--sepia); }
   .timeline-dot.passed { background: var(--color-silk); border-color: var(--sepia); }
   .timeline-dot.active { background: var(--color-lacquer); border-color: var(--color-lacquer); color: var(--color-page); transform: scale(1.1); }
@@ -207,15 +218,16 @@
   .player-slider { width: 100%; accent-color: var(--color-action); min-height: 28px; }
   .time-readout { font-variant-numeric: tabular-nums; font-size: 0.875rem; font-weight: 600; min-width: 3.5rem; text-align: right; }
 
-  .chapter-item-card, .lesson-chapter-item { display: block; width: 100%; text-align: left; padding: 12px 14px; border-radius: 10px; border: 1px solid transparent; transition: background 160ms, border-color 160ms; }
+  .chapter-item-card, .lesson-chapter-item { display: block; width: 100%; text-align: left; padding: 12px 14px; border-radius: 10px; border: 1px solid transparent; transition-property: background-color, border-color, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
   .chapter-item-card:hover, .lesson-chapter-item:hover { background: var(--color-silk); }
   .lesson-chapter-item.active, .chapter-item-card.active { background: var(--color-card); border-color: var(--color-rule); }
   .chapter-time-tag { font-size: 0.8125rem; font-weight: 600; color: var(--sepia); font-variant-numeric: tabular-nums; }
 
   /* 6-stage stepper */
   .lesson-stepper { display: flex; gap: 4px; overflow-x: auto; padding: 4px; scrollbar-width: none; counter-reset: step; }
-  .step-node { flex: 1 0 auto; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 6px 12px; border-radius: 10px; text-align: left; font-size: 0.875rem; font-weight: 600; color: var(--color-muted); background: transparent; border: 1px solid transparent; }
-  .step-node .step-num { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid currentColor; font-size: 0.8125rem; flex: none; }
+  .step-node { flex: 1 0 auto; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 6px 12px; border-radius: 10px; text-align: left; font-size: 0.875rem; font-weight: 600; color: var(--color-muted); background: transparent; border: 1px solid transparent; transition-property: background-color, border-color, color, scale; transition-duration: 200ms; transition-timing-function: var(--ease); }
+  .step-node:hover:not(:disabled):not(.active) { background: color-mix(in srgb, var(--color-silk) 60%, transparent); }
+  .step-node .step-num { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid currentColor; font-size: 0.8125rem; flex: none; transition-property: background-color, border-color, color; transition-duration: 200ms; transition-timing-function: var(--ease); }
   .step-node.complete { color: var(--color-ok); }
   .step-node.active { color: var(--color-ink); background: var(--color-card); border-color: var(--color-rule); }
   .step-node.active .step-num { background: var(--color-action); border-color: var(--color-action); color: var(--color-card); }
@@ -223,7 +235,7 @@
   @media (max-width: 47.99rem) { .step-node:not(.active) .step-name { display: none; } }
 
   .variable-card { border: 1px solid var(--color-rule); background: var(--color-card); border-radius: 12px; padding: 16px; }
-  .variable-option { display: flex; gap: 12px; align-items: flex-start; min-height: 48px; padding: 12px 14px; border: 1px solid var(--color-rule); border-radius: 10px; background: var(--color-paper); transition: border-color 160ms, background 160ms; }
+  .variable-option { display: flex; gap: 12px; align-items: flex-start; min-height: 48px; padding: 12px 14px; border: 1px solid var(--color-rule); border-radius: 10px; background: var(--color-paper); transition-property: border-color, background-color, box-shadow, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
   .variable-option:hover { border-color: var(--sepia); }
   .variable-option:has(input:checked) { border-color: var(--color-action); background: var(--color-action-tint); box-shadow: inset 0 0 0 1px var(--color-action); }
   .variable-option input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--color-action); flex: none; }
@@ -243,8 +255,10 @@
   .class-bar-fill { display: block; height: 100%; background: var(--color-faction-b); border-radius: inherit; transition: width 240ms var(--ease); }
   .is-original .class-bar-fill { background: var(--color-ok); }
   .class-toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 50; max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 10px; background: var(--color-lacquer); color: var(--color-page); box-shadow: var(--shadow-overlay); font-size: 0.9375rem; }
+  .class-toast:not([hidden]) { animation: toast-in var(--dur-enter) var(--ease) backwards; }
   .class-toast[data-tone="warn"] { background: var(--color-warn-deep); }
-  .rating-pill { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-rule); background: var(--color-paper); font-weight: 700; }
+  .rating-pill { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-rule); background: var(--color-paper); font-weight: 700; transition-property: background-color, border-color, color, scale; transition-duration: var(--dur-state); transition-timing-function: var(--ease); }
+  .rating-pill:hover:not(:has(input:checked)) { border-color: var(--sepia); }
   .rating-pill input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
   .rating-pill:has(input:checked) { background: var(--color-lacquer); color: var(--color-page); border-color: var(--color-lacquer); }
   .rating-pill:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
@@ -253,7 +267,8 @@
   .cinematic-transition { position: fixed; inset: 0; z-index: 80; display: grid; place-content: center; justify-items: center; gap: 14px; background: var(--color-lacquer-deep); color: var(--color-page); text-align: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 260ms var(--ease), visibility 0s 260ms; --focus: var(--color-page); }
   .cinematic-transition.active { opacity: 1; visibility: visible; transition: opacity 260ms var(--ease); }
   .cinematic-transition img { width: 96px; height: 96px; animation: seal-in 900ms var(--ease) both; }
-  .cinematic-transition h2 { color: var(--color-page); }
+  .cinematic-transition h2 { color: var(--color-page); animation: rise-in 600ms 180ms var(--ease) backwards; }
+  .cinematic-transition #btn-skip-transition { animation: fade-in 400ms 700ms ease-out backwards; }
   .transition-rule { width: 0; height: 1px; background: var(--color-gold); animation: rule-grow 1200ms 200ms var(--ease) forwards; }
   @keyframes seal-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
   @keyframes rule-grow { to { width: 160px; } }
@@ -266,8 +281,49 @@
 
   .presentation-mode .app-header, .presentation-mode .app-footer { display: none; }
   .presentation-mode main { max-width: none !important; }
+
+  .atlas-card { transition: border-color var(--dur-state) var(--ease); }
+
+  /* Press feedback: the `scale` property, so it composes with any transform a control already has. */
+  .btn:active:not(:disabled), .chip:active, .btn-cam-pill:active, .header-tool:active, .nav-link:active,
+  .rating-pill:active, .timeline-dot:active, .step-node:active:not(:disabled) { scale: var(--press-scale); }
+  .variable-option:active, .chapter-item-card:active { scale: 0.99; }
+  .btn, .chip, .btn-cam-pill, .header-tool, .nav-link, .rating-pill, .timeline-dot, .step-node, .variable-option, .chapter-item-card { -webkit-tap-highlight-color: transparent; }
+
+  /* Each stage of the 6-stage loop eases in when it mounts (StageLoop keys the wrapper by step). */
+  .stage-enter { animation: rise-in 300ms var(--ease) backwards; }
+
+  /* Thin bar while a route loads its chunk (only shown after 150 ms, __root.tsx RouteProgress). */
+  .route-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 90; pointer-events: none; background: var(--color-action); transform-origin: left center; transform: scaleX(0); opacity: 0; }
+  .route-progress[data-phase="loading"] { opacity: 1; animation: route-progress 8s cubic-bezier(0.05, 0.8, 0.2, 1) forwards; }
+  .route-progress[data-phase="done"] { transform: scaleX(1); opacity: 0; transition: transform 200ms var(--ease), opacity 240ms ease-out 160ms; }
+
+  @keyframes fade-in { from { opacity: 0; } }
+  @keyframes rise-in { from { opacity: 0; transform: translateY(8px); } }
+  @keyframes pop-in { from { opacity: 0; transform: translateY(-4px) scale(0.97); } }
+  @keyframes modal-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+  @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes route-progress { from { transform: scaleX(0.05); } to { transform: scaleX(0.92); } }
 }
 
+/* Route transitions: TanStack Router wraps each page change in document.startViewTransition (main.tsx).
+   The names exist only while a transition runs, so `main` never becomes a stacking context that would
+   trap a modal under the sticky header. The header and the login curtain stay put; the page content
+   fades out quickly and rises in. Browsers without :active-view-transition get the plain cross-fade. */
+html:active-view-transition .app-header { view-transition-name: app-header; }
+html:active-view-transition main { view-transition-name: page; }
+/* The login flag multiplies onto the page; captured on its own it would lose the blend, so the login
+   page stays in the root cross-fade. */
+html:active-view-transition main:has(.login-flag) { view-transition-name: none; }
+html:active-view-transition .cinematic-transition.active { view-transition-name: curtain; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 200ms; }
+::view-transition-group(page) { animation: none; }
+::view-transition-old(page) { animation: vt-out var(--dur-exit) var(--ease-in) both; }
+::view-transition-new(page) { animation: vt-in 300ms var(--ease) 40ms both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; scale: none !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }

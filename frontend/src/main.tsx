@@ -6,7 +6,15 @@ import { initStorage } from './lib/storage';
 import { routeTree } from './routeTree.gen';
 import './styles.css';
 
-const router = createRouter({ routeTree, history: createHashHistory(), defaultPreload: 'intent', scrollRestoration: true });
+// Page changes run inside document.startViewTransition (styles.css "Route transitions"); search-only
+// changes such as the atlas query do not, so the map never freezes behind a snapshot.
+const router = createRouter({
+  routeTree,
+  history: createHashHistory(),
+  defaultPreload: 'intent',
+  scrollRestoration: true,
+  defaultViewTransition: { types: ({ pathChanged }) => (pathChanged ? ['page'] : false) }
+});
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
