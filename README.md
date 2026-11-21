@@ -35,7 +35,7 @@
 
 - **Vòng lặp 6 bước** cho mỗi bài giảng: Khởi động → Khám phá (diễn biến gốc) → Câu hỏi của nhân vật lịch sử → Học sinh thử cách khác → So sánh số liệu → Giải thích và củng cố.
 - **Sa bàn tranh lụa 2.5D** dựng bằng three.js: bốn góc camera, dòng thời gian, đội hình và mũi tên diễn biến.
-- **Atlas Việt Nam 3D**: 34 đơn vị hành chính từ 01/07/2025, Hoàng Sa, Trường Sa và 71 địa danh, liên kết hai chiều với bài giảng.
+- **Atlas Việt Nam**: một ảnh minh hoạ do AI tạo, có 17 điểm tương tác, gồm Hoàng Sa và Trường Sa; tìm được 34 đơn vị hành chính từ 01/07/2025, Hoàng Sa, Trường Sa và 71 địa danh, liên kết hai chiều với bài giảng. Bản đồ 3D tạm hoãn (mã còn trên đĩa).
 - **10 bài học** đi kèm:
   - 6 bài chạy đủ 6 bước với sa bàn 3D: Ngọc Hồi - Hạ Hồi (1789, bài thí điểm), Rạch Gầm - Xoài Mút (1785), Chi Lăng - Xương Giang (1427), Kháng chiến chống Mông - Nguyên, Điện Biên Phủ (1954), Chiến dịch Hồ Chí Minh (1975).
   - 4 bài theo SGK (Bài 1–4, trích trong `history_data/`) dạng trục thời gian: Nước Nga và Liên Xô, Châu Âu và nước Mỹ, Châu Á (1918–1945), Chiến tranh thế giới thứ hai.
@@ -49,7 +49,7 @@
 ```
 frontend/  Vite + React 19 + TypeScript (strict), TanStack Router (hash), Tailwind v4, zod
            ├─ lesson JSON (src/content/lessons/)  ── nội dung bài học, kiểm tra bằng schema
-           ├─ scene/ (three.js) + features/atlas/ ── sa bàn và atlas, nạp lười (lazy chunk)
+           ├─ scene/ (three.js) + features/atlas/ ── sa bàn (three.js) và atlas ảnh minh hoạ, nạp lười (lazy chunk)
            └─ lib/ (thuần TypeScript, có unit test) ── engine mô phỏng, lưu trữ, thời gian
 backend/   Cloudflare Worker + D1 (SQLite); Node dev server dùng bộ nhớ tạm
 tests/     Playwright E2E (desktop 1280×720 và điện thoại 360×800), atlas data (node:test)
@@ -59,7 +59,7 @@ scripts/   check.sh (kiểm tra tĩnh), bundle-budget.mjs, dựng dữ liệu at
 Quyết định kỹ thuật chính:
 
 - **Bài học là dữ liệu.** Thay đổi nội dung hay hệ số mô phỏng không cần sửa mã; `engine.ts` chỉ đọc hệ số từ JSON.
-- **Ngân sách gói JS**: JS khởi đầu ≤ 200 KB gzip; three.js và atlas chỉ tải khi mở sa bàn.
+- **Ngân sách gói JS**: JS khởi đầu ≤ 200 KB gzip; three.js chỉ tải khi mở sa bàn; atlas là chunk riêng, không có three.js.
 - **Lưu trữ phía trình duyệt**: giáo viên sửa bài trong `localStorage`; học sinh chỉ thấy bài có trạng thái *Đã dạy* và ngày không muộn hơn hôm nay.
 - **Phiên lớp học không lưu tên hay IP**; dữ liệu ẩn danh tự xoá sau 180 ngày.
 

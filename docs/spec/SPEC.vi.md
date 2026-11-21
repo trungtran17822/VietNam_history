@@ -240,10 +240,10 @@ Tự động, chạy trong CI ở mọi lần push (`npm test` trên máy):
 
 - `bash scripts/check.sh` (cũng là `/check`): `tsc` (strict) cho `frontend/src`; mọi JSON bài học qua được lược đồ zod; các nhãn bắt buộc vẫn còn trong mã; mọi tệp nguồn ở dạng NFC; tham chiếu cục bộ trong `index.html` tồn tại; `node --check` cho mã backend.
 - Unit (`npm run test:unit`: Vitest cho `frontend/src/lib`, `node:test` cho backend): lược đồ bài học, chuyển dữ liệu v1, bộ máy cho cùng kết quả ở cả 256 tổ hợp × 2 lần, đúng một tổ hợp trùng phương án gốc, mọi con số truy được về hệ số, không có từ ngữ chấm điểm, quy tắc hiển thị cho học sinh; API backend (kiểm tra dữ liệu, gộp/thay thế, giới hạn 60 bài, hết hạn, khoá giáo viên, CSV, dọn dữ liệu, CORS).
-- Atlas (`npm run atlas:test`, `node:test`): 34 đơn vị, hai quần đảo, địa danh nằm trong tỉnh, id, NFC, dung lượng, chấm điểm tìm kiếm, và mọi `atlasPlaceIds` của bài giảng trỏ tới địa danh có thật.
+- Atlas (`npm run atlas:test`, `node:test`): 34 đơn vị, hai quần đảo, địa danh nằm trong tỉnh, id, NFC, dung lượng, chấm điểm tìm kiếm, mọi `atlasPlaceIds` của bài giảng trỏ tới địa danh có thật, và các điểm của ảnh minh hoạ (`tests/atlas/illustration.test.mjs`: id có thật, khung nằm trong ảnh, con trỏ → id, CSS ảnh cắt). Vitest `features/atlas/places.test.ts`: mọi id mở được thẻ.
 - Kiểm tra căn cứ (`node scripts/check-lesson-grounding.mjs`, cũng là bước 7 của `check.sh`): năm, ngày tháng, tên phiên âm và số thập phân trong bốn bài SGK đều có mặt trong `history_data/*.md`, và không có thuật ngữ nào đã biết là nằm ngoài nguồn.
-- Build + `npm run budget`: JS của lần vào đầu (entry + modulepreload) ≤ 200 KB gzip; three.js và atlas chỉ nằm trong chunk tải lười.
-- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): atlas (tìm có dấu và không dấu, chọn bằng bàn phím và chuột, trạng thái URL qua tải lại trang, địa danh → bài giảng → địa danh, học sinh chỉ thấy bài đã phát hành, dòng ghi công OSM), điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, form soạn biến số (bài trống được thêm một biến số, phát hành và chạy đủ 6 giai đoạn theo hệ số của nó, hoàn tác/làm lại), không cuộn ngang ở 360 px.
+- Build + `npm run budget`: JS của lần vào đầu (entry + modulepreload) ≤ 200 KB gzip; three.js và atlas chỉ nằm trong chunk tải lười (từ S6 chunk atlas không còn three.js).
+- E2E (`npm run test:e2e`, Playwright, máy tính 1280×720 và điện thoại 360×800): atlas (ảnh minh hoạ, điểm nóng → thẻ có ảnh cắt, lightbox, mọi id gồm cả id không có ảnh và Trường Sa, tìm kiếm và chip làm sáng điểm nóng, chọn bằng bàn phím, trạng thái URL qua tải lại trang, địa danh → bài giảng → địa danh, học sinh chỉ thấy bài đã phát hành, dòng chú thích AI và ghi công OSM, không có canvas và không có three.js), điều khiển giai đoạn 2 và nguồn, chạy trọn vòng hai lần cho cùng số liệu, bài chưa có biến, phiên lớp với một giáo viên và hai học sinh (thanh tỉ lệ, gửi lại thay thế, khảo sát, CSV, xoá), mã sai, máy chủ lớp không chạy, nhập nội dung, form soạn biến số (bài trống được thêm một biến số, phát hành và chạy đủ 6 giai đoạn theo hệ số của nó, hoàn tác/làm lại), không cuộn ngang ở 360 px.
 - Sau CI: Vercel (frontend) và Cloudflare (backend) triển khai từ `Staging` (preview/staging) và `main` (production); mỗi job tự bỏ qua kèm thông báo nếu thiếu secret ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
 - Thủ công: `npm run dev:frontend` (Vite, cổng 8080), rồi đi qua 6 giai đoạn ở vai giáo viên và học sinh; kiểm tra `#/fonttest`.
 
@@ -347,11 +347,31 @@ Sửa ngày 01/11/2026 (Bản nháp 2): **kế hoạch 12 tuần, tối đa 15 t
 | Trường hoặc phụ huynh từ chối thu dữ liệu của trẻ vị thành niên | Phiếu đồng ý sẵn sàng trước T9; chỉ dữ liệu ẩn danh; phương án khảo sát giấy |
 | 12 tuần quá gấp (cố vấn duyệt trễ, nhân sự bán thời gian) | Mốc kiểm soát và quỹ dự phòng ở mục 11; cắt F9, F10 và F11 trước; không bao giờ kéo dài quá T15 |
 
-## 15. Atlas Việt Nam (v2, làm ở S3, nối vào app ở S4)
+## 15. Atlas Việt Nam (v2, làm ở S3, nối vào app ở S4; atlas ảnh minh hoạ ở S6)
 
-Bản đồ 3D Việt Nam để tìm bài giảng theo địa danh. Route `#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`
+Atlas Việt Nam để tìm bài giảng theo địa danh. Route `#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`
 (cần đăng nhập, cả hai vai trò); trạng thái nằm trên URL nên mọi khung nhìn đều chia sẻ được. Nội dung
 là minh họa, chưa được chuyên gia duyệt như bài giảng; mỗi địa danh có `illustrative: true` và nguồn.
+
+**Hiện tại (S6, 21/11/2026): trang atlas là một ảnh minh hoạ do AI tạo; bản đồ 3D tạm hoãn.** Theo quyết định của chủ dự án, trang hiện một ảnh
+Việt Nam (`public/atlas/illustration-v2.webp`, 1024 × 1535, do chủ dự án tạo bằng công cụ AI, chưa được chuyên gia duyệt, không theo tỉ lệ
+địa lý) thay cho bản đồ 3D. `scene.ts`, `AtlasView.tsx` và `public/atlas/terrain.png` vẫn nằm trên đĩa, không gắn vào route nào và không
+được route nào import, nên three.js không còn được tải. Dữ liệu (34 đơn vị, 2 quần đảo, 71 địa danh), tìm kiếm, hợp đồng URL và liên kết
+bài giảng không đổi.
+
+| Yêu cầu | Trạng thái |
+|---|---|
+| Trang hiện ảnh minh hoạ với một điểm nóng (nút thật, hiện tên khi rê chuột/focus, có `aria-label`) trên mỗi trong 17 địa danh mà ảnh vẽ: 8 điểm nhận ra rõ (`ro`) và 9 điểm đoán (`doan`, đánh dấu "?" cho tới khi được xác nhận); Hoàng Sa và Trường Sa có trên ảnh và trong danh sách | Đã làm; E2E |
+| Nhãn bắt buộc: dòng "Ảnh minh hoạ do AI tạo, chưa kiểm duyệt: hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý." dưới ảnh, dòng nội dung minh họa, ghi công OSM (dữ liệu tỉnh và địa danh theo ODbL) | Đã làm; `scripts/check.sh` (dòng chú thích và ghi công); E2E |
+| MỌI id đều mở được thẻ (71 địa danh, 34 đơn vị, Hoàng Sa, Trường Sa; `?place=<id>`, tìm kiếm, danh sách, chip, dải nổi bật, điểm nóng). Nơi ảnh có vẽ: thẻ dùng ảnh cắt (cắt từ một ảnh theo id, `illustration-v2.json`, không phóng quá khoảng 3 lần) và sáng điểm nóng; nơi khác: thẻ không ảnh kèm dòng "Địa danh này chưa có trong ảnh minh hoạ" (ảnh sẽ được bổ sung sau; không bịa ảnh cắt cho 56 địa danh còn lại) | Đã làm; Vitest `places.test.ts`; `tests/atlas/illustration.test.mjs`; E2E |
+| Tìm kiếm và chip loại lọc danh sách, làm sáng các điểm nóng khớp mạnh và làm mờ các điểm khác; "Phóng to" và từng ảnh cắt mở trong lightbox (kèm "Ảnh gốc độ phân giải thấp" khi phóng quá 2 lần) | Đã làm; E2E |
+| Thẻ địa danh, liên kết bài giảng hai chiều, học sinh chỉ thấy bài đã phát hành, thẻ tỉnh liệt kê địa danh, combobox bàn phím: như bản 3D (dùng chung `AtlasParts.tsx`) | Đã làm; E2E |
+| Bố cục điện thoại: ảnh rộng hết khung ở trên, bảng ở dưới; điểm nóng 30 px | Đã làm; E2E phone-360 |
+| Không có three.js, không có canvas ở `#/atlas`; JS ban đầu ≤ 200 KB gzip | `npm run budget`; E2E kiểm không có canvas và không có request three.js |
+
+**Còn mở (S6)**: chín điểm đoán chờ chủ dự án xác nhận (`illustration-v2.json`, `confidence: "doan"`); ảnh nguồn chỉ rộng 1024 px nên ảnh cắt hơi mềm (bản gốc từ 2048 px trở lên sẽ khắc phục); ảnh cho 56 địa danh và các tỉnh ảnh không vẽ sẽ do chủ dự án bổ sung.
+
+### Bản đồ 3D (S3/S4): tạm hoãn từ S6
 
 **Yêu cầu và trạng thái (8/11/2026, sau S4)**
 

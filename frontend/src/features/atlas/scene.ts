@@ -1,3 +1,5 @@
+// ON HOLD ("tạm thời"): the atlas page now shows the AI illustration (IllustrationAtlas.tsx) and no route imports this file or
+// three.js. Kept, with AtlasView.tsx and public/atlas/terrain.png, for when the 3D map returns.
 // VietnamAtlasScene: the 3D atlas of Viet Nam (34 province-level units, relief, Hoàng Sa and
 // Trường Sa, landmarks). Framework-agnostic: give it a container element, it owns a canvas and an
 // HTML label overlay inside it. Same rules as the battle scene: palette from CSS variables, text only
@@ -12,6 +14,7 @@ import { MapControls } from 'three/examples/jsm/controls/MapControls.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import topoJson from '../../content/atlas/provinces.topo.json';
 import landmarkJson from '../../content/atlas/landmarks.json';
+import { KIND_COLORS } from './places';
 import { filterLandmarks, type Filter, type Kind, type Landmark, type Province } from './search';
 
 export type Quality = 'high' | 'low';
@@ -77,13 +80,7 @@ const toXZ = (lat: number, lng: number): [number, number] => [(lng - (BBOX.west 
 const toLatLng = (x: number, z: number): [number, number] => [(BBOX.north + BBOX.south) / 2 - z / S, x / (KX * S) + (BBOX.west + BBOX.east) / 2];
 
 /** Marker colour per kind: [CSS variable, fallback]. The view's legend uses the same pair. */
-export const KIND_COLORS: Record<Kind, [string, string]> = {
-  'chien-truong': ['--vermilion', '#A8412F'],
-  'kinh-do': ['--ochre', '#B79B5E'],
-  unesco: ['--muted-indigo', '#3E5C76'],
-  'di-tich': ['--sepia', '#7A5C3E'],
-  'danh-thang': ['--deep-green', '#4F6355'],
-};
+export { KIND_COLORS }; // the single definition lives in places.ts (no three.js there)
 
 function palette() {
   const css = getComputedStyle(document.documentElement);

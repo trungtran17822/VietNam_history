@@ -36,8 +36,8 @@ function Login() {
       return;
     }
     playTransition(role === 'teacher' ? 'Quản lý bài giảng' : 'Bài đã học');
-    // A lesson link opened before login is kept; only same-app paths are followed.
-    if (requested?.startsWith('/lesson/')) router.history.push(requested);
+    // Keep lesson and atlas deep links, including the atlas search parameters.
+    if (requested && /^(?:\/lesson\/|\/atlas(?:\?|$))/.test(requested)) router.history.push(requested);
     else navigate({ to: hubOf(role) });
   };
 

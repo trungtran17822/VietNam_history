@@ -202,9 +202,9 @@ flowchart LR
 Server-side approved lesson store with advisor sign-off workflow; F9 RAG character with citations
 and "tài liệu không ghi lại"; QR code join; teacher accounts via school SSO.
 
-## 12. Atlas Việt Nam (v2; built in S3, wired into the app in S4)
+## 12. Atlas Việt Nam (v2; built in S3, wired into the app in S4; illustration atlas in S6)
 
-Static data plus a framework-agnostic renderer; no backend involvement.
+Static data plus one AI illustration; no backend involvement. **Since S6 the route renders the illustration (`IllustrationAtlas.tsx`, no three.js); the 3D renderer below (`scene.ts`, `AtlasView.tsx`, `terrain.png`) is on hold: kept on disk, imported by no route.** The illustration atlas shares `AtlasParts.tsx` (place card, lesson links, OSM credit) with the 3D view, reads the places from `places.ts` (atlas JSON only) and the picture's hotspots from `content/atlas/illustration-v2.json` via `illustration.ts` (pure: pointer → id, CSS crops of the one image by id). The initial bundle is unchanged; the atlas chunk no longer pulls three.js.
 
 ```
 scripts/atlas/build-*.mjs ──(OSM, Natural Earth, Wikidata, AWS Terrain Tiles)──▶
