@@ -219,18 +219,18 @@ quyền asset; tên sản phẩm (hiện dùng "Sử Việt" theo giao diện c�
 
 ## 6. Atlas Việt Nam (v2)
 
-Bản đồ 3D để tìm bài giảng theo địa danh (`#/atlas`). Mã `SRS-A-*` riêng để không trùng mã của bài giảng.
+Atlas để tìm bài giảng theo địa danh (`#/atlas`). Từ phiên S6 (21/11/2026) trang là một **ảnh minh hoạ do AI tạo** có điểm nóng (bản đồ 3D tạm hoãn, mã còn trên đĩa); các yêu cầu về dữ liệu, tìm kiếm, URL, liên kết bài giảng và ghi công không đổi, các yêu cầu riêng của 3D (SRS-A-06 phần canvas và đồ hoạ thấp, SRS-A-07, SRS-A-09 phần three.js, địa hình và FPS) được thay như ghi bên dưới. Mã `SRS-A-*` riêng để không trùng mã của bài giảng.
 Trạng thái chi tiết ở `docs/spec/SPEC.vi.md` mục 15.
 
 | Mã | Yêu cầu | Ưu tiên | Kiểm thử |
 |---|---|---|---|
-| SRS-A-01 | Bản đồ hiện đúng 34 đơn vị cấp tỉnh theo Nghị quyết 202/2025/QH15; Hoàng Sa thuộc TP Đà Nẵng, Trường Sa thuộc tỉnh Khánh Hòa | P0 | Unit `tests/atlas/data.test.mjs` |
+| SRS-A-01 | Atlas có đúng 34 đơn vị cấp tỉnh theo Nghị quyết 202/2025/QH15; Hoàng Sa thuộc TP Đà Nẵng, Trường Sa thuộc tỉnh Khánh Hòa | P0 | Unit `tests/atlas/data.test.mjs` |
 | SRS-A-02 | Mỗi địa danh có tên, loại, tỉnh, toạ độ, mô tả tự viết bằng tiếng Việt, nguồn kèm giấy phép và nhãn minh họa; nằm trong tỉnh của nó | P0 | Unit |
 | SRS-A-03 | Tìm kiếm không phân biệt dấu, chịu lỗi gõ (Levenshtein ≤ 2), xếp hạng tên trùng khớp trước; lọc theo 5 loại địa danh | P0 | Unit `tests/atlas/search.test.mjs` |
-| SRS-A-04 | Chọn địa danh (trên bản đồ hoặc danh sách) thì camera bay tới đó và thẻ hiện mô tả, thời kỳ, nguồn, nút "Mở bài giảng" tới `#/lesson/<id>`; học sinh chỉ thấy bài được phép xem | P0 | Ảnh chụp harness; E2E `tests/e2e/atlas.spec.js` |
+| SRS-A-04 | Chọn địa danh (điểm nóng trên ảnh, danh sách, chip, dải nổi bật hoặc `?place=`) thì thẻ hiện ảnh cắt (nếu ảnh có vẽ nơi đó; nếu không thì ghi "Địa danh này chưa có trong ảnh minh hoạ" và không có ảnh), mô tả, thời kỳ, nguồn, nút "Mở bài giảng" tới `#/lesson/<id>`; học sinh chỉ thấy bài được phép xem; mọi id (71 địa danh, 34 đơn vị, 2 quần đảo) đều mở được thẻ | P0 | Vitest `places.test.ts`; E2E `tests/e2e/atlas.spec.js` |
 | SRS-A-05 | Trạng thái (địa danh, bộ lọc, từ khoá) nằm trên URL `#/atlas?place=&kind=&q=` và mở lại đúng khung nhìn | P1 | Unit (bộ mã hoá URL); E2E `atlas.spec.js` (tải lại trang) |
-| SRS-A-06 | Dùng được hoàn toàn bằng bàn phím; nhãn bản đồ là chữ HTML, không vẽ trong canvas; có chế độ đồ hoạ thấp | P1 | E2E (chọn bằng Enter, tiêu điểm chuyển sang thẻ); detector impeccable |
-| SRS-A-07 | Trên phone (360×800) bản đồ không bị che: bảng tìm kiếm là bottom sheet, camera canh giữa phần còn thấy | P1 | Ảnh chụp 360×800 |
-| SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện; không analytics, không lấy vị trí người dùng | P0 | `scripts/check.sh`; E2E `atlas.spec.js` |
-| SRS-A-09 | three.js và dữ liệu atlas chỉ tải khi vào `#/atlas`; ranh giới ≤ 400 KB gzip, địa hình ≤ 2 MB; mục tiêu ≥ 55 FPS desktop, ≥ 30 FPS phone | P1 | Unit (dung lượng); FPS: 60 (trần vsync) trên Intel Iris Xe, desktop và khung phone; chưa đo trên điện thoại thật; `npm run budget` trong CI |
+| SRS-A-06 | Dùng được hoàn toàn bằng bàn phím (combobox, điểm nóng là nút có tên); mọi chữ là chữ HTML; không có canvas | P1 | E2E (chọn bằng Enter, tiêu điểm chuyển sang thẻ; không có canvas); detector impeccable |
+| SRS-A-07 | Trên phone (360×800) ảnh rộng hết khung ở trên, bảng tìm kiếm và thẻ ở dưới; không cuộn ngang | P1 | E2E phone-360; ảnh chụp 360×800 |
+| SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện (dữ liệu tỉnh và địa danh là phái sinh ODbL); dòng "Ảnh minh hoạ do AI tạo, chưa kiểm duyệt: hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý." luôn hiện dưới ảnh; không analytics, không lấy vị trí người dùng | P0 | `scripts/check.sh`; E2E `atlas.spec.js` |
+| SRS-A-09 | Dữ liệu atlas chỉ tải khi vào `#/atlas`, không có three.js (bản 3D tạm hoãn); ranh giới ≤ 400 KB gzip, ảnh minh hoạ khoảng 0,5 MB; (bản 3D: địa hình ≤ 2 MB, ≥ 55 FPS desktop, ≥ 30 FPS phone) | P1 | Unit (dung lượng); FPS: 60 (trần vsync) trên Intel Iris Xe, desktop và khung phone; chưa đo trên điện thoại thật; `npm run budget` trong CI |
 | SRS-A-10 | Liên kết hai chiều bài giảng ↔ địa danh: trang bài học liệt kê `atlasPlaceIds` dẫn tới `#/atlas?place=`; thẻ địa danh/tỉnh dẫn tới bài; mọi `atlasPlaceIds` phải trỏ tới địa danh, tỉnh hoặc quần đảo có thật; thanh điều hướng và hai bảng điều khiển có lối vào atlas | P0 | `npm run atlas:test`; E2E `atlas.spec.js` |

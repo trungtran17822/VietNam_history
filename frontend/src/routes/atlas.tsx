@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useCallback } from 'react';
 import { requireUser } from '../lib/guards';
-import { AtlasView } from '../features/atlas/AtlasView';
+import { IllustrationAtlas } from '../features/atlas/IllustrationAtlas'; // the AI illustration; the 3D AtlasView is on hold
 import { decodeAtlasState, encodeAtlasState, type AtlasSearch } from '../features/atlas/search';
 
-// #/atlas?place=<id>&kind=<kind,kind>&q=<text>: shareable state; three.js loads with this route's chunk.
+// #/atlas?place=<id>&kind=<kind,kind>&q=<text>: shareable state. No three.js on this route while the 3D map is on hold.
 export const Route = createFileRoute('/atlas')({
   beforeLoad: requireUser(),
   validateSearch: (raw: Record<string, unknown>): AtlasSearch => encodeAtlasState(decodeAtlasState(raw)),
@@ -12,5 +13,8 @@ export const Route = createFileRoute('/atlas')({
 
 function AtlasRoute() {
   const navigate = Route.useNavigate();
-  return <AtlasView search={Route.useSearch()} onSearch={(search, replace) => navigate({ search, replace, viewTransition: false })} />;
+  const onSearch = useCallback((search: AtlasSearch, replace?: boolean) => {
+    void navigate({ search, replace, resetScroll: false, viewTransition: false });
+  }, [navigate]);
+  return <IllustrationAtlas search={Route.useSearch()} onSearch={onSearch} />;
 }

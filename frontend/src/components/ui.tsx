@@ -105,7 +105,7 @@ export function AtlasCard() {
       <span className="grid h-11 w-11 flex-none place-items-center rounded-full bg-silk text-lacquer"><Icon name="map" /></span>
       <span className="min-w-0">
         <span className="block font-semibold">Atlas Việt Nam</span>
-        <span className="block t-sm muted">34 tỉnh, thành phố, Hoàng Sa, Trường Sa và các địa danh lịch sử; mỗi chiến trường dẫn tới bài học của nó.</span>
+        <span className="block t-sm muted">Ảnh minh hoạ Việt Nam do AI tạo; tìm 34 tỉnh, thành phố, Hoàng Sa, Trường Sa và các địa danh lịch sử; mỗi chiến trường dẫn tới bài học của nó.</span>
       </span>
       <Icon name="next" className="icon ml-auto flex-none muted" />
     </Link>
