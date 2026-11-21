@@ -284,6 +284,30 @@
 
   .atlas-card { transition: border-color var(--dur-state) var(--ease); }
 
+  /* Atlas illustration: crops of one AI picture, hotspots in % of the picture (real buttons), the caption under it. */
+  .atlas-crop { background-repeat: no-repeat; background-color: var(--color-silk); border: 1px solid var(--color-rule); border-radius: 8px; }
+  .atlas-no-pic { padding: 8px 12px; border: 1px dashed var(--color-rule); border-radius: 10px; background: var(--color-silk); }
+  .atlas-guess { display: inline-block; padding: 0 8px; border-radius: 999px; background: var(--color-scheduled-tint); color: var(--color-scheduled-ink); border: 1px solid var(--color-warn-rule); font-weight: 700; }
+  .atlas-zoom:focus-visible, .atlas-strip-card:focus-visible { outline: 2px solid var(--color-action); outline-offset: 2px; border-radius: 8px; }
+  .atlas-hot { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; display: grid; place-items: center; border-radius: 50%; z-index: 1; cursor: pointer; }
+  .atlas-hot:hover, .atlas-hot:focus-visible, .atlas-hot[aria-current="true"] { z-index: 3; }
+  .atlas-hot .dot { position: relative; width: 14px; height: 14px; border-radius: 50%; background: #d1432b; border: 2px solid #fffdf7; box-shadow: 0 0 0 1.5px rgb(23 12 8 / .75), 0 2px 6px rgb(0 0 0 / .6); transition: transform var(--dur-state) var(--ease); }
+  .atlas-hot .dot::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid rgb(255 253 247 / .85); animation: atlas-pulse 2.4s ease-out infinite; }
+  @keyframes atlas-pulse { 0% { transform: scale(.45); opacity: .95; } 100% { transform: scale(1.35); opacity: 0; } }
+  .atlas-hot:hover .dot, .atlas-hot:focus-visible .dot { transform: scale(1.3); }
+  .atlas-hot:focus-visible { outline: 3px solid #fffdf7; outline-offset: -2px; box-shadow: 0 0 0 5px var(--color-action); }
+  .atlas-hot[aria-current="true"] .dot { background: #fffdf7; border-color: #d1432b; box-shadow: 0 0 0 3px #d1432b, 0 0 14px 4px rgb(255 240 200 / .9); }
+  .atlas-hot[data-conf="doan"] .dot { background: #e6a62e; }
+  .atlas-hot .q { position: absolute; right: -2px; top: -4px; width: 13px; height: 13px; border-radius: 50%; background: #2a1c14; color: #ffe08a; font: 800 9px/13px var(--font-sans); text-align: center; border: 1px solid #ffe08a; }
+  .atlas-hot .tip { position: absolute; bottom: calc(100% - 2px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 3px 9px; border-radius: 7px; background: color-mix(in srgb, var(--color-card) 97%, transparent); color: var(--color-ink); font: 700 0.78rem/1.3 var(--font-sans); box-shadow: 0 2px 8px rgb(0 0 0 / .45); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 120ms; }
+  .atlas-hot .tip[data-side="l"] { left: -6px; transform: none; }
+  .atlas-hot .tip[data-side="r"] { left: auto; right: -6px; transform: none; }
+  .atlas-hot:hover .tip, .atlas-hot:focus-visible .tip { opacity: 1; visibility: visible; }
+  .atlas-hot.dim { opacity: .28; }
+  .atlas-hot.dim .tip { display: none; }
+  .atlas-hot.match .dot { box-shadow: 0 0 0 3px #fffdf7, 0 0 0 5px #d1432b, 0 2px 8px rgb(0 0 0 / .6); }
+  @media (prefers-reduced-motion: reduce) { .atlas-hot .dot::after { animation: none; } }
+
   /* Press feedback: the `scale` property, so it composes with any transform a control already has. */
   .btn:active:not(:disabled), .chip:active, .btn-cam-pill:active, .header-tool:active, .nav-link:active,
   .rating-pill:active, .timeline-dot:active, .step-node:active:not(:disabled) { scale: var(--press-scale); }

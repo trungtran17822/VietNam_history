@@ -19,7 +19,7 @@ npm run dev:frontend   # Vite, http://localhost:8080
 npm run dev:backend    # máy chủ phiên lớp, cổng 8787 (không bắt buộc)
 npm run build          # frontend/dist (bản Vercel phục vụ)
 npm run preview        # phục vụ frontend/dist
-npm run budget         # sau build: JS ban đầu ≤ 200 KB gzip, three.js và atlas chỉ nằm trong chunk tải lười
+npm run budget         # sau build: JS ban đầu ≤ 200 KB gzip, three.js và atlas chỉ nằm trong chunk tải lười (atlas không còn three.js)
 ```
 
 Đăng nhập demo: `admin` / `123` cho cả giáo viên và học sinh. Trang kiểm tra glyph tiếng Việt:
@@ -27,9 +27,18 @@ npm run budget         # sau build: JS ban đầu ≤ 200 KB gzip, three.js và 
 
 ## Atlas Việt Nam (`#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`)
 
-Bản đồ 3D 34 tỉnh, thành phố (từ 01/7/2025), Hoàng Sa (thuộc TP Đà Nẵng), Trường Sa (thuộc tỉnh Khánh
-Hòa) và 71 địa danh (chiến trường, kinh đô, di sản UNESCO, di tích, danh thắng). Vào từ thanh điều hướng
-hoặc thẻ "Atlas Việt Nam" trên bảng giáo viên và bảng học sinh.
+Một ảnh minh hoạ do AI tạo (`public/atlas/illustration-v2.webp`) có 17 điểm tương tác, gồm cả hai quần đảo. Atlas có
+dữ liệu 34 tỉnh, thành phố (từ 01/7/2025), Hoàng Sa (thuộc TP Đà Nẵng), Trường Sa (thuộc tỉnh Khánh Hòa) và
+71 địa danh (chiến trường, kinh đô, di sản UNESCO, di tích, danh thắng) để tìm kiếm. Vào từ thanh điều hướng
+hoặc thẻ "Atlas Việt Nam" trên bảng giáo viên và bảng học sinh. Liên kết Atlas mở trước khi đăng nhập vẫn giữ địa danh
+và bộ lọc. **Bản đồ 3D tạm hoãn** (`scene.ts`,
+`AtlasView.tsx`, `terrain.png` còn trên đĩa, không gắn vào route nào).
+
+- Ảnh do AI tạo nên không theo tỉ lệ địa lý và chưa được chuyên gia duyệt; dòng chú thích dưới ảnh luôn hiện.
+  Điểm vàng có dấu "?" là vị trí đoán, chờ xác nhận (`content/atlas/illustration-v2.json`, `confidence`).
+- Mọi id mở được thẻ (71 địa danh, 34 đơn vị, Hoàng Sa, Trường Sa). Nơi ảnh có vẽ: thẻ có ảnh cắt từ ảnh lớn.
+  Nơi không có: thẻ không ảnh, ghi "Địa danh này chưa có trong ảnh minh hoạ" (ảnh sẽ bổ sung sau).
+- Tìm kiếm và chip loại lọc danh sách và làm sáng các điểm nóng khớp; "Phóng to" và mỗi ảnh cắt mở lightbox.
 
 - Tìm không cần dấu ("ha hoi" ra "Đồn Hạ Hồi"), chịu gõ sai nhẹ; lọc theo loại; mũi tên lên/xuống + Enter.
 - Trạng thái nằm trên URL nên gửi link là mở lại đúng chỗ.
@@ -37,8 +46,8 @@ hoặc thẻ "Atlas Việt Nam" trên bảng giáo viên và bảng học sinh.
   danh đó trong `atlasPlaceIds` hoặc nằm trong `lessonIds` của địa danh (học sinh chỉ thấy bài đã phát
   hành); trang bài học có dòng "Trên Atlas Việt Nam" dẫn ngược lại. `npm run atlas:test` báo lỗi nếu một
   `atlasPlaceIds` không trỏ tới địa danh, tỉnh hay quần đảo có thật.
-- Trên điện thoại, bảng tìm kiếm là tấm kéo từ dưới lên; camera canh giữa phần bản đồ còn thấy.
-- Ranh giới lấy từ OpenStreetMap (ODbL), nên dòng "© OpenStreetMap contributors" luôn hiện trên bản đồ.
+- Trên điện thoại, ảnh rộng hết khung ở trên, bảng tìm kiếm và thẻ ở dưới.
+- Dữ liệu tỉnh và địa danh là phái sinh của OpenStreetMap (ODbL), nên dòng "© OpenStreetMap contributors" luôn hiện trên trang atlas.
   Nguồn, giấy phép và cách tạo lại dữ liệu: [`src/content/atlas/SOURCES.md`](src/content/atlas/SOURCES.md)
   (`npm run atlas:build`; harness vẽ thử: `npm run atlas:harness`, `npm run atlas:shoot`).
 
@@ -86,11 +95,11 @@ Bài mới tạo từ "Bài giảng trống" hoặc "Tạo bài từ tư liệu"
 | `src/routes/` | Một file cho mỗi route (TanStack Router). `__root.tsx` là khung trang: dải nhãn, header, chân trang, màn chuyển cảnh sau đăng nhập. `routeTree.gen.ts` do plugin Vite sinh ra, không sửa tay. |
 | `src/components/` | Màn hình: `LessonPage` (trang bài học, xem trước), `StageLoop` (6 bước), `Editor` + `VariablesEditor` (soạn bài), `Player` (sa bàn 3D + điều khiển, hoặc `TimelinePlayer` cho bài theo trục thời gian), `ClassPanel` (phiên lớp, khảo sát), `ui.tsx` (icon SVG, modal, `PROTOTYPE_NOTICE`, `SIMULATION_NOTICE`). |
 | `src/lib/` | Logic không có UI, có test Vitest (`domain.test.ts`): `lesson-schema` (zod, `isTimelineMode`), `timeline`, `comparison`, `engine` (tính toán xác định), `storage` (localStorage, luật hiển thị), `class-session` (API lớp), `auth`, `audio`, `text` (NFC), `intake`, `prefs`, `guards`, `transition`. |
-| `src/features/atlas/` | Atlas: `scene.ts` (`VietnamAtlasScene`, three.js), `search.ts` (tìm bỏ dấu, chấm điểm, mã hóa URL; không có DOM), `AtlasView.tsx` (bảng tìm, thẻ địa danh, ghi công OSM). Route `src/routes/atlas.tsx`, chunk riêng tải lười. |
-| `src/content/atlas/` | `provinces.topo.json` (34 đơn vị + 2 quần đảo), `landmarks.json` (71 địa danh), `SOURCES.md`. Id không bao giờ đổi vì bài giảng tham chiếu qua `atlasPlaceIds`. |
+| `src/features/atlas/` | Atlas: `IllustrationAtlas.tsx` (ảnh minh hoạ, điểm nóng, bảng tìm, lightbox), `AtlasParts.tsx` (thẻ địa danh, ghi công OSM, dùng chung), `places.ts` (địa danh, tỉnh, quần đảo, `placeOf`), `illustration.ts` (điểm và ảnh cắt), `search.ts` (tìm bỏ dấu, chấm điểm, mã hóa URL; không có DOM). Tạm hoãn, không route nào import: `scene.ts` (`VietnamAtlasScene`, three.js) và `AtlasView.tsx` (bản 3D). Route `src/routes/atlas.tsx`, chunk riêng tải lười. |
+| `src/content/atlas/` | `provinces.topo.json` (34 đơn vị + 2 quần đảo), `landmarks.json` (71 địa danh), `illustration-v2.json` (17 điểm của ảnh minh hoạ), `SOURCES.md`. Id không bao giờ đổi vì bài giảng tham chiếu qua `atlasPlaceIds`. |
 | `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Mười bài. Sáu bài (bài thí điểm và 5 bài) chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Bốn bài SGK của Trung (`bai-1-lien-xo`, `bai-2-chau-au-my`, `bai-3-chau-a` theo trục thời gian; `bai-4-chien-tranh-the-gioi-2` sa bàn 3D) có 1 biến số × 2 phương án, `reviewFlags`, `sourceCitation`, `timeline`, `comparisonMetrics` và không có `atlasPlaceIds`. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
 | `src/scene/` | `silk-map.ts` (lớp `SilkMapScene`, chỉ file này import three, nạp lười), `artwork.ts` (vẽ bản đồ, họa tiết, ảnh thu nhỏ bằng canvas), `counts.ts`, `sprites/` (PNG thay họa tiết). |
-| `public/` | Phông Noto (woff2), logo và `atlas/terrain.png` (địa hình), phục vụ nguyên trạng. |
+| `public/` | Phông Noto (woff2), logo, `atlas/illustration-v2.webp` (ảnh minh hoạ của atlas) và `atlas/terrain.png` (địa hình của bản 3D tạm hoãn), phục vụ nguyên trạng. |
 | `data/sources.json` | Danh mục nguồn (chưa được code nạp, chưa có chuyên gia duyệt): SGK Lịch sử và Địa lí 9 (Bài 1, 16, 18), Việt Nam sử lược, một mục Wikipedia làm đầu mối. |
 
 Chế độ khám phá: `explorationMode` vắng mặt hoặc kết thúc bằng `_3d` thì bài dùng sa bàn 3D; giá trị khác

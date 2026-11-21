@@ -7,7 +7,7 @@ export const hubOf = (role: Role) => (role === 'teacher' ? '/teacher' : '/studen
 export function requireUser(role?: Role) {
   return ({ location }: { location: { href: string } }) => {
     const user = currentUser();
-    // Keep the requested lesson link through the login form.
+    // Pass the requested path to the login form so it can restore supported deep links.
     if (!user) throw redirect({ to: '/', search: { redirect: location.href } });
     if (role && user.role !== role) throw redirect({ to: hubOf(user.role) });
     return { user };

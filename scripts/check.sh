@@ -23,7 +23,8 @@ need frontend/src/components/ui.tsx '* Chỉ số là giả định sư phạm m
 need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE'
 need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE_NOTE'
 need frontend/src/scene/silk-map.ts 'Trang phục và màu sắc chỉ là minh họa, chờ chuyên gia thẩm định'
-need frontend/src/features/atlas/AtlasView.tsx 'OpenStreetMap</a> contributors' # ODbL attribution on the atlas
+need frontend/src/features/atlas/AtlasParts.tsx 'OpenStreetMap</a> contributors' # ODbL attribution on the atlas
+need frontend/src/features/atlas/IllustrationAtlas.tsx 'Ảnh minh hoạ do AI tạo, chưa kiểm duyệt: hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý.' # the AI picture is always labelled
 
 # 4. Vietnamese text in sources is NFC (composed), so search and comparisons never miss.
 python3 - <<'EOF' || err "source files with non-NFC Vietnamese text (normalize them to NFC)"

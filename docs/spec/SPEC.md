@@ -238,10 +238,10 @@ Automated, all run in CI on every push (`npm test` locally):
 
 - `bash scripts/check.sh` (also `/check`): `tsc` (strict) on `frontend/src`; every lesson JSON passes the zod schema; the mandatory labels are still in the source; every source file is NFC; local references in `index.html` exist; `node --check` on the backend sources.
 - Unit (`npm run test:unit`: Vitest for `frontend/src/lib`, `node:test` for the backend): lesson schema, v1 data migration, engine determinism over all 256 combinations × 2, exactly one combination equals the original, every number traces to coefficients, no grading words, student visibility rule; backend API (validation, merge/replace, 60-answer cap, expiry, teacher key, CSV, purge, CORS).
-- Atlas (`npm run atlas:test`, `node:test`): 34 units, the two archipelagos, landmarks inside their provinces, ids, NFC, size budget, search scoring, and every `atlasPlaceIds` value resolving to a real place (a lesson may omit the field; world-history lessons do).
+- Atlas (`npm run atlas:test`, `node:test`): 34 units, the two archipelagos, landmarks inside their provinces, ids, NFC, size budget, search scoring, every `atlasPlaceIds` value resolving to a real place (a lesson may omit the field; world-history lessons do), and the illustration's spots (`tests/atlas/illustration.test.mjs`: ids resolve, boxes inside the image, pointer → id, crop CSS). Vitest `features/atlas/places.test.ts`: every id opens a card.
 - Grounding audit (`node scripts/check-lesson-grounding.mjs`, also step 7 of `check.sh`): the years, dates, transliterated names and decimals in the four SGK lessons all occur in `history_data/*.md`, and no term known to be outside the source appears.
-- Build + `npm run budget`: the JS of a first visit (entry + modulepreloads) ≤ 200 KB gzip; three.js and the atlas only in lazy chunks.
-- E2E (`npm run test:e2e`, Playwright, desktop 1280×720 and phone 360×800): the atlas (search with and without diacritics, keyboard and click selection, URL state through a reload, place → lesson → place, a student sees only published lessons, OSM credit), stage 2 controls and sources, the full loop twice with identical numbers, a lesson without variables, a class session with a teacher and two students (bars, replace on resubmit, survey, CSV, delete), wrong code, backend down, content intake, the authoring form (a blank lesson gets a variable, is published and runs all 6 stages with its coefficients, undo/redo), no horizontal scroll at 360 px.
+- Build + `npm run budget`: the JS of a first visit (entry + modulepreloads) ≤ 200 KB gzip; three.js and the atlas only in lazy chunks (since S6 the atlas chunk has no three.js).
+- E2E (`npm run test:e2e`, Playwright, desktop 1280×720 and phone 360×800): the atlas (the illustration, hotspots → card with crop, lightbox, any id including a picture-less one and Trường Sa, search and chips lighting hotspots, keyboard selection, URL state through a reload, place → lesson → place, a student sees only published lessons, AI caption and OSM credit, no canvas and no three.js), stage 2 controls and sources, the full loop twice with identical numbers, a lesson without variables, a class session with a teacher and two students (bars, replace on resubmit, survey, CSV, delete), wrong code, backend down, content intake, the authoring form (a blank lesson gets a variable, is published and runs all 6 stages with its coefficients, undo/redo), no horizontal scroll at 360 px.
 - After CI: Vercel (frontend) and Cloudflare (backend) deploy from `Staging` (preview/staging) and `main` (production); each job skips with a notice if its secrets are missing ([docs/devops/DEPLOY.md](../devops/DEPLOY.md)).
 - Manual: `npm run dev:frontend` (Vite, port 8080), then walk the 6 stages as teacher and as student; check `#/fonttest`.
 
@@ -346,11 +346,31 @@ Known pressure point: **T4** carries the advisor sign-off, the script finishing 
 | School or parents refuse data collection from minors | Consent forms ready by T9; anonymous data only; paper-survey fallback |
 | 12 weeks is too tight (advisor approval slips, part-time staffing) | Gates and reserve in §11; cut F9, F10 and F11 first; never extend past T15 |
 
-## 15. Atlas Việt Nam (v2, built in S3, wired into the app in S4)
+## 15. Atlas Việt Nam (v2, built in S3, wired into the app in S4; illustration atlas in S6)
 
-A 3D map of Viet Nam for finding lessons by place. Route `#/atlas?place=<id>&kind=<kind,…>&q=<text>`
+The atlas of Viet Nam for finding lessons by place. Route `#/atlas?place=<id>&kind=<kind,…>&q=<text>`
 (login required, both roles); the URL state makes any view shareable. Content is illustrative and
 not expert-reviewed, like the lessons; every landmark carries `illustrative: true` and its sources.
+
+**Current (S6, 2026-11-21): the atlas page is an AI illustration; the 3D map is on hold ("tạm thời").** By decision of the owner the page shows
+one AI picture of Viet Nam (`public/atlas/illustration-v2.webp`, 1024 × 1535, made by the owner with an AI tool, not expert-reviewed, not to
+geographic scale) instead of the 3D map. `scene.ts`, `AtlasView.tsx` and `public/atlas/terrain.png` stay on disk, unrouted and not imported
+by any route, so three.js is no longer loaded. The data (34 units, 2 archipelagos, 71 landmarks), the search, the URL contract and the lesson
+links are unchanged.
+
+| Requirement | Status |
+|---|---|
+| The page shows the illustration with a hotspot (a real button, name on hover/focus, `aria-label`) on each of the 17 places the picture shows: 8 clearly recognisable (`ro`) and 9 guessed (`doan`, marked "?" until confirmed); Hoàng Sa and Trường Sa are on the picture and in the list | Built; E2E |
+| Mandatory labels: the caption "Ảnh minh hoạ do AI tạo, chưa kiểm duyệt: hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý." under the picture, the content notice, the OSM credit (province and landmark data are ODbL) | Built; `scripts/check.sh` (caption and credit); E2E |
+| ANY id opens a card (71 landmarks, 34 units, Hoàng Sa, Trường Sa; `?place=<id>`, search, list, chips, strip, hotspot). A place the picture shows gets its crop (cut from the one image by id, `illustration-v2.json`, never above ~3× the source) and its hotspot lit; any other place gets the card without a picture and the note "Địa danh này chưa có trong ảnh minh hoạ" (images to be added later; no crop is invented for the other 56 landmarks) | Built; Vitest `places.test.ts`; `tests/atlas/illustration.test.mjs`; E2E |
+| Search and kind chips filter the list and light the matching hotspots (strong matches) and dim the others; "Phóng to" and each crop open in a lightbox (with "Ảnh gốc độ phân giải thấp" when enlarged more than 2×) | Built; E2E |
+| Place card, lesson links both ways, student visibility, province card with its landmarks, keyboard combobox: as in the 3D version (shared `AtlasParts.tsx`) | Built; E2E |
+| Phone layout: the picture full width on top, the panel under it; hotspots 30 px | Built; E2E on phone-360 |
+| No three.js, no canvas on `#/atlas`; initial JS ≤ 200 KB gzip | `npm run budget`; E2E checks no canvas and no three.js request |
+
+**Open (S6)**: the 9 guessed spots need the owner's confirmation (`illustration-v2.json`, `confidence: "doan"`); the source picture is only 1024 px wide, so crops are soft (a ≥ 2048 px original would fix it); images for the 56 landmarks and the provinces the picture does not show will be added by the owner.
+
+### 3D map (S3/S4): on hold since S6
 
 **Requirements and status (2026-11-08, after S4)**
 

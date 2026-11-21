@@ -3,15 +3,19 @@
 Mọi nội dung atlas là **minh họa, chưa được chuyên gia duyệt** (`illustrative: true` trên từng địa danh).
 Không có analytics và không dùng vị trí của người dùng. Không lấy nội dung, ảnh hay sprite nào từ GeoGnos.
 
+## Ảnh minh hoạ (từ phiên S6)
+
+Trang atlas hiện **một ảnh minh hoạ do AI tạo**: `public/atlas/illustration-v2.webp` (1024 × 1535, WebP; ảnh gốc PNG do chủ dự án tạo bằng một công cụ AI, chủ dự án cung cấp ngày 21/11/2026). Ảnh **chưa được chuyên gia duyệt và không theo tỉ lệ địa lý**: hình dạng lãnh thổ và vị trí công trình chỉ mang tính minh hoạ, nên dưới ảnh lớn và trong cửa sổ phóng to có dòng "Ảnh minh hoạ do AI tạo, chưa kiểm duyệt…". Ảnh không lấy từ dịch vụ bản đồ hay từ GeoGnos. `illustration-v2.json` ghi, theo id địa danh (hoặc `hoang-sa`, `truong-sa`), khung `box` (điểm ảnh của ảnh gốc) và `confidence`: `ro` (nhận ra rõ, 8 điểm) hoặc `doan` (người ghép đoán, 9 điểm, cần chủ dự án xác nhận). Ảnh có 15 trong số 71 địa danh và cả hai quần đảo, tổng cộng 17 điểm. **56 địa danh còn lại chưa có ảnh cắt.** Ảnh cắt được cắt từ cùng một ảnh theo id (CSS `background-size/position`, không có tệp riêng). Ảnh chỉ rộng 1024 px nên phóng quá khoảng 3 lần sẽ mờ; nên xin bản gốc từ 2048 px.
+
 ## Tệp và nguồn
 
 | Tệp | Nguồn | Giấy phép | Ghi công bắt buộc |
 |---|---|---|---|
-| `provinces.topo.json`: ranh giới 34 đơn vị cấp tỉnh (từ 1/7/2025) | OpenStreetMap, quan hệ `admin_level=4` (lấy qua polygons.openstreetmap.fr) | **ODbL 1.0** (tệp là sản phẩm phái sinh) | "© OpenStreetMap contributors", đã hiện trên bản đồ và trong bottom sheet trên phone |
+| `provinces.topo.json`: ranh giới 34 đơn vị cấp tỉnh (từ 1/7/2025) | OpenStreetMap, quan hệ `admin_level=4` (lấy qua polygons.openstreetmap.fr) | **ODbL 1.0** (tệp là sản phẩm phái sinh) | "© OpenStreetMap contributors", hiện trong bảng tìm kiếm của Atlas trên máy tính và điện thoại |
 | `provinces.topo.json`: đường bờ biển | Natural Earth 10m `land` + `minor_islands` v5.1.2, cộng đường bao `place=island` của OSM (Overpass) | Public domain (NE) + ODbL (OSM) | như trên |
 | `provinces.topo.json`: Hoàng Sa, Trường Sa | Vùng của Natural Earth 10m `admin_0_disputed_areas` (PD); toạ độ 8 + 12 đảo từ Wikidata | PD + CC0 1.0 | không |
 | Kiểm tra sáp nhập (không xuất ra tệp) | geoBoundaries VNM ADM1, 63 tỉnh cũ (commit `9469f09`, khoá sha256) | Public domain | không |
-| `../../../public/atlas/terrain.png` (1024×1129, RGB, ~1 MB) | AWS Terrain Tiles (Terrarium, zoom 7): SRTM, GMTED2010, ETOPO1 | Public domain | ghi "SRTM" kèm OSM (đang có) |
+| `../../../public/atlas/terrain.png` (1024×1129, RGB, ~1 MB; chỉ bản 3D tạm hoãn dùng) | AWS Terrain Tiles (Terrarium, zoom 7): SRTM, GMTED2010, ETOPO1 | Public domain | ghi "SRTM" kèm OSM (đang có) |
 | `landmarks.json`: 71 địa danh | Toạ độ: Wikidata P625 (CC0); 4 địa danh lấy toạ độ OSM (`coordsFrom`); mô tả `summary`: tự viết bằng tiếng Việt | CC0 / ODbL; mô tả là nội dung của dự án | nguồn ghi trong `sources` của từng địa danh |
 
 Mỗi địa danh liệt kê nguồn trong `sources` (`title`, `url`, `license`):
