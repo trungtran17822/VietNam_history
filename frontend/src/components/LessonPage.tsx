@@ -100,7 +100,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
           </Link>
         </div>
       )}
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="classroom-workspace-head">
         <div className="min-w-0">
           <Link to={hub} className="btn btn-quiet btn-sm -ml-2 btn-back-dash"><Icon name="back" /> {mode === 'student' ? 'Bài đã học' : 'Quản lý bài giảng'}</Link>
           <h1 className="mt-1 t-3xl font-bold">{lesson.title}</h1>
@@ -118,7 +118,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
             </p>
           )}
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="workspace-actions">
           {teacher && (
             <>
               <Link to="/lesson/$id/edit" params={{ id: lesson.id }} className="btn btn-secondary"><Icon name="edit" /> Soạn thảo</Link>
@@ -131,7 +131,7 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
         </div>
       </div>
 
-      <nav className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-6" aria-label="Kế hoạch tiết học 6 bước">
+      <nav className="classroom-plan" aria-label="Kế hoạch tiết học 6 bước">
         {lessonStages(timeline).map((stage, i) => {
           const locked = i >= 3 && i !== 4 && !hasVariables; // step 5 is the opinion summary then
           return (
@@ -144,14 +144,14 @@ export function LessonPage({ initial, mode }: { initial: AppLesson; mode: Mode }
               className={`lesson-stage rounded-lg border border-rule bg-card px-3 py-2 no-underline text-ink ${locked ? 'opacity-45' : 'hover:border-[var(--sepia)]'}`}
               data-stage-index={i}
             >
-              <span className="block t-xs muted">Bước {i + 1} · {stage.minutes} phút</span>
+              <span className="stage-lesson-meta"><b>{String(i + 1).padStart(2, '0')}</b><span>{stage.minutes} phút</span></span>
               <span className="block t-sm font-semibold leading-snug">{stage.title}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="classroom-media-grid mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <section aria-label={timeline ? 'Trục thời gian' : 'Sa bàn'}>
           <Player
             lesson={lesson}

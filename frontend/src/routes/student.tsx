@@ -12,12 +12,35 @@ export const Route = createFileRoute('/student')({ beforeLoad: requireUser('stud
 function StudentDashboard() {
   const lessons = useMemo(getVisibleForStudent, []);
   const [query, setQuery] = useState('');
+  const featured = lessons.find(lesson => lesson.isPilot) ?? lessons[0];
   const shown = lessons.filter((l) => !query.trim() || fold(`${l.title} ${l.era}`).includes(fold(query.trim())));
   return (
     <main id="view-student-dashboard" className="app-view active mx-auto max-w-6xl px-4 pb-12 pt-8">
-      <h1 className="t-3xl font-bold">Bài đã học</h1>
-      <p className="mt-1 muted">Xem lại diễn biến trên sa bàn, đọc nguồn tư liệu và, với bài có mô phỏng, thử phương án của riêng em.</p>
+      <div className="classroom-heading">
+        <div>
+          <h1>Bài đã học</h1>
+          <p className="muted">Xem lại diễn biến, đọc nguồn tư liệu và thử cách làm của em.</p>
+        </div>
+      </div>
+      {featured && (
+        <section className="classroom-feature" aria-label="Bài học nổi bật">
+          <div className="feature-copy">
+            <p className="t-sm muted">{featured.era}</p>
+            <h2>{featured.title}</h2>
+            <p className="muted">{featured.objectives || featured.subtitle}</p>
+            <div className="feature-actions">
+              <Link to="/lesson/$id" params={{ id: featured.id }} className="btn btn-primary"><Icon name="play" /> Xem bài học</Link>
+              {featured.question?.variables.length ? <Link to="/lesson/$id/interactive" params={{ id: featured.id }} className="btn btn-secondary">Thử cách khác</Link> : null}
+            </div>
+          </div>
+          <div className="feature-art">
+            {featured.isPilot ? <img src="./assets/decor/classroom-cover.webp" alt="Minh họa nghệ thuật sa bàn một đồn từ thời Tây Sơn" /> : <Thumbnail lesson={featured} />}
+            {featured.isPilot && <span>Minh họa nghệ thuật</span>}
+          </div>
+        </section>
+      )}
       <AtlasCard />
+      <h2 className="classroom-list-title">Thư viện bài học</h2>
       <label className="relative mt-5 block max-w-md">
         <span className="sr-only">Tìm bài học</span>
         <Icon name="search" className="icon pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 muted" />

@@ -234,3 +234,7 @@ Trạng thái chi tiết ở `docs/spec/SPEC.vi.md` mục 15.
 | SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện (dữ liệu tỉnh và địa danh là phái sinh ODbL); dòng "Ảnh minh hoạ do AI tạo, chưa kiểm duyệt: hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý." luôn hiện dưới ảnh; không analytics, không lấy vị trí người dùng | P0 | `scripts/check.sh`; E2E `atlas.spec.js` |
 | SRS-A-09 | Dữ liệu atlas chỉ tải khi vào `#/atlas`, không có three.js (bản 3D tạm hoãn); ranh giới ≤ 400 KB gzip, ảnh minh hoạ khoảng 0,5 MB; (bản 3D: địa hình ≤ 2 MB, ≥ 55 FPS desktop, ≥ 30 FPS phone) | P1 | Unit (dung lượng); FPS: 60 (trần vsync) trên Intel Iris Xe, desktop và khung phone; chưa đo trên điện thoại thật; `npm run budget` trong CI |
 | SRS-A-10 | Liên kết hai chiều bài giảng ↔ địa danh: trang bài học liệt kê `atlasPlaceIds` dẫn tới `#/atlas?place=`; thẻ địa danh/tỉnh dẫn tới bài; mọi `atlasPlaceIds` phải trỏ tới địa danh, tỉnh hoặc quần đảo có thật; thanh điều hướng và hai bảng điều khiển có lối vào atlas | P0 | `npm run atlas:test`; E2E `atlas.spec.js` |
+
+## Trang chủ và đăng nhập
+
+Trang chủ triển lãm lịch sử hoạt động ở `/` và mở lớp học qua `/classroom.html`. Người dùng chọn vai trò giáo viên hoặc học sinh trên màn đăng nhập và có thể điền tài khoản mẫu. Các liên kết hash cũ của bài học và atlas tự chuyển sang lớp học với cùng tham số. Kiểm thử ở `tests/e2e/landing.spec.js`.

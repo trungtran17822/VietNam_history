@@ -106,6 +106,7 @@ test('atlas: any id opens a card; places the picture does not show get no pictur
 
 test('atlas: a shared link opens its place after signing in', async ({ page }) => {
   await page.goto('/#/atlas?place=truong-sa');
+  await page.getByRole('button', { name: 'Điền tài khoản mẫu' }).click();
   await page.locator('#btn-submit-login').click();
   await page.locator('#btn-skip-transition').click();
   await expect(page).toHaveURL(/#\/atlas\?place=truong-sa$/);

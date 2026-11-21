@@ -1,9 +1,9 @@
 import { createFileRoute, redirect, useNavigate, useRouter } from '@tanstack/react-router';
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { currentUser, login, type Role } from '../lib/auth';
 import { hubOf } from '../lib/guards';
 import { playTransition } from '../lib/transition';
-import { Icon } from '../components/ui';
+import { Icon, type IconName } from '../components/ui';
 
 export const Route = createFileRoute('/')({
   validateSearch: (search: Record<string, unknown>): { redirect?: string } => (typeof search.redirect === 'string' ? { redirect: search.redirect } : {}),
@@ -14,9 +14,9 @@ export const Route = createFileRoute('/')({
   component: Login
 });
 
-const ROLES: { role: Role; label: string; copy: string }[] = [
-  { role: 'teacher', label: 'Giáo viên', copy: 'Soạn bài, chiếu sa bàn lên lớp và mở phiên để cả lớp cùng trả lời.' },
-  { role: 'student', label: 'Học sinh', copy: 'Xem lại bài đã học và, với bài có mô phỏng, thử phương án của riêng em.' }
+const ROLES: { role: Role; label: string; copy: string; icon: IconName }[] = [
+  { role: 'teacher', label: 'Giáo viên', icon: 'screen', copy: 'Soạn bài, điều khiển sa bàn và mở phiên cho lớp.' },
+  { role: 'student', label: 'Học sinh', icon: 'book', copy: 'Xem bài đã phát hành và thử phương án của em.' }
 ];
 
 function Login() {
@@ -24,9 +24,12 @@ function Login() {
   const navigate = useNavigate();
   const router = useRouter();
   const [role, setRole] = useState<Role>('teacher');
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [visible, setVisible] = useState(false);
   const [error, setError] = useState('');
+  const submitButton = useRef<HTMLButtonElement>(null);
+  const activeRole = ROLES.find(item => item.role === role)!;
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -36,64 +39,81 @@ function Login() {
       return;
     }
     playTransition(role === 'teacher' ? 'Quản lý bài giảng' : 'Bài đã học');
-    // Keep lesson and atlas deep links, including the atlas search parameters.
     if (requested && /^(?:\/lesson\/|\/atlas(?:\?|$))/.test(requested)) router.history.push(requested);
     else navigate({ to: hubOf(role) });
   };
 
+  function loadSample() {
+    setUsername('admin');
+    setPassword('123');
+    setError('');
+    submitButton.current?.focus();
+  }
+
   return (
-    <main id="view-login" className="app-view active mx-auto grid min-h-[calc(100dvh-8rem)] max-w-6xl items-center gap-10 px-4 py-10 lg:grid-cols-[1.1fr_1fr]">
-      <section>
-        <figure className="login-flag">
-          <img src="./assets/decor/vietnam-flag.webp" alt="" width={960} height={615} decoding="async" fetchPriority="high" />
-        </figure>
-        <img src="./assets/logo/logo-transparent.png" alt="" width={72} height={72} className="relative h-[4.5rem] w-[4.5rem]" />
-        <h1 className="mt-4 t-3xl font-bold">Sử Việt</h1>
-        <p className="mt-3 max-w-xl t-lg">Học lịch sử trên sa bàn lụa: xem lại một sự kiện lịch sử, rồi (với bài có mô phỏng) thử cách làm của chính em và so sánh với cách của cha ông.</p>
-        <ul className="mt-6 flex max-w-xl flex-col gap-3 t-sm">
-          {['Sa bàn 3D theo từng giai đoạn, kèm nguồn tư liệu', 'Cả lớp gửi lựa chọn ẩn danh, không cần tài khoản', 'Kết quả tính minh bạch từ giả định của bài, luôn ghi rõ là mô phỏng'].map((t) => (
-            <li key={t} className="flex gap-2.5">
-              <Icon name="check" className="icon mt-0.5 text-ok" /> {t}
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="card p-5 sm:p-7" aria-labelledby="login-title">
-        <h2 id="login-title" className="t-xl font-semibold">Đăng nhập</h2>
-        <div className="mt-4 grid grid-cols-2 gap-2" role="tablist" aria-label="Vai trò">
-          {ROLES.map((r) => (
-            <button
-              key={r.role}
-              id={`tab-login-${r.role}`}
-              type="button"
-              role="tab"
-              aria-selected={role === r.role}
-              className={`rounded-lg border p-3 text-left transition-colors ${role === r.role ? 'border-action bg-action-tint' : 'border-rule bg-card hover:border-[var(--sepia)]'}`}
-              onClick={() => {
-                setRole(r.role);
-                setError('');
-              }}
-            >
-              <span className="block font-semibold">{r.label}</span>
-              <span className="mt-0.5 block t-xs muted">{r.copy}</span>
-            </button>
-          ))}
+    <main id="view-login" className="app-view classroom-login">
+      <section className="classroom-cover" aria-labelledby="cover-title">
+        <img className="classroom-cover-art" src="./assets/decor/classroom-cover.webp" alt="" width={1560} height={1040} fetchPriority="high" />
+        <div className="classroom-cover-shade" />
+        <div className="classroom-cover-inner">
+          <a href="./" className="classroom-wordmark" aria-label="Sử Việt, về trang chủ">
+            <img src="./assets/logo/logo-transparent.png" alt="" width={46} height={46} />
+            <span>Sử Việt</span>
+          </a>
+          <div className="classroom-cover-copy">
+            <h2 id="cover-title">Lịch sử,<br />{' '}trên sa bàn.</h2>
+            <p>Theo dõi diễn biến, đọc tư liệu và thử một cách làm khác trong cùng bài học.</p>
+            <span className="classroom-art-note">Mô hình sa bàn · Minh họa nghệ thuật</span>
+          </div>
         </div>
-        <form className="mt-5 flex flex-col gap-4" onSubmit={submit} noValidate>
-          <label className="block">
-            <span className="label">Tên đăng nhập</span>
-            <input className="field" autoComplete="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </label>
-          <label className="block">
-            <span className="label">Mật khẩu</span>
-            <input className="field" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          {error && <p className="t-sm text-action" role="alert">{error}</p>}
-          <button type="submit" id="btn-submit-login" className="btn btn-primary w-full">
-            Đăng nhập với vai trò {role === 'teacher' ? 'giáo viên' : 'học sinh'} <Icon name="next" />
-          </button>
-          <p className="t-xs muted">Tài khoản thử nghiệm: admin / 123 cho cả hai vai trò.</p>
-        </form>
+      </section>
+      <section className="classroom-login-side" aria-labelledby="login-title">
+        <div className="classroom-login-content">
+          <h1 id="login-title">Vào lớp học</h1>
+          <p className="classroom-login-intro">Chọn vai trò để mở không gian học tập của bạn.</p>
+          <form className="classroom-login-form" onSubmit={submit}>
+            <fieldset className="classroom-roles">
+              <legend>Vai trò</legend>
+              <div className="classroom-role-grid">
+                {ROLES.map(item => (
+                  <label key={item.role} className="classroom-role" data-selected={role === item.role}>
+                    <input type="radio" name="role" id={`tab-login-${item.role}`} value={item.role}
+                      checked={role === item.role} onChange={() => { setRole(item.role); setError(''); }}
+                      aria-labelledby={`role-label-${item.role}`} aria-describedby={`role-desc-${item.role}`} />
+                    <Icon name={item.icon} className="role-icon icon" />
+                    <strong id={`role-label-${item.role}`}>{item.label}</strong>
+                    <span className="role-desc" id={`role-desc-${item.role}`}>{item.copy}</span>
+                    <span className="role-dot" aria-hidden="true" />
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label className="classroom-field">
+              <span>Tên đăng nhập</span>
+              <input className="field" autoComplete="username" value={username}
+                onChange={(e) => { setUsername(e.target.value); setError(''); }} required />
+            </label>
+            <div className="classroom-field">
+              <label htmlFor="login-password">Mật khẩu</label>
+              <div className="password-wrap">
+                <input className="field" id="login-password" type={visible ? 'text' : 'password'} autoComplete="current-password"
+                  value={password} onChange={(e) => { setPassword(e.target.value); setError(''); }} required />
+                <button type="button" className="password-toggle" onClick={() => setVisible(!visible)}
+                  aria-label={visible ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'} aria-controls="login-password">
+                  {visible ? 'Ẩn' : 'Hiện'}
+                </button>
+              </div>
+            </div>
+            {error && <p className="classroom-login-error" role="alert">{error}</p>}
+            <button ref={submitButton} type="submit" id="btn-submit-login" className="btn btn-primary classroom-login-submit">
+              Đăng nhập với vai trò {activeRole.label.toLowerCase()} <Icon name="next" />
+            </button>
+            <div className="sample-account">
+              <span>Tài khoản thử nghiệm <code>admin / 123</code></span>
+              <button type="button" onClick={loadSample}>Điền tài khoản mẫu</button>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
   );

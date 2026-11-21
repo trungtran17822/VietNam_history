@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { initStorage } from './lib/storage';
 import { routeTree } from './routeTree.gen';
 import './styles.css';
+import './classroom.css';
 
 // Page changes run inside document.startViewTransition (styles.css "Route transitions"); search-only
 // changes such as the atlas query do not, so the map never freezes behind a snapshot.
