@@ -135,3 +135,7 @@ npm run test:unit   # Vitest (domain) + node:test (backend)
 npm run atlas:test  # node:test cho dữ liệu atlas, tìm kiếm và liên kết bài ↔ địa danh
 npm run test:e2e    # Playwright, 1280×720 và 360×800 (có tests/e2e/atlas.spec.js)
 ```
+
+## Điểm vào web
+
+Trang chủ `/` là triển lãm lịch sử công khai. Nút **Vào lớp học** mở `/classroom.html`, nơi người dùng chọn vai trò và điền thông tin đăng nhập bằng **Điền tài khoản mẫu**. Liên kết đã chia sẻ như `/#/lesson/<id>` và `/#/atlas?place=<id>` tự chuyển sang lớp học với cùng nội dung.

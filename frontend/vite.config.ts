@@ -16,6 +16,11 @@ export default defineConfig({
   ],
   server: { port: 8080, strictPort: true },
   preview: { port: 8080, strictPort: true },
-  build: { outDir: here('dist'), emptyOutDir: true, chunkSizeWarningLimit: 700 },
+  build: {
+    outDir: here('dist'),
+    emptyOutDir: true,
+    chunkSizeWarningLimit: 700,
+    rollupOptions: { input: { landing: here('index.html'), classroom: here('classroom.html') } }
+  },
   test: { root: here('.'), include: ['src/**/*.test.ts'], environment: 'node' }
 });

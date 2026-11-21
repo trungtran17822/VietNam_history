@@ -92,19 +92,23 @@ export function Editor({ initial, teacher }: { initial: AppLesson; teacher: stri
 
   return (
     <main id="view-teacher-editor" className="app-view active mx-auto max-w-[90rem] px-4 pb-16 pt-4">
-      <div className="sticky top-16 z-20 -mx-4 border-b border-rule bg-page/95 px-4 py-3 backdrop-blur">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="classroom-editor-bar sticky top-16 z-20 -mx-4 border-b border-rule px-4 py-3">
+        <div className="editor-identity">
           <Link to="/teacher" id="btn-editor-back" className="btn btn-quiet btn-sm -ml-2"><Icon name="back" /> Quản lý</Link>
           <div className="min-w-0 flex-1">
-            <p className="truncate font-serif t-lg font-semibold">{lesson.title || 'Bài chưa đặt tên'}</p>
+            <h1 className="classroom-editor-title">{lesson.title || 'Bài chưa đặt tên'}</h1>
             <p className="flex items-center gap-2 t-xs muted"><StatusChip status={lesson.status} /> {dirty ? 'Có thay đổi chưa lưu' : 'Đã lưu'}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-1">
-            <button type="button" id="btn-editor-undo" className="btn btn-quiet btn-sm" disabled={!canUndo} onClick={undo} title="Hoàn tác (Ctrl+Z)"><Icon name="undo" /> <span className="hidden sm:inline">Hoàn tác</span></button>
-            <button type="button" id="btn-editor-redo" className="btn btn-quiet btn-sm" disabled={!canRedo} onClick={redo} title="Làm lại (Ctrl+Shift+Z)"><Icon name="redo" /> <span className="hidden sm:inline">Làm lại</span></button>
-            <button type="button" id="btn-editor-preview-student" className="btn btn-secondary btn-sm" onClick={() => save() && navigate({ to: '/lesson/$id/preview', params: { id: lesson.id } })}><Icon name="eye" /> <span className="hidden md:inline">Xem như học sinh</span></button>
-            <button type="button" id="btn-editor-export-docx" className="btn btn-quiet btn-sm" onClick={() => exportLessonDocx(lesson)} title="Tải bài học về dạng Word (.docx), gồm cả nội dung chưa lưu"><Icon name="download" /> <span className="hidden lg:inline">Word</span></button>
-            <button type="button" id="btn-editor-export-pdf" className="btn btn-quiet btn-sm" onClick={() => exportLessonPdf(lesson)} title="Mở hộp thoại in, chọn “Lưu thành PDF”"><Icon name="download" /> <span className="hidden lg:inline">PDF</span></button>
+        </div>
+        <div className="editor-controls">
+          <div className="editor-tools">
+            <button type="button" id="btn-editor-undo" className="btn btn-quiet btn-sm" disabled={!canUndo} aria-label="Hoàn tác" onClick={undo} title="Hoàn tác (Ctrl+Z)"><Icon name="undo" /> <span className="hidden sm:inline">Hoàn tác</span></button>
+            <button type="button" id="btn-editor-redo" className="btn btn-quiet btn-sm" disabled={!canRedo} aria-label="Làm lại" onClick={redo} title="Làm lại (Ctrl+Shift+Z)"><Icon name="redo" /> <span className="hidden sm:inline">Làm lại</span></button>
+            <button type="button" id="btn-editor-preview-student" aria-label="Xem như học sinh" className="btn btn-secondary btn-sm" onClick={() => save() && navigate({ to: '/lesson/$id/preview', params: { id: lesson.id } })}><Icon name="eye" /> <span className="hidden md:inline">Xem như học sinh</span></button>
+            <button type="button" id="btn-editor-export-docx" aria-label="Xuất Word" className="btn btn-quiet btn-sm" onClick={() => exportLessonDocx(lesson)} title="Tải bài học về dạng Word (.docx), gồm cả nội dung chưa lưu"><Icon name="download" /> <span className="hidden lg:inline">Word</span></button>
+            <button type="button" id="btn-editor-export-pdf" aria-label="Xuất PDF" className="btn btn-quiet btn-sm" onClick={() => exportLessonPdf(lesson)} title="Mở hộp thoại in, chọn “Lưu thành PDF”"><Icon name="download" /> <span className="hidden lg:inline">PDF</span></button>
+          </div>
+          <div className="editor-publishing">
             <button type="button" id="btn-editor-save-draft" className="btn btn-secondary btn-sm" onClick={() => save('Nháp')}>Lưu nháp</button>
             <button type="button" id="btn-editor-schedule" className="btn btn-secondary btn-sm" onClick={() => save('Đã lên lịch')}>Lên lịch</button>
             <button type="button" id="btn-editor-publish" className="btn btn-primary btn-sm" onClick={requestPublish}>Phát hành</button>

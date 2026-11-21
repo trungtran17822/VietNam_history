@@ -3,14 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Sử Việt: học lịch sử Việt Nam qua sa bàn mô phỏng, thử phương án khác và so sánh cùng cả lớp." />
-    <meta name="theme-color" content="#1f4037" />
+    <meta name="description" content="Một hành trình qua các thời đại, nhân vật và di sản lịch sử Việt Nam." />
+    <meta name="theme-color" content="#11100e" />
     <link rel="icon" type="image/png" href="./assets/logo/logo-transparent.png" />
-    <link rel="preload" href="./fonts/noto-sans-vietnamese.woff2" as="font" type="font/woff2" crossorigin />
-    <title>Sử Việt · Học lịch sử qua mô phỏng</title>
+    <link rel="preload" as="image" type="image/webp" media="(max-width: 680px)" href="./landing/media/hero-portrait.webp" />
+    <link rel="preload" as="image" type="image/webp" media="(min-width: 681px)" href="./landing/media/hero.webp" />
+    <title>Sử Việt | Ngàn năm sử Việt</title>
+    <script>
+      // Shared classroom URLs predate the public homepage and start with a router hash.
+      function openClassroomLink() {
+        if (!/^#(?:\/|lesson\/)/.test(window.location.hash)) return;
+        const target = new URL('./classroom.html', window.location.href);
+        target.search = window.location.search;
+        target.hash = window.location.hash;
+        window.location.replace(target);
+      }
+      openClassroomLink();
+      window.addEventListener('hashchange', openClassroomLink);
+    </script>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="./src/features/landing/main.tsx"></script>
   </body>
 </html>

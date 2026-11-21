@@ -88,7 +88,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
         <Link to="/lesson/$id" params={{ id: lesson.id }} id="btn-back-from-6stages" className="btn btn-quiet btn-sm -ml-2"><Icon name="back" /> Về trang bài học</Link>
         <p className="t-sm muted">{lesson.era}</p>
       </div>
-      <h1 className="t-2xl font-bold">{lesson.title}</h1>
+      <h1 className="classroom-stage-title">{lesson.title}</h1>
 
       <nav className="lesson-stepper mt-3 card" aria-label="Tiến trình 6 bước của bài học">
         {STEPS.map((name, i) => {
@@ -101,6 +101,7 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
               data-step={n}
               data-screen={i === 4 && !hasVariables ? 'screen-opinion-summary' : SCREENS[i]}
               aria-current={n === step ? 'step' : undefined}
+              aria-label={`Bước ${n}: ${name}`}
               disabled={n > 3 && n !== 5 && !hasVariables}
               onClick={() => goTo(n)}
             >
@@ -110,21 +111,21 @@ export function StageLoop({ lesson, role, initialStep }: { lesson: AppLesson; ro
           );
         })}
       </nav>
-      <h2 ref={heading} tabIndex={-1} className="sr-only">Bước {step}: {title}</h2>
+      <h2 ref={heading} tabIndex={-1} className="sr-only stage-current-label">Bước {step}: {title}</h2>
 
       <div key={step} className="stage-enter mt-5">
         {step === 1 && (
-          <section id="screen-intro" className="screen-view active mx-auto max-w-3xl card p-6 text-center sm:p-10">
-            <h2 className="t-3xl font-bold">{lesson.subtitle || lesson.title}</h2>
-            <p className="mt-4 text-left t-lg leading-relaxed">{lesson.introSummary || lesson.objectives}</p>
+          <section id="screen-intro" className="screen-view active classroom-stage-intro">
+            <h2>Khởi động</h2>
+            <p className="stage-intro-lead">{lesson.introSummary || lesson.objectives}</p>
             {lesson.focusQuestion && (
-              <p className="mt-5 rounded-xl bg-page px-5 py-4 text-left">
+              <p className="stage-focus-question">
                 <span className="block t-sm font-semibold muted">Câu hỏi trọng tâm</span>
                 <span className="font-serif t-lg">{lesson.focusQuestion}</span>
               </p>
             )}
             <button id="btn-start-6stages" type="button" className="btn btn-primary mt-6" onClick={() => goTo(2)}>
-              Bắt đầu: xem sa bàn diễn biến gốc <Icon name="next" />
+              {timeline ? 'Bắt đầu khám phá trục thời gian' : 'Bắt đầu xem sa bàn'} <Icon name="next" />
             </button>
           </section>
         )}

@@ -94,7 +94,7 @@ function Header() {
         </nav>
         <div className="ml-auto flex items-center gap-1">
           <div ref={toolsRef} className="relative">
-            <button type="button" className="header-tool" aria-expanded={menu === 'tools'} aria-haspopup="true" onClick={() => setMenu(menu === 'tools' ? null : 'tools')}>
+            <button type="button" className="header-tool" aria-label="Tuỳ chọn" aria-expanded={menu === 'tools'} aria-haspopup="true" onClick={() => setMenu(menu === 'tools' ? null : 'tools')}>
               <Icon name="sliders" /> <span className="hidden sm:inline">Tuỳ chọn</span>
             </button>
             {menu === 'tools' && (
@@ -123,8 +123,8 @@ function Header() {
             )}
           </div>
           <div ref={userRef} className="relative">
-            <button type="button" className="header-tool" aria-expanded={menu === 'user'} aria-haspopup="true" onClick={() => setMenu(menu === 'user' ? null : 'user')}>
-              <Icon name="user" /> <span className="hidden max-w-[12rem] truncate lg:inline">{user.displayName}</span>
+            <button type="button" className="header-tool classroom-user" aria-label={`Tài khoản ${user.roleLabel.toLowerCase()}`} aria-expanded={menu === 'user'} aria-haspopup="true" onClick={() => setMenu(menu === 'user' ? null : 'user')}>
+              <Icon name="user" /> <span>{user.roleLabel}</span>
             </button>
             {menu === 'user' && (
               <div className="menu-popover" role="menu">

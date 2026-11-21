@@ -19,6 +19,7 @@ need() { grep -rqF "$2" "$1" || err "missing required label in $1: $2"; }
 need frontend/src/components/ui.tsx 'Nội dung minh họa, chưa được chuyên gia duyệt'
 need frontend/src/components/ui.tsx 'ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ.'
 need frontend/src/routes/__root.tsx 'PROTOTYPE_NOTICE'
+need frontend/src/features/landing/content.ts 'Nội dung minh họa, chưa được chuyên gia duyệt'
 need frontend/src/components/ui.tsx '* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa.'
 need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE'
 need frontend/src/components/StageLoop.tsx 'SIMULATION_NOTICE_NOTE'
@@ -34,9 +35,11 @@ bad = [str(p) for p in pathlib.Path('frontend/src').rglob('*') if p.suffix in {'
 print('\n'.join(bad)); sys.exit(1 if bad else 0)
 EOF
 
-# 5. Local files referenced by frontend/index.html exist (public/ assets or src/).
-for ref in $(grep -oE '(src|href)="\./[^"#:]+"' frontend/index.html | sed -E 's/^(src|href)="\.\///; s/"$//'); do
-  [ -e "frontend/$ref" ] || [ -e "frontend/public/$ref" ] || err "index.html references missing file: $ref"
+# 5. Local references in both HTML entry points exist.
+for html in frontend/index.html frontend/classroom.html; do
+  for ref in $(grep -oE '(src|href)="\./[^"#:]+"' "$html" | sed -E 's/^(src|href)="\.\///; s/"$//'); do
+    [ -e "frontend/$ref" ] || [ -e "frontend/public/$ref" ] || err "$html references missing file: $ref"
+  done
 done
 
 # 6. Backend Worker sources (ES modules) parse.
