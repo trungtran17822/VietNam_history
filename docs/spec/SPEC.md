@@ -403,3 +403,7 @@ the map. No analytics, no user geolocation, nothing taken from GeoGnos.
 **Open**: FPS on a real phone and a school PC; landmarks that lessons could use but the atlas lacks
 (`van-don`, `him-lam`, `doi-a1`, `buon-ma-thuot`, `phuoc-long`; see `notes/s2.md`). Details in
 `specs/002-v2-tanstack-atlas/notes/s4.md`.
+
+### Public homepage and classroom entry
+
+The public history exhibition is served at `/` and links to role-based demo sign-in at `/classroom.html`. The classroom shows the role permissions before sign-in and provides a button to fill the sample credentials. Existing lesson and atlas hash links keep their route and query when forwarded to the classroom.

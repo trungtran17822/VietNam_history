@@ -403,3 +403,7 @@ bản đồ. Không analytics, không dùng vị trí người dùng, không l�
 **Còn mở**: FPS trên điện thoại thật và máy tính trường; các địa danh bài giảng có thể dùng mà atlas
 chưa có (`van-don`, `him-lam`, `doi-a1`, `buon-ma-thuot`, `phuoc-long`; xem `notes/s2.md`). Chi tiết ở
 `specs/002-v2-tanstack-atlas/notes/s4.md`.
+
+### Trang chủ và lối vào lớp học
+
+Triển lãm lịch sử công khai ở `/` dẫn đến màn đăng nhập theo vai trò tại `/classroom.html`. Màn này hiển thị quyền của từng vai trò và có nút điền tài khoản mẫu. Các liên kết đã chia sẻ tới bài học và atlas giữ nguyên đường dẫn hash và tham số khi chuyển sang lớp học.

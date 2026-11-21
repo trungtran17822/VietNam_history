@@ -15,7 +15,7 @@ const FILTERS = [['all', 'Tất cả'], ['Đã dạy', 'Đã phát hành'], ['Đ
 function featuredOf(lessons: AppLesson[]) {
   const now = today();
   const byDate = [...lessons].sort((a, b) => a.date.localeCompare(b.date));
-  return byDate.find((l) => l.date === now) ?? byDate.find((l) => l.status === 'Đã lên lịch' && l.date >= now) ?? byDate[0] ?? null;
+  return byDate.find((l) => l.date === now) ?? byDate.find((l) => l.status === 'Đã lên lịch' && l.date >= now) ?? byDate.find((l) => l.isPilot) ?? byDate[0] ?? null;
 }
 
 function TeacherDashboard() {
@@ -41,9 +41,9 @@ function TeacherDashboard() {
 
   return (
     <main id="view-teacher-dashboard" className="app-view active mx-auto max-w-[90rem] px-4 pb-12 pt-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="classroom-heading">
         <div>
-          <h1 className="t-3xl font-bold">Quản lý bài giảng</h1>
+          <h1>Quản lý bài giảng</h1>
           <p className="mt-1 muted">Soạn, lên lịch và phát hành bài học cho học sinh. Học sinh chỉ thấy bài đã phát hành, đến đúng ngày.</p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -57,10 +57,10 @@ function TeacherDashboard() {
       </div>
 
       {featured && (
-        <section className="card mt-6 grid overflow-hidden md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]" aria-label="Bài giảng gần nhất">
-          <div className="flex flex-col justify-center gap-3 p-5 sm:p-7">
+        <section className="classroom-feature" aria-label="Bài giảng nổi bật">
+          <div className="feature-copy">
             <p className="flex flex-wrap items-center gap-2 t-sm muted">
-              <span className="font-semibold text-ink">{featured.date === today() ? 'Dạy hôm nay' : 'Lịch dạy gần nhất'}</span>
+              <span className="font-semibold">{featured.date === today() ? 'Dạy hôm nay' : featured.status === 'Đã lên lịch' ? 'Tiết học sắp tới' : 'Bài giảng nổi bật'}</span>
               <span aria-hidden>·</span> {featured.date} <span aria-hidden>·</span> {featured.class} <StatusChip status={featured.status} />
             </p>
             <h2 className="t-2xl font-semibold">{featured.title}</h2>
@@ -72,14 +72,16 @@ function TeacherDashboard() {
               <Link to="/lesson/$id/interactive" params={{ id: featured.id }} className="btn btn-secondary">Tiến trình 6 bước trên lớp</Link>
             </div>
           </div>
-          <div className="hidden aspect-[9/7] border-l border-rule md:block">
-            <Thumbnail lesson={featured} />
+          <div className="feature-art">
+            {featured.isPilot ? <img src="./assets/decor/classroom-cover.webp" alt="Minh họa nghệ thuật sa bàn một đồn từ thời Tây Sơn" /> : <Thumbnail lesson={featured} />}
+            {featured.isPilot && <span>Minh họa nghệ thuật</span>}
           </div>
         </section>
       )}
       <AtlasCard />
 
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+      <h2 className="classroom-list-title">Thư viện bài giảng</h2>
+      <div className="classroom-library-tools flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Lọc theo trạng thái">
           {FILTERS.map(([value, label]) => (
             <button key={value} type="button" className="chip" data-filter={value} aria-pressed={filter === value} onClick={() => setFilter(value)}>

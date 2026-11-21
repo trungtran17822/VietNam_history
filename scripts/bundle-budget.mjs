@@ -1,25 +1,39 @@
-// Bundle budget (plan §5), run after `npm run build`: the JS a first visit loads (the entry script
-// plus its modulepreloads in frontend/dist/index.html) must be ≤ 200 KB gzip, and three.js and the
-// atlas must stay in lazy chunks. Usage: node scripts/bundle-budget.mjs
+// The public homepage and classroom each get a 200 KB gzip initial JS budget.
+// Three.js and atlas data stay in lazy chunks.
 import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 
 const dist = new URL('../frontend/dist/', import.meta.url);
-const html = readFileSync(new URL('index.html', dist), 'utf8');
-const files = [...html.matchAll(/(?:src|href)="\.\/(assets\/[^"]+\.js)"/g)].map((m) => m[1]);
-const LIMIT = 200 * 1024;
-let total = 0, fail = false;
-for (const f of files) {
-  const code = readFileSync(new URL(f, dist));
-  const gz = gzipSync(code).length;
-  total += gz;
-  console.log(`${(gz / 1024).toFixed(1).padStart(7)} KB gzip  ${f}`);
-  // three.js logs with this prefix; the chunk-name list for lazy imports may mention three.module.
-  if (/three\.module/.test(f) || code.includes('THREE.WebGLRenderer')) {
-    console.error(`FAIL: ${f} is loaded on first visit but contains three.js`); fail = true;
+const limit = 200 * 1024;
+let failed = false;
+
+for (const entry of ['index.html', 'classroom.html']) {
+  const html = readFileSync(new URL(entry, dist), 'utf8');
+  const files = new Set([...html.matchAll(/(?:src|href)="\.\/(assets\/[^"]+\.js)"/g)].map(match => match[1]));
+  let total = 0;
+
+  console.log(entry);
+  if (!files.size) {
+    console.error(`FAIL: no initial JavaScript found in ${entry}`);
+    failed = true;
   }
-  if (/atlas|terrain\.png|provinces/.test(f)) { console.error(`FAIL: ${f} (atlas) is loaded on first visit`); fail = true; }
+
+  for (const file of files) {
+    const code = readFileSync(new URL(file, dist));
+    const bytes = gzipSync(code).length;
+    total += bytes;
+    console.log(`${(bytes / 1024).toFixed(1).padStart(7)} KB gzip  ${file}`);
+    if (/three\.module|atlas|terrain\.png|provinces/.test(file) || code.includes('THREE.WebGLRenderer')) {
+      console.error(`FAIL: ${file} pulls three.js or atlas data into the initial visit`);
+      failed = true;
+    }
+  }
+
+  console.log(`${(total / 1024).toFixed(1).padStart(7)} KB gzip  initial JS (budget ${limit / 1024} KB)`);
+  if (total > limit) {
+    console.error(`FAIL: ${entry} is over its initial JavaScript budget`);
+    failed = true;
+  }
 }
-console.log(`${(total / 1024).toFixed(1).padStart(7)} KB gzip  initial JS (budget ${LIMIT / 1024} KB)`);
-if (total > LIMIT) { console.error('FAIL: initial JS is over budget'); fail = true; }
-process.exit(fail ? 1 : 0);
+
+process.exit(failed ? 1 : 0);
