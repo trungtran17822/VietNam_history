@@ -1,0 +1,181 @@
+{
+ "version": 1,
+ "image": "illustration-v2.webp",
+ "size": [
+  1024,
+  1535
+ ],
+ "note": "Ảnh minh hoạ do AI tạo (Đạt cung cấp 2026-11-21). Hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý. box = [x0,y0,x1,y1] theo pixel ảnh gốc. confidence: ro = nhận ra rõ, doan = Opus đoán, cần Đạt xác nhận.",
+ "spots": [
+  {
+   "id": "mu-cang-chai",
+   "box": [
+    60,
+    95,
+    265,
+    245
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "ho-hoan-kiem",
+   "box": [
+    420,
+    195,
+    545,
+    315
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "vinh-ha-long",
+   "box": [
+    560,
+    180,
+    960,
+    365
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "phong-nha-ke-bang",
+   "box": [
+    260,
+    455,
+    385,
+    555
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "mui-ne",
+   "box": [
+    650,
+    800,
+    840,
+    910
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "cho-noi-cai-rang",
+   "box": [
+    160,
+    1185,
+    340,
+    1320
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "hoang-sa",
+   "box": [
+    700,
+    510,
+    940,
+    620
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "truong-sa",
+   "box": [
+    600,
+    1165,
+    980,
+    1350
+   ],
+   "confidence": "ro"
+  },
+  {
+   "id": "thac-ban-gioc",
+   "box": [
+    235,
+    120,
+    345,
+    215
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "van-mieu",
+   "box": [
+    255,
+    230,
+    420,
+    310
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "hoang-thanh-thang-long",
+   "box": [
+    335,
+    315,
+    550,
+    410
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "thanh-nha-ho",
+   "box": [
+    180,
+    330,
+    320,
+    400
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "kinh-thanh-hue",
+   "box": [
+    410,
+    515,
+    535,
+    585
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "chua-thien-mu",
+   "box": [
+    630,
+    630,
+    710,
+    710
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "thap-po-nagar",
+   "box": [
+    660,
+    700,
+    760,
+    795
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "pho-co-hoi-an",
+   "box": [
+    545,
+    745,
+    670,
+    850
+   ],
+   "confidence": "doan"
+  },
+  {
+   "id": "ly-son",
+   "box": [
+    895,
+    795,
+    975,
+    865
+   ],
+   "confidence": "doan"
+  }
+ ]
+}

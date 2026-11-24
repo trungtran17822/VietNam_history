@@ -11,7 +11,7 @@ async function expectNoHorizontalScroll(page, where) {
 }
 
 test('360 px: login, dashboards and every stage fit the screen', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/classroom.html');
   await expectNoHorizontalScroll(page, 'login');
   await login(page, 'student');
   await expectNoHorizontalScroll(page, 'student dashboard');

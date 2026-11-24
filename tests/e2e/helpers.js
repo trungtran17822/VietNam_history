@@ -3,8 +3,9 @@ const { expect } = require('@playwright/test');
 const PILOT = 'ngoc-hoi-ha-hoi-1789';
 
 async function login(page, role = 'teacher') {
-  await page.goto('/');
+  await page.goto('/classroom.html');
   if (role === 'student') await page.click('#tab-login-student');
+  await page.getByRole('button', { name: 'Điền tài khoản mẫu' }).click();
   await page.click('#btn-submit-login');
   // Skip the post-login animation, then wait until the dashboard route is in place.
   await expect(page.locator('#cinematic-transition')).toHaveClass(/active/);

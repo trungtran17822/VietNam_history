@@ -1,0 +1,702 @@
+{
+  "schemaVersion": 2,
+  "revision": 2,
+  "id": "khang-chien-mong-nguyen-vuon-khong",
+  "era": "1285-1288",
+  "atlasPlaceIds": [
+    "bach-dang",
+    "den-kiep-bac",
+    "hoang-thanh-thang-long"
+  ],
+  "factions": {
+    "a": {
+      "name": "Quân dân Đại Việt (nhà Trần)",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân Nguyên",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Kháng chiến chống Mông – Nguyên (1285 – 1288)",
+  "subtitle": "Rời kinh thành, cướp thuyền lương, phá giặc trên sông Bạch Đằng",
+  "commander": "Hưng Đạo Vương Trần Quốc Tuấn; vua Trần Nhân Tông, Thượng hoàng Trần Thánh Tông",
+  "opponent": "Quân Nguyên do Thoát Hoan chỉ huy; thủy quân Ô Mã Nhi, Phàn Tiếp; thuyền lương Trương Văn Hổ",
+  "year": "Năm Giáp Thân – Mậu Tý (1284 – 1288)",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 11A1",
+  "date": "2026-11-05",
+  "subject": "Lịch sử",
+  "grade": "Khối 11",
+  "period": "Tiết 4 · 10:15 - 11:00 (45 phút)",
+  "objectives": "Trình bày các quyết định lớn của nhà Trần trong hai lần kháng chiến chống quân Nguyên (1285 và 1287 – 1288): hội nghị Diên Hồng, rời Thăng Long, cướp thuyền lương ở Vân Đồn, trận Bạch Đằng; giải thích vì sao đánh vào lương thực và lợi dụng thủy triều làm quân Nguyên suy yếu.",
+  "focusQuestion": "Vì sao nhà Trần không giữ Thăng Long đến cùng, và vì sao trận cướp thuyền lương ở Vân Đồn lại quan trọng trước trận Bạch Đằng?",
+  "status": "Nháp",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Thời gian, tổn thất và điểm thế trận đều là số minh họa từ giả định của bài học, không phải số liệu lịch sử.",
+  "introSummary": "Quân Nguyên hai lần kéo sang (1285 và 1287 – 1288). Nhà Trần hỏi ý các bô lão ở điện Diên Hồng, rồi chọn rời Thăng Long thay vì giữ thành bằng mọi giá. Lần thứ hai, Trần Khánh Dư cướp đoàn thuyền lương của Trương Văn Hổ; quân Nguyên thiếu lương phải rút. Hưng Đạo Vương cho đóng cọc ở sông Bạch Đằng, lợi dụng thủy triều, phá thủy quân Ô Mã Nhi (tháng ba năm Mậu Tý, 1288).",
+  "sections": [
+    {
+      "id": "mn-1",
+      "title": "Hội nghị Diên Hồng",
+      "narration": "Năm 1284, quân Nguyên sắp kéo sang. Vua Trần Nhân Tông sai sứ sang xin hoãn binh nhưng vua Nguyên không nghe. Vua bèn triệu các bô lão hội ở điện Diên Hồng để bàn nên hòa hay nên đánh; các bô lão đồng thanh xin đánh.",
+      "caption": "Cả nước một lòng trước khi vào trận.",
+      "timelineRange": 0.1,
+      "timeLabel": "Năm 1284",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương VII “Giặc nhà Nguyên – I”",
+        "quote": "Nhân-tông thấy vậy, lập tức cho triệu cả các bô-lão dân-gian, hội tại điện Diên-hồng 延 洪 殿 để bàn xem nên hòa hay nên đánh. Các bô-lão đều đồng thanh xin đánh.",
+        "note": "Trước đó, theo cùng chương: vua “sai sứ mang đồ lễ sang Tàu, xin vua nhà Nguyên hoãn binh”, nhưng “Vua nhà Nguyên không nghe”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_VII"
+      }
+    },
+    {
+      "id": "mn-2",
+      "title": "Rời Thăng Long, giữ lực lượng",
+      "narration": "Năm 1285, quân Nguyên thế mạnh, kéo đến chân thành Thăng Long. Hưng Đạo Vương rước Thượng hoàng và vua ra khỏi kinh thành, để các tướng ở lại giữ thành. Quân Nguyên lấy được thành nhưng không bắt được vua, phải chia quân đuổi theo.",
+      "caption": "Mất kinh thành nhưng giữ được triều đình và quân chủ lực.",
+      "timelineRange": 0.25,
+      "timeLabel": "Đầu năm 1285",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương VII “Giặc nhà Nguyên – I”",
+        "quote": "Hưng-đạo-vương rước xa-giá Thượng-hoàng và vua ra ngoài Thăng-long, để các tướng ở lại giữ thành.",
+        "note": "Cùng chương nhận xét quân Nguyên “đường xa muôn dặm, núi sông cách-trở”, “chỉ hùng-mạnh được lúc đầu mà thôi”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_VII"
+      }
+    },
+    {
+      "id": "mn-3",
+      "title": "Quân Nguyên trở lại cùng đoàn thuyền lương",
+      "narration": "Năm 1287, Thoát Hoan lại đem hơn 30 vạn quân sang. Lần này nhà Nguyên sai Trương Văn Hổ theo đường biển chở lương sang cấp cho quân sĩ. Quân Trần lại rút khỏi Thăng Long; quân Nguyên đóng ở Vạn Kiếp, chờ lương.",
+      "caption": "Một đạo quân lớn sống nhờ những con thuyền lương.",
+      "timelineRange": 0.4,
+      "timeLabel": "Năm 1287",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương VIII “Giặc nhà Nguyên – II”",
+        "quote": "Lại sai Vạn-hộ Trương văn Hổ 張 文 虎 theo đường bể tải hơn 17[2] vạn thạch lương sang cấp cho quân-sĩ.",
+        "note": "“[2]” là dấu chú thích của bản Wikisource, giữ nguyên. Cùng đoạn ghi Thoát Hoan đem “tất cả hơn 30 vạn quân”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_VIII"
+      }
+    },
+    {
+      "id": "mn-4",
+      "title": "Trận Vân Đồn: cướp thuyền lương",
+      "narration": "Ô Mã Nhi đem thủy quân ra đón thuyền lương, đánh thua quân của Trần Khánh Dư ở Vân Đồn rồi đi trước. Khánh Dư thu nhặt thuyền bè, phục sẵn, đợi đoàn thuyền lương của Trương Văn Hổ đi sau. Thuyền lương bị phá và cướp hết.",
+      "caption": "Không đánh đoàn thuyền chiến đi trước, mà đánh đoàn thuyền lương đi sau.",
+      "timelineRange": 0.55,
+      "timeLabel": "Cuối năm 1287",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương VIII “Giặc nhà Nguyên – II”",
+        "quote": "Khánh Dư đổ quân ra đánh. Văn Hổ địch không nổi, bao nhiêu thuyền lương bị quân của Khánh Dư phá cướp mất cả, và bắt được khí-giới rất nhiều.",
+        "note": "Thượng hoàng nói sau trận này: « Quân Nguyên cốt trông cậy có lương-thảo khí-giới, nay đã bị ta cướp được cả rồi, thì thế nó không tràng-cửu được nữa. [...] »",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_VIII"
+      }
+    },
+    {
+      "id": "mn-5",
+      "title": "Cọc gỗ và thủy triều trên sông Bạch Đằng",
+      "narration": "Thiếu lương, Thoát Hoan cho Ô Mã Nhi, Phàn Tiếp đem thủy quân theo sông Bạch Đằng rút về trước. Hưng Đạo Vương sai Nguyễn Khoái đẽo gỗ nhọn bịt sắt đóng giữa dòng sông, phục binh, đợi nước lên thì khiêu chiến nhử thuyền giặc qua bãi cọc, nước xuống thì quay lại đánh.",
+      "caption": "Thủy triều lên che bãi cọc; thủy triều xuống làm lộ bãi cọc.",
+      "timelineRange": 0.75,
+      "timeLabel": "Tháng ba năm Mậu Tý (1288)",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương VIII “Giặc nhà Nguyên – II”",
+        "quote": "kiếm gỗ đẽo nhọn bịt sắt đóng khắp giữaa giòng sông, rồi phục binh chờ đến lúc nào nước thủy-triều lên thì đem binh ra khiêu-chiến, nhử cho thuyền giặc qua chỗ đóng cọc. Hễ lúc nào nước thủy-triều xuống thì quay binh lại hết sức mà đánh.",
+        "note": "“giữaa” là lỗi chép của bản Wikisource, giữ nguyên.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_VIII"
+      }
+    },
+    {
+      "id": "mn-6",
+      "title": "Thủy quân Nguyên tan vỡ",
+      "narration": "Thủy triều rút, thuyền quân Nguyên vướng cọc, đổ nghiêng đổ ngửa. Ô Mã Nhi, Phàn Tiếp bị bắt. Trên bộ, Thoát Hoan rút qua ải Nội Bàng thì gặp phục binh của Phạm Ngũ Lão, quân sĩ tổn hại nặng.",
+      "caption": "Trận Bạch Đằng kết thúc cuộc kháng chiến lần thứ hai.",
+      "timelineRange": 1,
+      "timeLabel": "Tháng ba năm Mậu Tý (1288)",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương VIII “Giặc nhà Nguyên – II”",
+        "quote": "Trận Bạch-đằng-giang đánh vào tháng ba năm mậu-tí (1288) lấy được chiến-thuyền của quân Nguyên hơn 400 chiếc và bắt được quân-sĩ rất nhiều.",
+        "note": "Cùng mục: “Khi chạy đến khúc sông có cọc đóng thì nước thủy-triều đã rút xuống, thuyền của quân Nguyên vướng mắc phải cọc, đổ nghiêng đổ ngửa, đắm vỡ mất nhiều.”",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_VIII"
+      }
+    }
+  ],
+  "keyNotes": [
+    "Hội nghị Diên Hồng: các bô lão đồng thanh xin đánh; vua quyết ý kháng cự.",
+    "Rời Thăng Long để giữ triều đình và quân chủ lực; quân Nguyên lấy thành nhưng không kết thúc được chiến tranh.",
+    "Quân Nguyên sống nhờ thuyền lương; Trần Khánh Dư cướp đoàn thuyền lương của Trương Văn Hổ (1287).",
+    "Trận Bạch Đằng (1288): cọc nhọn bịt sắt đóng giữa dòng, lợi dụng thủy triều lên xuống; bắt Ô Mã Nhi, Phàn Tiếp, lấy hơn 400 chiến thuyền.",
+    "Lưu ý: cụm từ “vườn không nhà trống” chưa thấy trong các đoạn Việt Nam sử lược đã đọc; nếu dùng cần trích nguồn khác."
+  ],
+  "privateNotes": "Sổ tay giáo viên:\n- Bài này gộp hai lần kháng chiến (1285 và 1287 – 1288); lần thứ nhất (năm 1258) không nằm trong mô phỏng. Nguồn chính: Việt Nam sử lược (Trần Trọng Kim; Wikisource), Quyển I Phần III Chương VII – VIII. Chưa đối chiếu Đại Việt sử ký toàn thư.\n- Id bài vẫn là “khang-chien-mong-nguyen-vuon-khong” để giữ liên kết cũ; nội dung không còn dựa vào cụm “vườn không nhà trống” vì chưa có trích dẫn nguyên văn.\n- Số liệu bước 5 (2 880 giờ, 1 500 tổn thất ước tính, 90 điểm) là minh họa.\n- Gợi ý thảo luận: so sánh “đánh vào lương” ở Vân Đồn với việc chặn đường tải lương ở Xương Giang (1427).",
+  "questions": [
+    {
+      "id": "mn-q1",
+      "text": "Ở điện Diên Hồng, vua Trần Nhân Tông hỏi các bô lão điều gì?",
+      "type": "multiple_choice",
+      "sectionId": "mn-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "mn-q1-a",
+          "text": "Nên hòa hay nên đánh quân Nguyên",
+          "isCorrect": true,
+          "explanation": "Các bô lão đều đồng thanh xin đánh; vua thấy dân một lòng nên quyết ý kháng cự."
+        },
+        {
+          "id": "mn-q1-b",
+          "text": "Nên dời đô về đâu",
+          "isCorrect": false,
+          "explanation": "Hội nghị bàn việc hòa hay đánh, không bàn việc dời đô."
+        },
+        {
+          "id": "mn-q1-c",
+          "text": "Nên chọn ai làm Tiết chế",
+          "isCorrect": false,
+          "explanation": "Hưng Đạo Vương đã được phong Tiết chế từ trước (tháng mười năm 1283)."
+        }
+      ]
+    },
+    {
+      "id": "mn-q2",
+      "text": "Vì sao Thượng hoàng cho rằng sau trận Vân Đồn “thế nó không tràng-cửu được nữa”?",
+      "type": "multiple_choice",
+      "sectionId": "mn-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "mn-q2-a",
+          "text": "Vì quân Nguyên trông cậy vào lương thảo, khí giới, mà thuyền lương đã bị cướp hết",
+          "isCorrect": true,
+          "explanation": "Mất lương, quân Nguyên ở Vạn Kiếp không thể đóng lâu, phải tính đường rút."
+        },
+        {
+          "id": "mn-q2-b",
+          "text": "Vì Thoát Hoan đã bị bắt ở Vân Đồn",
+          "isCorrect": false,
+          "explanation": "Thoát Hoan không có mặt ở Vân Đồn; ông chạy thoát về nước sau trận Bạch Đằng."
+        },
+        {
+          "id": "mn-q2-c",
+          "text": "Vì quân Nguyên đã mất hết chiến thuyền ở Vân Đồn",
+          "isCorrect": false,
+          "explanation": "Ô Mã Nhi vẫn còn thủy quân; chiến thuyền Nguyên bị phá ở Bạch Đằng năm 1288."
+        }
+      ]
+    },
+    {
+      "id": "mn-q3",
+      "text": "Ở sông Bạch Đằng, quân Trần dùng thủy triều như thế nào?",
+      "type": "multiple_choice",
+      "sectionId": "mn-5",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "mn-q3-a",
+          "text": "Nước lên thì nhử thuyền giặc qua bãi cọc; nước xuống thì quay lại đánh",
+          "isCorrect": true,
+          "explanation": "Khi nước rút, thuyền Nguyên vướng cọc, đổ nghiêng đổ ngửa."
+        },
+        {
+          "id": "mn-q3-b",
+          "text": "Chờ nước lên thật cao rồi mới đóng cọc",
+          "isCorrect": false,
+          "explanation": "Cọc được đóng trước; nước lên để che bãi cọc."
+        },
+        {
+          "id": "mn-q3-c",
+          "text": "Không dựa vào thủy triều, chỉ dùng hỏa công",
+          "isCorrect": false,
+          "explanation": "Việt Nam sử lược mô tả rõ việc chờ thủy triều lên xuống."
+        }
+      ]
+    },
+    {
+      "id": "mn-q4",
+      "text": "Nhà Trần hai lần rời bỏ Thăng Long. Theo em, đó là quyết định khó khăn ở điểm nào, và vì sao nó lại giúp thắng cuộc chiến?",
+      "type": "open_discussion",
+      "sectionId": "mn-2",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở: mất kinh thành là mất danh dự và nhà cửa của dân; đổi lại giữ được triều đình, quân chủ lực, kéo dài chiến tranh khi quân Nguyên “đường xa muôn dặm”, sống nhờ lương chở từ xa. Liên hệ với trận Vân Đồn."
+    }
+  ],
+  "baseline": {
+    "durationHours": 2880,
+    "casualties": 1500,
+    "positionScore": 90,
+    "ratingText": "Thủy quân Nguyên tan vỡ ở Bạch Đằng"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": true,
+      "tents": true,
+      "elephants": true,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "aInfantry": 34,
+      "aSpecial": 8,
+      "bInfantry": 40,
+      "bArtillery": 10
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 0.4,
+        "preset": "follow_troops"
+      },
+      {
+        "time": 0.55,
+        "preset": "top_down"
+      },
+      {
+        "time": 0.8,
+        "preset": "close_up"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "coast-river",
+      "labels": [
+        {
+          "text": "Sông Bạch Đằng",
+          "at": [
+            -70,
+            -24
+          ]
+        },
+        {
+          "text": "Bãi cọc",
+          "at": [
+            6,
+            -30
+          ]
+        },
+        {
+          "text": "Ra biển",
+          "at": [
+            96,
+            18
+          ]
+        },
+        {
+          "text": "Hướng Vạn Kiếp",
+          "at": [
+            -96,
+            -62
+          ]
+        },
+        {
+          "text": "Phục binh",
+          "at": [
+            -14,
+            32
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "river",
+          "points": [
+            [
+              -120,
+              -40
+            ],
+            [
+              -60,
+              -24
+            ],
+            [
+              0,
+              -12
+            ],
+            [
+              60,
+              0
+            ],
+            [
+              120,
+              14
+            ]
+          ],
+          "size": 26
+        },
+        {
+          "type": "stakes",
+          "points": [
+            [
+              -6,
+              -24
+            ],
+            [
+              18,
+              -4
+            ]
+          ],
+          "size": 6
+        },
+        {
+          "type": "hill",
+          "at": [
+            -30,
+            -66
+          ],
+          "size": 14
+        },
+        {
+          "type": "hill",
+          "at": [
+            40,
+            46
+          ],
+          "size": 12
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              -50,
+              20
+            ],
+            [
+              10,
+              46
+            ]
+          ]
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              10,
+              -70
+            ],
+            [
+              60,
+              -46
+            ]
+          ]
+        },
+        {
+          "type": "marsh",
+          "at": [
+            70,
+            -24
+          ],
+          "size": 12
+        },
+        {
+          "type": "camp",
+          "at": [
+            -16,
+            38
+          ],
+          "size": 18,
+          "faction": "a"
+        },
+        {
+          "type": "camp",
+          "at": [
+            34,
+            -52
+          ],
+          "size": 16,
+          "faction": "a"
+        },
+        {
+          "type": "village",
+          "at": [
+            -84,
+            52
+          ],
+          "size": 12
+        }
+      ],
+      "routes": [
+        {
+          "faction": "b",
+          "points": [
+            [
+              -116,
+              -38
+            ],
+            [
+              -60,
+              -24
+            ],
+            [
+              -4,
+              -12
+            ],
+            [
+              40,
+              -4
+            ]
+          ],
+          "from": 0.2,
+          "to": 0.7
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              60,
+              4
+            ],
+            [
+              30,
+              -2
+            ],
+            [
+              10,
+              -8
+            ]
+          ],
+          "from": 0.45,
+          "to": 0.6
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              -16,
+              32
+            ],
+            [
+              -6,
+              4
+            ],
+            [
+              4,
+              -10
+            ]
+          ],
+          "from": 0.72,
+          "to": 0.86
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              34,
+              -48
+            ],
+            [
+              24,
+              -24
+            ],
+            [
+              12,
+              -14
+            ]
+          ],
+          "from": 0.72,
+          "to": 0.86
+        }
+      ],
+      "formations": {
+        "a": {
+          "from": [
+            -14,
+            36
+          ],
+          "to": [
+            2,
+            -6
+          ]
+        },
+        "b": {
+          "from": [
+            -80,
+            -30
+          ],
+          "to": [
+            8,
+            -12
+          ]
+        }
+      },
+      "aSpecialKind": "boat",
+      "bSpecialKind": "boat"
+    },
+    "outcomes": {
+      "perfect": "Các lựa chọn của em trùng với cách nhà Trần đã làm: quân Nguyên mất lương, thủy quân tan vỡ ở Bạch Đằng.",
+      "positive": "Theo giả định của bài, quân dân Đại Việt vẫn thắng nhưng cuộc chiến kéo dài hơn và tổn thất nhiều hơn.",
+      "moderate": "Thế trận giằng co: quân Nguyên còn đủ lương và thuyền để đóng giữ lâu hơn.",
+      "challenging": "Thế trận khó khăn: quân chủ lực nhà Trần phải đối đầu trực diện với quân Nguyên đang lúc mạnh nhất."
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Hưng Đạo Vương Trần Quốc Tuấn",
+      "dynasty": "Nhà Trần (1226 – 1400)",
+      "greeting": "Hỡi các em, những người đọc sử đời sau!",
+      "speech": "Ta đã rước vua ra khỏi kinh thành, để Khánh Dư đánh thuyền lương, rồi đợi thủy triều ở Bạch Đằng. Nếu các em đứng ở chỗ của ta, các em sẽ quyết định khác ở điểm nào?"
+    },
+    "originalLabel": "Cách của nhà Trần năm 1285 – 1288",
+    "variables": [
+      {
+        "id": "capital",
+        "title": "1. Khi quân Nguyên kéo đến Thăng Long",
+        "description": "Quân Nguyên đang lúc mạnh nhất, kéo đến chân thành.",
+        "options": [
+          {
+            "id": "leave",
+            "isOriginal": true,
+            "name": "Rước vua ra khỏi kinh thành, giữ quân chủ lực (cách gốc)",
+            "shortName": "Rời Thăng Long",
+            "desc": "Để lại một ít quân giữ thành, đưa triều đình và chủ lực đi nơi khác.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: Hưng Đạo Vương rước xa giá ra ngoài Thăng Long, để các tướng ở lại giữ thành."
+          },
+          {
+            "id": "hold",
+            "isOriginal": false,
+            "name": "Dồn quân chủ lực giữ Thăng Long đến cùng",
+            "shortName": "Giữ Thăng Long đến cùng",
+            "desc": "Không để kinh thành rơi vào tay đối phương.",
+            "timeDelta": -240,
+            "casualtyDelta": 1600,
+            "positionScoreDelta": -24,
+            "assumptions": "Giả định của bài: trận quyết chiến diễn ra sớm hơn, ở nơi và lúc quân Nguyên mạnh nhất; tổn thất rất lớn."
+          },
+          {
+            "id": "delay",
+            "isOriginal": false,
+            "name": "Tiếp tục xin hoãn binh, chưa đánh",
+            "shortName": "Xin hoãn binh",
+            "desc": "Cử thêm sứ, mong quân Nguyên dừng lại.",
+            "timeDelta": 480,
+            "casualtyDelta": 900,
+            "positionScoreDelta": -20,
+            "assumptions": "Thực tế vua Trần đã sai sứ xin hoãn binh và bị từ chối. Giả định của bài: thời gian chuẩn bị bị mất, quân Nguyên vẫn tiến."
+          }
+        ]
+      },
+      {
+        "id": "grain",
+        "title": "2. Khi đoàn thuyền lương Nguyên vượt biển sang",
+        "description": "Ô Mã Nhi đi trước dẹp đường, thuyền lương Trương Văn Hổ theo sau.",
+        "options": [
+          {
+            "id": "raid_grain",
+            "isOriginal": true,
+            "name": "Phục sẵn, đánh đoàn thuyền lương đi sau (cách gốc)",
+            "shortName": "Đánh thuyền lương",
+            "desc": "Để thủy quân chiến đi qua, dồn sức phá thuyền lương.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: Trần Khánh Dư phục quân đợi thuyền lương, “phá cướp mất cả”."
+          },
+          {
+            "id": "fight_fleet",
+            "isOriginal": false,
+            "name": "Dốc sức chặn thủy quân Ô Mã Nhi đi trước",
+            "shortName": "Chặn thủy quân Ô Mã Nhi",
+            "desc": "Đánh vào đoàn thuyền chiến mạnh nhất.",
+            "timeDelta": 720,
+            "casualtyDelta": 900,
+            "positionScoreDelta": -16,
+            "assumptions": "Giả định của bài: đối đầu thuyền chiến tốn nhiều lực lượng; đoàn thuyền lương có thể lọt qua, quân Nguyên đóng giữ lâu hơn."
+          },
+          {
+            "id": "let_pass",
+            "isOriginal": false,
+            "name": "Để cả đoàn đi qua, giữ lực lượng cho trận sau",
+            "shortName": "Để đoàn thuyền đi qua",
+            "desc": "Tránh giao chiến trên biển.",
+            "timeDelta": 1440,
+            "casualtyDelta": 600,
+            "positionScoreDelta": -22,
+            "assumptions": "Giả định của bài: quân Nguyên đủ lương, không phải rút sớm; chiến tranh kéo dài."
+          }
+        ]
+      },
+      {
+        "id": "bach_dang",
+        "title": "3. Khi thủy quân Nguyên rút theo sông Bạch Đằng",
+        "description": "Ô Mã Nhi, Phàn Tiếp đem thủy quân về trước.",
+        "options": [
+          {
+            "id": "stakes_tide",
+            "isOriginal": true,
+            "name": "Đóng cọc giữa dòng, chờ thủy triều, nhử rồi đánh (cách gốc)",
+            "shortName": "Cọc gỗ và thủy triều",
+            "desc": "Dùng bãi cọc và nước rút để thuyền đối phương mắc cạn.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: thuyền quân Nguyên “vướng mắc phải cọc, đổ nghiêng đổ ngửa”."
+          },
+          {
+            "id": "block_mid",
+            "isOriginal": false,
+            "name": "Dàn thuyền chặn giữa dòng, đánh trực diện",
+            "shortName": "Chặn giữa dòng",
+            "desc": "Đối đầu thuyền với thuyền, không chờ thủy triều.",
+            "timeDelta": 24,
+            "casualtyDelta": 1100,
+            "positionScoreDelta": -18,
+            "assumptions": "Giả định của bài: thủy quân Nguyên còn mạnh, trận đánh ngang sức; nhiều thuyền Nguyên thoát ra biển."
+          },
+          {
+            "id": "land_only",
+            "isOriginal": false,
+            "name": "Không đánh trên sông, chỉ phục kích đường bộ ở ải Nội Bàng",
+            "shortName": "Chỉ đánh trên bộ",
+            "desc": "Để thủy quân đi, dồn sức đánh đạo quân bộ.",
+            "timeDelta": 96,
+            "casualtyDelta": 500,
+            "positionScoreDelta": -14,
+            "assumptions": "Giả định của bài: đạo bộ binh bị đánh nặng, nhưng thủy quân Nguyên về được, chiến tranh có thể quay lại sớm."
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Cảm ơn các em đã thử đứng ở chỗ của nhà Trần. Mỗi lựa chọn đều có lí lẽ; ta cùng xem cái được và cái mất.",
+    "variableFeedbacks": {
+      "capital": {
+        "leave": "Em đã thấy điều khó thấy: mất kinh thành chưa phải là mất nước, nếu giữ được triều đình và quân chủ lực.",
+        "hold": "Giữ kinh thành là tấm lòng đáng quý; nhưng đánh ở nơi và lúc đối phương mạnh nhất thì cái giá rất đắt.",
+        "delay": "Tìm đường tránh chiến tranh là mong muốn chính đáng; nhà Trần cũng đã thử, và đối phương không chịu dừng."
+      },
+      "grain": {
+        "raid_grain": "Em đã đánh vào chỗ đối phương dựa vào nhiều nhất: một đạo quân lớn không thể đứng lâu khi thiếu lương.",
+        "fight_fleet": "Đánh vào đoàn thuyền chiến mạnh nhất cho thấy dũng khí; câu hỏi là ai sẽ ngăn đoàn thuyền lương.",
+        "let_pass": "Giữ sức cho trận sau là thận trọng; nhưng đủ lương thì đối phương cũng đủ thời gian."
+      },
+      "bach_dang": {
+        "stakes_tide": "Em đã biết mượn sức thiên nhiên: thủy triều và bãi cọc làm thay việc của hàng vạn quân.",
+        "block_mid": "Chặn giữa dòng là cách đánh can đảm; nhưng không có thủy triều giúp sức thì hai bên ngang nhau.",
+        "land_only": "Đánh trên bộ là chọn chỗ mình mạnh; cái giá là thủy quân đối phương còn nguyên."
+      }
+    },
+    "encouragingConclusion": "Nhà Trần thắng nhờ biết lúc nào nên lùi, đánh vào chỗ đối phương dựa vào, và mượn địa hình, thủy triều. Hãy tiếp tục đọc sử bằng câu hỏi “vì sao”."
+  }
+}

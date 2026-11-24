@@ -83,7 +83,7 @@ Merge vào `main` sẽ cập nhật production: https://vietnam-history-eight.ve
 
 ## Lưu ý
 
-- Mọi bản deploy, kể cả Preview của `Staging`, đều gọi API production vì `frontend/js/config.js` chỉ có một `DEPLOYED_API_BASE`.
+- Mọi bản deploy, kể cả Preview của `Staging`, đều gọi API production vì `frontend/src/lib/class-session.ts` chỉ có một `DEPLOYED_API_BASE` (có thể ghi đè lúc build bằng biến `VITE_API_BASE`).
 - Bản Preview bị Vercel Authentication chặn với người ngoài; trang production thì công khai.
 - **Đổi domain trang web:** thêm domain mới vào `ALLOWED_ORIGINS` (env production) trong `backend/wrangler.toml` rồi deploy lại backend.
 - **Rollback:**

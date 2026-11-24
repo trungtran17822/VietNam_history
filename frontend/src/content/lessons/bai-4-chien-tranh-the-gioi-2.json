@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "bai-4-chien-tranh-the-gioi-2",
+  "era": "1939–1945",
+  "factions": {
+    "a": {
+      "name": "Liên Xô",
+      "color": "#b91c1c"
+    },
+    "b": {
+      "name": "Đức",
+      "color": "#475569"
+    }
+  },
+  "title": "Bài 4. Chiến tranh thế giới thứ hai (1939–1945)",
+  "subtitle": "Nguyên nhân, diễn biến chính, bước ngoặt Xta-lin-grát và ý nghĩa lịch sử đánh bại chủ nghĩa phát xít",
+  "year": "1939–1945",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 9A1",
+  "date": "2026-10-28",
+  "subject": "Lịch sử",
+  "grade": "Khối 9",
+  "period": "Tiết 4 · 45 phút",
+  "objectives": "Trình bày được nguyên nhân và diễn biến chủ yếu của Chiến tranh thế giới thứ hai; phân tích được hậu quả của cuộc chiến đối với lịch sử nhân loại; nêu được nguyên nhân thắng lợi, ý nghĩa lịch sử, vai trò của Liên Xô và các nước Đồng minh trong chiến thắng chủ nghĩa phát xít.",
+  "focusQuestion": "Vì sao trận phản công Xta-lin-grát được coi là bước ngoặt quyết định của Chiến tranh thế giới thứ hai?",
+  "status": "Đã dạy",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh hoạ, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ SƠ ĐỒ MINH HOẠ CHIẾN THUẬT, KHÔNG THEO ĐÚNG TỈ LỆ ĐỊA LÝ THỰC TẾ. Mọi chỉ số dùng thang điểm /100 để kích thích tư duy phản biện.",
+  "introSummary": "Chiến tranh thế giới thứ hai (1939–1945) là thảm hoạ đẫm máu nhất trong lịch sử nhân loại, bắt nguồn từ tham vọng phân chia lại thế giới của khối phát xít Đức – I-ta-li-a – Nhật Bản và chính sách dung dưỡng thoả hiệp của các nước phương Tây. Cuộc chiến đã xoay chuyển cục diện sau chiến thắng vĩ đại tại Xta-lin-grát và kết thúc với sự đầu hàng không điều kiện của các thế lực phát xít năm 1945.",
+  "explorationMode": "stalingrad_3d",
+  "sourceCitation": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)",
+  "timeline": [
+    {
+      "year": "1938",
+      "event": "Đức sáp nhập Áo; 30-9: Hội nghị Muy-ních, Anh – Pháp thoả hiệp cho Đức thôn tính một phần Tiệp Khắc"
+    },
+    {
+      "year": "1939 (3)",
+      "event": "Đức chiếm hoàn toàn Tiệp Khắc"
+    },
+    {
+      "year": "1939 (23-8)",
+      "event": "Liên Xô kí Hiệp ước không xâm phạm nhau với Đức"
+    },
+    {
+      "year": "1939 (1-9)",
+      "event": "Đức tấn công Ba Lan; 3-9: Anh, Pháp tuyên chiến, chiến tranh thế giới thứ hai bùng nổ"
+    },
+    {
+      "year": "1940 (5)",
+      "event": "Đức tổng tấn công ở phía tây, chiếm Hà Lan, Bỉ, Lúc-xăm-bua, Pháp, Đan Mạch, Na Uy; sau đó oanh tạc Anh"
+    },
+    {
+      "year": "1941 (22-6)",
+      "event": "Đức tấn công Liên Xô"
+    },
+    {
+      "year": "1941 (7-12)",
+      "event": "Nhật tấn công Trân Châu Cảng (Hawaii), Mỹ tham chiến"
+    },
+    {
+      "year": "1942 (1-1)",
+      "event": "26 quốc gia kí Tuyên ngôn Liên hợp quốc tại Oa-sinh-tơn, Khối Đồng minh ra đời"
+    },
+    {
+      "year": "1942 (6)",
+      "event": "Nhật thất bại trước hải quân Mỹ ở đảo Mít-uây"
+    },
+    {
+      "year": "1942 (11) – 1943 (2)",
+      "event": "Liên Xô phản công, thắng lợi ở Xta-lin-grát, tạo bước ngoặt cuộc chiến"
+    },
+    {
+      "year": "1943 (giữa năm)",
+      "event": "Đức và I-ta-li-a thua ở Bắc Phi; Mút-xô-li-ni bị lật đổ"
+    },
+    {
+      "year": "1944 (6-6)",
+      "event": "Liên quân Anh – Mỹ đổ bộ Noóc-măng-đi, mở mặt trận thứ hai ở Tây Âu"
+    },
+    {
+      "year": "1945 (30-4)",
+      "event": "Hồng quân Liên Xô tiến vào Béc-lin"
+    },
+    {
+      "year": "1945 (9-5)",
+      "event": "Đức kí hiệp định đầu hàng không điều kiện, chiến tranh kết thúc ở châu Âu"
+    },
+    {
+      "year": "1945 (6 và 9-8)",
+      "event": "Mỹ thả bom nguyên tử xuống Hi-rô-si-ma và Na-ga-xa-ki"
+    },
+    {
+      "year": "1945 (8-8)",
+      "event": "Hồng quân Liên Xô tấn công quân Nhật ở Đông Bắc Trung Quốc"
+    },
+    {
+      "year": "1945 (15-8)",
+      "event": "Nhật chấp nhận đầu hàng không điều kiện, chiến tranh thế giới thứ hai kết thúc"
+    }
+  ],
+  "reviewFlags": [
+    "Bộ sách: xác nhận từ bìa.",
+    "Lược đồ 4.3 và 4.4: ranh giới các đường mặt trận, hướng mũi tên và vị trí các thành phố phải lấy đúng từ bản gốc, không đoán.",
+    "Số liệu hậu quả (gần 60 triệu người chết, 90 triệu tàn tật, hơn 6 triệu người Do Thái, khoảng 27 triệu người Xô viết): kiểm tra lại với bản gốc; số liệu lịch sử có thể khác nhau giữa các nguồn.",
+    "Hai mốc ghi trong trục thời gian Luyện tập đã đọc từ ảnh: 6-1942 (Mít-uây) và 2-1943 (kết thúc Xta-lin-grát).",
+    "Cách phiên âm tên riêng (Muy-ních, Noóc-măng-đi, Xta-lin-grát, Mít-uây, Trân Châu Cảng...) giữ như sách.",
+    "Phương án mô phỏng \"Thay đổi thời điểm khép vòng vây\" là giả định ngoài tư liệu gốc (lấy theo gợi ý câu hỏi \"Nếu... thì sao?\" trong giáo án) để so sánh hiệu quả cô lập đối phương và bẻ gãy mũi giải vây."
+  ],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "Mục 1. Nguyên nhân bùng nổ",
+      "narration": "Sau chiến tranh thế giới thứ nhất, mâu thuẫn sâu sắc về thị trường và thuộc địa giữa các nước đế quốc càng bị khoét sâu bởi cuộc đại suy thoái 1929–1933. Các nước phát xít Đức, I-ta-li-a, Nhật Bản ráo riết chuẩn bị chiến tranh chia lại thế giới. Trước nguy cơ chiến tranh, Anh và Pháp thực hiện chính sách thoả hiệp nhân nhượng; còn Mỹ giữ chính sách biệt lập đối với châu Âu. Sự nhân nhượng tại Hội nghị Muy-ních (30-9-1938) đã tạo điều kiện cho Hít-le sáp nhập Áo, chiếm Tiệp Khắc và mưu đồ tiêu diệt Liên Xô. Để tự bảo vệ trước nguy cơ chiến tranh, ngày 23-8-1939 Liên Xô kí Hiệp ước không xâm phạm nhau với Đức. Ngày 1-9-1939 Đức tấn công Ba Lan; ngày 3-9, Anh và Pháp tuyên chiến với Đức, Chiến tranh thế giới thứ hai chính thức bùng nổ.",
+      "caption": "Chính sách thoả hiệp nhân nhượng của phương Tây tạo cơ hội cho Hít-le phát động chiến tranh thế giới.",
+      "timelineRange": 0.1,
+      "timeLabel": "1938–1939",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 1",
+        "quote": "Khi đối phó với Đức, Anh và Pháp theo đường lối thoả hiệp, còn Mỹ giữ chính sách biệt lập... Ngày 1-9-1939 Đức tấn công Ba Lan; ngày 3-9, Anh và Pháp tuyên chiến với Đức, chiến tranh bùng nổ.",
+        "note": "Chính sách thoả hiệp và biệt lập đã làm suy yếu mặt trận an ninh tập thể chống phát xít."
+      }
+    },
+    {
+      "id": "sec-2",
+      "title": "Mục 2. Giai đoạn 1: Chiến tranh bùng nổ và lan rộng ra toàn thế giới (1939–1941)",
+      "narration": "Tháng 5-1940, quân Đức tổng tấn công ở phía tây, đánh chiếm Hà Lan, Bỉ, Lúc-xăm-bua, Pháp, Đan Mạch, Na Uy, rồi oanh tạc Luân Đôn nhưng không khuất phục được nước Anh. Ngày 22-6-1941, phát xít Đức bội ước bất ngờ tấn công Liên Xô; quân dân Liên Xô kiên cường phòng ngự tại Lê-nin-grát và ngoại vi Mát-xcơ-va. Tại châu Á – Thái Bình Dương, ngày 7-12-1941 Nhật Bản bất ngờ tập kích hạm đội Mỹ ở Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và chính thức tham chiến. Chiến tranh bùng phát dữ dội trên khắp châu Âu, Bắc Phi và châu Á – Thái Bình Dương.",
+      "caption": "Phát xít Đức tấn công Liên Xô (22-6-1941) và Nhật Bản tập kích Trân Châu Cảng (7-12-1941).",
+      "timelineRange": 0.35,
+      "timeLabel": "1939–1941",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "22-6-1941: Đức tấn công Liên Xô; trận chiến khốc liệt nhất diễn ra ở Lê-nin-grát và ngoại ô Mát-xcơ-va... 7-12-1941 tấn công Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và tham chiến.",
+        "note": "Chiến tranh lan rộng quy mô toàn cầu lôi cuốn các cường quốc vào cuộc quyết chiến."
+      }
+    },
+    {
+      "id": "sec-3",
+      "title": "Mục 2. Giai đoạn 2: Quân Đồng minh phản công, chiến tranh kết thúc (1942–1945)",
+      "narration": "Ngày 1-1-1942, 26 quốc gia đứng đầu là Liên Xô, Mỹ, Anh kí Tuyên ngôn Liên hợp quốc chống phát xít, Khối Đồng minh chính thức ra đời. Từ tháng 11-1942 đến tháng 2-1943, Hồng quân Liên Xô phản công thắng lợi rực rỡ tại Xta-lin-grát: từ hai phòng tuyến ngày 19-11 và 30-11-1942, các cánh quân Liên Xô khép chặt vòng vây bao vây Tập đoàn quân số 6 của Đức và bẻ gãy mũi giải vây, tạo bước ngoặt căn bản của cuộc chiến. Ngày 6-6-1944, liên quân Anh – Mỹ với khoảng 160 000 quân đổ bộ Noóc-măng-đi mở mặt trận thứ hai ở Tây Âu. Ngày 30-4-1945, Hồng quân cắm cờ chiến thắng tại Béc-lin; ngày 9-5-1945 phát xít Đức kí văn kiện đầu hàng không điều kiện. Sau khi Mỹ ném bom nguyên tử xuống Hi-rô-si-ma và Na-ga-xa-ki và Liên Xô đè bẹp đạo quân Nhật ở Đông Bắc Trung Quốc, ngày 15-8-1945 Nhật Bản chấp nhận đầu hàng không điều kiện, chiến tranh thế giới thứ hai kết thúc.",
+      "caption": "Trận phản công Xta-lin-grát tạo bước ngoặt xoay chuyển cục diện đưa Khối Đồng minh tới thắng lợi hoàn toàn.",
+      "timelineRange": 0.65,
+      "timeLabel": "1942–1945",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 2",
+        "quote": "Trận Xta-lin-grát (11-1942 đến 2-1943): Liên Xô phản công thắng lợi, bao vây Tập đoàn quân số 6 của Đức; đây là bước ngoặt của chiến tranh. Lược đồ 4.4 thể hiện: mặt trận ngày 19-11-1942, mặt trận ngày 30-11-1942, các đạo quân Liên Xô phản công, đạo quân Đức giải vây, Tập đoàn quân số 6 của Đức bị bao vây.",
+        "note": "Lược đồ 4.4 là tư liệu trực quan duy nhất về cuộc phản công tạo bước ngoặt chiến tranh tại Xta-lin-grát."
+      }
+    },
+    {
+      "id": "sec-4",
+      "title": "Mục 3. Hậu quả của Chiến tranh thế giới thứ hai",
+      "narration": "Chiến tranh thế giới thứ hai để lại hậu quả vô cùng thảm khốc cho nhân loại: khoảng gần 60 triệu người chết, 90 triệu người tàn tật, thiệt hại vật chất ước tính gấp 10 lần chiến tranh thế giới thứ nhất. Hơn một nửa số người thiệt mạng là thường dân vô tội do vũ khí huỷ diệt và chiến sự tàn phá. Chủ nghĩa phát xít Đức đã gây nên tội ác diệt chủng Holocaust dã man, cướp đi sinh mạng của hơn 6 triệu người Do Thái trong các trại tập trung tàn bạo, để lại vết thương sâu sắc trong lương tri loài người.",
+      "caption": "Hậu quả tàn khốc của chiến tranh và tội ác diệt chủng Holocaust nhắc nhở trách nhiệm bảo vệ hoà bình.",
+      "timelineRange": 0.85,
+      "timeLabel": "1939–1945",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 3",
+        "quote": "Khoảng gần 60 triệu người chết, 90 triệu người tàn tật; thiệt hại vật chất gấp khoảng 10 lần chiến tranh thế giới thứ nhất... Hơn 6 triệu người Do Thái bị sát hại, hơn một nửa bị giết trong các trại tập trung của Đức Quốc xã. Thuật ngữ \"Holocaust\" chỉ nạn diệt chủng này.",
+        "note": "Hậu quả to lớn đòi hỏi nhân loại phải chung tay ngăn chặn mọi mầm mống phát xít và chiến tranh."
+      }
+    },
+    {
+      "id": "sec-5",
+      "title": "Mục 4. Nguyên nhân thắng lợi, ý nghĩa lịch sử, vai trò của Liên Xô và Đồng minh",
+      "narration": "Thắng lợi vĩ đại trước chủ nghĩa phát xít là kết tinh của tinh thần chiến đấu quả cảm vì chính nghĩa của nhân dân toàn thế giới, sự hi sinh to lớn của Hồng quân Liên Xô và liên quân Đồng minh cùng phong trào kháng chiến kiên cường ở các nước bị chiếm đóng. Trong đó, Liên Xô là lực lượng trụ cột giữ vai trò quyết định đánh bại cỗ máy chiến tranh phát xít, chịu tổn thất nặng nề nhất với khoảng 27 triệu người thiệt mạng. Chiến thắng đã cứu loài người khỏi thảm hoạ phát xít, bảo vệ nền hoà bình, an ninh quốc tế và mở đường cho phong trào giải phóng dân tộc bùng nổ, tạo thời cơ lịch sử để nhân dân Việt Nam tiến hành Cách mạng tháng Tám năm 1945 thắng lợi.",
+      "caption": "Liên Xô và Khối Đồng minh giữ vai trò trụ cột đánh bại chủ nghĩa phát xít, mở ra thời cơ độc lập cho các dân tộc.",
+      "timelineRange": 0.98,
+      "timeLabel": "1945",
+      "source": {
+        "book": "Lịch sử và Địa lí 9, Chân trời sáng tạo, Bài 4, trang 20–25 (NXB Giáo dục Việt Nam)",
+        "chapter": "Mục 4",
+        "quote": "Liên Xô và các nước Đồng minh là lực lượng trụ cột, giữ vai trò quyết định; chiến công của Hồng quân làm suy yếu quân sự, kinh tế Đức, tạo điều kiện cho Đồng minh phản công. Liên Xô chịu nhiều mất mát nhất, khoảng 27 triệu người Xô viết thiệt mạng.",
+        "note": "Chiến thắng phát xít tạo điều kiện quốc tế thuận lợi cho Cách mạng tháng Tám năm 1945 ở Việt Nam."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Nguyên nhân chiến tranh: Mâu thuẫn đế quốc sau đại suy thoái và chính sách thoả hiệp nhân nhượng của Anh, Pháp tại Muy-ních (1938).",
+    "Ngày 1-9-1939, Đức tấn công Ba Lan; ngày 3-9, Anh và Pháp tuyên chiến, Chiến tranh thế giới thứ hai chính thức bùng nổ.",
+    "Ngày 22-6-1941 phát xít Đức tấn công Liên Xô; ngày 7-12-1941 Nhật Bản tập kích Trân Châu Cảng, lôi cuốn Mỹ vào cuộc chiến.",
+    "Ngày 1-1-1942, Khối Đồng minh ra đời với 26 quốc gia kí Tuyên ngôn Liên hợp quốc chống phát xít.",
+    "Trận Xta-lin-grát (11-1942 đến 2-1943) bao vây Tập đoàn quân số 6 của Đức là bước ngoặt quyết định xoay chuyển cục diện chiến tranh.",
+    "Chiến tranh kết thúc ngày 15-8-1945; gần 60 triệu người chết (khoảng 27 triệu người Xô viết); mở ra thời cơ Cách mạng tháng Tám ở Việt Nam."
+  ],
+  "privateNotes": "Sổ tay Sư phạm Nội bộ (Giáo viên):\n- Luyện tập 1: Hoàn thành trục thời gian 9 mốc sự kiện chính (9-1939, 5-1940, 22-6-1941, 7-12-1941, 6-1942, 2-1943, 6-6-1944, 9-5-1945, 15-8-1945).\n- Luyện tập 2 & Vận dụng: Dựa trên Lược đồ 4.4, học sinh viết đoạn văn ngắn khoảng 150 chữ miêu tả trận phản công ở Xta-lin-grát.\n- Lưu ý đạo đức khi giảng dạy: Nội dung về Holocaust, bom nguyên tử và thương vong dân thường cần diễn đạt khách quan, đúng sự thật, tôn trọng nạn nhân.\n- Sơ đồ sa bàn: Nhấn mạnh đây là sơ đồ chiến thuật minh hoạ theo Lược đồ 4.4, không vẽ biểu tượng hay cờ Quốc xã, phân biệt bằng nhãn \"Liên Xô\" và \"Đức\".",
+  "questions": [
+    {
+      "id": "b4-q1",
+      "text": "Chính sách nào của Anh, Pháp trước chiến tranh góp phần tạo điều kiện cho Đức bành trướng?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q1-a",
+          "text": "Tấn công phủ đầu",
+          "isCorrect": false,
+          "explanation": "Anh và Pháp không tấn công phủ đầu mà lựa chọn nhượng bộ thoả hiệp."
+        },
+        {
+          "id": "b4-q1-b",
+          "text": "Thoả hiệp, nhân nhượng",
+          "isCorrect": true,
+          "explanation": "Chính sách thoả hiệp, nhân nhượng tại Hội nghị Muy-ních đã tạo điều kiện cho Hít-le sáp nhập Áo và chiếm Tiệp Khắc."
+        },
+        {
+          "id": "b4-q1-c",
+          "text": "Liên minh quân sự với Liên Xô",
+          "isCorrect": false,
+          "explanation": "Anh, Pháp khước từ đề nghị lập liên minh an ninh tập thể của Liên Xô."
+        },
+        {
+          "id": "b4-q1-d",
+          "text": "Biệt lập hoàn toàn",
+          "isCorrect": false,
+          "explanation": "Chính sách biệt lập là của Mỹ, không phải của Anh và Pháp."
+        }
+      ]
+    },
+    {
+      "id": "b4-q2",
+      "text": "Chính sách đối ngoại chủ đạo của Mỹ đối với châu Âu trước năm 1941 là gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q2-a",
+          "text": "Liên minh chặt chẽ với Anh – Pháp",
+          "isCorrect": false,
+          "explanation": "Mỹ không tham gia liên minh quân sự với Anh - Pháp trước năm 1941."
+        },
+        {
+          "id": "b4-q2-b",
+          "text": "Tấn công Đức",
+          "isCorrect": false,
+          "explanation": "Mỹ chỉ tham chiến sau khi bị Nhật Bản bất ngờ tấn công ngày 7-12-1941."
+        },
+        {
+          "id": "b4-q2-c",
+          "text": "Thành lập Quốc tế Cộng sản",
+          "isCorrect": false,
+          "explanation": "Quốc tế Cộng sản được thành lập sau Chiến tranh thế giới thứ nhất, không phải chính sách đối ngoại của Mỹ."
+        },
+        {
+          "id": "b4-q2-d",
+          "text": "Chính sách biệt lập",
+          "isCorrect": true,
+          "explanation": "Trước năm 1941, nước Mỹ thực hiện chính sách biệt lập, không can thiệp vào các biến động ở châu Âu."
+        }
+      ]
+    },
+    {
+      "id": "b4-q3",
+      "text": "Ngày 23-8-1939, sự kiện ngoại giao nổi bật nào đã diễn ra?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q3-a",
+          "text": "Liên Xô kí Hiệp ước không xâm phạm nhau với Đức",
+          "isCorrect": true,
+          "explanation": "Ngày 23-8-1939, Liên Xô kí Hiệp ước không xâm phạm nhau với Đức để bảo vệ an ninh đất nước trước nguy cơ bị xâm lược."
+        },
+        {
+          "id": "b4-q3-b",
+          "text": "Đức tấn công Ba Lan",
+          "isCorrect": false,
+          "explanation": "Đức tấn công Ba Lan vào ngày 1-9-1939."
+        },
+        {
+          "id": "b4-q3-c",
+          "text": "Hội nghị Muy-ních",
+          "isCorrect": false,
+          "explanation": "Hội nghị Muy-ních diễn ra ngày 30-9-1938."
+        },
+        {
+          "id": "b4-q3-d",
+          "text": "Nhật tấn công Trân Châu Cảng",
+          "isCorrect": false,
+          "explanation": "Nhật tấn công Trân Châu Cảng vào ngày 7-12-1941."
+        }
+      ]
+    },
+    {
+      "id": "b4-q4",
+      "text": "Chiến tranh thế giới thứ hai bùng nổ khi nào và bằng sự kiện gì?",
+      "type": "multiple_choice",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q4-a",
+          "text": "22-6-1941, Đức tấn công Liên Xô",
+          "isCorrect": false,
+          "explanation": "22-6-1941 là thời điểm chiến tranh vệ quốc của Liên Xô bùng nổ, chiến tranh thế giới đã nổ ra từ năm 1939."
+        },
+        {
+          "id": "b4-q4-b",
+          "text": "1-9-1939, Đức tấn công Ba Lan; 3-9 Anh, Pháp tuyên chiến",
+          "isCorrect": true,
+          "explanation": "Ngày 1-9-1939 Đức tấn công Ba Lan; ngày 3-9 Anh và Pháp tuyên chiến với Đức, Chiến tranh thế giới thứ hai chính thức bùng nổ."
+        },
+        {
+          "id": "b4-q4-c",
+          "text": "7-12-1941, Nhật tấn công Trân Châu Cảng",
+          "isCorrect": false,
+          "explanation": "7-12-1941 là thời điểm Mỹ tham chiến, cuộc chiến thế giới đã diễn ra được hai năm."
+        },
+        {
+          "id": "b4-q4-d",
+          "text": "30-9-1938, Hội nghị Muy-ních",
+          "isCorrect": false,
+          "explanation": "Hội nghị Muy-ních là bước nhượng bộ ngoại giao của Anh - Pháp, chưa phải thời điểm bùng nổ chiến tranh."
+        }
+      ]
+    },
+    {
+      "id": "b4-q5",
+      "text": "Sự kiện nào buộc nước Mỹ phải từ bỏ chính sách biệt lập và chính thức tham chiến?",
+      "type": "multiple_choice",
+      "sectionId": "sec-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q5-a",
+          "text": "Đức tấn công Liên Xô",
+          "isCorrect": false,
+          "explanation": "Đức tấn công Liên Xô (22-6-1941) chưa khiến Mỹ trực tiếp tham chiến."
+        },
+        {
+          "id": "b4-q5-b",
+          "text": "Đổ bộ Noóc-măng-đi",
+          "isCorrect": false,
+          "explanation": "Cuộc đổ bộ Noóc-măng-đi diễn ra năm 1944 khi Mỹ đã tham chiến từ lâu."
+        },
+        {
+          "id": "b4-q5-c",
+          "text": "Nhật tấn công Trân Châu Cảng (7-12-1941)",
+          "isCorrect": true,
+          "explanation": "Ngày 7-12-1941, Nhật Bản bất ngờ tập kích căn cứ hải quân Trân Châu Cảng, buộc Mỹ từ bỏ chính sách biệt lập và tham chiến."
+        },
+        {
+          "id": "b4-q5-d",
+          "text": "Hội nghị Muy-ních",
+          "isCorrect": false,
+          "explanation": "Hội nghị Muy-ních năm 1938 không tác động đến việc Mỹ tham chiến."
+        }
+      ]
+    },
+    {
+      "id": "b4-q6",
+      "text": "Chiến thắng nào được xem là bước ngoặt quyết định của toàn bộ cuộc Chiến tranh thế giới thứ hai?",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q6-a",
+          "text": "Trận Trân Châu Cảng",
+          "isCorrect": false,
+          "explanation": "Trận Trân Châu Cảng mở rộng chiến tranh sang Thái Bình Dương, không phải bước ngoặt đánh bại phát xít."
+        },
+        {
+          "id": "b4-q6-b",
+          "text": "Cuộc chiếm Ba Lan",
+          "isCorrect": false,
+          "explanation": "Cuộc chiếm Ba Lan mở đầu chiến tranh năm 1939."
+        },
+        {
+          "id": "b4-q6-c",
+          "text": "Cuộc ném bom Hi-rô-si-ma",
+          "isCorrect": false,
+          "explanation": "Vụ ném bom diễn ra vào tháng 8-1945 ở giai đoạn cuối chiến tranh."
+        },
+        {
+          "id": "b4-q6-d",
+          "text": "Trận Xta-lin-grát",
+          "isCorrect": true,
+          "explanation": "Trận phản công thắng lợi ở Xta-lin-grát (11-1942 đến 2-1943) đã tiêu diệt và bao vây Tập đoàn quân số 6 của Đức, tạo bước ngoặt chuyển bại thành thắng của Khối Đồng minh."
+        }
+      ]
+    },
+    {
+      "id": "b4-q7",
+      "text": "Ngày 6-6-1944 diễn ra sự kiện quân sự quy mô lớn nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q7-a",
+          "text": "Liên quân Anh – Mỹ đổ bộ Noóc-măng-đi, mở mặt trận thứ hai ở Tây Âu",
+          "isCorrect": true,
+          "explanation": "Ngày 6-6-1944, cuộc đổ bộ lịch sử Noóc-măng-đi mở mặt trận thứ hai ở Tây Âu để cùng Liên Xô siết chặt gọng kìm tiêu diệt phát xít Đức."
+        },
+        {
+          "id": "b4-q7-b",
+          "text": "Hồng quân vào Béc-lin",
+          "isCorrect": false,
+          "explanation": "Hồng quân tiến vào Béc-lin ngày 30-4-1945."
+        },
+        {
+          "id": "b4-q7-c",
+          "text": "Đức đầu hàng",
+          "isCorrect": false,
+          "explanation": "Phát xít Đức kí văn kiện đầu hàng ngày 9-5-1945."
+        },
+        {
+          "id": "b4-q7-d",
+          "text": "Nhật đầu hàng",
+          "isCorrect": false,
+          "explanation": "Nhật Bản chấp nhận đầu hàng ngày 15-8-1945."
+        }
+      ]
+    },
+    {
+      "id": "b4-q8",
+      "text": "Chiến tranh thế giới thứ hai chính thức kết thúc tại châu Á vào ngày nào?",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q8-a",
+          "text": "9-5-1945",
+          "isCorrect": false,
+          "explanation": "Ngày 9-5-1945 là ngày kết thúc chiến tranh ở châu Âu."
+        },
+        {
+          "id": "b4-q8-b",
+          "text": "15-8-1945",
+          "isCorrect": true,
+          "explanation": "Ngày 15-8-1945, Nhật Bản chấp nhận đầu hàng không điều kiện, Chiến tranh thế giới thứ hai chính thức kết thúc."
+        },
+        {
+          "id": "b4-q8-c",
+          "text": "6-8-1945",
+          "isCorrect": false,
+          "explanation": "Ngày 6-8-1945 là ngày Mỹ ném quả bom nguyên tử đầu tiên xuống Hi-rô-si-ma."
+        },
+        {
+          "id": "b4-q8-d",
+          "text": "30-4-1945",
+          "isCorrect": false,
+          "explanation": "Ngày 30-4-1945 là ngày Hồng quân cắm cờ chiến thắng tại Béc-lin."
+        }
+      ]
+    },
+    {
+      "id": "b4-q9",
+      "text": "Theo yêu cầu Luyện tập, hãy xác định trục thời gian đúng của các mốc sự kiện chính trong Chiến tranh thế giới thứ hai:",
+      "type": "multiple_choice",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "b4-q9-a",
+          "text": "9-1939 (Đức tấn công Ba Lan) → 22-6-1941 (Đức tấn công Liên Xô) → 5-1940 (Đức tổng tấn công phía tây) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 6-1942 (Trận Mít-uây) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 9-5-1945 (Đức đầu hàng) → 15-8-1945 (Nhật đầu hàng)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: 5-1940 diễn ra trước 22-6-1941."
+        },
+        {
+          "id": "b4-q9-b",
+          "text": "9-1939 (Đức tấn công Ba Lan) → 5-1940 (Đức tổng tấn công phía tây) → 22-6-1941 (Đức tấn công Liên Xô) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 6-1942 (Trận Mít-uây) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 15-8-1945 (Nhật đầu hàng) → 9-5-1945 (Đức đầu hàng)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: Đức đầu hàng (9-5-1945) trước khi Nhật đầu hàng (15-8-1945)."
+        },
+        {
+          "id": "b4-q9-c",
+          "text": "5-1940 (Đức tổng tấn công phía tây) → 9-1939 (Đức tấn công Ba Lan) → 22-6-1941 (Đức tấn công Liên Xô) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-1942 (Trận Mít-uây) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 9-5-1945 (Đức đầu hàng) → 15-8-1945 (Nhật đầu hàng)",
+          "isCorrect": false,
+          "explanation": "Sai thứ tự: 9-1939 diễn ra trước 5-1940; 6-1942 diễn ra trước 2-1943."
+        },
+        {
+          "id": "b4-q9-d",
+          "text": "9-1939 (Đức tấn công Ba Lan) → 5-1940 (Đức tổng tấn công phía tây) → 22-6-1941 (Đức tấn công Liên Xô) → 7-12-1941 (Nhật tấn công Trân Châu Cảng) → 6-1942 (Trận Mít-uây) → 2-1943 (Thắng lợi Xta-lin-grát) → 6-6-1944 (Đổ bộ Noóc-măng-đi) → 9-5-1945 (Đức đầu hàng) → 15-8-1945 (Nhật đầu hàng)",
+          "isCorrect": true,
+          "explanation": "Trình tự trục thời gian 9 mốc chính xác hoàn toàn theo yêu cầu Luyện tập 1 SGK Bài 4."
+        }
+      ]
+    },
+    {
+      "id": "b4-q10",
+      "text": "Vì sao nhân loại bị đẩy vào cuộc chiến này? Nêu nguyên nhân sâu xa và nguyên nhân trực tiếp.",
+      "type": "open_discussion",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Nguyên nhân sâu xa là mâu thuẫn đế quốc về thuộc địa và thị trường sau Véc-xai cùng tác động của đại suy thoái; nguyên nhân trực tiếp là chính sách gây chiến bành trướng của phe phát xít và sự thoả hiệp nhượng bộ của phương Tây."
+    },
+    {
+      "id": "b4-q11",
+      "text": "Theo em, đâu là nguyên nhân chính dẫn đến chiến tranh thế giới thứ hai: Hiệp ước Véc-xai, hành động của Hít-le hay chính sách nhân nhượng của các nước châu Âu? Có điểm gì tương đồng với nguyên nhân dẫn đến chiến tranh thế giới thứ nhất?",
+      "type": "open_discussion",
+      "sectionId": "sec-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Cả ba yếu tố tác động qua lại; điểm tương đồng với chiến tranh thế giới thứ nhất là mâu thuẫn tranh giành thuộc địa và sự hình thành các khối quân sự đối đầu."
+    },
+    {
+      "id": "b4-q12",
+      "text": "Vì sao trận phản công Xta-lin-grát được coi là bước ngoặt quyết định của Chiến tranh thế giới thứ hai?",
+      "type": "open_discussion",
+      "sectionId": "sec-3",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Thắng lợi Xta-lin-grát đã tiêu diệt hoàn toàn Tập đoàn quân số 6 của Đức, bẻ gãy mũi nhọn quân sự tinh nhuệ nhất của phát xít, biến thế trận từ phòng ngự sang tổng phản công chiến lược của Liên Xô và Đồng minh."
+    },
+    {
+      "id": "b4-q13",
+      "text": "Phân tích những hậu quả của chiến tranh thế giới thứ hai đối với nhân loại. Vì sao cần giữ gìn kí ức về nạn diệt chủng Holocaust?",
+      "type": "open_discussion",
+      "sectionId": "sec-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở thảo luận: Gần 60 triệu người chết, hơn nửa là dân thường; thảm kịch Holocaust nhắc nhở nhân loại kiên quyết đấu tranh chống phân biệt chủng tộc, bảo vệ giá trị tự do và phẩm giá con người."
+    }
+  ],
+  "comparisonMetrics": [
+    {
+      "id": "encircle",
+      "label": "Điểm cô lập đối phương",
+      "origFormatted": "95 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "anti_relief",
+      "label": "Điểm bẻ gãy giải vây",
+      "origFormatted": "90 / 100",
+      "unit": " / 100"
+    },
+    {
+      "id": "turning_point",
+      "label": "Điểm thế trận bước ngoặt",
+      "origFormatted": "95 / 100",
+      "unit": " / 100"
+    }
+  ],
+  "baseline": {
+    "durationHours": 95,
+    "casualties": 90,
+    "positionScore": 95,
+    "ratingText": "Phương án phản công bao vây theo Lược đồ 4.4",
+    "minDurationHours": 0,
+    "minCasualties": 0
+  },
+  "simulation": {
+    "schematicNotice": "Sơ đồ minh hoạ chiến thuật theo Lược đồ 4.4, không theo đúng tỉ lệ địa lý thực tế",
+    "outcomes": {
+      "perfect": "Tái hiện phương án lịch sử: Phương án phản công bao vây theo Lược đồ 4.4.",
+      "positive": "Phương án đạt hiệu quả cao, đạt các mục tiêu trọng tâm nhưng có sự thay đổi về chỉ số so với lịch sử.",
+      "moderate": "Phương án có điểm khả thi nhưng còn hạn chế, các chỉ số có sự chênh lệch đáng kể so với phương án gốc.",
+      "challenging": "Phương án đối mặt nhiều khó khăn; các chỉ số biến động bất lợi so với phương án lịch sử gốc."
+    },
+    "scene": {
+      "terrain": "plain",
+      "labels": [
+        {
+          "text": "Xta-lin-grát",
+          "at": [
+            62,
+            22
+          ]
+        },
+        {
+          "text": "Tập đoàn quân số 6 của Đức bị bao vây",
+          "at": [
+            30,
+            8
+          ]
+        },
+        {
+          "text": "Mặt trận ngày 19-11-1942",
+          "at": [
+            -64,
+            -56
+          ]
+        },
+        {
+          "text": "Mặt trận ngày 30-11-1942",
+          "at": [
+            -6,
+            -42
+          ]
+        },
+        {
+          "text": "Các đạo quân Liên Xô phản công",
+          "at": [
+            56,
+            -62
+          ]
+        },
+        {
+          "text": "Đạo quân Đức giải vây",
+          "at": [
+            -92,
+            10
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "road",
+          "points": [
+            [
+              30,
+              -72
+            ],
+            [
+              -30,
+              -50
+            ],
+            [
+              -52,
+              0
+            ],
+            [
+              -30,
+              50
+            ],
+            [
+              30,
+              72
+            ]
+          ],
+          "size": 1.4
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              30,
+              -34
+            ],
+            [
+              -8,
+              -20
+            ],
+            [
+              -12,
+              0
+            ],
+            [
+              -8,
+              20
+            ],
+            [
+              30,
+              34
+            ],
+            [
+              70,
+              20
+            ],
+            [
+              78,
+              0
+            ],
+            [
+              70,
+              -20
+            ],
+            [
+              30,
+              -34
+            ]
+          ],
+          "size": 1.4
+        },
+        {
+          "type": "camp",
+          "at": [
+            32,
+            0
+          ],
+          "size": 28,
+          "faction": "b"
+        }
+      ],
+      "routes": [
+        {
+          "faction": "a",
+          "points": [
+            [
+              56,
+              -84
+            ],
+            [
+              16,
+              -62
+            ],
+            [
+              -18,
+              -30
+            ],
+            [
+              -30,
+              -3
+            ]
+          ],
+          "from": 0.12,
+          "to": 0.55
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              56,
+              84
+            ],
+            [
+              16,
+              62
+            ],
+            [
+              -18,
+              30
+            ],
+            [
+              -30,
+              3
+            ]
+          ],
+          "from": 0.12,
+          "to": 0.55
+        },
+        {
+          "faction": "b",
+          "points": [
+            [
+              -108,
+              -4
+            ],
+            [
+              -84,
+              -3
+            ],
+            [
+              -58,
+              -2
+            ]
+          ],
+          "from": 0.6,
+          "to": 0.85
+        }
+      ],
+      "formations": {
+        "a": {
+          "from": [
+            50,
+            -70
+          ],
+          "to": [
+            -28,
+            0
+          ]
+        },
+        "b": {
+          "from": [
+            28,
+            -4
+          ],
+          "to": [
+            34,
+            4
+          ]
+        }
+      }
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Người dẫn chuyện",
+      "greeting": "Chào các em học sinh!",
+      "speech": "Trận phản công Xta-lin-grát (11-1942 đến 2-1943) theo Lược đồ 4.4 là bước ngoặt quyết định của Chiến tranh thế giới thứ hai. Dựa trên bản đồ chiến dịch, em hãy phân tích và lựa chọn hướng điều động mũi phản công gọng kìm:"
+    },
+    "variables": [
+      {
+        "id": "var-stalingrad-strategy",
+        "title": "Kế hoạch phản công bao vây tại Xta-lin-grát (theo Lược đồ 4.4)",
+        "description": "Lựa chọn phương án tác chiến của Hồng quân Liên Xô tại mặt trận Xta-lin-grát:",
+        "options": [
+          {
+            "id": "opt-stalingrad-double-pincer",
+            "name": "Phản công từ đường mặt trận ngày 19-11-1942, tiến đến đường mặt trận ngày 30-11-1942 khép vòng vây Tập đoàn quân số 6 của Đức",
+            "isOriginal": true,
+            "desc": "Các mũi phản công của Liên Xô xuất phát từ đường mặt trận ngày 19-11-1942, tiến đánh và bao vây Tập đoàn quân số 6 của Đức tại đường mặt trận ngày 30-11-1942, đồng thời chặn đứng mũi giải vây của Đức.",
+            "assumptions": "Dựa trên Lược đồ 4.4 SGK: đường mặt trận ngày 19-11-1942 và ngày 30-11-1942, các mũi phản công của Liên Xô bao vây Tập đoàn quân số 6 của Đức và bẻ gãy đạo quân Đức giải vây.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0
+          },
+          {
+            "id": "opt-stalingrad-frontal-assault",
+            "name": "Thay đổi thời điểm khép vòng vây (chậm hơn so với mốc đường mặt trận ngày 30-11-1942)",
+            "isOriginal": false,
+            "desc": "Khép vòng vây muộn hơn mốc ngày 30-11-1942, ưu tiên củng cố chiều sâu phòng tuyến trước khi siết chặt bao vây.",
+            "assumptions": "Giả định mô phỏng (ngoài tư liệu gốc): việc khép vòng vây muộn hơn cho đối phương thêm thời gian điều động mũi giải vây, làm giảm hiệu quả cô lập Tập đoàn quân số 6 của Đức.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": -30
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Rất đáng khen cho tinh thần phân tích chiến thuật quân sự sâu sắc của các em.",
+    "variableFeedbacks": {
+      "var-stalingrad-strategy": {
+        "opt-stalingrad-double-pincer": "Phản công từ đường mặt trận ngày 19-11-1942 đến ngày 30-11-1942 khép vòng vây Tập đoàn quân số 6 của Đức đã bẻ gãy mũi giải vây và tạo nên bước ngoặt quyết định của cuộc chiến.",
+        "opt-stalingrad-frontal-assault": "Khép vòng vây muộn hơn mốc ngày 30-11-1942 cho đối phương thêm thời gian tiếp viện và điều động giải vây, làm giảm hiệu quả bao vây cô lập Tập đoàn quân số 6."
+      }
+    },
+    "encouragingConclusion": "Trận Xta-lin-grát là biểu tượng bất diệt cho ý chí kiên cường bảo vệ Tổ quốc và chiến thắng của công lí trước chủ nghĩa phát xít."
+  }
+}

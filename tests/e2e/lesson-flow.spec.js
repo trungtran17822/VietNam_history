@@ -34,6 +34,33 @@ test('US1: teacher plays, pauses, seeks and changes camera on the original battl
   expect(errors).toEqual([]);
 });
 
+test('a scene label with info opens a card that closes with Esc, the x button or a press outside', async ({ page }) => {
+  await login(page, 'teacher');
+  await openLoop(page);
+  await page.click('#btn-start-6stages');
+  const canvas = page.locator('#viewport-original-canvas canvas');
+  await expect(canvas).toHaveCount(1);
+  const label = page.locator('#viewport-original-canvas .lesson-scene-label-info').first();
+  await expect(label).toHaveCount(1, { timeout: 15_000 });
+  const card = page.locator('#viewport-original-canvas .lesson-scene-popover');
+  const open = () => label.dispatchEvent('click');
+
+  await open();
+  await expect(card).toHaveCount(1);
+  await expect(card).toContainText(/\S/);
+  await page.keyboard.press('Escape');
+  await expect(card).toHaveCount(0);
+
+  await open();
+  await card.locator('.lesson-scene-popover-close').click();
+  await expect(card).toHaveCount(0);
+
+  await open();
+  await expect(card).toHaveCount(1);
+  await page.locator('#screen-sim-original h2, #screen-sim-original .chapter-item-card').first().dispatchEvent('pointerdown');
+  await expect(card).toHaveCount(0);
+});
+
 test('US1: every chapter source opens with book and quote', async ({ page }) => {
   await login(page, 'student');
   await page.goto(`/#/lesson/${PILOT}`);
@@ -103,12 +130,23 @@ test('US2: full 6-stage loop is deterministic, labelled and lets the student try
   expect(await readComparison(page)).toEqual(first);
 });
 
-test('lesson without variables explains it and blocks stages 4-6', async ({ page }) => {
+test('lesson without variables explains it, blocks stages 4 and 6 and offers the opinion summary at stage 5', async ({ page }) => {
   await login(page, 'teacher');
-  await openLoop(page, 'rach-gam-xoai-mut-1785');
+  // Every bundled lesson now has variables; a blank lesson is the one without.
+  await page.click('#btn-create-lesson');
+  await expect(page.locator('#view-teacher-editor')).toHaveClass(/active/);
+  await openLoop(page, page.url().match(/#\/lesson\/([^/]+)\/edit/)[1]);
   await goToStage(page, 3);
   await expect(page.locator('#question-empty-notice')).toBeVisible();
   await expect(page.locator('#question-empty-notice')).toContainText('chưa có phần thử cách khác');
   await expect(page.locator('#btn-run-simulation')).toBeHidden();
-  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="4"]')).toBeDisabled();
+  await expect(page.locator('.lesson-stepper .step-node[data-step="6"]')).toBeDisabled();
+  // Stage 5 is the opinion summary: no comparison, no simulation notice, the mandatory label stays.
+  await expect(page.locator('.lesson-stepper .step-node[data-step="5"]')).toBeEnabled();
+  await page.click('#btn-goto-opinion-summary');
+  await expect(page.locator('#screen-opinion-summary')).toBeVisible();
+  await expect(page.locator('#screen-comparison')).toHaveCount(0);
+  await expect(page.locator('#screen-opinion-summary')).toContainText('ý kiến thảo luận minh họa');
+  await expect(page.locator('body')).toContainText('Nội dung minh họa, chưa được chuyên gia duyệt');
 });

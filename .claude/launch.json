@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "frontend",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "export PATH=$HOME/.nvm/versions/node/v24.22.0/bin:$PATH && npx vite --config frontend/vite.config.ts"],
+      "port": 8080
+    },
+    {
+      "name": "backend",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["backend/dev-server.js", "8787"],
+      "port": 8787
+    }
+  ]
+}

@@ -24,12 +24,12 @@ Không cần cài gói nào (Node ≥ 18):
 node backend/dev-server.js 8787
 ```
 
-Dữ liệu nằm trong bộ nhớ và mất khi tắt. Frontend trên `localhost` tự gọi `http://localhost:8787` (`frontend/js/config.js`).
+Dữ liệu nằm trong bộ nhớ và mất khi tắt. Frontend trên `localhost` tự gọi `http://localhost:8787` (`frontend/src/lib/class-session.ts`).
 
 ## Kiểm thử
 
 ```bash
-node --test backend/test/
+node --test backend/test/*.test.js
 node backend/scripts/smoke.mjs https://sv-class-api.suviet.workers.dev https://vietnam-history-eight.vercel.app
 ```
 

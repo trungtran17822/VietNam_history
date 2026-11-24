@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 2,
+  "revision": 2,
+  "id": "chi-lang-xuong-giang-1427",
+  "era": "1427",
+  "atlasPlaceIds": [
+    "chi-lang",
+    "xuong-giang",
+    "hoang-thanh-thang-long"
+  ],
+  "factions": {
+    "a": {
+      "name": "Nghĩa quân Lam Sơn",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân Minh",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Chiến Dịch Chi Lăng - Xương Giang (1427)",
+  "subtitle": "Khởi nghĩa Lam Sơn chém Liễu Thăng ở Chi Lăng, phá viện binh Minh ở Xương Giang",
+  "commander": "Bình Định Vương Lê Lợi; các tướng Lê Sát, Trần Lựu, Lê Lý, Trần Nguyên Hãn",
+  "opponent": "Viện binh Minh: Liễu Thăng (10 vạn quân, 2 vạn ngựa, qua cửa Ba Lụy) và Mộc Thạnh (qua cửa Lê Hoa)",
+  "year": "Năm Đinh Mùi (1427)",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 11A1",
+  "date": "2026-10-30",
+  "subject": "Lịch sử",
+  "grade": "Khối 11",
+  "period": "Tiết 3 · 09:15 - 10:00 (45 phút)",
+  "objectives": "Phân tích cách nghĩa quân Lam Sơn đánh viện binh thay vì đánh thành, chọn địa hình ải Chi Lăng để phục kích, giữ chân đạo quân Mộc Thạnh và vây quân Minh ở Xương Giang; giải thích vì sao “làm một việc mà thành được hai”.",
+  "focusQuestion": "Vì sao Bình Định Vương không đánh ngay thành Đông Quan mà chờ đánh viện binh nhà Minh ở Chi Lăng, và quyết định đó dẫn tới kết quả gì?",
+  "status": "Đã lên lịch",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Thời gian, tổn thất và điểm thế trận đều là số minh họa từ giả định của bài học, không phải số liệu lịch sử.",
+  "introSummary": "Năm 1427, quân Minh trong thành Đông Quan bị vây và xin thêm viện binh. Nhà Minh sai Liễu Thăng đem 10 vạn quân sang qua cửa Ba Lụy, Mộc Thạnh sang qua cửa Lê Hoa. Bình Định Vương Lê Lợi không vội đánh thành mà dồn sức chờ đánh viện binh: phục binh ở ải Chi Lăng, chém Liễu Thăng, rồi vây và phá quân Minh ở Xương Giang. Vương Thông trong thành Đông Quan phải xin hòa.",
+  "sections": [
+    {
+      "id": "cl-1",
+      "title": "Viện binh nhà Minh kéo sang",
+      "narration": "Sau nhiều trận thua, Vương Thông trong thành Đông Quan xin thêm binh. Nhà Minh sai Liễu Thăng cùng Lương Minh, Thôi Tụ, Lý Khánh, Hoàng Phúc đem quân theo đường Quảng Tây sang đánh cửa Ba Lụy; Mộc Thạnh theo đường Vân Nam sang đánh cửa Lê Hoa.",
+      "caption": "Hai đạo viện binh, hai cửa ải: Ba Lụy và Lê Hoa.",
+      "timelineRange": 0.1,
+      "timeLabel": "Năm 1427",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương XIV “Mười năm đánh quân Tàu”, mục 19 “Trận Chi-lăng: Liễu Thăng tử trận”",
+        "quote": "Minh-đế thất kinh, liền sai Chinh-lỗ phó-tướng-quân An-viễn-hầu là Liễu Thăng 柳 升, [...] đem 10 vạn quân, hai vạn ngựa, đi đường Quảng-tây sang đánh cửa Ba-lụy",
+        "note": "Bản Wikisource có chữ Hán sau tên người; giữ nguyên. Sách ghi thời điểm không thống nhất (“tháng chạp năm bính-ngọ (1427)”, rồi “tháng mười (1427)”, rồi “ngày 18 tháng 9”); cần đối chiếu Đại Việt sử ký toàn thư.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_XIV"
+      }
+    },
+    {
+      "id": "cl-2",
+      "title": "“Đánh thành là hạ sách”",
+      "narration": "Nhiều tướng khuyên đánh ngay thành Đông Quan. Bình Định Vương không nghe: dưỡng sức đợi viện binh, hễ viện binh thua thì quân trong thành tất phải hàng. Ông còn cho dân các vùng Lạng Giang, Bắc Giang, Tam Đái, Tuyên Quang, Quy Hóa đi nơi khác, bỏ đồng không để tránh quân Minh.",
+      "caption": "Làm một việc mà thành được hai: phá viện binh thì thành Đông Quan tự hàng.",
+      "timelineRange": 0.2,
+      "timeLabel": "Trước khi viện binh tới",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương XIV “Mười năm đánh quân Tàu”, mục 19 “Trận Chi-lăng: Liễu Thăng tử trận”",
+        "quote": "« Việc đánh thành là hạ sách, nay ta hãy cứ dưỡng binh súc nhuệ để đợi quân địch đến thì ra đánh. Hễ viện quân mà thua, thì quân trong thành tất phải ra hàng. Thế có phải làm một việc mà thành được hai không? »",
+        "note": "Cùng đoạn: “bỏ đồng không để tránh quân Minh”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_XIV"
+      }
+    },
+    {
+      "id": "cl-3",
+      "title": "Phục binh ở cửa ải Chi Lăng",
+      "narration": "Biết quân Minh đi đường xa nghìn dặm, người ngựa mỏi mệt, Bình Định Vương chủ trương “dĩ dật đãi lao” (lấy quân khỏe đợi quân mệt). Lê Sát, Lưu Nhân Chú, Lê Linh, Đinh Liệt, Lê Thụ đem 1 vạn quân và 5 con voi phục sẵn ở cửa Chi Lăng; Lê Lý, Lê Văn An đem 3 vạn quân lục tục kéo lên. Trần Lựu lui dần từ Ba Lụy về Ai Lưu rồi Chi Lăng, để Liễu Thăng đắc ý đuổi theo.",
+      "caption": "Thung lũng hẹp giữa núi: nơi quân đông không dàn trận được.",
+      "timelineRange": 0.35,
+      "timeLabel": "Tháng 9 năm Đinh Mùi",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương XIV “Mười năm đánh quân Tàu”, mục 19 “Trận Chi-lăng: Liễu Thăng tử trận”",
+        "quote": "Bèn sai Lê Sát 黎 察, Lưu nhân Chú, Lê Linh 黎 泠, Đinh Liệt 丁 列, Lê Thụ 黎 受, đem 1 vạn quân và 5 con voi lên phục sẵn ở cửa Chi-lăng 支 稜, để đợi quân Minh.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_XIV"
+      }
+    },
+    {
+      "id": "cl-4",
+      "title": "Liễu Thăng tử trận ở núi Mã Yên",
+      "narration": "Ngày 18 tháng 9, Trần Lựu ra đánh rồi bỏ chạy. Liễu Thăng chỉ đem 100 lính kị đuổi theo, bỏ đại đội ở lại sau, sa vào chỗ bùn lầy; phục binh đổ ra chém Liễu Thăng ở núi Đảo Mã Pha (Mã Yên Sơn). Lê Sát, Trần Lựu thừa thắng đuổi đánh; Lương Minh bị chém, Lý Khánh tự tử.",
+      "caption": "Một trận phục kích làm đạo viện binh mất chủ tướng.",
+      "timelineRange": 0.5,
+      "timeLabel": "Ngày 18 – 20 tháng 9 (âm lịch)",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương XIV “Mười năm đánh quân Tàu”, mục 19 “Trận Chi-lăng: Liễu Thăng tử trận”",
+        "quote": "Ngày 18 tháng 9, quân Liễu Thăng đến gần cửa Chi-lăng. Lê Sát sai Trần Lựu ra đánh rồi bỏ chạy. Liễu Thăng mừng lắm, chỉ đem 100 lính kị đuổi theo, bỏ đại đội ở lại sau. Đuổi được một đoạn, phải chỗ bùn lầy đi không được, phục binh ta đổ ra đánh, chém Liễu Thăng ở núi Đảo-mã-pha 倒 馬 坡 (bây giờ là Mã-yên-sơn, ở làng Mai-sao, thuộc Ôn-châu).",
+        "note": "Sách ghi ngày chém Liễu Thăng là “ngày 20 tháng 9 năm đinh-vị”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_XIV"
+      }
+    },
+    {
+      "id": "cl-5",
+      "title": "Vây và phá quân Minh ở Xương Giang",
+      "narration": "Hoàng Phúc, Thôi Tụ đem tàn quân chạy về thành Xương Giang, không ngờ thành đã bị Trần Nguyên Hãn chiếm. Quân Minh phải lập trại, đắp lũy giữa đồng. Nghĩa quân vây thủy bộ, chặn đường tải lương rồi mới đánh vào. Cùng lúc, ở cửa Lê Hoa, Mộc Thạnh được tin Liễu Thăng thua thì rút chạy.",
+      "caption": "Không thành để dựa, không lương để ăn: đạo viện binh tan rã.",
+      "timelineRange": 0.8,
+      "timeLabel": "Sau trận Chi Lăng",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương XIV “Mười năm đánh quân Tàu”, mục 19 “Trận Chi-lăng: Liễu Thăng tử trận”",
+        "quote": "Bình-định-vương sai quân thủy-bộ vây đánh, sai Trần nguyên Hãn chặn đường tải lương của quân Minh, lại sai Phạm Vấn 范 問, Lê Khôi 黎 魁, Nguyễn Xí 阮 織, đem quân thiết đội vào đánh chém quân Minh được hơn 5 vạn, bắt sống được Hoàng Phúc, Thôi Tụ và 3 vạn quân.",
+        "note": "Về Mộc Thạnh: cùng mục, “Mộc Thạnh được tin ấy, sợ quá, đem quân chạy”.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_XIV"
+      }
+    },
+    {
+      "id": "cl-6",
+      "title": "Vương Thông xin hòa",
+      "narration": "Bình Định Vương cho đưa Hoàng Phúc cùng hổ phù, ấn của Liễu Thăng về Đông Quan cho Vương Thông biết. Vương Thông viết thư xin hòa; hai bên lập đàn thề ở phía nam thành Đông Quan, hẹn đến tháng chạp quân Minh rút về nước. Đúng như lời Bình Định Vương: phá viện binh thì quân trong thành phải ra hàng.",
+      "caption": "“Làm một việc mà thành được hai.”",
+      "timelineRange": 1,
+      "timeLabel": "Cuối năm 1427",
+      "source": {
+        "book": "Việt Nam sử lược (Trần Trọng Kim)",
+        "chapter": "Quyển I, Phần III, Chương XIV, mục 20 “Vương Thông xin hòa lần thứ hai”",
+        "quote": "Vương Thông biết rằng viện binh sang đã bị thua rồi, sợ-hãi quá, viết thư xin hòa.",
+        "url": "https://vi.wikisource.org/wiki/Việt_Nam_sử_lược/Quyển_I/Phần_III/Chương_XIV"
+      }
+    }
+  ],
+  "keyNotes": [
+    "Bình Định Vương chọn đánh viện binh thay vì đánh thành Đông Quan: “Việc đánh thành là hạ sách” (Việt Nam sử lược).",
+    "“Dĩ dật đãi lao”: lấy quân khỏe, đã chờ sẵn, đánh quân đi đường xa nghìn dặm đang mỏi mệt.",
+    "Ải Chi Lăng là thung lũng hẹp; nhử Liễu Thăng vào chỗ bùn lầy rồi phục binh đổ ra đánh.",
+    "Ở Xương Giang, vây thủy bộ và chặn đường tải lương trước khi đánh vào trại quân Minh.",
+    "Giữ chân đạo Mộc Thạnh ở cửa Lê Hoa, không ra đánh, rồi cho Mộc Thạnh biết tin Liễu Thăng đã thua."
+  ],
+  "privateNotes": "Sổ tay giáo viên:\n- Nguồn chính của bài là Việt Nam sử lược (Trần Trọng Kim, 1920; bản Wikisource, phạm vi công cộng), Quyển I Phần III Chương XIV mục 19 – 20. Chưa đối chiếu Đại Việt sử ký toàn thư; các trích dẫn cũ gán cho Toàn thư đã bỏ vì chưa đọc được nguyên văn.\n- Sách ghi thời điểm không thống nhất (tháng chạp năm bính-ngọ / tháng mười / ngày 18 tháng 9); khi dạy chỉ dùng “tháng 9 năm Đinh Mùi (1427), âm lịch”.\n- Số liệu bước 5 (480 giờ, 2 100 tổn thất ước tính, 94 điểm) là minh họa để so sánh các phương án, không phải số liệu lịch sử.\n- Gợi ý thảo luận: so sánh “đánh viện binh để thành tự hàng” với trận Ngọc Hồi (đánh thẳng vào đồn).",
+  "questions": [
+    {
+      "id": "cl-q1",
+      "text": "Vì sao Bình Định Vương không đánh ngay thành Đông Quan khi viện binh Minh sắp tới?",
+      "type": "multiple_choice",
+      "sectionId": "cl-2",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "cl-q1-a",
+          "text": "Vì phá được viện binh thì quân trong thành tất phải ra hàng: một việc mà thành được hai",
+          "isCorrect": true,
+          "explanation": "Đúng lời Bình Định Vương trong Việt Nam sử lược: “Việc đánh thành là hạ sách...”."
+        },
+        {
+          "id": "cl-q1-b",
+          "text": "Vì nghĩa quân không có voi chiến",
+          "isCorrect": false,
+          "explanation": "Nghĩa quân có voi: 5 con voi được đưa lên phục ở Chi Lăng."
+        },
+        {
+          "id": "cl-q1-c",
+          "text": "Vì thành Đông Quan đã bị phá từ trước",
+          "isCorrect": false,
+          "explanation": "Vương Thông vẫn giữ thành Đông Quan; chỉ sau khi viện binh tan, Vương Thông mới xin hòa."
+        }
+      ]
+    },
+    {
+      "id": "cl-q2",
+      "text": "Trần Lựu được giao làm gì ở các cửa ải phía bắc?",
+      "type": "multiple_choice",
+      "sectionId": "cl-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "cl-q2-a",
+          "text": "Lui dần từ Ba Lụy về Ai Lưu rồi Chi Lăng, ra đánh rồi bỏ chạy để nhử Liễu Thăng",
+          "isCorrect": true,
+          "explanation": "Liễu Thăng đắc ý, chỉ đem 100 lính kị đuổi theo, bỏ đại đội ở lại sau và sa vào chỗ bùn lầy."
+        },
+        {
+          "id": "cl-q2-b",
+          "text": "Giữ chặt cửa Ba Lụy, không cho quân Minh qua",
+          "isCorrect": false,
+          "explanation": "Theo Việt Nam sử lược, Trần Lựu lui dần chứ không giữ chặt cửa Ba Lụy."
+        },
+        {
+          "id": "cl-q2-c",
+          "text": "Đem quân sang đánh Mộc Thạnh ở cửa Lê Hoa",
+          "isCorrect": false,
+          "explanation": "Mặt Lê Hoa do Phạm Văn Xảo, Trịnh Khả giữ, và được dặn cứ giữ vững, đừng ra đánh."
+        }
+      ]
+    },
+    {
+      "id": "cl-q3",
+      "text": "Khi quân Minh lập trại, đắp lũy giữa đồng ở Xương Giang, nghĩa quân đã làm gì?",
+      "type": "multiple_choice",
+      "sectionId": "cl-5",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "cl-q3-a",
+          "text": "Vây thủy bộ, sai Trần Nguyên Hãn chặn đường tải lương, rồi mới đánh vào",
+          "isCorrect": true,
+          "explanation": "Mất thành để dựa, mất đường lương, đạo quân trở nên rất yếu."
+        },
+        {
+          "id": "cl-q3-b",
+          "text": "Rút về Lam Sơn để bảo toàn lực lượng",
+          "isCorrect": false,
+          "explanation": "Nghĩa quân đang ở thế thắng sau Chi Lăng nên tiếp tục vây đánh."
+        },
+        {
+          "id": "cl-q3-c",
+          "text": "Mở đường cho quân Minh về nước ngay",
+          "isCorrect": false,
+          "explanation": "Việc hòa ước diễn ra sau, với Vương Thông ở Đông Quan."
+        }
+      ]
+    },
+    {
+      "id": "cl-q4",
+      "text": "Bình Định Vương nói đánh viện binh là “làm một việc mà thành được hai”. Hai việc đó là gì, và em có thấy cách nghĩ này dùng được trong cuộc sống hôm nay không?",
+      "type": "open_discussion",
+      "sectionId": "cl-6",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Gợi mở: việc thứ nhất là phá viện binh, việc thứ hai là buộc thành Đông Quan hàng mà không phải công thành. Liên hệ: chọn việc then chốt để giải quyết nhiều việc cùng lúc; cái giá của “đánh thành” (hạ sách) so với chọn đúng thời điểm và địa điểm."
+    }
+  ],
+  "baseline": {
+    "durationHours": 480,
+    "casualties": 2100,
+    "positionScore": 94,
+    "ratingText": "Phá viện binh, Vương Thông xin hòa"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": true,
+      "tents": true,
+      "elephants": true,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "aInfantry": 45,
+      "aSpecial": 5,
+      "bInfantry": 52,
+      "bArtillery": 0
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 0.35,
+        "preset": "follow_troops"
+      },
+      {
+        "time": 0.5,
+        "preset": "close_up"
+      },
+      {
+        "time": 0.8,
+        "preset": "top_down"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "mountain-pass",
+      "labels": [
+        {
+          "text": "Cửa Ba Lụy (Nam Quan)",
+          "at": [
+            4,
+            -82
+          ]
+        },
+        {
+          "text": "Ải Chi Lăng",
+          "at": [
+            -36,
+            -4
+          ]
+        },
+        {
+          "text": "Núi Mã Yên (bãi lầy)",
+          "at": [
+            26,
+            -36
+          ]
+        },
+        {
+          "text": "Thành Xương Giang",
+          "at": [
+            34,
+            74
+          ]
+        },
+        {
+          "text": "Phục binh",
+          "at": [
+            -62,
+            22
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "road",
+          "points": [
+            [
+              0,
+              -93
+            ],
+            [
+              -6,
+              -60
+            ],
+            [
+              4,
+              -30
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              8,
+              36
+            ],
+            [
+              22,
+              70
+            ],
+            [
+              30,
+              93
+            ]
+          ],
+          "size": 2.7
+        },
+        {
+          "type": "hill",
+          "at": [
+            -44,
+            -16
+          ],
+          "size": 20
+        },
+        {
+          "type": "hill",
+          "at": [
+            44,
+            -6
+          ],
+          "size": 20
+        },
+        {
+          "type": "hill",
+          "at": [
+            14,
+            -40
+          ],
+          "size": 8
+        },
+        {
+          "type": "marsh",
+          "at": [
+            6,
+            -26
+          ],
+          "size": 10
+        },
+        {
+          "type": "river",
+          "points": [
+            [
+              -120,
+              62
+            ],
+            [
+              -60,
+              70
+            ],
+            [
+              0,
+              62
+            ],
+            [
+              60,
+              80
+            ],
+            [
+              120,
+              72
+            ]
+          ],
+          "size": 8
+        },
+        {
+          "type": "fort",
+          "at": [
+            24,
+            66
+          ],
+          "size": 18,
+          "faction": "b"
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              -110,
+              10
+            ],
+            [
+              -70,
+              40
+            ]
+          ]
+        },
+        {
+          "type": "camp",
+          "at": [
+            -62,
+            30
+          ],
+          "size": 20,
+          "faction": "a"
+        },
+        {
+          "type": "village",
+          "at": [
+            -70,
+            80
+          ],
+          "size": 14
+        }
+      ],
+      "routes": [
+        {
+          "faction": "b",
+          "points": [
+            [
+              0,
+              -90
+            ],
+            [
+              -5,
+              -60
+            ],
+            [
+              3,
+              -34
+            ]
+          ],
+          "from": 0.05,
+          "to": 0.4
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              -62,
+              22
+            ],
+            [
+              -34,
+              -6
+            ],
+            [
+              -6,
+              -22
+            ]
+          ],
+          "from": 0.4,
+          "to": 0.5
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              56,
+              10
+            ],
+            [
+              30,
+              -10
+            ],
+            [
+              10,
+              -22
+            ]
+          ],
+          "from": 0.42,
+          "to": 0.52
+        },
+        {
+          "faction": "b",
+          "points": [
+            [
+              2,
+              -20
+            ],
+            [
+              6,
+              20
+            ],
+            [
+              18,
+              56
+            ]
+          ],
+          "from": 0.55,
+          "to": 0.72
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              -30,
+              40
+            ],
+            [
+              0,
+              54
+            ],
+            [
+              14,
+              62
+            ]
+          ],
+          "from": 0.75,
+          "to": 0.95
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              70,
+              40
+            ],
+            [
+              48,
+              56
+            ],
+            [
+              34,
+              62
+            ]
+          ],
+          "from": 0.75,
+          "to": 0.95
+        }
+      ],
+      "formations": {
+        "a": {
+          "from": [
+            -34,
+            44
+          ],
+          "to": [
+            0,
+            -12
+          ]
+        },
+        "b": {
+          "from": [
+            0,
+            -62
+          ],
+          "to": [
+            10,
+            40
+          ]
+        }
+      },
+      "aSpecialKind": "elephant"
+    },
+    "outcomes": {
+      "perfect": "Các lựa chọn của em trùng với cách nghĩa quân Lam Sơn đã làm năm 1427: viện binh tan, Vương Thông xin hòa.",
+      "positive": "Theo giả định của bài, nghĩa quân vẫn thắng nhưng phải trả giá thêm về thời gian và lực lượng.",
+      "moderate": "Thế trận giằng co: viện binh nhà Minh còn sức để nối với quân trong thành Đông Quan.",
+      "challenging": "Thế trận khó khăn: nghĩa quân bị kẹp giữa thành Đông Quan và viện binh, cuộc chiến kéo dài."
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Bình Định Vương Lê Lợi",
+      "dynasty": "Khởi nghĩa Lam Sơn (1418 – 1427)",
+      "greeting": "Hỡi các em, những người đọc sử đời sau!",
+      "speech": "Năm ấy ta không đánh thành, mà đợi đánh viện binh; ta phục quân ở Chi Lăng, giữ chân Mộc Thạnh, rồi vây quân Minh ở Xương Giang. Nếu các em đứng ở chỗ của ta, các em sẽ chọn khác ở điểm nào?"
+    },
+    "originalLabel": "Cách của nghĩa quân Lam Sơn",
+    "variables": [
+      {
+        "id": "target",
+        "title": "1. Đánh thành hay đánh viện binh trước",
+        "description": "Viện binh sắp tới, còn thành Đông Quan vẫn trong tay quân Minh.",
+        "options": [
+          {
+            "id": "wait_relief",
+            "isOriginal": true,
+            "name": "Dưỡng binh, đợi viện binh tới rồi đánh (cách gốc)",
+            "shortName": "Đợi đánh viện binh",
+            "desc": "Không công thành; dồn sức cho trận gặp viện binh.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: “Hễ viện quân mà thua, thì quân trong thành tất phải ra hàng”."
+          },
+          {
+            "id": "storm_city",
+            "isOriginal": false,
+            "name": "Dốc sức đánh ngay thành Đông Quan",
+            "shortName": "Đánh ngay thành Đông Quan",
+            "desc": "Tranh thủ hạ thành trước khi viện binh tới.",
+            "timeDelta": 240,
+            "casualtyDelta": 1500,
+            "positionScoreDelta": -20,
+            "assumptions": "Giả định của bài: công thành tốn nhiều sức và thời gian (“đánh thành là hạ sách”); viện binh có thể tới khi nghĩa quân còn đang đánh thành."
+          },
+          {
+            "id": "split",
+            "isOriginal": false,
+            "name": "Chia đôi lực lượng: vừa vây thành vừa chặn viện binh",
+            "shortName": "Chia đôi lực lượng",
+            "desc": "Làm cả hai việc cùng lúc với một nửa sức mỗi nơi.",
+            "timeDelta": 96,
+            "casualtyDelta": 800,
+            "positionScoreDelta": -12,
+            "assumptions": "Giả định của bài: mỗi mặt đều yếu hơn; trận gặp viện binh không đủ quân để phục kích dứt điểm."
+          }
+        ]
+      },
+      {
+        "id": "ambush",
+        "title": "2. Nơi đánh đạo quân Liễu Thăng",
+        "description": "Đánh viện binh ở đâu?",
+        "options": [
+          {
+            "id": "chi_lang",
+            "isOriginal": true,
+            "name": "Nhử vào ải Chi Lăng, phục binh ở chỗ bùn lầy (cách gốc)",
+            "shortName": "Phục kích ở ải Chi Lăng",
+            "desc": "Lui dần qua các cửa ải, để Liễu Thăng đuổi vào thung lũng hẹp.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: Liễu Thăng sa vào bùn lầy, bị phục binh chém ở núi Đảo Mã Pha."
+          },
+          {
+            "id": "border",
+            "isOriginal": false,
+            "name": "Chặn ngay ở cửa Ba Lụy, nơi biên giới",
+            "shortName": "Chặn ngay ở cửa Ba Lụy",
+            "desc": "Không lùi bước nào, giữ chặt cửa ải đầu tiên.",
+            "timeDelta": 72,
+            "casualtyDelta": 900,
+            "positionScoreDelta": -14,
+            "assumptions": "Giả định của bài: quân Minh còn sung sức và đi thành khối lớn; trận đánh thành trận giữ ải trực diện."
+          },
+          {
+            "id": "open_field",
+            "isOriginal": false,
+            "name": "Để quân Minh xuống tới đồng bằng gần Xương Giang rồi mới đánh",
+            "shortName": "Đánh ở đồng bằng",
+            "desc": "Chọn nơi rộng rãi để dàn trận.",
+            "timeDelta": 48,
+            "casualtyDelta": 1100,
+            "positionScoreDelta": -18,
+            "assumptions": "Giả định của bài: ở đồng bằng, quân đông của đối phương dàn trận được; mất lợi thế địa hình hẹp của Chi Lăng."
+          }
+        ]
+      },
+      {
+        "id": "moc_thanh",
+        "title": "3. Với đạo Mộc Thạnh ở cửa Lê Hoa",
+        "description": "Đạo viện binh thứ hai đang chờ thời cơ.",
+        "options": [
+          {
+            "id": "hold",
+            "isOriginal": true,
+            "name": "Giữ vững, không ra đánh; cho Mộc Thạnh biết Liễu Thăng đã thua (cách gốc)",
+            "shortName": "Giữ vững, báo tin",
+            "desc": "Dặn tướng giữ ải đừng ra đánh, rồi đưa ấn tín của tướng Minh bị bắt cho Mộc Thạnh thấy.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: “Mộc Thạnh được tin ấy, sợ quá, đem quân chạy”."
+          },
+          {
+            "id": "attack_both",
+            "isOriginal": false,
+            "name": "Đem chủ lực đánh Mộc Thạnh cùng lúc với Liễu Thăng",
+            "shortName": "Đánh cả hai đạo cùng lúc",
+            "desc": "Không để đạo nào yên.",
+            "timeDelta": 96,
+            "casualtyDelta": 700,
+            "positionScoreDelta": -12,
+            "assumptions": "Giả định của bài: lực lượng bị chia hai, trận Chi Lăng thiếu quân; Mộc Thạnh là tướng lão luyện nên khó bị bất ngờ."
+          },
+          {
+            "id": "leave_open",
+            "isOriginal": false,
+            "name": "Bỏ ngỏ cửa Lê Hoa để dồn hết quân về Chi Lăng",
+            "shortName": "Bỏ ngỏ cửa Lê Hoa",
+            "desc": "Tập trung tuyệt đối cho một hướng.",
+            "timeDelta": 120,
+            "casualtyDelta": 600,
+            "positionScoreDelta": -16,
+            "assumptions": "Giả định của bài: đạo Mộc Thạnh tiến sâu, có thể đánh vào sau lưng nghĩa quân hoặc nối với thành Đông Quan."
+          }
+        ]
+      },
+      {
+        "id": "xuong_giang",
+        "title": "4. Khi quân Minh lập trại giữa đồng ở Xương Giang",
+        "description": "Tàn quân Minh mất thành, phải đắp lũy giữa đồng.",
+        "options": [
+          {
+            "id": "siege_supply",
+            "isOriginal": true,
+            "name": "Vây thủy bộ, chặn đường tải lương rồi mới đánh vào (cách gốc)",
+            "shortName": "Vây, chặn lương rồi đánh",
+            "desc": "Làm đối phương đói và cô lập trước khi tổng công kích.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "Việt Nam sử lược: sai Trần Nguyên Hãn chặn đường tải lương, rồi đánh vào."
+          },
+          {
+            "id": "assault_now",
+            "isOriginal": false,
+            "name": "Đánh ngay khi quân Minh vừa đắp lũy",
+            "shortName": "Đánh ngay",
+            "desc": "Không cho đối phương kịp củng cố.",
+            "timeDelta": -24,
+            "casualtyDelta": 900,
+            "positionScoreDelta": -10,
+            "assumptions": "Giả định của bài: nhanh hơn nhưng phải đánh vào quân còn đủ lương, còn sức chống cự."
+          },
+          {
+            "id": "let_go",
+            "isOriginal": false,
+            "name": "Mở đường cho quân Minh rút về nước",
+            "shortName": "Mở đường cho rút",
+            "desc": "Tránh một trận đánh lớn.",
+            "timeDelta": -48,
+            "casualtyDelta": -300,
+            "positionScoreDelta": -14,
+            "assumptions": "Giả định của bài: tổn thất trước mắt giảm, nhưng đạo quân còn nguyên có thể quay lại; Vương Thông chưa chắc đã chịu hòa."
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Cảm ơn các em đã thử cầm quân năm 1427. Mỗi lựa chọn đều có lí lẽ của nó; ta cùng xem cái được và cái mất.",
+    "variableFeedbacks": {
+      "target": {
+        "wait_relief": "Em đã thấy điều then chốt: phá viện binh thì thành Đông Quan không còn hi vọng, một việc mà thành được hai.",
+        "storm_city": "Đánh thành cho thấy khí thế, nhưng thành cao hào sâu sẽ giữ chân nghĩa quân đúng lúc viện binh kéo tới.",
+        "split": "Làm cả hai việc là một ý hay về lí thuyết; câu hỏi là mỗi nơi còn đủ sức hay không."
+      },
+      "ambush": {
+        "chi_lang": "Em đã biết mượn núi rừng làm quân: thung lũng hẹp và bãi lầy khiến quân đông không dàn trận được.",
+        "border": "Giữ từng tấc đất là tinh thần đáng quý; nhưng ở cửa biên giới, đối phương còn đang sung sức nhất.",
+        "open_field": "Đồng bằng cho ta chỗ dàn quân, nhưng cũng cho đối phương chỗ dàn quân."
+      },
+      "moc_thanh": {
+        "hold": "Em đã chọn cách để tin tức làm việc thay gươm giáo: Mộc Thạnh tự rút khi biết Liễu Thăng đã thua.",
+        "attack_both": "Không để đạo nào yên là ý chí mạnh mẽ; nhưng hai mặt trận cùng lúc chia đôi sức của ta.",
+        "leave_open": "Tập trung là nguyên tắc tốt; nhưng một cánh cửa bỏ ngỏ có thể trở thành lối vào sau lưng."
+      },
+      "xuong_giang": {
+        "siege_supply": "Em đã thấy sức mạnh của đường lương: một đạo quân không có lương thì không đứng vững lâu.",
+        "assault_now": "Đánh nhanh để đối phương không kịp củng cố là lí lẽ có cơ sở; cái giá là đối phương còn đủ sức chống cự.",
+        "let_go": "Tránh đổ máu là mong muốn chính đáng; hãy nghĩ xem đạo quân còn nguyên ấy sẽ làm gì sau đó."
+      }
+    },
+    "encouragingConclusion": "Chiến thắng năm 1427 cho thấy chọn đúng nơi, đúng lúc cũng quan trọng như sức mạnh. Hãy tiếp tục đọc sử bằng câu hỏi “vì sao”."
+  }
+}

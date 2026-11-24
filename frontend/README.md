@@ -1,87 +1,141 @@
-# Mô Phỏng Lịch Sử 3D Tương Tác: Trận Ngọc Hồi - Hạ Hồi (Mùa Xuân 1789)
-## Phiên Bản Lớp Học & Kế Hoạch Bài Dạy (Classroom Lesson Planner)
+# Sử Việt: ứng dụng web (v2)
 
-Ứng dụng web tương tác một trang (Single-Page Application) mô phỏng 3D bài học lịch sử Việt Nam dành cho học sinh và giáo viên THCS / THPT, được thiết kế theo phong cách sổ bài giảng trường học thực tế (**School Lesson Planner**), tối ưu cho máy chiếu lớp học, máy tính để bàn và điện thoại di động.
+Ứng dụng lớp học mô phỏng trận Ngọc Hồi - Hạ Hồi (mùa xuân 1789) trên sa bàn tranh lụa 2.5D. Giáo viên
+chiếu bài lên máy chiếu, cả lớp xem diễn biến gốc, chọn cách đánh khác, xem mô phỏng lại và so sánh số
+liệu. Nội dung minh họa, chưa được chuyên gia duyệt; nhãn này nằm ở dải trên cùng và chân mọi trang.
 
-Nguyên mẫu tập trung vào bài học thí điểm: **Trận đánh Ngọc Hồi - Hạ Hồi (Đại thắng Kỷ Dậu 1789)** do Hoàng đế Quang Trung chỉ huy, kết hợp vòng lặp học tập sư phạm:
-> **Lịch bài giảng** ➔ **Tiến trình 6 giai đoạn lên lớp** ➔ **Sa bàn 3D lịch sử 1789** ➔ **Nhân vật lịch sử đặt câu hỏi** ➔ **Học sinh thử phương án khác** ➔ **Mô phỏng 3D lại phương án mới** ➔ **So sánh số liệu minh bạch** ➔ **Tổng kết & củng cố**.
+Vite + React 19 + TypeScript (strict), TanStack Router (định tuyến theo file, hash history), TanStack
+Query (chỉ cho API phiên lớp), Tailwind CSS v4, zod, three.js từ npm. Hệ thiết kế: [`DESIGN.md`](../DESIGN.md)
+và [`PRODUCT.md`](../PRODUCT.md) ở gốc repo.
 
----
+## Chạy
 
-## 🌟 CÁC CẬP NHẬT MỚI
+Cần Node 20.19 trở lên (CI dùng Node 24; trên máy Đạt `node` mặc định là v18, nên chạy trước
+`export PATH=$HOME/.nvm/versions/node/v24.22.0/bin:$PATH`). Từ thư mục gốc repo:
 
-### A. Giao diện Kế hoạch Bài dạy Chuẩn Sư Phạm (Classroom-Style Lesson UI)
-1. **Màn hình chính "Lịch bài giảng" (Schedule View)**:
-   - Danh sách bài giảng phân bố theo ngày trong tuần (Thứ Hai, Thứ Tư, Thứ Sáu, Tuần sau...).
-   - Hiển thị đầy đủ thông tin: Đề bài, Môn học & Khối lớp (Lịch sử 11), Giáo viên phụ trách, Tiết học / Thời lượng (45 phút), Mục tiêu bài dạy, và Trạng thái (*Nháp / Đã lên lịch / Đã dạy*).
-   - Bài học thí điểm **"Trận Ngọc Hồi - Hạ Hồi"** là bài duy nhất có đủ biến số mô phỏng; ba bài mẫu còn lại (Rạch Gầm, Chi Lăng, kháng chiến Mông - Nguyên) chỉ có dữ liệu cơ bản. Học sinh chỉ thấy bài có trạng thái *Đã dạy* và ngày dạy không muộn hơn hôm nay.
-2. **Trang chi tiết bài học (Lesson Detail Page)**:
-   - Header hiển thị bài học, giáo viên, ngày dạy, khối lớp, mục tiêu và khung **"Đề bài / Câu hỏi trọng tâm"**.
-   - Thanh tiến trình sư phạm (**Classroom Stepper**) 6 giai đoạn có ước lượng thời gian tương ứng với 6 màn hình:
-     *Khởi động (5') ➔ Khám phá 3D gốc (10') ➔ Câu hỏi của vua (8') ➔ Thử cách khác (7') ➔ So sánh (8') ➔ Giải thích & Củng cố (7')*.
-3. **Chế độ xem Giáo viên & Học sinh (Teacher / Student View Toggle)**:
-   - **Chế độ Giáo viên**:
-     - Hiển thị bảng **Sổ tay Sư phạm (Teaching Notes)** theo từng giai đoạn: Gợi ý lời giảng, câu hỏi gợi mở thảo luận nhóm, mục tiêu sư phạm.
-     - Nút **"Chiếu lên lớp" (Presentation Mode)**: Tối ưu cho máy chiếu lớp học (phông chữ lớn, ẩn bớt thanh công cụ phụ, mở rộng khung sa bàn 3D).
-     - **Phiên lớp học** (giai đoạn 3): mở mã 6 ký tự, học sinh nhập mã trên máy của mình; giáo viên thấy số bài đã gửi và tỉ lệ từng phương án, tải CSV ẩn danh và xoá phiên. Cần máy chủ lớp học trong `backend/`; không có máy chủ thì bài học vẫn chạy bình thường.
-   - **Chế độ Học sinh**: Tự động ẩn sổ tay sư phạm và số liệu giáo viên, tập trung vào trải nghiệm học tập và tương tác.
-4. **Nhãn cảnh báo & Tính minh bạch**:
-   - Nhãn thường trực: *"⚠️ Nội dung minh họa, chưa được chuyên gia duyệt"*.
-   - Khung cảnh báo bắt buộc tại màn hình so sánh: *"ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ..."*.
+```bash
+npm ci
+npm run dev:frontend   # Vite, http://localhost:8080
+npm run dev:backend    # máy chủ phiên lớp, cổng 8787 (không bắt buộc)
+npm run build          # frontend/dist (bản Vercel phục vụ)
+npm run preview        # phục vụ frontend/dist
+npm run budget         # sau build: JS ban đầu ≤ 200 KB gzip, three.js và atlas chỉ nằm trong chunk tải lười (atlas không còn three.js)
+```
 
----
+Đăng nhập demo: `admin` / `123` cho cả giáo viên và học sinh. Trang kiểm tra glyph tiếng Việt:
+`#/fonttest` (không cần đăng nhập).
 
-### B. Sa Bàn Tranh Lụa
+## Atlas Việt Nam (`#/atlas?place=<id>&kind=<loại,…>&q=<chữ>`)
 
-- Sa bàn là bản đồ 2.5D nhìn nghiêng từ trên xuống, vẽ bằng washes trên nền lụa: ruộng, lối đi, dải nước, cụm mái nhà, tre và núi mờ xa.
-- Đội hình là các sprite mực và màu nước được tạo bằng canvas rồi dựng theo lô bằng `InstancedMesh`; đội hình có độ lệch vị trí, biến thể hình vẽ, bóng mực và chuyển động nhẹ.
-- Bốn preset camera: **Toàn cảnh sa bàn**, **Theo quân**, **Cận cảnh**, **Từ trên**. Các nhãn địa hình là HTML overlay; không có chữ tiếng Việt trong geometry hoặc atlas canvas.
-- Sơ đồ, màu phe, trang phục và cách bố trí đều là minh họa, chờ chuyên gia thẩm định; chúng không khẳng định tính chính xác lịch sử.
-- Chất lượng thấp giảm số instance được vẽ, tắt các lớp sương và không bật bóng WebGL.
+Một ảnh minh hoạ do AI tạo (`public/atlas/illustration-v2.webp`) có 17 điểm tương tác, gồm cả hai quần đảo. Atlas có
+dữ liệu 34 tỉnh, thành phố (từ 01/7/2025), Hoàng Sa (thuộc TP Đà Nẵng), Trường Sa (thuộc tỉnh Khánh Hòa) và
+71 địa danh (chiến trường, kinh đô, di sản UNESCO, di tích, danh thắng) để tìm kiếm. Vào từ thanh điều hướng
+hoặc thẻ "Atlas Việt Nam" trên bảng giáo viên và bảng học sinh. Liên kết Atlas mở trước khi đăng nhập vẫn giữ địa danh
+và bộ lọc. **Bản đồ 3D tạm hoãn** (`scene.ts`,
+`AtlasView.tsx`, `terrain.png` còn trên đĩa, không gắn vào route nào).
 
----
+- Ảnh do AI tạo nên không theo tỉ lệ địa lý và chưa được chuyên gia duyệt; dòng chú thích dưới ảnh luôn hiện.
+  Điểm vàng có dấu "?" là vị trí đoán, chờ xác nhận (`content/atlas/illustration-v2.json`, `confidence`).
+- Mọi id mở được thẻ (71 địa danh, 34 đơn vị, Hoàng Sa, Trường Sa). Nơi ảnh có vẽ: thẻ có ảnh cắt từ ảnh lớn.
+  Nơi không có: thẻ không ảnh, ghi "Địa danh này chưa có trong ảnh minh hoạ" (ảnh sẽ bổ sung sau).
+- Tìm kiếm và chip loại lọc danh sách và làm sáng các điểm nóng khớp; "Phóng to" và mỗi ảnh cắt mở lightbox.
 
-## 🧭 Luồng 6 màn hình (6-Stage Stepper Flow)
+- Tìm không cần dấu ("ha hoi" ra "Đồn Hạ Hồi"), chịu gõ sai nhẹ; lọc theo loại; mũi tên lên/xuống + Enter.
+- Trạng thái nằm trên URL nên gửi link là mở lại đúng chỗ.
+- Liên kết hai chiều với bài giảng: thẻ địa danh (và thẻ tỉnh) có nút "Mở bài giảng" cho mọi bài nêu địa
+  danh đó trong `atlasPlaceIds` hoặc nằm trong `lessonIds` của địa danh (học sinh chỉ thấy bài đã phát
+  hành); trang bài học có dòng "Trên Atlas Việt Nam" dẫn ngược lại. `npm run atlas:test` báo lỗi nếu một
+  `atlasPlaceIds` không trỏ tới địa danh, tỉnh hay quần đảo có thật.
+- Trên điện thoại, ảnh rộng hết khung ở trên, bảng tìm kiếm và thẻ ở dưới.
+- Dữ liệu tỉnh và địa danh là phái sinh của OpenStreetMap (ODbL), nên dòng "© OpenStreetMap contributors" luôn hiện trên trang atlas.
+  Nguồn, giấy phép và cách tạo lại dữ liệu: [`src/content/atlas/SOURCES.md`](src/content/atlas/SOURCES.md)
+  (`npm run atlas:build`; harness vẽ thử: `npm run atlas:harness`, `npm run atlas:shoot`).
 
-1. **Giai đoạn 1 - Khởi động (Intro Screen)**: Giới thiệu bối cảnh, mục tiêu học tập và nút "Bắt đầu bài học".
-2. **Giai đoạn 2 - Khám phá (3D gốc)**: Sa bàn 3D diễn biến gốc mùa xuân 1789, thanh trượt dòng thời gian, nút phát/dừng/tua và tra cứu sử liệu.
-3. **Giai đoạn 3 - Câu hỏi của vua (Question Screen)**: Vua Quang Trung đặt thử thách; học sinh chọn 4 biến số (Hướng tiến quân, Thời điểm, Loại khiên, Đội hình voi). Phương án gốc được đánh dấu "Cách của nghĩa quân Tây Sơn". Bảng bên cạnh: giáo viên mở phiên lớp và xem tỉ lệ lựa chọn; học sinh nhập mã để gửi lựa chọn (không bắt buộc).
-4. **Giai đoạn 4 - Thử cách khác (New Scenario Simulation)**: Chạy sa bàn 3D mô phỏng lại theo đúng chiến thuật học sinh đã lựa chọn.
-5. **Giai đoạn 5 - So sánh (Comparison Screen)**: Đối chiếu định lượng giữa phương án gốc và giả định của học sinh; bảng ghi chú cảnh báo giả lập và danh sách công thức/giả định toán học.
-6. **Giai đoạn 6 - Giải thích & Củng cố (Explanation Screen)**: Vua Quang Trung bình luận, phân tích bối cảnh, tôn vinh tinh thần phản biện và giao nhiệm vụ tổng kết bài dạy.
+## Luồng 6 bước (`#/lesson/<id>/interactive`)
 
----
+1. **Khởi động** (5'): bối cảnh, câu hỏi trọng tâm, nút bắt đầu.
+2. **Khám phá sa bàn gốc** (10'): sa bàn diễn biến gốc, phát/dừng/tua, 4 góc camera, các giai đoạn. Khi
+   khung sa bàn hẹp (điện thoại), 4 nút góc camera nằm thành một hàng dưới sa bàn thay vì che lên trên.
+3. **Câu hỏi của nhân vật** (8'): nhân vật lịch sử đặt câu hỏi; học sinh chọn một phương án cho mỗi
+   biến số. Phương án gốc mang nhãn `question.originalLabel` (mặc định "Cách gốc trong lịch sử"). Bảng
+   bên cạnh: giáo viên mở phiên lớp và xem tỉ lệ lựa chọn; học sinh nhập mã để gửi (không bắt buộc).
+4. **Thử cách khác** (7'): sa bàn chạy lại, kèm danh sách lựa chọn của em.
+5. **So sánh** (8'): cảnh báo mô phỏng bắt buộc đứng đầu, rồi hai cột số liệu (thời gian, tổn thất,
+   điểm thế trận) và nút xem giả định, cách tính.
+6. **Củng cố** (7'): lời nhận xét theo từng lựa chọn, khảo sát ẩn danh (nếu đã vào lớp), thử phương án
+   khác hoặc kết thúc.
 
-## 🚀 Hướng dẫn mở ứng dụng
+Bài chưa có biến số thì bước 3 nói rõ "Bài học này chưa có phần thử cách khác." và khóa bước 4-6.
 
-1. **Khuyến nghị**: chạy qua web server cục bộ để tránh giới hạn của một số trình duyệt khi mở module hay tài nguyên từ `file:///`:
-   ```bash
-   python3 -m http.server 8080
-   ```
-   Sau đó truy cập `http://localhost:8080` trên trình duyệt. Muốn thử phiên lớp học, chạy thêm máy chủ lớp học ở thư mục gốc: `npm run dev:backend` (cổng 8787; xem `backend/README.md`).
-2. **Mở trực tiếp**: Nháy đúp `index.html`. Các phông Noto và dữ liệu seed được lưu cục bộ; tính năng không được trình duyệt cho phép từ `file:///` vẫn có thể cần server cục bộ.
+## Soạn bài (`#/lesson/<id>/edit`, giáo viên)
+
+Năm thẻ: **Nội dung** (thông tin bài, các giai đoạn và nguồn), **Câu hỏi**, **Biến số & hệ số**,
+**Sa bàn 3D**, **Ghi chú**. Hoàn tác/làm lại cho mọi thay đổi (nút hoặc Ctrl+Z / Ctrl+Shift+Z ngoài ô
+nhập). Bài chỉ lưu được khi qua kiểm tra zod (`lib/lesson-schema.ts`); lỗi hiện thành danh sách tiếng Việt.
+Nút **Word** và **PDF** trên thanh công cụ xuất bài đang soạn (kể cả phần chưa lưu) qua `lib/docx-export.ts`: Word là tệp .docx tự dựng, PDF mở hộp thoại in để chọn "Lưu thành PDF". Mỗi nhãn trên sa bàn có thể kèm mô tả ngắn (`info`) hiện thành thẻ nhỏ khi bấm vào nhãn.
+Bài không có mô phỏng (bài tạo trống không có biến số, và các bài trục thời gian Bài 1, 2, 3; quy tắc `usesOpinionSummary` trong `lib/lesson-schema.ts`) bỏ giai đoạn 4 và 6: giai đoạn 3 hỏi các câu trắc nghiệm của bài (`components/QuizQuestions.tsx`), giai đoạn 5 là "Tổng kết ý kiến" (`components/OpinionSummary.tsx`). Học sinh thấy các đáp án em đã chọn (lưu trên máy, không lưu tên); nếu em đã vào lớp, đáp án được gửi ẩn danh qua phiên lớp và màn hình giáo viên hiện số học sinh chọn từng đáp án. Chế độ giáo viên xem thử không ghi đáp án.
+
+Thẻ **Biến số & hệ số**:
+
+- Số liệu gốc (thời gian, tổn thất, điểm thế trận), nhân vật đặt câu hỏi, nhãn cho cách gốc.
+- Thêm, sửa, xóa, đổi thứ tự biến số; mỗi biến có ít nhất 2 phương án và đúng một phương án gốc (hệ số
+  của phương án gốc luôn là 0).
+- Mỗi phương án: tên, tên ngắn, mã, mô tả, 3 hệ số (giờ, tổn thất, điểm), giả định, lời nhận xét ở bước 6.
+- Ô **Thử nhanh** tính kết quả ngay và cho biết khoảng kết quả trên mọi tổ hợp.
+
+Thẻ **Sa bàn 3D**: tên và màu hai phe, quân số, các lớp hiện trên sa bàn, kiểu địa hình, nhãn địa danh
+(tọa độ x -120..120, z -93..93), mốc camera. Xem trước trực tiếp.
+
+Bài mới tạo từ "Bài giảng trống" hoặc "Tạo bài từ tư liệu" đi được đủ 6 bước ngay khi có một biến số.
 
 ## Kiến trúc
 
-Các tệp `js/*.js` là `<script>` thường (không phải ES module), giao tiếp qua đối tượng `window`. Thứ tự nạp trong `index.html`: `text.js` → `auth.js` → `audio.js` → `lesson-data.js` → `storage.js` → `engine.js` → `scene-map.js` → `config.js` → `class-session.js` → `class-panel.js` → `app.js`.
-
-| Tệp | Vai trò |
+| Thư mục | Nội dung |
 | --- | --- |
-| `app.js` | Bộ điều khiển: định tuyến theo hash (`#/teacher`, `#/student`, `#/lesson/<id>`, `.../edit`, `.../preview`, `.../interactive`), bảng điều khiển giáo viên, trình soạn bài (có hoàn tác/làm lại), màn hình học sinh và vòng lặp 6 giai đoạn. |
-| `lesson-data.js` | `SEED_LESSONS`: dữ liệu bài học mẫu (phần, câu hỏi, ghi chú giáo viên, biến mô phỏng, đạo cụ, camera). |
-| `storage.js` | `LessonStorage`: lưu bài học trong `localStorage`, nhập/xuất JSON; học sinh chỉ thấy bài có trạng thái "Đã dạy" và ngày không quá hôm nay. |
-| `engine.js` | `SimulationEngine`: tính toán xác định từ hệ số trong dữ liệu bài học. Chỉnh hệ số trong dữ liệu, không sửa mã. |
-| `scene-map.js` | `BattleScene3D`: sa bàn Three.js. `scene3d.js` là bản cũ, không được nạp. |
-| `config.js` | `APP_CONFIG`: địa chỉ máy chủ lớp học. Trên `localhost` là `http://localhost:8787`; bản triển khai dùng `DEPLOYED_API_BASE` (để trống thì tắt tính năng lớp học). |
-| `class-session.js` | `ClassSession`: gọi API phiên lớp (mở, tham gia, gửi, tổng hợp, CSV, xoá). |
-| `class-panel.js` | `ClassPanel`: bảng giáo viên / thẻ tham gia ở giai đoạn 3 và khảo sát ở giai đoạn 6. |
-| `auth.js` | Đăng nhập demo phía máy khách (`admin` / `123`, lưu trong `sessionStorage`). |
-| `text.js`, `audio.js` | Chuẩn hóa NFC tiếng Việt; âm thanh trận đánh bằng Web Audio. |
+| `src/routes/` | Một file cho mỗi route (TanStack Router). `__root.tsx` là khung trang: dải nhãn, header, chân trang, màn chuyển cảnh sau đăng nhập. `routeTree.gen.ts` do plugin Vite sinh ra, không sửa tay. |
+| `src/components/` | Màn hình: `LessonPage` (trang bài học, xem trước), `StageLoop` (6 bước), `Editor` + `VariablesEditor` (soạn bài), `Player` (sa bàn 3D + điều khiển, hoặc `TimelinePlayer` cho bài theo trục thời gian), `ClassPanel` (phiên lớp, khảo sát), `ui.tsx` (icon SVG, modal, `PROTOTYPE_NOTICE`, `SIMULATION_NOTICE`). |
+| `src/lib/` | Logic không có UI, có test Vitest (`domain.test.ts`): `lesson-schema` (zod, `isTimelineMode`), `timeline`, `comparison`, `engine` (tính toán xác định), `storage` (localStorage, luật hiển thị), `class-session` (API lớp), `auth`, `audio`, `text` (NFC), `intake`, `prefs`, `guards`, `transition`. |
+| `src/features/atlas/` | Atlas: `IllustrationAtlas.tsx` (ảnh minh hoạ, điểm nóng, bảng tìm, lightbox), `AtlasParts.tsx` (thẻ địa danh, ghi công OSM, dùng chung), `places.ts` (địa danh, tỉnh, quần đảo, `placeOf`), `illustration.ts` (điểm và ảnh cắt), `search.ts` (tìm bỏ dấu, chấm điểm, mã hóa URL; không có DOM). Tạm hoãn, không route nào import: `scene.ts` (`VietnamAtlasScene`, three.js) và `AtlasView.tsx` (bản 3D). Route `src/routes/atlas.tsx`, chunk riêng tải lười. |
+| `src/content/atlas/` | `provinces.topo.json` (34 đơn vị + 2 quần đảo), `landmarks.json` (71 địa danh), `illustration-v2.json` (17 điểm của ảnh minh hoạ), `SOURCES.md`. Id không bao giờ đổi vì bài giảng tham chiếu qua `atlasPlaceIds`. |
+| `src/content/lessons/` | Mỗi bài một file JSON, nạp lười. Mười bài. Sáu bài (bài thí điểm và 5 bài) chạy đủ 6 giai đoạn: Ngọc Hồi, Rạch Gầm, Chi Lăng, Mông – Nguyên, Điện Biên Phủ, Chiến dịch Hồ Chí Minh. Bốn bài SGK của Trung (`bai-1-lien-xo`, `bai-2-chau-au-my`, `bai-3-chau-a` theo trục thời gian; `bai-4-chien-tranh-the-gioi-2` sa bàn 3D) có 1 biến số × 2 phương án, `reviewFlags`, `sourceCitation`, `timeline`, `comparisonMetrics` và không có `atlasPlaceIds`. Trích dẫn chưa đọc được nguyên văn để trống, kèm ghi chú "Cần bổ sung trích dẫn nguyên văn". |
+| `src/scene/` | `silk-map.ts` (lớp `SilkMapScene`, chỉ file này import three, nạp lười), `artwork.ts` (vẽ bản đồ, họa tiết, ảnh thu nhỏ bằng canvas), `counts.ts`, `sprites/` (PNG thay họa tiết). |
+| `public/` | Phông Noto (woff2), logo, `atlas/illustration-v2.webp` (ảnh minh hoạ của atlas) và `atlas/terrain.png` (địa hình của bản 3D tạm hoãn), phục vụ nguyên trạng. |
+| `data/sources.json` | Danh mục nguồn (chưa được code nạp, chưa có chuyên gia duyệt): SGK Lịch sử và Địa lí 9 (Bài 1, 16, 18), Việt Nam sử lược, một mục Wikipedia làm đầu mối. |
 
-Nếu đã có dữ liệu trong trình duyệt, thay đổi `SEED_LESSONS` sẽ không hiện ra: xóa khóa `history_sim_lessons_db_v2` hoặc tăng `STORAGE_KEY_LESSONS` trong `storage.js`.
+Chế độ khám phá: `explorationMode` vắng mặt hoặc kết thúc bằng `_3d` thì bài dùng sa bàn 3D; giá trị khác
+(`ussr_charts`, `depression_charts`, `asia_map`) là chế độ trục thời gian. Bài theo trục thời gian không có
+`simulation`/`factions`, không nạp three.js: `TimelinePlayer` cho học sinh đi từng mốc của `timeline` (nút, thanh
+trượt, phím mũi tên/Home/End, Phát/Dừng), và trong trình soạn tab "Sa bàn 3D" đổi thành "Trục thời gian" để sửa các mốc.
+`reviewFlags` hiện nguyên văn cho giáo viên ở đầu trình soạn. `comparisonMetrics` đổi tên ba chỉ số ở màn hình so sánh.
+Dưới thông báo mô phỏng luôn có dòng "* Chỉ số là giả định sư phạm minh hoạ, không phải kết luận của sách giáo khoa."
+Kiểm tra căn cứ bốn bài SGK với `history_data/`: `npm run audit:grounding` (nằm trong `npm run check`).
 
-Kiểm tra tĩnh (cú pháp JS, JSON, tham chiếu trong `index.html`): `bash ../scripts/check.sh`.
+Mọi thứ riêng của từng bài nằm trong JSON: biến số, hệ số, giả định, nhận xét, nhân vật, và
+`simulation.scene` (địa hình, đặc điểm, nhãn, mũi tiến quân, đội hình, đơn vị đặc biệt). Muốn đổi kết quả
+mô phỏng thì sửa hệ số trong bài, không sửa `engine.ts`.
+
+Bài mẫu được nạp vào `localStorage` (khóa `history_sim_lessons_db_v2`). Khi sửa file JSON của bài mẫu,
+tăng `revision` của bài đó để trình duyệt đã có dữ liệu cũ nhận bản mới.
+
+Địa chỉ API lớp: biến build `VITE_API_BASE` nếu có; nếu không thì `http://localhost:8787` khi chạy trên
+`localhost`, và `DEPLOYED_API_BASE` trong `src/lib/class-session.ts` khi đã triển khai (để trống thì tắt
+tính năng lớp học, bài học vẫn chạy).
 
 ## Họa tiết sa bàn
 
-Renderer dùng họa tiết vẽ thủ công bằng canvas làm mặc định. Có thể thay từng họa tiết bằng PNG nền trong suốt trong `assets/sprites`; tên tệp và kích thước gợi ý nằm trong [assets/sprites/README.md](assets/sprites/README.md). Trang kiểm tra glyph tiếng Việt: `#/fonttest`.
+Họa tiết mặc định vẽ bằng canvas. Có thể thay từng họa tiết bằng PNG nền trong suốt trong
+`src/scene/sprites/`; tên tệp và kích thước nằm trong [src/scene/sprites/README.md](src/scene/sprites/README.md).
+Không vẽ chữ tiếng Việt trong canvas; nhãn địa danh là lớp HTML.
+
+## Kiểm tra
+
+```bash
+npm run check       # tsc, schema mọi bài, nhãn bắt buộc, NFC, cú pháp backend
+npm run test:unit   # Vitest (domain) + node:test (backend)
+npm run atlas:test  # node:test cho dữ liệu atlas, tìm kiếm và liên kết bài ↔ địa danh
+npm run test:e2e    # Playwright, 1280×720 và 360×800 (có tests/e2e/atlas.spec.js)
+```
+
+## Điểm vào web
+
+Trang chủ `/` là triển lãm lịch sử công khai. Nút **Vào lớp học** mở `/classroom.html`, nơi người dùng chọn vai trò và điền thông tin đăng nhập bằng **Điền tài khoản mẫu**. Liên kết đã chia sẻ như `/#/lesson/<id>` và `/#/atlas?place=<id>` tự chuyển sang lớp học với cùng nội dung.

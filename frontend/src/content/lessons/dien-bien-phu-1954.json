@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 2,
+  "revision": 1,
+  "id": "dien-bien-phu-1954",
+  "era": "1953-1954",
+  "atlasPlaceIds": [
+    "dien-bien-phu"
+  ],
+  "factions": {
+    "a": {
+      "name": "Quân đội nhân dân Việt Nam",
+      "color": "#a8412f"
+    },
+    "b": {
+      "name": "Quân đội Pháp",
+      "color": "#3e5c76"
+    }
+  },
+  "title": "Chiến dịch lịch sử Điện Biên Phủ (1954)",
+  "subtitle": "Từ cuộc Tiến công chiến lược Đông – Xuân 1953 – 1954 đến ngày 7 – 5 – 1954",
+  "commander": "Quân đội nhân dân Việt Nam (Đại tướng Võ Nguyên Giáp trực tiếp chỉ huy)",
+  "opponent": "Tập đoàn cứ điểm Điện Biên Phủ của quân đội Pháp (tướng Đờ Ca-xtơ-ri)",
+  "year": "13 – 3 đến 7 – 5 – 1954",
+  "teacher": "Thầy Nguyễn Văn Hưng",
+  "class": "Lớp 9A1",
+  "date": "2026-11-06",
+  "subject": "Lịch sử và Địa lí",
+  "grade": "Khối 9",
+  "period": "Tiết 2 · 08:15 - 09:00 (45 phút)",
+  "objectives": "Mô tả được cuộc Tiến công chiến lược Đông – Xuân 1953 – 1954 và chiến dịch Điện Biên Phủ qua ba đợt tiến công; giải thích vì sao từng quyết định (hướng tiến công, thứ tự đánh, cắt tiếp tế hàng không, hậu cần toàn dân) dẫn tới thắng lợi; nêu được ý nghĩa lịch sử (SGK Lịch sử và Địa lí 9 – Chân trời sáng tạo, Bài 16).",
+  "focusQuestion": "Vì sao Điện Biên Phủ, nơi quân Pháp coi là “một pháo đài không thể xâm phạm”, lại kết thúc bằng thắng lợi của quân dân Việt Nam chỉ sau ba đợt tiến công?",
+  "status": "Đã dạy",
+  "isPilot": false,
+  "disclaimer": "Nội dung minh họa, chưa được chuyên gia duyệt",
+  "simulationDisclaimer": "ĐÂY LÀ MÔ PHỎNG DỰA TRÊN Ý KIẾN CỦA HỌC SINH VÀ SỰ KIỆN THỰC TẾ, KHÔNG PHẢI SỰ THẬT LỊCH SỬ. Thời gian, tổn thất và điểm thế trận đều là số minh họa từ giả định của bài học, không phải số liệu lịch sử.",
+  "introSummary": "Năm 1953, kế hoạch Na-va muốn “kết thúc chiến tranh trong danh dự”. Cuộc Tiến công chiến lược Đông – Xuân 1953 – 1954 buộc quân Pháp phân tán, rồi tập trung về Điện Biên Phủ, một tập đoàn cứ điểm giữa lòng chảo Mường Thanh. Từ ngày 13 – 3 đến ngày 7 – 5 – 1954, qua ba đợt tiến công, Quân đội nhân dân Việt Nam cùng sức người, sức của của toàn dân đã đánh bại tập đoàn cứ điểm này.",
+  "sections": [
+    {
+      "id": "dbp-1",
+      "title": "Kế hoạch Na-va và chiến lược Đông – Xuân 1953 – 1954",
+      "narration": "Tháng 5 – 1953, tướng Na-va sang Đông Dương với kế hoạch tập trung quân chủ lực, đánh những trận quyết định để “kết thúc chiến tranh trong danh dự”. Tháng 9 – 1953, ta chọn cách đánh ngược lại: đánh vào những hướng quan trọng mà quân Pháp tương đối yếu, buộc Pháp phải phân tán lực lượng trên khắp chiến trường Đông Dương.",
+      "caption": "Hai kế hoạch đối đầu: Pháp muốn tập trung, ta buộc Pháp phải phân tán.",
+      "timelineRange": 0.05,
+      "timeLabel": "Tháng 5 – tháng 9 – 1953",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 16 “Cuộc kháng chiến chống thực dân Pháp kết thúc thắng lợi (1951 – 1954)”, mục 2, tr. 83",
+        "quote": "Về phía ta, tháng 9 – 1953, Trung ương Đảng và Chính phủ đề ra chiến lược trong đông – xuân 1953 – 1954: đánh vào những hướng quan trọng mà quân Pháp tương đối yếu, [...] buộc quân Pháp bị động phải phân tán lực lượng.",
+        "note": "Đối chiếu trên ảnh trang SGK. Đoạn lược [...] có một chữ in khác thường trong SGK (“sinh lực định”) nên không trích."
+      }
+    },
+    {
+      "id": "dbp-2",
+      "title": "“Một pháo đài không thể xâm phạm”",
+      "narration": "Cuộc Tiến công chiến lược Đông – Xuân làm phá sản bước đầu kế hoạch Na-va. Pháp dồn quân về Điện Biên Phủ, lúc cao nhất lên tới 16 200 quân, chia thành phân khu Bắc, phân khu Trung tâm có sân bay Mường Thanh, và phân khu Nam.",
+      "caption": "Tập đoàn cứ điểm giữa lòng chảo: ba phân khu, một sân bay, núi đồi bao quanh.",
+      "timelineRange": 0.1,
+      "timeLabel": "Cuối 1953 – đầu 1954",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 16 “Cuộc kháng chiến chống thực dân Pháp kết thúc thắng lợi (1951 – 1954)”, mục 2, tr. 83",
+        "quote": "Cuộc Tiến công chiến lược Đông – Xuân 1953 – 1954 của ta đã làm phá sản bước đầu kế hoạch Na-va. Pháp tập trung quân về Điện Biên Phủ, thời điểm cao nhất lên tới 16 200 quân và coi Điện Biên Phủ là “một pháo đài không thể xâm phạm”.",
+        "note": "Tên ba phân khu và sân bay theo lược đồ 16.3 của SGK."
+      }
+    },
+    {
+      "id": "dbp-3",
+      "title": "Quyết định mở chiến dịch và sức mạnh toàn dân",
+      "narration": "Tháng 12 – 1953, ta quyết định mở chiến dịch Điện Biên Phủ. Đoàn dân công đưa lương thực lên Điện Biên bằng những chiếc xe đạp thồ thô sơ; SGK gọi đó là biểu tượng cho sức mạnh toàn dân tham gia kháng chiến. Đầu tháng 3 – 1954, công tác chuẩn bị mọi mặt hoàn tất.",
+      "caption": "Xe đạp thồ, dân công, bộ đội: cả một hậu phương lên đường ra trận.",
+      "timelineRange": 0.2,
+      "timeLabel": "Tháng 12 – 1953 đến đầu tháng 3 – 1954",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 16 “Cuộc kháng chiến chống thực dân Pháp kết thúc thắng lợi (1951 – 1954)”, mục 2, tr. 83",
+        "quote": "Tháng 12 – 1953, Trung ương Đảng và Chính phủ quyết định mở chiến dịch Điện Biên Phủ. Mục tiêu của chiến dịch là tiêu diệt lực lượng quân Pháp, giải phóng vùng Tây Bắc, tạo điều kiện giải phóng Bắc Lào.",
+        "note": "Hình ảnh dân công và xe đạp thồ: phần mở đầu Bài 16, tr. 80."
+      }
+    },
+    {
+      "id": "dbp-4",
+      "title": "Đợt 1 và đợt 2: Him Lam, phân khu Bắc, đồi A1, C1",
+      "narration": "Chiều 13 – 3 – 1954, pháo binh tấn công cứ điểm Him Lam, chiến dịch bắt đầu. Đợt 1 chiếm Him Lam và phân khu Bắc. Đợt 2 đánh phía đông phân khu Trung tâm, các đồi A1, C1, tiến sát sân bay Mường Thanh và cắt đứt đường tiếp tế hàng không của Pháp – Mỹ.",
+      "caption": "Vòng vây siết lại từ ngoài vào trong; sân bay Mường Thanh bị khống chế.",
+      "timelineRange": 0.6,
+      "timeLabel": "13 – 3 đến 26 – 4 – 1954",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 16 “Cuộc kháng chiến chống thực dân Pháp kết thúc thắng lợi (1951 – 1954)”, mục 2, tr. 84",
+        "quote": "Từ ngày 13 đến ngày 17 – 3: tấn công, chiếm Him Lam và phân khu Bắc. Từ ngày 30 – 3 đến ngày 26 – 4: tấn công phía đông phân khu Trung tâm, đồi A1, C1, tiến sát sân bay Mường Thanh, cắt đứt đường tiếp tế hàng không của Pháp – Mỹ."
+      }
+    },
+    {
+      "id": "dbp-5",
+      "title": "Đợt 3: Mường Thanh và ngày 7 – 5 – 1954",
+      "narration": "Từ ngày 1 đến ngày 7 – 5, quân ta tấn công khu trung tâm Mường Thanh và phân khu Nam. 17 giờ 30 phút ngày 7 – 5 – 1954, tướng Đờ Ca-xtơ-ri và toàn bộ Bộ Tham mưu của Pháp bị bắt sống. Một ngày sau, vấn đề lập lại hòa bình ở Đông Dương được đưa ra Hội nghị Giơ-ne-vơ.",
+      "caption": "17 giờ 30 phút ngày 7 – 5 – 1954: chiến dịch Điện Biên Phủ kết thúc thắng lợi.",
+      "timelineRange": 1,
+      "timeLabel": "1 – 5 đến 7 – 5 – 1954",
+      "source": {
+        "book": "Lịch sử và Địa lí 9 – Chân trời sáng tạo (NXB Giáo dục Việt Nam, 2023)",
+        "chapter": "Chương 4, Bài 16 “Cuộc kháng chiến chống thực dân Pháp kết thúc thắng lợi (1951 – 1954)”, mục 2, tr. 84",
+        "quote": "Từ ngày 1 đến ngày 7 – 5: tấn công khu trung tâm Mường Thanh và phân khu Nam. 17 giờ 30 phút, ngày 7 – 5 – 1954, tướng Đờ Ca-xtơ-ri và toàn bộ Bộ Tham mưu của Pháp bị bắt sống, chiến dịch Điện Biên Phủ kết thúc thắng lợi.",
+        "note": "Hội nghị Giơ-ne-vơ: mục 3, tr. 84."
+      }
+    }
+  ],
+  "keyNotes": [
+    "Kế hoạch Na-va (5 – 1953) muốn tập trung quân chủ lực để “kết thúc chiến tranh trong danh dự”; chiến lược Đông – Xuân 1953 – 1954 của ta đánh vào hướng Pháp tương đối yếu, buộc Pháp phân tán (SGK tr. 83).",
+    "Pháp dồn tới 16 200 quân về Điện Biên Phủ, coi đây là “một pháo đài không thể xâm phạm” (SGK tr. 83).",
+    "Ba đợt tiến công: 13 – 17/3 (Him Lam, phân khu Bắc); 30/3 – 26/4 (phía đông phân khu Trung tâm, đồi A1, C1, cắt tiếp tế hàng không); 1 – 7/5 (Mường Thanh, phân khu Nam) (SGK tr. 84).",
+    "Đoàn dân công với xe đạp thồ là biểu tượng sức mạnh toàn dân tham gia kháng chiến (SGK tr. 80).",
+    "Thắng lợi kết thúc gần một thế kỉ Pháp đô hộ Việt Nam và cổ vũ phong trào giải phóng dân tộc ở châu Á, châu Phi, Mỹ La-tinh (SGK tr. 85 – 86)."
+  ],
+  "privateNotes": "Sổ tay giáo viên:\n- Bám khung của SGK Bài 16 mục 2 (tr. 82 – 84) và lược đồ 16.3; cho học sinh đối chiếu sa bàn với lược đồ.\n- Nhân vật dẫn chuyện ở bước 3 (hướng dẫn viên bảo tàng) là nhân vật hư cấu, không phải nhân chứng lịch sử.\n- Số liệu bước 5 là minh họa: 1 320 giờ là khoảng từ 13 – 3 đến 7 – 5 – 1954 theo SGK; 2 000 “tổn thất ước tính” là mốc chuẩn hóa để so sánh, KHÔNG phải số thương vong lịch sử. Nhắc lớp điều này trước khi xem kết quả.\n- Câu hỏi mở cuối giờ lấy từ phần mở đầu SGK tr. 80 (“Điện Biên Phủ – Việt Nam”); có thể nối sang hoạt động Vận dụng tr. 86 (viết thư theo tranh Toàn dân ra trận).",
+  "questions": [
+    {
+      "id": "dbp-q1",
+      "text": "Theo SGK, chiến lược Đông – Xuân 1953 – 1954 của ta chọn đánh vào đâu?",
+      "type": "multiple_choice",
+      "sectionId": "dbp-1",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "dbp-q1-a",
+          "text": "Những hướng quan trọng mà quân Pháp tương đối yếu, để buộc Pháp phân tán lực lượng",
+          "isCorrect": true,
+          "explanation": "Đúng như SGK tr. 83: ta không đâm vào nơi Pháp tập trung mạnh mà kéo Pháp phải dàn mỏng lực lượng."
+        },
+        {
+          "id": "dbp-q1-b",
+          "text": "Nơi quân Pháp tập trung đông nhất để đánh một trận quyết định ngay",
+          "isCorrect": false,
+          "explanation": "Tập trung quân chủ lực để đánh trận quyết định là ý đồ của kế hoạch Na-va; chiến lược của ta làm điều ngược lại."
+        },
+        {
+          "id": "dbp-q1-c",
+          "text": "Phòng ngự, chờ quân Pháp tấn công trước",
+          "isCorrect": false,
+          "explanation": "SGK mô tả một loạt chiến dịch tiến công trên khắp chiến trường Đông Dương, không phải thế chờ đợi."
+        }
+      ]
+    },
+    {
+      "id": "dbp-q2",
+      "text": "Vì sao việc tiến sát sân bay Mường Thanh trong đợt 2 có ý nghĩa lớn?",
+      "type": "multiple_choice",
+      "sectionId": "dbp-4",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "dbp-q2-a",
+          "text": "Cắt đứt đường tiếp tế hàng không của Pháp – Mỹ cho tập đoàn cứ điểm",
+          "isCorrect": true,
+          "explanation": "SGK tr. 84: đợt 2 tiến sát sân bay Mường Thanh, cắt đứt đường tiếp tế hàng không. Tập đoàn cứ điểm giữa núi rừng dựa vào máy bay để nhận người, lương thực, đạn dược."
+        },
+        {
+          "id": "dbp-q2-b",
+          "text": "Để quân ta dùng sân bay đưa máy bay vào trận",
+          "isCorrect": false,
+          "explanation": "SGK chỉ nêu mục tiêu cắt đường tiếp tế hàng không của đối phương."
+        },
+        {
+          "id": "dbp-q2-c",
+          "text": "Vì đợt 2 chỉ cần chiếm sân bay là kết thúc chiến dịch",
+          "isCorrect": false,
+          "explanation": "Chiến dịch còn đợt 3 (1 – 7/5) đánh vào khu trung tâm Mường Thanh và phân khu Nam."
+        }
+      ]
+    },
+    {
+      "id": "dbp-q3",
+      "text": "Hình ảnh đoàn dân công đưa lương thực lên Điện Biên bằng xe đạp thồ nói lên điều gì?",
+      "type": "multiple_choice",
+      "sectionId": "dbp-3",
+      "isEmperorQuestion": false,
+      "isExplanationReleased": true,
+      "options": [
+        {
+          "id": "dbp-q3-a",
+          "text": "Sức mạnh toàn dân tham gia kháng chiến",
+          "isCorrect": true,
+          "explanation": "SGK tr. 80 gọi đó là biểu tượng cho sức mạnh toàn dân tham gia kháng chiến."
+        },
+        {
+          "id": "dbp-q3-b",
+          "text": "Bộ đội không cần đến hậu phương",
+          "isCorrect": false,
+          "explanation": "Ngược lại: không có lương thực, đạn dược từ hậu phương thì chiến dịch dài ngày không thể diễn ra."
+        },
+        {
+          "id": "dbp-q3-c",
+          "text": "Xe đạp nhanh hơn mọi phương tiện khác",
+          "isCorrect": false,
+          "explanation": "Điểm đáng chú ý là sức người và cách làm sáng tạo với phương tiện thô sơ, không phải tốc độ."
+        }
+      ]
+    },
+    {
+      "id": "dbp-q4",
+      "text": "Vì sao cụm từ “Điện Biên Phủ – Việt Nam” trở thành niềm tự hào của nhiều dân tộc đang đấu tranh chống áp bức trên thế giới lúc bấy giờ?",
+      "type": "open_discussion",
+      "sectionId": "dbp-5",
+      "isEmperorQuestion": true,
+      "isExplanationReleased": true,
+      "guide": "Câu hỏi lấy từ phần mở đầu Bài 16 (tr. 80). Gợi ý từ SGK tr. 86: thắng lợi giáng đòn nặng nề vào tham vọng xâm lược, nô dịch của chủ nghĩa đế quốc, mở đầu sự tan rã hệ thống thuộc địa và cổ vũ phong trào giải phóng dân tộc ở châu Á, châu Phi, Mỹ La-tinh. Mời học sinh liên hệ với mục “Em có biết?” tr. 85."
+    }
+  ],
+  "baseline": {
+    "durationHours": 1320,
+    "casualties": 2000,
+    "positionScore": 92,
+    "ratingText": "Kết thúc thắng lợi ngày 7 – 5 – 1954"
+  },
+  "simulation": {
+    "propsConfig": {
+      "palisade": true,
+      "tents": true,
+      "elephants": true,
+      "banners": true,
+      "fire": true,
+      "village": true,
+      "bamboo": true,
+      "river": true
+    },
+    "unitCounts": {
+      "aInfantry": 46,
+      "aSpecial": 6,
+      "bInfantry": 40,
+      "bArtillery": 4
+    },
+    "keyframes": [
+      {
+        "time": 0,
+        "preset": "overview"
+      },
+      {
+        "time": 0.2,
+        "preset": "top_down"
+      },
+      {
+        "time": 0.45,
+        "preset": "follow_troops"
+      },
+      {
+        "time": 0.75,
+        "preset": "close_up"
+      },
+      {
+        "time": 1,
+        "preset": "overview"
+      }
+    ],
+    "scene": {
+      "terrain": "basin",
+      "labels": [
+        {
+          "text": "Phân khu Bắc",
+          "at": [
+            4,
+            -74
+          ]
+        },
+        {
+          "text": "Đồi Him Lam",
+          "at": [
+            52,
+            -64
+          ]
+        },
+        {
+          "text": "Sân bay Mường Thanh",
+          "at": [
+            -30,
+            -20
+          ]
+        },
+        {
+          "text": "Phân khu Trung tâm",
+          "at": [
+            -6,
+            14
+          ]
+        },
+        {
+          "text": "Đồi A1, C1",
+          "at": [
+            44,
+            2
+          ]
+        },
+        {
+          "text": "Phân khu Nam",
+          "at": [
+            -14,
+            78
+          ]
+        },
+        {
+          "text": "Sông Nậm Rốm",
+          "at": [
+            -44,
+            46
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "river",
+          "points": [
+            [
+              -24,
+              -93
+            ],
+            [
+              -16,
+              -50
+            ],
+            [
+              -12,
+              -10
+            ],
+            [
+              -20,
+              30
+            ],
+            [
+              -12,
+              60
+            ],
+            [
+              -4,
+              93
+            ]
+          ],
+          "size": 6
+        },
+        {
+          "type": "airfield",
+          "at": [
+            -16,
+            -10
+          ],
+          "size": 20
+        },
+        {
+          "type": "road",
+          "points": [
+            [
+              -60,
+              -90
+            ],
+            [
+              -30,
+              -60
+            ],
+            [
+              -8,
+              -30
+            ],
+            [
+              -4,
+              10
+            ],
+            [
+              -8,
+              50
+            ],
+            [
+              -12,
+              80
+            ]
+          ],
+          "size": 1.6
+        },
+        {
+          "type": "hill",
+          "at": [
+            52,
+            -54
+          ],
+          "size": 11
+        },
+        {
+          "type": "hill",
+          "at": [
+            6,
+            -82
+          ],
+          "size": 8
+        },
+        {
+          "type": "hill",
+          "at": [
+            32,
+            -4
+          ],
+          "size": 9
+        },
+        {
+          "type": "hill",
+          "at": [
+            36,
+            -20
+          ],
+          "size": 7
+        },
+        {
+          "type": "fort",
+          "at": [
+            52,
+            -54
+          ],
+          "size": 14,
+          "faction": "b"
+        },
+        {
+          "type": "fort",
+          "at": [
+            -4,
+            2
+          ],
+          "size": 26,
+          "faction": "b"
+        },
+        {
+          "type": "fort",
+          "at": [
+            -10,
+            70
+          ],
+          "size": 14,
+          "faction": "b"
+        },
+        {
+          "type": "forest",
+          "points": [
+            [
+              70,
+              55
+            ],
+            [
+              110,
+              85
+            ]
+          ]
+        },
+        {
+          "type": "camp",
+          "at": [
+            88,
+            34
+          ],
+          "size": 26,
+          "faction": "a"
+        },
+        {
+          "type": "village",
+          "at": [
+            -80,
+            40
+          ],
+          "size": 16
+        }
+      ],
+      "routes": [
+        {
+          "faction": "a",
+          "points": [
+            [
+              104,
+              -70
+            ],
+            [
+              80,
+              -64
+            ],
+            [
+              58,
+              -56
+            ]
+          ],
+          "from": 0.2,
+          "to": 0.32
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              40,
+              -92
+            ],
+            [
+              22,
+              -86
+            ],
+            [
+              10,
+              -80
+            ]
+          ],
+          "from": 0.24,
+          "to": 0.36
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              104,
+              18
+            ],
+            [
+              74,
+              8
+            ],
+            [
+              42,
+              -2
+            ]
+          ],
+          "from": 0.4,
+          "to": 0.56
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              60,
+              -40
+            ],
+            [
+              30,
+              -26
+            ],
+            [
+              0,
+              -14
+            ]
+          ],
+          "from": 0.44,
+          "to": 0.6
+        },
+        {
+          "faction": "b",
+          "points": [
+            [
+              -4,
+              2
+            ],
+            [
+              16,
+              0
+            ]
+          ],
+          "from": 0.5,
+          "to": 0.58
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              40,
+              -2
+            ],
+            [
+              20,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "from": 0.7,
+          "to": 0.95
+        },
+        {
+          "faction": "a",
+          "points": [
+            [
+              40,
+              88
+            ],
+            [
+              14,
+              78
+            ],
+            [
+              -6,
+              70
+            ]
+          ],
+          "from": 0.72,
+          "to": 0.95
+        }
+      ],
+      "formations": {
+        "a": {
+          "from": [
+            58,
+            52
+          ],
+          "to": [
+            12,
+            2
+          ]
+        },
+        "b": {
+          "from": [
+            -4,
+            -6
+          ],
+          "to": [
+            -4,
+            6
+          ]
+        }
+      },
+      "aSpecialKind": "cannon",
+      "bSpecialKind": "cannon"
+    },
+    "outcomes": {
+      "perfect": "Các lựa chọn của em trùng với cách đã diễn ra: chiến dịch kết thúc thắng lợi ngày 7 – 5 – 1954 như SGK mô tả.",
+      "positive": "Theo giả định của bài, chiến dịch vẫn có thể giành thắng lợi nhưng mất thêm thời gian và lực lượng.",
+      "moderate": "Thế trận giằng co: tập đoàn cứ điểm có thêm thời gian để được tiếp tế và củng cố.",
+      "challenging": "Thế trận khó khăn: đối phương giữ được thế chủ động và đường tiếp tế, chiến dịch kéo dài, tổn thất lớn."
+    }
+  },
+  "question": {
+    "character": {
+      "name": "Hướng dẫn viên Hoa",
+      "dynasty": "Nhân vật hư cấu dẫn chuyện tại Bảo tàng Chiến thắng lịch sử Điện Biên Phủ",
+      "greeting": "Chào các em!",
+      "speech": "Cô là người dẫn chuyện của bài học này. Năm 1954, quân và dân ta đã chọn đánh vào nơi Pháp tương đối yếu, đánh từ ngoài vào trong qua ba đợt, cắt đường tiếp tế hàng không và dựa vào sức của toàn dân. Nếu bốn quyết định ấy được đặt lên bàn của các em, các em sẽ chọn khác ở điểm nào, và vì sao?"
+    },
+    "originalLabel": "Cách đã diễn ra năm 1953 – 1954",
+    "variables": [
+      {
+        "id": "dong_xuan",
+        "title": "1. Hướng tiến công Đông – Xuân 1953 – 1954",
+        "description": "Đánh vào đâu trước khi Pháp kịp tập trung lực lượng?",
+        "options": [
+          {
+            "id": "weak_points",
+            "isOriginal": true,
+            "name": "Đánh vào những hướng Pháp tương đối yếu, buộc Pháp phân tán (cách đã diễn ra)",
+            "shortName": "Đánh nơi Pháp yếu, buộc phân tán",
+            "desc": "Mở nhiều chiến dịch trên khắp chiến trường Đông Dương, kéo quân cơ động của Pháp đi nhiều nơi.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 83: chiến lược này làm phá sản bước đầu kế hoạch Na-va."
+          },
+          {
+            "id": "strong_point",
+            "isOriginal": false,
+            "name": "Dồn chủ lực đánh vào nơi Pháp tập trung đông nhất",
+            "shortName": "Đánh thẳng vào nơi Pháp mạnh",
+            "desc": "Tìm một trận quyết định sớm ở nơi quân Pháp đã tập trung chủ lực.",
+            "timeDelta": 240,
+            "casualtyDelta": 1200,
+            "positionScoreDelta": -20,
+            "assumptions": "Giả định của bài: đánh vào nơi đối phương mạnh nhất làm tổn thất tăng; Pháp không phải phân tán nên vẫn giữ khối quân cơ động, đúng điều kế hoạch Na-va mong muốn."
+          },
+          {
+            "id": "wait",
+            "isOriginal": false,
+            "name": "Phòng ngự, chờ quân Pháp tấn công trước",
+            "shortName": "Phòng ngự chờ đợi",
+            "desc": "Giữ lực lượng, để Pháp ra tay trước rồi mới đối phó.",
+            "timeDelta": 480,
+            "casualtyDelta": 400,
+            "positionScoreDelta": -22,
+            "assumptions": "Giả định của bài: Pháp giữ thế chủ động và có thêm thời gian thực hiện kế hoạch Na-va; chiến dịch quyết định đến muộn hơn nhiều."
+          }
+        ]
+      },
+      {
+        "id": "order",
+        "title": "2. Thứ tự tiến công tập đoàn cứ điểm",
+        "description": "Đánh phân khu nào trước?",
+        "options": [
+          {
+            "id": "outside_in",
+            "isOriginal": true,
+            "name": "Đánh từ ngoài vào: Him Lam, phân khu Bắc → phía đông → khu trung tâm (cách đã diễn ra)",
+            "shortName": "Từ ngoài vào trong, ba đợt",
+            "desc": "Lần lượt bóc các cứ điểm vòng ngoài, siết vòng vây rồi mới đánh vào trung tâm Mường Thanh.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 84: ba đợt tiến công, mỗi đợt thu hẹp vòng vây (lược đồ 16.3)."
+          },
+          {
+            "id": "center_first",
+            "isOriginal": false,
+            "name": "Đánh thẳng vào khu trung tâm Mường Thanh ngay từ đầu",
+            "shortName": "Đánh thẳng vào trung tâm",
+            "desc": "Bỏ qua các cứ điểm vòng ngoài, nhắm ngay vào sở chỉ huy.",
+            "timeDelta": -120,
+            "casualtyDelta": 1500,
+            "positionScoreDelta": -20,
+            "assumptions": "Giả định của bài: có thể rút ngắn thời gian nhưng phải đánh vào nơi phòng ngự dày nhất khi các cứ điểm vòng ngoài còn nguyên và bắn được vào sườn quân ta."
+          },
+          {
+            "id": "south_first",
+            "isOriginal": false,
+            "name": "Đánh phân khu Nam trước, để phân khu Bắc lại sau",
+            "shortName": "Đánh phân khu Nam trước",
+            "desc": "Bắt đầu từ cứ điểm xa nhất ở phía nam lòng chảo.",
+            "timeDelta": 120,
+            "casualtyDelta": 500,
+            "positionScoreDelta": -10,
+            "assumptions": "Giả định của bài: phân khu Bắc và Him Lam vẫn đứng vững, che chắn cho khu trung tâm; vòng vây khép chậm hơn."
+          }
+        ]
+      },
+      {
+        "id": "airlift",
+        "title": "3. Đường tiếp tế hàng không của Pháp",
+        "description": "Làm gì với sân bay Mường Thanh?",
+        "options": [
+          {
+            "id": "cut_airfield",
+            "isOriginal": true,
+            "name": "Tiến sát sân bay Mường Thanh, cắt đứt tiếp tế hàng không (cách đã diễn ra)",
+            "shortName": "Khống chế sân bay, cắt tiếp tế",
+            "desc": "Đưa trận địa áp sát sân bay để máy bay không còn tiếp tế được cho tập đoàn cứ điểm.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 84: đợt 2 cắt đứt đường tiếp tế hàng không của Pháp – Mỹ."
+          },
+          {
+            "id": "ignore_airfield",
+            "isOriginal": false,
+            "name": "Để ngỏ sân bay, chỉ vây bằng bộ binh",
+            "shortName": "Để ngỏ sân bay",
+            "desc": "Tập trung vây các cứ điểm, không đụng tới sân bay.",
+            "timeDelta": 360,
+            "casualtyDelta": 900,
+            "positionScoreDelta": -16,
+            "assumptions": "Giả định của bài: đối phương vẫn nhận người, lương thực, đạn dược bằng máy bay nên cầm cự lâu hơn."
+          },
+          {
+            "id": "harass_airfield",
+            "isOriginal": false,
+            "name": "Chỉ bắn quấy rối sân bay từ xa",
+            "shortName": "Bắn quấy rối từ xa",
+            "desc": "Không áp sát, chỉ làm sân bay hoạt động khó khăn hơn.",
+            "timeDelta": 168,
+            "casualtyDelta": 400,
+            "positionScoreDelta": -8,
+            "assumptions": "Giả định của bài: tiếp tế bị giảm nhưng không bị cắt hẳn; vòng vây cần thêm thời gian."
+          }
+        ]
+      },
+      {
+        "id": "logistics",
+        "title": "4. Bảo đảm hậu cần cho chiến dịch",
+        "description": "Lương thực, đạn dược lên Điện Biên bằng cách nào?",
+        "options": [
+          {
+            "id": "whole_people",
+            "isOriginal": true,
+            "name": "Huy động toàn dân: dân công, xe đạp thồ đưa lương thực lên Điện Biên (cách đã diễn ra)",
+            "shortName": "Huy động dân công, xe đạp thồ",
+            "desc": "Sức người, sức của của cả hậu phương cùng ra trận.",
+            "timeDelta": 0,
+            "casualtyDelta": 0,
+            "positionScoreDelta": 0,
+            "assumptions": "SGK tr. 80: hình ảnh đoàn dân công với xe đạp thồ là biểu tượng sức mạnh toàn dân tham gia kháng chiến."
+          },
+          {
+            "id": "army_only",
+            "isOriginal": false,
+            "name": "Chỉ bộ đội tự vận chuyển, không huy động dân công",
+            "shortName": "Bộ đội tự vận chuyển",
+            "desc": "Giữ chiến dịch gọn trong lực lượng quân đội.",
+            "timeDelta": 336,
+            "casualtyDelta": 600,
+            "positionScoreDelta": -14,
+            "assumptions": "Giả định của bài: lương thực, đạn dược lên chậm và ít hơn; mỗi đợt tiến công phải chờ lâu hơn."
+          },
+          {
+            "id": "rush",
+            "isOriginal": false,
+            "name": "Mở màn sớm khi chưa đủ lương thực dự trữ",
+            "shortName": "Đánh sớm khi chưa đủ dự trữ",
+            "desc": "Không chờ công tác chuẩn bị mọi mặt hoàn tất.",
+            "timeDelta": -96,
+            "casualtyDelta": 1100,
+            "positionScoreDelta": -18,
+            "assumptions": "Giả định của bài: mở màn sớm hơn nhưng có thể thiếu lương thực, đạn dược giữa chiến dịch; SGK nêu chiến dịch chỉ bắt đầu khi “công tác chuẩn bị mọi mặt đã hoàn tất” (tr. 83)."
+          }
+        ]
+      }
+    ]
+  },
+  "explanations": {
+    "intro": "Cảm ơn các em đã đặt mình vào những quyết định của năm 1954. Mỗi lựa chọn đều có cái được và cái mất; điều quan trọng là các em giải thích được vì sao.",
+    "variableFeedbacks": {
+      "dong_xuan": {
+        "weak_points": "Em đã chọn đúng tinh thần của chiến lược Đông – Xuân: kéo đối phương phải dàn mỏng lực lượng thay vì để họ tập trung.",
+        "strong_point": "Đánh thẳng vào nơi mạnh nhất cho thấy quyết tâm cao, nhưng lại giúp kế hoạch Na-va đạt điều nó muốn: một trận quyết định ở nơi Pháp đã chuẩn bị sẵn.",
+        "wait": "Thận trọng giữ lực lượng là điều dễ hiểu, nhưng khi chờ đợi, quyền chủ động thuộc về đối phương."
+      },
+      "order": {
+        "outside_in": "Em đã thấy giá trị của việc bóc dần từng lớp: mỗi cứ điểm vòng ngoài mất đi là một lá chắn của khu trung tâm bị gỡ bỏ.",
+        "center_first": "Nhắm thẳng vào sở chỉ huy rất táo bạo; hãy nghĩ thêm xem các cứ điểm vòng ngoài sẽ làm gì khi quân ta đi qua giữa chúng.",
+        "south_first": "Bắt đầu ở phía nam là một cách nhìn khác; còn phân khu Bắc và Him Lam thì sao, khi chúng vẫn che chắn cho trung tâm?"
+      },
+      "airlift": {
+        "cut_airfield": "Em đã nhìn ra “mạch máu” của tập đoàn cứ điểm giữa núi rừng: đường hàng không.",
+        "ignore_airfield": "Vây chặt bằng bộ binh là cần thiết, nhưng khi máy bay còn hạ cánh được thì vòng vây vẫn có một lỗ hổng trên trời.",
+        "harass_airfield": "Làm khó sân bay là một bước, nhưng tiếp tế chỉ giảm chứ chưa bị cắt hẳn."
+      },
+      "logistics": {
+        "whole_people": "Em đã chọn đúng điều SGK nhấn mạnh: sức mạnh làm nên “thiên sử vàng” Điện Biên Phủ là sức mạnh của toàn dân.",
+        "army_only": "Giữ chiến dịch gọn trong quân đội thì dễ chỉ huy hơn, nhưng một chiến dịch dài ngày cần nhiều sức người hơn thế.",
+        "rush": "Muốn đánh sớm để giành thời gian là ý tưởng đáng bàn; câu hỏi là quân ta có đủ gạo, đủ đạn để đi hết cả ba đợt không."
+      }
+    },
+    "encouragingConclusion": "Lịch sử không chỉ là các mốc ngày tháng mà là chuỗi quyết định có lí do. Khi các em tự cân nhắc được và mất, các em đang học cách nghĩ như người làm nên lịch sử."
+  }
+}

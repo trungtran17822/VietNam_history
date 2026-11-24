@@ -9,7 +9,7 @@ Two independent deploys, both run by `.github/workflows/ci-cd.yml` after the `te
 
 Each deploy job **skips with a notice** (not a failure) when its secrets are missing, so CI stays green before setup is done. The lesson works without the backend; only the class session (F10/F11) needs it.
 
-## Live now (main deployer: Đạt, 2026-11-04)
+## Live now (main deployer: Đạt; v2 frontend in production since 2026-11-08)
 
 | Part | Where | URL |
 |---|---|---|
@@ -19,14 +19,35 @@ Each deploy job **skips with a notice** (not a failure) when its secrets are mis
 
 - The repo is bound to these accounts. The Vercel org/project ids are in `ci-cd.yml`; the Cloudflare `account_id` and D1 ids are in `backend/wrangler.toml`. None of them is secret.
 - CI needs only two repo secrets: `VERCEL_TOKEN` and `CLOUDFLARE_API_TOKEN`. Adding them needs repo admin rights. Step-by-step guide in Vietnamese: [CI-CD_Vercel_VietnamHistory.md](CI-CD_Vercel_VietnamHistory.md).
-- `frontend/js/config.js` points every deployed copy, Vercel previews included, at the production Worker.
+- `frontend/src/lib/class-session.ts` (`DEPLOYED_API_BASE`) points every deployed copy, Vercel previews included, at the production Worker. A build can override it with the env var `VITE_API_BASE`.
 - Manual deploy from a logged-in machine (check, unit, backend migrate + deploy, smoke, frontend): `npm run deploy`. The parts on their own: `deploy:backend`, `smoke`, `deploy:frontend`.
+- 2026-11-08, v2 release (approved by Đạt after the Staging preview): frontend only, from a tree identical to `Staging` `69e0354`, with `vercel pull --yes --environment=production`, `vercel build --prod`, `vercel deploy --prebuilt --prod` → deployment `vietnam-history-49llhqt2q`, aliased to the production URL. The backend was not redeployed (no code change since the 2026-11-04 deploy); `npm run smoke` passed against it. The previous production deployment, `vietnam-history-lv8a0w5kv-youngsterdumbs-projects.vercel.app` (v1), is the rollback target: `vercel rollback <that url>`. `main` on GitHub still holds v1 until `Staging` is merged into it.
+- 2026-11-15, Trung's SGK lessons (Bài 1–4) ported to v2 (PR #9, `main` `418b2f5`): CI green on the feature branch, `Staging` and `main`, but the deploy jobs only skipped (no repo secrets yet). Deployed by hand with `npm run deploy` from a worktree of `main`: no D1 migrations, Worker `sv-class-api` redeployed (no code change), smoke passed, Vercel deployment `vietnam-history-fqvnavdv5` aliased to the production URL. Rollback target: `vietnam-history-49llhqt2q` (the 2026-11-08 v2 release).
+
+## What CI runs (v2, `.github/workflows/ci-cd.yml`)
+
+Job `test`, on every push and pull request, Node 24:
+
+1. `npm ci`
+2. `bash scripts/check.sh`: `tsc`, every lesson JSON against the zod schema, mandatory labels (including the atlas line "© OpenStreetMap contributors", ODbL), NFC, backend syntax.
+3. `npm run test:unit`: Vitest (`frontend/src/lib`) and the backend `node:test` suite.
+4. `npm run atlas:test`: atlas data (34 units, Hoàng Sa / Trường Sa, landmarks inside their provinces, search, every lesson's `atlasPlaceIds` resolves). Node ≥ 22.18 is needed because the tests import `.ts` files directly.
+5. `npm run build` (Vite → `frontend/dist`), then `npm run budget`: the JS a first visit loads must stay ≤ 200 KB gzip, with three.js and the atlas only in lazy chunks.
+6. `npx playwright install --with-deps chromium`, then `npm run test:e2e` (desktop 1280×720 and phone 360×800; the config builds, previews and starts the in-memory API itself).
+
+Jobs `deploy-frontend` and `deploy-backend` need `test` and run only for pushes to `Staging` (Vercel preview, Worker `sv-class-api-staging`) or `main` (production). They use Node 22 for the deploy tools (`vercel@latest`, `wrangler@3`). The Vercel preview URL is printed by the `vercel deploy --prebuilt` step of the run. Every deployed frontend, previews included, calls the production Worker through `DEPLOYED_API_BASE` (see below), so a class session opened on a Staging preview lands in the production D1.
+
+Concurrency: runs are grouped by workflow, event and ref. A newer run cancels an older one on feature branches and pull requests; pushes to `Staging` and `main` queue instead, so a deploy is never cut off midway. The event is in the group because a merged PR's `pull_request` run reports the base branch as its ref: before 2026-11-18 it shared the push run's group and cancelled the production deploy (PR #21, fixed by re-running). If a `main` push run still shows `cancelled`, re-run it with `gh run rerun <id>` and check the live site.
+
+Release flow: feature branch → merge into `Staging` → CI deploys the preview → Đạt reviews it → merge into `main` (production). Nobody else deploys production.
+
+Preview by hand (while the repo secrets are missing), from a checkout of `Staging` with a logged-in Vercel CLI: `npx vercel@latest pull --yes --environment=preview`, `npx vercel@latest build`, `npx vercel@latest deploy --prebuilt`. Never add `--prod`. Previews have Vercel Authentication on, so only signed-in members of the Vercel account can open them; check one from the CLI with `npx vercel@latest curl <url>/index.html`.
 
 The sections below are the from-scratch setup, for a new account.
 
 ## 1. Vercel (frontend), once
 
-1. Create a Vercel project from this repo. `vercel.json` already sets `outputDirectory: frontend`, no install or build command, and turns off Vercel's own Git deploys (CI deploys instead).
+1. Create a Vercel project from this repo. `vercel.json` already sets `installCommand: npm ci`, `buildCommand: npm run build` (Vite 8, needs Node 20.19+), `outputDirectory: frontend/dist`, and turns off Vercel's own Git deploys (CI deploys instead). CI runs `vercel build` on its own runner, so the Node version is the one in `ci-cd.yml`, not the Vercel project setting.
 2. Put `orgId` and `projectId` from `.vercel/project.json` (after `npx vercel link`; do not commit `.vercel/`) into `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` in `ci-cd.yml`.
 3. Add the repo secret `VERCEL_TOKEN` (GitHub → Settings → Secrets and variables → Actions; vercel.com → Account Settings → Tokens).
 
@@ -55,7 +76,7 @@ npx wrangler@3 deploy --env staging
 
 ## 3. Connect the frontend to the backend
 
-1. Set `DEPLOYED_API_BASE` in `frontend/js/config.js` to the Worker origin (no trailing slash), e.g. `https://sv-class-api.<subdomain>.workers.dev`. Until then deployed sites show "class features not configured" and run everything else.
+1. Set `DEPLOYED_API_BASE` in `frontend/src/lib/class-session.ts` (or the build env var `VITE_API_BASE`) to the Worker origin (no trailing slash), e.g. `https://sv-class-api.<subdomain>.workers.dev`. Until then deployed sites show "class features not configured" and run everything else.
 2. `ALLOWED_ORIGINS` in `wrangler.toml` must include the site origin. Defaults: staging allows `http://localhost:8080` and `https://*.vercel.app`; production allows `https://*.vercel.app`. Narrow production to the real domain once it is fixed.
 
 ## 4. Rollback

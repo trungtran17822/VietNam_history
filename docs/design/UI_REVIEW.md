@@ -30,3 +30,16 @@ These are Trung's identity choices for the "silk painting / school lesson planne
 ## Checked by tests
 
 `tests/e2e/layout.spec.js` (no horizontal scroll at 360 px on login, dashboard and every stage; join card above choices; tile height ≥ 44 px) and the labelling checks in `tests/e2e/lesson-flow.spec.js` keep these decisions from regressing.
+
+## v2 pass (S4, 2026-11-08)
+
+Same tools on the v2 app (`frontend/src`, built with Vite), desktop 1280×720 and phone 360×800, logged in (rendered scan through `impeccable detect --cdp`).
+
+| Check | Before | After |
+|---|---|---|
+| Static scan `detect frontend/src` | 44 advisories (26 hard-coded colours, 14 off-scale font sizes, 4 off-scale radii) | 0: tints became `@theme` tokens documented in `DESIGN.md`; 13 px and 15 px documented as `caption` and `control`; 12 px raised to 13 px; radii 6 → 8 px, 14 → 12 px |
+| Rendered scan, 8 screens × 2 sizes | low contrast 1.9:1 (muted count inside the selected filter chip on lacquer) | fixed (`.chip[aria-pressed] .muted` inherits the chip colour) |
+| Phone sand table | the 4 camera pills covered about half of the 360 px frame | pills sit in a strip under the table on frames narrower than 42rem; labels kept out of the top 44 px |
+| Field placeholders | browser default grey (3.0:1) | `--color-muted` (≈ 5.9:1) |
+
+Kept on purpose (rendered scan): `cream-palette` (the ivory page is the brand), `flat-type-hierarchy` (the 1.2 scale in `DESIGN.md`), `first-viewport-column-overflow` on the stage screens (the projector-sized table is taller than a 720 px window by design), `line-length` 89-112 characters on a few lesson paragraphs (advisory, left for a content pass). The app has no dark theme; under a dark OS setting it stays on paper (`color-scheme: light`).

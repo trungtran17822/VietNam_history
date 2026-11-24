@@ -3,7 +3,7 @@
 
 | | |
 |---|---|
-| Phiên bản | 1.0, 03/11/2026 |
+| Phiên bản | 1.2, 08/11/2026 (thêm SRS-A-10: liên kết hai chiều bài giảng ↔ Atlas; cập nhật cách kiểm thử mục 6). 1.1, 07/11/2026: form soạn biến số & hệ số, frontend v2 |
 | Trạng thái | Sẵn sàng triển khai (spec đã qua 3 vòng review) |
 | Chuẩn tham chiếu | Cấu trúc theo ISO/IEC/IEEE 29148 (kế thừa IEEE 830) |
 | Nguồn | PRD `docs/prd/PRD và lộ trình demo Mô phỏng lịch sử 3D.docx` (cập nhật 01/11/2026); spec `specs/001-classroom-sim-demo/`; thiết kế hệ thống `docs/architecture/SYSTEM_DESIGN.md`; báo cáo nghiên cứu `docs/research/` |
@@ -49,7 +49,7 @@ data model, API contract, tasks); `docs/architecture/SYSTEM_DESIGN.md`; `.specif
 
 ### 2.1 Bối cảnh sản phẩm
 Hai phần tách thư mục:
-- **Frontend** (`frontend/`): trang web tĩnh (HTML/CSS/JS, three.js), chứa toàn bộ nội dung bài và
+- **Frontend** (`frontend/`): trang web tĩnh build bằng Vite (React, TypeScript, three.js), chứa toàn bộ nội dung bài và
   tính toán mô phỏng; chạy được cả khi không có mạng tới máy chủ lớp học. Triển khai trên Vercel.
 - **Backend** (`backend/`): một Cloudflare Worker và cơ sở dữ liệu D1, chỉ lưu phiên lớp và câu trả
   lời ẩn danh. Triển khai trên Cloudflare.
@@ -60,6 +60,7 @@ Hai phần tách thư mục:
 3. Phiên lớp: giáo viên xem phân bố lựa chọn của cả lớp (F10).
 4. Dữ liệu thử nghiệm ẩn danh: thời gian dùng, khảo sát 3 câu, xuất CSV (F11).
 5. Soạn bài nháp từ tư liệu có nguồn, chặn phát hành khi chưa đối chiếu nguồn (bản cập nhật UI của Trung).
+6. Soạn biến số và hệ số mô phỏng ngay trong trình soạn bài, để bài mới chạy được đủ 6 màn (v2).
 
 ### 2.3 Người dùng
 
@@ -76,7 +77,7 @@ của trường; máy chiếu 1280×720; điện thoại rộng từ 360 px. Phi
 
 ### 2.5 Ràng buộc
 - Giao diện và lời nhân vật 100% tiếng Việt, chuẩn hoá NFC; không vẽ chữ vào canvas/3D.
-- Không có bước build, không framework (giữ nhẹ và dễ bảo trì cho nhóm nhỏ).
+- Gói JS ban đầu ≤ 200 KB gzip (không tính chunk sa bàn 3D, nạp lười); ít thư viện phụ thuộc. (v1 không có bước build; từ v2 dùng Vite + React + TypeScript để có kiểu dữ liệu, test cạnh code và kiểm tra lược đồ bài học.)
 - Không thu thập thông tin cá nhân của học sinh.
 - Hạ tầng gói miễn phí (Vercel Hobby, Cloudflare Workers/D1 Free) cho giai đoạn demo.
 
@@ -108,7 +109,7 @@ Cột "PRD" ánh xạ về mã yêu cầu trong PRD; "Spec" ánh xạ về `spec
 |---|---|---|---|---|---|
 | SRS-F-04 | Nhân vật vua Quang Trung đặt 1-2 câu hỏi cuối bài, gồm câu "nếu là các con… sẽ làm khác ở điểm nào?" | P0 | F4 | FR-004 | E2E |
 | SRS-F-05 | Học sinh chọn 1 phương án cho mỗi biến số (3-5 biến số, mỗi biến ≥2 phương án); phương án lịch sử được chọn sẵn và đánh dấu "Cách của nghĩa quân Tây Sơn"; không có ô nhập chữ tự do | P0 | F5 | FR-005 | E2E |
-| SRS-F-06 | Cùng lựa chọn luôn cho cùng kết quả; mọi con số tính từ hệ số trong dữ liệu bài | P0 | F6 | FR-006 | Unit: 81 tổ hợp × 2 lần |
+| SRS-F-06 | Cùng lựa chọn luôn cho cùng kết quả; mọi con số tính từ hệ số trong dữ liệu bài | P0 | F6 | FR-006 | Unit: 256 tổ hợp × 2 lần |
 | SRS-F-07 | Màn so sánh hiện thời gian, tổn thất ước tính, điểm thế trận của cách gốc và cách của em; khung cảnh báo mô phỏng là phần tử đầu tiên và được cuộn vào tầm nhìn; nút "Xem giả định" liệt kê mọi hệ số áp dụng | P0 | F7 | FR-007 | E2E |
 | SRS-F-08 | Lời giải thích nêu điều kiện lịch sử cho từng biến số, kết bằng lời mời suy nghĩ tiếp, có nút "Thử phương án khác" giữ lựa chọn trước; không dùng từ chấm đúng sai (danh sách ở SRS-Q-03) | P0 | F8 | FR-008 | Unit: quét từ ngữ |
 | SRS-F-09 | Bài chưa có biến số hiển thị "Bài học này chưa có phần thử cách khác" và không cho sang màn 4-6 | P0 | – | Edge case | E2E |
@@ -133,12 +134,15 @@ Cột "PRD" ánh xạ về mã yêu cầu trong PRD; "Spec" ánh xạ về `spec
 | SRS-F-18 | Giáo viên tải CSV UTF-8 có BOM, mỗi thiết bị một dòng, mã ẩn danh A01, A02…; không có cột định danh; chống chèn công thức | P1 | F11 | FR-015 | Unit + E2E |
 | SRS-F-19 | Giáo viên xoá phiên (xoá cả câu trả lời); hệ thống tự xoá phiên quá 180 ngày | P1 | F11 | FR-016 | Unit |
 
-#### 3.1.5 Soạn bài từ tư liệu có nguồn
+#### 3.1.5 Soạn bài: tư liệu có nguồn, biến số và hệ số
 
 | Mã | Yêu cầu | Ưu tiên | PRD | Spec | Kiểm thử |
 |---|---|---|---|---|---|
 | SRS-F-20 | Giáo viên tạo bài nháp từ nội dung + nguồn (tên, cơ quan/tác giả, liên kết HTTPS, năm, thông tin cần đối chiếu); thiếu trường bắt buộc thì báo lỗi rõ | P1 | NFR độ đúng | FR-021 | E2E |
 | SRS-F-21 | Không phát hành được bài nháp khi giáo viên chưa xác nhận "Tôi đã đối chiếu nguồn" | P1 | NFR độ đúng | FR-021 | E2E |
+| SRS-F-24 | Thẻ "Biến số & hệ số" trong trình soạn bài: sửa số liệu gốc (thời gian, tổn thất, điểm thế trận), nhân vật đặt câu hỏi và nhãn cách gốc; thêm, sửa, xoá, đổi thứ tự biến số và phương án; mỗi phương án có 3 hệ số, giả định và lời nhận xét màn 6 | P1 | F5, F6 | v2 plan | E2E (`authoring.spec.js`) |
+| SRS-F-25 | Mỗi biến số có ≥2 phương án và đúng 1 phương án gốc với hệ số bằng 0; bài vi phạm lược đồ (zod) thì không lưu được và lỗi được liệt kê bằng tiếng Việt | P1 | F6 | v2 plan | Unit + E2E |
+| SRS-F-26 | Mọi thay đổi trong trình soạn bài hoàn tác/làm lại được; bài mới có ít nhất một biến số chạy được đủ 6 màn với kết quả tính từ hệ số giáo viên nhập | P1 | F5-F8 | v2 plan | E2E (`authoring.spec.js`) |
 
 #### 3.1.6 Vai trò và hiển thị
 
@@ -150,7 +154,7 @@ Cột "PRD" ánh xạ về mã yêu cầu trong PRD; "Spec" ánh xạ về `spec
 ### 3.2 Giao diện ngoài
 
 #### 3.2.1 Giao diện người dùng
-- Nhận diện "Sử Việt" (logo, trống đồng, màu sơn mài/vàng) theo bản cập nhật của Trung; hệ token màu trong `css/theme.css`.
+- Nhận diện "Sử Việt" (tên + logo con dấu); hệ thiết kế "The Lacquered Lesson Plan" trong `DESIGN.md`, token màu trong `frontend/src/styles.css`.
 - Dải "Nội dung minh họa, chưa được chuyên gia duyệt" dưới header và chân trang bài học luôn hiện.
 - Màn 3 hai cột trên màn rộng (câu hỏi + biến số | bảng phiên lớp), một cột trên điện thoại.
 - Nút cao ≥44 px, chữ thân ≥16 px; tương phản chữ ≥4.5:1; có trạng thái focus khi dùng bàn phím.
@@ -172,7 +176,7 @@ HTTPS; CORS chỉ cho các origin trong `ALLOWED_ORIGINS`; header `X-Teacher-Key
 |---|---|---|
 | SRS-Q-01 | Độ đúng nội dung | Mọi sự kiện hiển thị có nguồn; nhãn "Nội dung minh họa, chưa được chuyên gia duyệt" và khung cảnh báo mô phỏng không thể bị dữ liệu bài ẩn đi |
 | SRS-Q-02 | Giải thích được | 100% con số so sánh truy ngược được về hệ số trong "Xem giả định" |
-| SRS-Q-03 | Giọng khuyến khích | 0 lần xuất hiện các từ "sai", "sai lầm", "thất bại", "kém", "tệ", "dở", "ngu" trong lời giải thích và tóm tắt kết quả, trên cả 81 tổ hợp |
+| SRS-Q-03 | Giọng khuyến khích | 0 lần xuất hiện các từ "sai", "sai lầm", "thất bại", "kém", "tệ", "dở", "ngu" trong lời giải thích và tóm tắt kết quả, trên cả 256 tổ hợp |
 | SRS-Q-04 | Hiệu năng | Màn đầu dùng được ≤3 giây trên mạng trường; giáo viên từ đăng nhập tới sa bàn đang chạy ≤60 giây; giáo viên thấy câu trả lời mới ≤5 giây với 40 thiết bị |
 | SRS-Q-05 | Khả dụng khi mất kết nối | Tắt máy chủ lớp học: cả 6 màn chạy hết, 0 lỗi chặn, có thông báo rõ |
 | SRS-Q-06 | Riêng tư | Không lưu tên, email, IP, user agent, văn bản tự do; mã ẩn danh mới cho mỗi phiên; log request của Worker tắt; lưu tối đa 180 ngày |
@@ -205,10 +209,32 @@ HTTPS; CORS chỉ cho các origin trong `ALLOWED_ORIGINS`; header `X-Teacher-Key
 | G4 nội dung đúng | SRS-Q-01, Q-02, F-20..21 | Cố vấn duyệt; nhãn cảnh báo |
 | G5 giáo viên muốn dùng lại | SRS-F-10..19 | Phỏng vấn giáo viên |
 
-Tiêu chí nghiệm thu demo (trước T9): mọi E2E xanh; 81 tổ hợp đúng SRS-F-06, Q-02, Q-03; chạy thử trên
+Tiêu chí nghiệm thu demo (trước T9): mọi E2E xanh; 256 tổ hợp đúng SRS-F-06, Q-02, Q-03; chạy thử trên
 máy yếu thật của trường và một điện thoại; CSV không có trường định danh.
 
 ## 5. Phụ lục: câu hỏi mở (từ PRD, chưa chặn demo kỹ thuật)
 THCS hay THPT; người mua; ngày bắt đầu T1 và lịch trường; ai là cố vấn sử học và nguồn chuẩn; bản
 quyền asset; tên sản phẩm (hiện dùng "Sử Việt" theo giao diện của Trung); có cân bằng lại hệ số để
 79% phương án khác không rơi vào mức "challenging" hay không.
+
+## 6. Atlas Việt Nam (v2)
+
+Atlas để tìm bài giảng theo địa danh (`#/atlas`). Từ phiên S6 (21/11/2026) trang là một **ảnh minh hoạ do AI tạo** có điểm nóng (bản đồ 3D tạm hoãn, mã còn trên đĩa); các yêu cầu về dữ liệu, tìm kiếm, URL, liên kết bài giảng và ghi công không đổi, các yêu cầu riêng của 3D (SRS-A-06 phần canvas và đồ hoạ thấp, SRS-A-07, SRS-A-09 phần three.js, địa hình và FPS) được thay như ghi bên dưới. Mã `SRS-A-*` riêng để không trùng mã của bài giảng.
+Trạng thái chi tiết ở `docs/spec/SPEC.vi.md` mục 15.
+
+| Mã | Yêu cầu | Ưu tiên | Kiểm thử |
+|---|---|---|---|
+| SRS-A-01 | Atlas có đúng 34 đơn vị cấp tỉnh theo Nghị quyết 202/2025/QH15; Hoàng Sa thuộc TP Đà Nẵng, Trường Sa thuộc tỉnh Khánh Hòa | P0 | Unit `tests/atlas/data.test.mjs` |
+| SRS-A-02 | Mỗi địa danh có tên, loại, tỉnh, toạ độ, mô tả tự viết bằng tiếng Việt, nguồn kèm giấy phép và nhãn minh họa; nằm trong tỉnh của nó | P0 | Unit |
+| SRS-A-03 | Tìm kiếm không phân biệt dấu, chịu lỗi gõ (Levenshtein ≤ 2), xếp hạng tên trùng khớp trước; lọc theo 5 loại địa danh | P0 | Unit `tests/atlas/search.test.mjs` |
+| SRS-A-04 | Chọn địa danh (điểm nóng trên ảnh, danh sách, chip, dải nổi bật hoặc `?place=`) thì thẻ hiện ảnh cắt (nếu ảnh có vẽ nơi đó; nếu không thì ghi "Địa danh này chưa có trong ảnh minh hoạ" và không có ảnh), mô tả, thời kỳ, nguồn, nút "Mở bài giảng" tới `#/lesson/<id>`; học sinh chỉ thấy bài được phép xem; mọi id (71 địa danh, 34 đơn vị, 2 quần đảo) đều mở được thẻ | P0 | Vitest `places.test.ts`; E2E `tests/e2e/atlas.spec.js` |
+| SRS-A-05 | Trạng thái (địa danh, bộ lọc, từ khoá) nằm trên URL `#/atlas?place=&kind=&q=` và mở lại đúng khung nhìn | P1 | Unit (bộ mã hoá URL); E2E `atlas.spec.js` (tải lại trang) |
+| SRS-A-06 | Dùng được hoàn toàn bằng bàn phím (combobox, điểm nóng là nút có tên); mọi chữ là chữ HTML; không có canvas | P1 | E2E (chọn bằng Enter, tiêu điểm chuyển sang thẻ; không có canvas); detector impeccable |
+| SRS-A-07 | Trên phone (360×800) ảnh rộng hết khung ở trên, bảng tìm kiếm và thẻ ở dưới; không cuộn ngang | P1 | E2E phone-360; ảnh chụp 360×800 |
+| SRS-A-08 | Ghi công "© OpenStreetMap contributors" luôn hiện (dữ liệu tỉnh và địa danh là phái sinh ODbL); dòng "Ảnh minh hoạ do AI tạo, chưa kiểm duyệt: hình dạng lãnh thổ và vị trí công trình không theo tỉ lệ địa lý." luôn hiện dưới ảnh; không analytics, không lấy vị trí người dùng | P0 | `scripts/check.sh`; E2E `atlas.spec.js` |
+| SRS-A-09 | Dữ liệu atlas chỉ tải khi vào `#/atlas`, không có three.js (bản 3D tạm hoãn); ranh giới ≤ 400 KB gzip, ảnh minh hoạ khoảng 0,5 MB; (bản 3D: địa hình ≤ 2 MB, ≥ 55 FPS desktop, ≥ 30 FPS phone) | P1 | Unit (dung lượng); FPS: 60 (trần vsync) trên Intel Iris Xe, desktop và khung phone; chưa đo trên điện thoại thật; `npm run budget` trong CI |
+| SRS-A-10 | Liên kết hai chiều bài giảng ↔ địa danh: trang bài học liệt kê `atlasPlaceIds` dẫn tới `#/atlas?place=`; thẻ địa danh/tỉnh dẫn tới bài; mọi `atlasPlaceIds` phải trỏ tới địa danh, tỉnh hoặc quần đảo có thật; thanh điều hướng và hai bảng điều khiển có lối vào atlas | P0 | `npm run atlas:test`; E2E `atlas.spec.js` |
+
+## Trang chủ và đăng nhập
+
+Trang chủ triển lãm lịch sử hoạt động ở `/` và mở lớp học qua `/classroom.html`. Người dùng chọn vai trò giáo viên hoặc học sinh trên màn đăng nhập và có thể điền tài khoản mẫu. Các liên kết hash cũ của bài học và atlas tự chuyển sang lớp học với cùng tham số. Kiểm thử ở `tests/e2e/landing.spec.js`.
